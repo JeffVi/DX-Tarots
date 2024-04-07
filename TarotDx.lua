@@ -1216,13 +1216,15 @@ function Card.use_consumeable(self, area, copier)
             G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0.2,func = function() G.hand:unhighlight_all(); return true end }))
         end
         if self.ability.name == 'Aura DX' then 
-            G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0.4, func = function()
-                local over = false
-                local edition = poll_edition('aura', nil, true, true)
-                local aura_card = G.hand.highlighted[1]
-                aura_card:set_edition(edition, true)
-                used_tarot:juice_up(0.3, 0.5)
-            return true end }))
+            used_tarot:juice_up(0.3, 0.5)
+            for i=1, #G.hand.highlighted do
+                G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0.4, func = function()
+                    local over = false
+                    local edition = poll_edition('aura', nil, true, true)
+                    local aura_card = G.hand.highlighted[i]
+                    aura_card:set_edition(edition, true)
+                return true end }))
+            end
         end
         if self.ability.name == 'Cryptid DX' then
             G.E_MANAGER:add_event(Event({
