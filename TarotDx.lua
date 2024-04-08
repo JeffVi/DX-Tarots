@@ -1492,7 +1492,7 @@ function Card.use_consumeable(self, area, copier)
             delay(0.6)
         end
         if self.ability.name == 'The Wheel of Fortune DX' or self.ability.name == 'Ectoplasm DX' or self.ability.name == 'Hex DX' then
-            local temp_pool = ((self.ability.name == 'The Wheel of Fortune DX' or self.ability.name == 'The Wheel of Fortune DX') and self.eligible_strength_jokers) or 
+            local temp_pool = (self.ability.name == 'The Wheel of Fortune DX' and self.eligible_strength_jokers) or 
                                 ((self.ability.name == 'Ectoplasm DX' or self.ability.name == 'Hex DX') and self.eligible_editionless_jokers) or {}
             if self.ability.name == 'Ectoplasm DX' or self.ability.name == 'Hex DX' or pseudorandom('wheel_of_fortune') < G.GAME.probabilities.normal/self.ability.extra then 
                 G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0.4, func = function()
