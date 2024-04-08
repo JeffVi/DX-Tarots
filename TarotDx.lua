@@ -1216,15 +1216,13 @@ function Card.use_consumeable(self, area, copier)
             G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0.2,func = function() G.hand:unhighlight_all(); return true end }))
         end
         if self.ability.name == 'Aura DX' then 
-            used_tarot:juice_up(0.3, 0.5)
-            for i=1, #G.hand.highlighted do
-                G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0.4, func = function()
-                    local over = false
-                    local edition = poll_edition('aura', nil, true, true)
-                    local aura_card = G.hand.highlighted[i]
-                    aura_card:set_edition(edition, true)
-                return true end }))
-            end
+            G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0.4, func = function()
+                local over = false
+                local edition = poll_edition('aura', nil, true, true)
+                local aura_card = G.hand.highlighted[1]
+                aura_card:set_edition(edition, true)
+                used_tarot:juice_up(0.3, 0.5)
+            return true end }))
         end
         if self.ability.name == 'Cryptid DX' then
             G.E_MANAGER:add_event(Event({
@@ -1492,7 +1490,7 @@ function Card.use_consumeable(self, area, copier)
             delay(0.6)
         end
         if self.ability.name == 'The Wheel of Fortune DX' or self.ability.name == 'Ectoplasm DX' or self.ability.name == 'Hex DX' then
-            local temp_pool =   (self.ability.name == 'The Wheel of Fortune DX' or self.ability.name == 'The Wheel of Fortune DX' and self.eligible_strength_jokers) or 
+            local temp_pool = ((self.ability.name == 'The Wheel of Fortune DX' or self.ability.name == 'The Wheel of Fortune DX') and self.eligible_strength_jokers) or 
                                 ((self.ability.name == 'Ectoplasm DX' or self.ability.name == 'Hex DX') and self.eligible_editionless_jokers) or {}
             if self.ability.name == 'Ectoplasm DX' or self.ability.name == 'Hex DX' or pseudorandom('wheel_of_fortune') < G.GAME.probabilities.normal/self.ability.extra then 
                 G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0.4, func = function()
