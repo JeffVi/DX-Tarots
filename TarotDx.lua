@@ -695,7 +695,7 @@ function create_card(_type, area, legendary, _rarity, skip_materialize, soulable
 
     -- poll planet edition if it is enabled
     if planet_edition_enabled then
-        if (_type == 'Planet' or _type == 'Planet_up') and created_card.ability.consumeable.hand_type then
+        if (_type == 'Planet' or _type == 'Planet_dx') and created_card.ability.consumeable.hand_type then
             local mod = math.max(1, 1 + (0.15 * math.min(7, G.GAME.hands[created_card.ability.consumeable.hand_type].level))) or 1
             local edition = poll_edition('edi'..(key_append or '')..G.GAME.round_resets.ante, mod, true)
             created_card:set_edition(edition)
