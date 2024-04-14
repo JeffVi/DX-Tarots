@@ -1927,12 +1927,21 @@ end
 -- Apply the correct shader to Spectral DX
 local card_draw_ref = Card.draw
 function Card.draw(self, layer)
-
-    if self.states.visible and layer == 'card' and not self.vortex and self.sprite_facing == 'front' and self.ability.set == 'Spectral DX' then
-        self.children.center:draw_shader('booster', nil, self.ARGS.send_to_shader)
+    
+    -- Use the vanilla function for now, TODO
+    if self.ability.set == 'Spectral_dx' then
+        self.ability.set = 'Spectral'
+        if self.ability.name == 'The Soul DX' then
+            self.ability.name = 'The Soul'
+        end
+        card_draw_ref(self, layer)
+        if self.ability.name == 'The Soul' then
+            self.ability.name = 'The Soul DX'
+        end
+        self.ability.set = 'Spectral_dx'
+    else
+        card_draw_ref(self, layer)
     end
-
-    card_draw_ref(self, layer)
 end
 
 ----------------------------------------------
