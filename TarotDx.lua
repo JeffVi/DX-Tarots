@@ -688,13 +688,13 @@ function create_card(_type, area, legendary, _rarity, skip_materialize, soulable
         
         -- If type is set to DX, need to manage soulable option
         if soulable and (not G.GAME.banned_keys['c_soul']) then
-            if (_type == 'Tarot_dx' or _type == 'Spectral_dx') and
+            if (new_type == 'Tarot_dx' or new_type == 'Spectral_dx') and
             not (G.GAME.used_jokers['c_soul_dx'] and not next(find_joker("Showman")))  then
                 if pseudorandom('soul_'.._type..G.GAME.round_resets.ante) > 0.997 then
                     new_forced_key = 'c_soul_dx'
                 end
             end
-            if (_type == 'Planet_dx' or _type == 'Spectral_dx') and
+            if (new_type == 'Planet_dx' or new_type == 'Spectral_dx') and
             not (G.GAME.used_jokers['c_black_hole_dx'] and not next(find_joker("Showman")))  then 
                 if pseudorandom('soul_'.._type..G.GAME.round_resets.ante) > 0.997 then
                     new_forced_key = 'c_black_hole_dx'
@@ -709,6 +709,12 @@ function create_card(_type, area, legendary, _rarity, skip_materialize, soulable
     if planet_edition_enabled then
         if (_type == 'Planet' or _type == 'Planet_dx') and created_card.ability.consumeable.hand_type then
             local mod = math.max(1, 1 + (0.15 * math.min(7, G.GAME.hands[created_card.ability.consumeable.hand_type].level))) or 1
+            local edition = poll_edition('edi'..(key_append or '')..G.GAME.round_resets.ante, mod, true)
+            created_card:set_edition(edition)
+            check_for_unlock({type = 'have_edition'})
+        end
+        if created_card.ability.name == 'Black Hole' or created_card.ability.name == 'Black Hole DX' then
+            local mod = 1.5
             local edition = poll_edition('edi'..(key_append or '')..G.GAME.round_resets.ante, mod, true)
             created_card:set_edition(edition)
             check_for_unlock({type = 'have_edition'})
