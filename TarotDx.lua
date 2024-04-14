@@ -1001,6 +1001,23 @@ function set_consumeable_usage(card)
     set_consumeable_usage_ref(card)
 
     if card.config.center_key and card.ability.consumeable and (card.config.center.set == 'Tarot_dx' or card.config.center.set == 'Planet_dx' or card.config.center.set == 'Spectral_dx') then
+
+        -- Vanilla consumable usage count (profile), only for already used vanilla, don't create entry if it doesn't exist
+        if G.PROFILES[G.SETTINGS.profile].consumeable_usage[string.sub(card.config.center_key, 1, -4)] then
+            G.PROFILES[G.SETTINGS.profile].consumeable_usage[string.sub(card.config.center_key, 1, -4)].count = G.PROFILES[G.SETTINGS.profile].consumeable_usage[string.sub(card.config.center_key, 1, -4)].count + 1
+        end
+        if G.GAME.consumeable_usage[string.sub(card.config.center_key, 1, -4)] then
+            G.GAME.consumeable_usage[string.sub(card.config.center_key, 1, -4)].count = G.GAME.consumeable_usage[string.sub(card.config.center_key, 1, -4)].count + 1
+        else
+            G.GAME.consumeable_usage[string.sub(card.config.center_key, 1, -4)] = {count = 1, order = card.config.center.order, set = string.sub(card.ability.set, 1, -4)}
+        end
+
+        -- Remove DX card count on profile
+        if G.PROFILES[G.SETTINGS.profile].consumeable_usage[card.config.center_key] then
+            G.PROFILES[G.SETTINGS.profile].consumeable_usage[card.config.center_key] = nil
+        end
+
+        -- DX consumable usage count
         if card.config.center.set == 'Tarot_dx' then
             G.GAME.consumeable_usage_total.tarot = G.GAME.consumeable_usage_total.tarot + 1  
             G.GAME.consumeable_usage_total.tarot_planet = G.GAME.consumeable_usage_total.tarot_planet + 1
@@ -1010,9 +1027,24 @@ function set_consumeable_usage(card)
         elseif card.config.center.set == 'Spectral_dx' then
             G.GAME.consumeable_usage_total.spectral = G.GAME.consumeable_usage_total.spectral + 1
         end
+
+        -- Last consumable used, set it to vanilla version
+        if card.config.center.set == 'Tarot_dx' or card.config.center.set == 'Planet_dx' then 
+          G.E_MANAGER:add_event(Event({
+            trigger = 'immediate',
+            func = function()
+              G.E_MANAGER:add_event(Event({
+                trigger = 'immediate',
+                func = function()
+                  G.GAME.last_tarot_planet = string.sub(card.config.center_key, 1, -4)
+                    return true
+                end
+              }))
+                return true
+            end
+          }))
+        end
     end
-
-
 end
 
 ---------- UI_definitions ----------
