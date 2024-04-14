@@ -668,6 +668,18 @@ function create_card(_type, area, legendary, _rarity, skip_materialize, soulable
     local new_type = _type
     local new_forced_key = forced_key
 
+    -- Give a chance to the forced planet to be DX
+    if forced_key and _type == 'Planet' and G.GAME.used_vouchers.v_telescope and G.STATE == G.STATES.PLANET_PACK and (pseudorandom('upgrade_card'..G.GAME.round_resets.ante) > math.min(1, math.max(0, 1 - planet_dx_rate))) then
+        -- Check if the DX version exists (needed for mods compatibility)
+        local dx_ver = forced_key..'_dx'
+        for k, v in pairs(G.P_CENTER_POOLS.Planet_dx) do
+            if v.key == dx_ver then
+                new_forced_key = v.key
+                new_type = 'Planet_dx'
+            end
+        end
+    end
+
     if not forced_key then
         -- Change type pseudorandom
         if _type == 'Tarot' and (pseudorandom('upgrade_card'..G.GAME.round_resets.ante) > math.min(1, math.max(0, 1 - tarot_dx_rate))) then new_type = "Tarot_dx" end
