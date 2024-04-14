@@ -470,7 +470,8 @@ local function setUpLocalizationSpectralDX()
         name = "Ectoplasm DX",
         text = {
             "Add {C:dark_edition}Negative{} to",
-            "a random {C:attention}Joker,"
+            "a random {C:attention}Joker,",
+            "destroys {C:attention}all{} consumables"
         }
     }
     G.localization.descriptions.Spectral_dx.c_immolate_dx = {
@@ -1505,6 +1506,10 @@ function Card.use_consumeable(self, area, copier)
                     local edition = nil
                     if self.ability.name == 'Ectoplasm DX' then
                         edition = {negative = true}
+                        local _first_dissolve = nil
+                        for k, v in ipairs(G.consumeables.cards) do
+                            if v.start_dissolve then v:start_dissolve(nil, _first_dissolve);_first_dissolve = true end
+                        end
                     elseif self.ability.name == 'Hex DX' then
                         edition = {polychrome = true}
                     elseif self.ability.name == 'The Wheel of Fortune DX' then
