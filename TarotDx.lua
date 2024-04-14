@@ -1862,5 +1862,29 @@ function Card.remove(self)
     card_remove_ref(self)
 end
 
+-- Manage Ankh DX
+local card_check_use_ref = Card.check_use
+function Card.check_use(self)
+
+    if self.ability.name == 'Ankh DX' then 
+        if #G.jokers.cards >= G.jokers.config.card_limit then  
+            alert_no_space(self, G.jokers)
+            return true
+        end
+    end
+    card_check_use_ref(self)
+end
+
+-- Apply the correct shader to Spectral DX
+local card_draw_ref = Card.draw
+function Card.draw(self, layer)
+
+    if self.states.visible and layer == 'card' and not self.vortex and self.sprite_facing == 'front' and self.ability.set == 'Spectral DX' then
+        self.children.center:draw_shader('booster', nil, self.ARGS.send_to_shader)
+    end
+
+    card_draw_ref(self, layer)
+end
+
 ----------------------------------------------
 ------------MOD CODE END----------------------
