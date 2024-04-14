@@ -80,7 +80,7 @@ DX version of Spectral cards were added. They have a 20% *(can be edited)* chanc
 
 - **Ouija DX**: Converts all cards in hand to a single **selected rank**.
 
-- **Ectoplasm DX**: Add negative to a random Joker.
+- **Ectoplasm DX**: Add negative to a random Joker. **Destroy all consumables.**
 
 - **Immolate DX**: Destroys 5 **selected** cards in hand, gain $20.
 
