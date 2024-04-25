@@ -12,6 +12,7 @@
 local tarot_dx_rate = 0.1               -- (from 0 (0%) to 1 (100%))
 local planet_dx_rate = 0.1              -- (from 0 (0%) to 1 (100%))
 local spectral_dx_rate = 0.2            -- (from 0 (0%) to 1 (100%))
+local booster_dx_rate = 0.1              -- (from 0 (0%) to 1 (100%))
 local planet_edition_enabled = true     -- Enable/Disable the possibility of planet cards edition (may not be compatible with other mods that overwrite the level_up_hand function)
 local spectral_on_blank = true          -- Enable/Disable spectral rate on blank voucher
 
@@ -79,15 +80,50 @@ local function setUpConsumables()
     G.P_CENTERS.c_soul_dx=             {order = 17,   discovered = true, cost = 6, consumeable = true, name = "The Soul DX", pos = {x=2,y=2}, set = "Spectral_dx", effect = "Unlocker", config = {}, hidden = true}
     G.P_CENTERS.c_black_hole_dx=       {order = 18,   discovered = true, cost = 6, consumeable = true, name = "Black Hole DX", pos = {x=9,y=3}, set = "Spectral_dx", config = {}, hidden = true}
 
+    --booster packs
+    G.P_CENTERS.p_arcana_normal_1_dx =         {order = 1,  discovered = true, name = "Arcana Pack DX", weight = 1, kind = 'Arcana', cost = 6, pos = {x=0,y=0}, atlas = 'Booster_dx', set = 'Booster_dx', config = {extra = 4, choose = 1}}
+    G.P_CENTERS.p_arcana_normal_2_dx =         {order = 2,  discovered = true, name = "Arcana Pack DX", weight = 1, kind = 'Arcana', cost = 6, pos = {x=1,y=0}, atlas = 'Booster_dx', set = 'Booster_dx', config = {extra = 4, choose = 1}}
+    G.P_CENTERS.p_arcana_normal_3_dx =         {order = 3,  discovered = true, name = "Arcana Pack DX", weight = 1, kind = 'Arcana', cost = 6, pos = {x=2,y=0}, atlas = 'Booster_dx', set = 'Booster_dx', config = {extra = 4, choose = 1}}
+    G.P_CENTERS.p_arcana_normal_4_dx =         {order = 4,  discovered = true, name = "Arcana Pack DX", weight = 1, kind = 'Arcana', cost = 6, pos = {x=3,y=0}, atlas = 'Booster_dx', set = 'Booster_dx', config = {extra = 4, choose = 1}}
+    G.P_CENTERS.p_arcana_jumbo_1_dx =          {order = 5,  discovered = true, name = "Jumbo Arcana Pack DX", weight = 1, kind = 'Arcana', cost = 8, pos = {x=0,y=2}, atlas = 'Booster_dx', set = 'Booster_dx', config = {extra = 6, choose = 1}}
+    G.P_CENTERS.p_arcana_jumbo_2_dx =          {order = 6,  discovered = true, name = "Jumbo Arcana Pack DX", weight = 1, kind = 'Arcana', cost = 8, pos = {x=1,y=2}, atlas = 'Booster_dx', set = 'Booster_dx', config = {extra = 6, choose = 1}}
+    G.P_CENTERS.p_arcana_mega_1_dx =           {order = 7,  discovered = true, name = "Mega Arcana Pack DX", weight = 0.25, kind = 'Arcana', cost = 10, pos = {x=2,y=2}, atlas = 'Booster_dx', set = 'Booster_dx', config = {extra = 6, choose = 2}}
+    G.P_CENTERS.p_arcana_mega_2_dx =           {order = 8,  discovered = true, name = "Mega Arcana Pack DX", weight = 0.25, kind = 'Arcana', cost = 10, pos = {x=3,y=2}, atlas = 'Booster_dx', set = 'Booster_dx', config = {extra = 6, choose = 2}}
+    G.P_CENTERS.p_celestial_normal_1_dx =      {order = 9,  discovered = true, name = "Celestial Pack DX", weight = 1, kind = 'Celestial', cost = 6, pos = {x=0,y=1}, atlas = 'Booster_dx', set = 'Booster_dx', config = {extra = 4, choose = 1}}
+    G.P_CENTERS.p_celestial_normal_2_dx =      {order = 10, discovered = true, name = "Celestial Pack DX", weight = 1, kind = 'Celestial', cost = 6, pos = {x=1,y=1}, atlas = 'Booster_dx', set = 'Booster_dx', config = {extra = 4, choose = 1}}
+    G.P_CENTERS.p_celestial_normal_3_dx =      {order = 11, discovered = true, name = "Celestial Pack DX", weight = 1, kind = 'Celestial', cost = 6, pos = {x=2,y=1}, atlas = 'Booster_dx', set = 'Booster_dx', config = {extra = 4, choose = 1}}
+    G.P_CENTERS.p_celestial_normal_4_dx =      {order = 12, discovered = true, name = "Celestial Pack DX", weight = 1, kind = 'Celestial', cost = 6, pos = {x=3,y=1}, atlas = 'Booster_dx', set = 'Booster_dx', config = {extra = 4, choose = 1}}
+    G.P_CENTERS.p_celestial_jumbo_1_dx =       {order = 13, discovered = true, name = "Jumbo Celestial Pack DX", weight = 1, kind = 'Celestial', cost = 8, pos = {x=0,y=3}, atlas = 'Booster_dx', set = 'Booster_dx', config = {extra = 6, choose = 1}}
+    G.P_CENTERS.p_celestial_jumbo_2_dx =       {order = 14, discovered = true, name = "Jumbo Celestial Pack DX", weight = 1, kind = 'Celestial', cost = 8, pos = {x=1,y=3}, atlas = 'Booster_dx', set = 'Booster_dx', config = {extra = 6, choose = 1}}
+    G.P_CENTERS.p_celestial_mega_1_dx =        {order = 15, discovered = true, name = "Mega Celestial Pack DX", weight = 0.25, kind = 'Celestial', cost = 10, pos = {x=2,y=3}, atlas = 'Booster_dx', set = 'Booster_dx', config = {extra = 6, choose = 2}}
+    G.P_CENTERS.p_celestial_mega_2_dx =        {order = 16, discovered = true, name = "Mega Celestial Pack DX", weight = 0.25, kind = 'Celestial', cost = 10, pos = {x=3,y=3}, atlas = 'Booster_dx', set = 'Booster_dx', config = {extra = 6, choose = 2}}
+    G.P_CENTERS.p_spectral_normal_1_dx =       {order = 29, discovered = true, name = "Spectral Pack DX", weight = 0.3, kind = 'Spectral', cost = 6, pos = {x=0,y=4}, atlas = 'Booster_dx', set = 'Booster_dx', config = {extra = 3, choose = 1}}
+    G.P_CENTERS.p_spectral_normal_2_dx =       {order = 30, discovered = true, name = "Spectral Pack DX", weight = 0.3, kind = 'Spectral', cost = 6, pos = {x=1,y=4}, atlas = 'Booster_dx', set = 'Booster_dx', config = {extra = 3, choose = 1}}
+    G.P_CENTERS.p_spectral_jumbo_1_dx =        {order = 31, discovered = true, name = "Jumbo Spectral Pack DX", weight = 0.3, kind = 'Spectral', cost = 8, pos = {x=2,y=4}, atlas = 'Booster_dx', set = 'Booster_dx', config = {extra = 5, choose = 1}}
+    G.P_CENTERS.p_spectral_mega_1_dx =         {order = 32, discovered = true, name = "Mega Spectral Pack DX", weight = 0.07, kind = 'Spectral', cost = 10, pos = {x=3,y=4}, atlas = 'Booster_dx', set = 'Booster_dx', config = {extra = 5, choose = 2}}
+    G.P_CENTERS.p_standard_normal_1_dx =       {order = 17, discovered = true, name = "Standard Pack DX", weight = 1, kind = 'Standard', cost = 6, pos = {x=0,y=6}, atlas = 'Booster_dx', set = 'Booster_dx', config = {extra = 4, choose = 1}}
+    G.P_CENTERS.p_standard_normal_2_dx =       {order = 18, discovered = true, name = "Standard Pack DX", weight = 1, kind = 'Standard', cost = 6, pos = {x=1,y=6}, atlas = 'Booster_dx', set = 'Booster_dx', config = {extra = 4, choose = 1}}
+    G.P_CENTERS.p_standard_normal_3_dx =       {order = 19, discovered = true, name = "Standard Pack DX", weight = 1, kind = 'Standard', cost = 6, pos = {x=2,y=6}, atlas = 'Booster_dx', set = 'Booster_dx', config = {extra = 4, choose = 1}}
+    G.P_CENTERS.p_standard_normal_4_dx =       {order = 20, discovered = true, name = "Standard Pack DX", weight = 1, kind = 'Standard', cost = 6, pos = {x=3,y=6}, atlas = 'Booster_dx', set = 'Booster_dx', config = {extra = 4, choose = 1}}
+    G.P_CENTERS.p_standard_jumbo_1_dx =        {order = 21, discovered = true, name = "Jumbo Standard Pack DX", weight = 1, kind = 'Standard', cost = 8, pos = {x=0,y=7}, atlas = 'Booster_dx', set = 'Booster_dx', config = {extra = 6, choose = 1}}
+    G.P_CENTERS.p_standard_jumbo_2_dx =        {order = 22, discovered = true, name = "Jumbo Standard Pack DX", weight = 1, kind = 'Standard', cost = 8, pos = {x=1,y=7}, atlas = 'Booster_dx', set = 'Booster_dx', config = {extra = 6, choose = 1}}
+    G.P_CENTERS.p_standard_mega_1_dx =         {order = 23, discovered = true, name = "Mega Standard Pack DX", weight = 0.25, kind = 'Standard', cost = 10, pos = {x=2,y=7}, atlas = 'Booster_dx', set = 'Booster_dx', config = {extra = 6, choose = 2}}
+    G.P_CENTERS.p_standard_mega_2_dx =         {order = 24, discovered = true, name = "Mega Standard Pack DX", weight = 0.25, kind = 'Standard', cost = 10, pos = {x=3,y=7}, atlas = 'Booster_dx', set = 'Booster_dx', config = {extra = 6, choose = 2}}
+    G.P_CENTERS.p_buffoon_normal_1_dx =        {order = 25, discovered = true, name = "Buffoon Pack DX", weight = 0.6, kind = 'Buffoon', cost = 6, pos = {x=0,y=8}, atlas = 'Booster_dx', set = 'Booster_dx', config = {extra = 3, choose = 1}}
+    G.P_CENTERS.p_buffoon_normal_2_dx =        {order = 26, discovered = true, name = "Buffoon Pack DX", weight = 0.6, kind = 'Buffoon', cost = 6, pos = {x=1,y=8}, atlas = 'Booster_dx', set = 'Booster_dx', config = {extra = 3, choose = 1}}
+    G.P_CENTERS.p_buffoon_jumbo_1_dx =         {order = 27, discovered = true, name = "Jumbo Buffoon Pack DX", weight = 0.6, kind = 'Buffoon', cost = 8, pos = {x=2,y=8}, atlas = 'Booster_dx', set = 'Booster_dx', config = {extra = 5, choose = 1}}
+    G.P_CENTERS.p_buffoon_mega_1_dx =          {order = 28, discovered = true, name = "Mega Buffoon Pack DX", weight = 0.15, kind = 'Buffoon', cost = 10, pos = {x=3,y=8}, atlas = 'Booster_dx', set = 'Booster_dx', config = {extra = 5, choose = 2}}
+
     -- Update tables
     G.P_CENTER_POOLS.Tarot_dx = {}
     G.P_CENTER_POOLS.Planet_dx = {}
     G.P_CENTER_POOLS.Spectral_dx = {}
+    G.P_CENTER_POOLS.Booster_dx = {}
 
     for k, v in pairs(G.P_CENTERS) do
         v.key = k
         if not v.wip then 
-            if v.set == 'Tarot_dx' or v.set == 'Planet_dx' or v.set == 'Spectral_dx' then
+            if v.set == 'Tarot_dx' or v.set == 'Planet_dx' or v.set == 'Spectral_dx' or v.set == 'Booster_dx' then
                 table.insert(G.P_CENTER_POOLS[v.set], v)
             end
         end
@@ -96,6 +132,7 @@ local function setUpConsumables()
     table.sort(G.P_CENTER_POOLS["Tarot_dx"], function (a, b) return a.order < b.order end)
     table.sort(G.P_CENTER_POOLS["Planet_dx"], function (a, b) return a.order < b.order end)
     table.sort(G.P_CENTER_POOLS["Spectral_dx"], function (a, b) return a.order < b.order end)
+    table.sort(G.P_CENTER_POOLS["Booster_dx"], function (a, b) return a.order < b.order end)
 end
 
 local function setUpLocalizationTarotDX()
@@ -546,6 +583,126 @@ local function setUpLocalizationSpectralDX()
     }
 end
 
+local function setUpLocalizationBoosterDX()
+    G.localization.descriptions.Other.p_arcana_normal_dx = {
+        name = "Arcana Pack DX",
+        text = {
+            "Choose {C:attention}#1#{} of up to",
+            "{C:attention}#2#{C:tarot} Tarot{} cards to",
+            "be used immediately"
+        }
+    }
+    G.localization.descriptions.Other.p_arcana_jumbo_dx = {
+        name = "Jumbo Arcana Pack DX",
+        text = {
+            "Choose {C:attention}#1#{} of up to",
+            "{C:attention}#2#{C:tarot} Tarot{} cards to",
+            "be used immediately"
+        }
+    }
+    G.localization.descriptions.Other.p_arcana_mega_dx = {
+        name = "Mega Arcana Pack DX",
+        text = {
+            "Choose {C:attention}#1#{} of up to",
+            "{C:attention}#2#{C:tarot} Tarot{} cards to",
+            "be used immediately"
+        }
+    }
+    G.localization.descriptions.Other.p_celestial_normal_dx = {
+        name = "Celestial Pack DX",
+        text = {
+            "Choose {C:attention}#1#{} of up to",
+            "{C:attention}#2#{C:planet} Planet{} cards to",
+            "be used immediately"
+        }
+    }
+    G.localization.descriptions.Other.p_celestial_jumbo_dx = {
+        name = "Jumbo Celestial Pack DX",
+        text = {
+            "Choose {C:attention}#1#{} of up to",
+            "{C:attention}#2#{C:planet} Planet{} cards to",
+            "be used immediately"
+        }
+    }
+    G.localization.descriptions.Other.p_celestial_mega_dx = {
+        name = "Mega Celestial Pack DX",
+        text = {
+            "Choose {C:attention}#1#{} of up to",
+            "{C:attention}#2#{C:planet} Planet{} cards to",
+            "be used immediately"
+        }
+    }
+    G.localization.descriptions.Other.p_spectral_normal_dx = {
+        name = "Spectral Pack DX",
+        text = {
+            "Choose {C:attention}#1#{} of up to",
+            "{C:attention}#2#{C:spectral} Spectral{} cards to",
+            "be used immediately"
+        }
+    }
+    G.localization.descriptions.Other.p_spectral_jumbo_dx = {
+        name = "Jumbo Spectral Pack DX",
+        text = {
+            "Choose {C:attention}#1#{} of up to",
+            "{C:attention}#2#{C:spectral} Spectral{} cards to",
+            "be used immediately"
+        }
+    }
+    G.localization.descriptions.Other.p_spectral_mega_dx = {
+        name = "Mega Spectral Pack DX",
+        text = {
+            "Choose {C:attention}#1#{} of up to",
+            "{C:attention}#2#{C:spectral} Spectral{} cards to",
+            "be used immediately"
+        }
+    }
+    G.localization.descriptions.Other.p_standard_normal_dx = {
+        name = "Standard Pack DX",
+        text = {
+            "Choose {C:attention}#1#{} of up to",
+            "{C:attention}#2#{C:attention} Playing{} cards to",
+            "add to your deck"
+        }
+    }
+    G.localization.descriptions.Other.p_standard_jumbo_dx = {
+        name = "Jumbo Standard Pack DX",
+        text = {
+            "Choose {C:attention}#1#{} of up to",
+            "{C:attention}#2#{C:attention} Playing{} cards to",
+            "add to your deck"
+        }
+    }
+    G.localization.descriptions.Other.p_standard_mega_dx = {
+        name = "Mega Standard Pack DX",
+        text = {
+            "Choose {C:attention}#1#{} of up to",
+            "{C:attention}#2#{C:attention} Playing{} cards to",
+            "add to your deck"
+        }
+    }
+    G.localization.descriptions.Other.p_buffoon_normal_dx = {
+        name = "Buffoon Pack DX",
+        text = {
+            "Choose {C:attention}#1#{} of up to",
+            "{C:attention}#2#{C:joker} Joker{} cards"
+        }
+    }
+    G.localization.descriptions.Other.p_buffoon_jumbo_dx = {
+        name = "Jumbo Buffoon Pack DX",
+        text = {
+            "Choose {C:attention}#1#{} of up to",
+            "{C:attention}#2#{C:joker} Joker{} cards"
+        }
+    }
+    G.localization.descriptions.Other.p_buffoon_mega_dx = {
+        name = "Mega Buffoon Pack DX",
+        text = {
+            "Choose {C:attention}#1#{} of up to",
+            "{C:attention}#2#{C:joker} Joker{} cards"
+        }
+    }
+end
+
 function SMODS.INIT.JeffDeluxeConsumablesPack()
     sendDebugMessage("Deluxe Consumables Cards Loaded")
 
@@ -558,6 +715,8 @@ function SMODS.INIT.JeffDeluxeConsumablesPack()
     sprite_dx:register()
     sprite_dx = SMODS.Sprite:new("Spectral_dx", js_mod.path, "Tarots_dx.png", 71, 95, "asset_atli")
     sprite_dx:register()
+    sprite_dx = SMODS.Sprite:new("Booster_dx", js_mod.path, "Booster_dx.png", 71, 95, "asset_atli")
+    sprite_dx:register()
 
     -- Add consumables
     setUpConsumables()
@@ -566,6 +725,7 @@ function SMODS.INIT.JeffDeluxeConsumablesPack()
     setUpLocalizationTarotDX()
     setUpLocalizationPlanetDX()
     setUpLocalizationSpectralDX()
+    setUpLocalizationBoosterDX()
     G.localization.descriptions.Other.dx = {
         name = "Deluxe Version",
         text = {
@@ -575,16 +735,19 @@ function SMODS.INIT.JeffDeluxeConsumablesPack()
     G.localization.misc.labels['tarot_dx'] = "Tarot DX"
     G.localization.misc.labels['planet_dx'] = "Planet DX"
     G.localization.misc.labels['spectral_dx'] = "Spectral DX"
+    G.localization.misc.labels['booster_dx'] = "Booster DX"
     G.localization.misc.labels['dx'] = "DX Version"
     G.localization.misc.dictionary['k_tarot_dx'] = "Tarot DX"
     G.localization.misc.dictionary['k_planet_dx'] = "Planet DX"
     G.localization.misc.dictionary['k_spectral_dx'] = "Spectral DX"
+    G.localization.misc.dictionary['k_booster_dx'] = "Booster DX"
 
     -- Manage loc_colour
     loc_colour('red', nil)
     G.ARGS.LOC_COLOURS['tarot_dx'] = G.C.SECONDARY_SET.Tarot
     G.ARGS.LOC_COLOURS['planet_dx'] = G.C.SECONDARY_SET.Planet
     G.ARGS.LOC_COLOURS['spectral_dx'] = G.C.SECONDARY_SET.Spectral
+    G.ARGS.LOC_COLOURS['booster_dx'] = G.C.BOOSTER
 
     -- Manage get_badge_colour
     get_badge_colour(foil)
@@ -594,9 +757,90 @@ function SMODS.INIT.JeffDeluxeConsumablesPack()
     G.C.SET['Tarot_dx'] = HEX('424e54')
     G.C.SET['Planet_dx'] = HEX('424e54')
     G.C.SET['Spectral_dx'] = HEX('424e54')
+    G.C.SET['Booster_dx'] = HEX('424e54')
     G.C.SECONDARY_SET['Tarot_dx'] = HEX('a782d1')
     G.C.SECONDARY_SET['Planet_dx'] = HEX('13afce')
     G.C.SECONDARY_SET['Spectral_dx'] = HEX('4584fa')
+    G.C.SECONDARY_SET['Booster_dx'] = HEX('4584fa')
+
+end
+
+---------- button_callbacks ----------
+
+-- Manage DX boosters
+local G_FUNCS_use_card_ref = G.FUNCS.use_card
+function G.FUNCS.use_card(e, mute, nosave)
+    
+    -- Use the vanilla function for now, TODO
+    if e.config.ref_table and e.config.ref_table.ability.set == 'Booster_dx' then
+        e.config.button = nil
+        local card = e.config.ref_table
+        local area = card.area
+        local prev_state = G.STATE
+        local dont_dissolve = nil
+        local delay_fac = 1
+    
+        if card:check_use() then 
+          G.E_MANAGER:add_event(Event({func = function()
+            e.disable_button = nil
+            e.config.button = 'use_card'
+          return true end }))
+          return
+        end
+    
+        if not nosave and G.STATE == G.STATES.SHOP then
+          save_with_action({
+            type = 'use_card',
+            card = card.sort_id,
+          })
+        end
+    
+        G.TAROT_INTERRUPT = G.STATE
+        G.GAME.PACK_INTERRUPT = G.STATE
+        G.STATE = (G.STATE == G.STATES.TAROT_PACK and G.STATES.TAROT_PACK) or
+          (G.STATE == G.STATES.PLANET_PACK and G.STATES.PLANET_PACK) or
+          (G.STATE == G.STATES.SPECTRAL_PACK and G.STATES.SPECTRAL_PACK) or
+          (G.STATE == G.STATES.STANDARD_PACK and G.STATES.STANDARD_PACK) or
+          (G.STATE == G.STATES.BUFFOON_PACK and G.STATES.BUFFOON_PACK) or
+          G.STATES.PLAY_TAROT
+          
+        G.CONTROLLER.locks.use = true
+        if G.booster_pack and not G.booster_pack.alignment.offset.py and (card.ability.consumeable or not (G.GAME.pack_choices and G.GAME.pack_choices > 1)) then
+          G.booster_pack.alignment.offset.py = G.booster_pack.alignment.offset.y
+          G.booster_pack.alignment.offset.y = G.ROOM.T.y + 29
+        end
+        if G.shop and not G.shop.alignment.offset.py then
+          G.shop.alignment.offset.py = G.shop.alignment.offset.y
+          G.shop.alignment.offset.y = G.ROOM.T.y + 29
+        end
+        if G.blind_select and not G.blind_select.alignment.offset.py then
+          G.blind_select.alignment.offset.py = G.blind_select.alignment.offset.y
+          G.blind_select.alignment.offset.y = G.ROOM.T.y + 39
+        end
+        if G.round_eval and not G.round_eval.alignment.offset.py then
+          G.round_eval.alignment.offset.py = G.round_eval.alignment.offset.y
+          G.round_eval.alignment.offset.y = G.ROOM.T.y + 29
+        end
+    
+        if card.children.use_button then card.children.use_button:remove(); card.children.use_button = nil end
+        if card.children.sell_button then card.children.sell_button:remove(); card.children.sell_button = nil end
+        if card.children.price then card.children.price:remove(); card.children.price = nil end
+    
+        if card.area then card.area:remove_card(card) end
+        
+        delay(0.1)
+        if card.ability.booster_pos then G.GAME.current_round.used_packs[card.ability.booster_pos] = 'USED' end
+        draw_card(G.hand, G.play, 1, 'up', true, card, nil, true) 
+        if not card.from_tag then 
+          G.GAME.round_scores.cards_purchased.amt = G.GAME.round_scores.cards_purchased.amt + 1
+        end
+        e.config.ref_table:open()
+        
+        G.CONTROLLER.locks.use = false
+        G.TAROT_INTERRUPT = nil
+    else
+        G_FUNCS_use_card_ref(e, mute, nosave)
+    end
 
 end
 
@@ -724,6 +968,28 @@ function create_card(_type, area, legendary, _rarity, skip_materialize, soulable
     return created_card
 end
 
+-- Set a chance to change pool from normal to DX
+local get_pack_ref = get_pack
+function get_pack(_key, _type)
+
+    if (pseudorandom('dx_booster'..G.GAME.round_resets.ante) > math.min(1, math.max(0, 1 - booster_dx_rate))) then
+        local cume, it, center = 0, 0, nil
+        for k, v in ipairs(G.P_CENTER_POOLS['Booster_dx']) do
+            if (not _type or _type == v.kind) and not G.GAME.banned_keys[v.key] then cume = cume + (v.weight or 1 ) end
+        end
+        local poll = pseudorandom(pseudoseed((_key or 'pack_generic')..G.GAME.round_resets.ante))*cume
+        for k, v in ipairs(G.P_CENTER_POOLS['Booster_dx']) do
+            if not G.GAME.banned_keys[v.key] then 
+                if not _type or _type == v.kind then it = it + (v.weight or 1) end
+                if it >= poll and it - (v.weight or 1) <= poll then center = v; break end
+            end
+        end
+        return center
+    else
+        return get_pack_ref(_key, _type)
+    end
+end
+
 -- Overwrite level_up_hand if planet edition is enabled 
 local level_up_hand_ref = level_up_hand
 function level_up_hand(card, hand, instant, amount)
@@ -829,7 +1095,7 @@ end
 local generate_card_ui_ref = generate_card_ui
 function generate_card_ui(_c, full_UI_table, specific_vars, card_type, badges, hide_desc, main_start, main_end)
 
-    if _c.set == 'Tarot_dx' or _c.set == 'Planet_dx' or _c.set == 'Spectral_dx' then    -- Overwrite
+    if _c.set == 'Tarot_dx' or _c.set == 'Planet_dx' or _c.set == 'Spectral_dx' or _c.set == 'Booster_dx' then    -- Overwrite
 
         -- Add the DX badge
         badges[#badges + 1] = 'dx'
@@ -870,7 +1136,7 @@ function generate_card_ui(_c, full_UI_table, specific_vars, card_type, badges, h
                     localize{type = 'other', key = 'playing_card', set = 'Other', nodes = full_UI_table.name, vars = {localize(specific_vars.value, 'ranks'), localize(specific_vars.suit, 'suits_plural'), colours = {specific_vars.colour}}}
                     full_UI_table.name = full_UI_table.name[1]
                 end
-            elseif card_type == 'Booster' then
+            elseif card_type == 'Booster' or card_type == 'Booster_dx' then
                 
             else
                 full_UI_table.name = localize{type = 'name', set = _c.set, key = _c.key, nodes = full_UI_table.name}
@@ -882,8 +1148,29 @@ function generate_card_ui(_c, full_UI_table, specific_vars, card_type, badges, h
         if main_start then 
             desc_nodes[#desc_nodes+1] = main_start 
         end
-
-        if _c.set == 'Spectral_dx' then 
+        
+        if _c.set == 'Booster_dx' then 
+            local desc_override = 'p_arcana_normal_dx'
+            if _c.name == 'Arcana Pack DX' then desc_override = 'p_arcana_normal_dx'; loc_vars = {_c.config.choose, _c.config.extra}
+            elseif _c.name == 'Jumbo Arcana Pack DX' then desc_override = 'p_arcana_jumbo_dx'; loc_vars = {_c.config.choose, _c.config.extra}
+            elseif _c.name == 'Mega Arcana Pack DX' then desc_override = 'p_arcana_mega_dx'; loc_vars = {_c.config.choose, _c.config.extra}
+            elseif _c.name == 'Celestial Pack DX' then desc_override = 'p_celestial_normal_dx'; loc_vars = {_c.config.choose, _c.config.extra}
+            elseif _c.name == 'Jumbo Celestial Pack DX' then desc_override = 'p_celestial_jumbo_dx'; loc_vars = {_c.config.choose, _c.config.extra}
+            elseif _c.name == 'Mega Celestial Pack DX' then desc_override = 'p_celestial_mega_dx'; loc_vars = {_c.config.choose, _c.config.extra}
+            elseif _c.name == 'Spectral Pack DX' then desc_override = 'p_spectral_normal_dx'; loc_vars = {_c.config.choose, _c.config.extra}
+            elseif _c.name == 'Jumbo Spectral Pack DX' then desc_override = 'p_spectral_jumbo_dx'; loc_vars = {_c.config.choose, _c.config.extra}
+            elseif _c.name == 'Mega Spectral Pack DX' then desc_override = 'p_spectral_mega_dx'; loc_vars = {_c.config.choose, _c.config.extra}
+            elseif _c.name == 'Standard Pack DX' then desc_override = 'p_standard_normal_dx'; loc_vars = {_c.config.choose, _c.config.extra}
+            elseif _c.name == 'Jumbo Standard Pack DX' then desc_override = 'p_standard_jumbo_dx'; loc_vars = {_c.config.choose, _c.config.extra}
+            elseif _c.name == 'Mega Standard Pack DX' then desc_override = 'p_standard_mega_dx'; loc_vars = {_c.config.choose, _c.config.extra}
+            elseif _c.name == 'Buffoon Pack DX' then desc_override = 'p_buffoon_normal_dx'; loc_vars = {_c.config.choose, _c.config.extra}
+            elseif _c.name == 'Jumbo Buffoon Pack DX' then desc_override = 'p_buffoon_jumbo_dx'; loc_vars = {_c.config.choose, _c.config.extra}
+            elseif _c.name == 'Mega Buffoon Pack DX' then desc_override = 'p_buffoon_mega_dx'; loc_vars = {_c.config.choose, _c.config.extra}
+            end
+            name_override = desc_override
+            if not full_UI_table.name then full_UI_table.name = localize{type = 'name', set = 'Other', key = name_override, nodes = full_UI_table.name} end
+            localize{type = 'other', key = desc_override, nodes = desc_nodes, vars = loc_vars}
+        elseif _c.set == 'Spectral_dx' then 
             if _c.name == 'Familiar DX' or _c.name == 'Grim DX' or _c.name == 'Incantation DX' then loc_vars = {_c.config.extra}
             elseif _c.name == 'Immolate DX' then loc_vars = {_c.config.extra.destroy, _c.config.extra.dollars}
             elseif _c.name == 'Hex DX' then info_queue[#info_queue+1] = G.P_CENTERS.e_polychrome
@@ -1010,6 +1297,42 @@ function generate_card_ui(_c, full_UI_table, specific_vars, card_type, badges, h
     end
 end
 
+-- Manage Standard Pack UI if DX
+local create_UIBox_standard_pack_ref = create_UIBox_standard_pack
+function create_UIBox_standard_pack()
+    
+    local ret = create_UIBox_standard_pack_ref()
+  
+    local _size = G.GAME.pack_size
+    if _size >= 6 then
+        G.pack_cards:hard_set_T(G.pack_cards.X, G.pack_cards.Y, _size*G.CARD_W, G.pack_cards.H)
+    end
+
+    return ret
+end
+
+-- Manage Celestial Pack UI if DX
+local create_UIBox_celestial_pack_ref = create_UIBox_celestial_pack
+function create_UIBox_celestial_pack()
+    
+    local ret = create_UIBox_celestial_pack_ref()
+  
+    local _size = G.GAME.pack_size
+    if _size >= 6 then
+        G.pack_cards:hard_set_T(G.pack_cards.X, G.pack_cards.Y, _size*G.CARD_W, G.pack_cards.H)
+    end
+
+    return ret
+end
+
+-- Manage DX boosters
+local get_type_colour_ref = get_type_colour
+function get_type_colour(_c, card)
+
+    if _c.set == 'Booster_dx' then return G.C.BOOSTER end
+    return get_type_colour_ref(_c, card)
+end
+
 ---------- misc_functions ----------
 
 -- Manage consumable usage
@@ -1127,6 +1450,88 @@ function G.UIDEF.card_h_popup(card)
     end
 end
 
+-- Manage DX boosters shop UI
+local create_shop_card_ui_ref = create_shop_card_ui
+function create_shop_card_ui(card, type, area)
+    
+    -- Use the vanilla function for now, TODO
+    if card.ability.set == 'Booster_dx' then
+        G.E_MANAGER:add_event(Event({
+          trigger = 'after',
+          delay = 0.43,
+          blocking = false,
+          blockable = false,
+          func = (function()
+            if card.opening then return true end
+            local t1 = {
+                n=G.UIT.ROOT, config = {minw = 0.6, align = 'tm', colour = darken(G.C.BLACK, 0.2), shadow = true, r = 0.05, padding = 0.05, minh = 1}, nodes={
+                    {n=G.UIT.R, config={align = "cm", colour = lighten(G.C.BLACK, 0.1), r = 0.1, minw = 1, minh = 0.55, emboss = 0.05, padding = 0.03}, nodes={
+                      {n=G.UIT.O, config={object = DynaText({string = {{prefix = localize('$'), ref_table = card, ref_value = 'cost'}}, colours = {G.C.MONEY},shadow = true, silent = true, bump = true, pop_in = 0, scale = 0.5})}},
+                    }}
+                }}
+            local t2 = {
+              n=G.UIT.ROOT, config = {ref_table = card, minw = 1.1, maxw = 1.3, padding = 0.1, align = 'bm', colour = G.C.GREEN, shadow = true, r = 0.08, minh = 0.94, func = 'can_open', one_press = true, button = 'open_booster', hover = true}, nodes={
+                  {n=G.UIT.T, config={text = localize('b_open'),colour = G.C.WHITE, scale = 0.5}}
+              }}
+            local t3 = {
+              n=G.UIT.ROOT, config = {id = 'buy_and_use', ref_table = card, minh = 1.1, padding = 0.1, align = 'cr', colour = G.C.RED, shadow = true, r = 0.08, minw = 1.1, func = 'can_buy_and_use', one_press = true, button = 'buy_from_shop', hover = true, focus_args = {type = 'none'}}, nodes={
+                {n=G.UIT.B, config = {w=0.1,h=0.6}},
+                {n=G.UIT.C, config = {align = 'cm'}, nodes={
+                  {n=G.UIT.R, config = {align = 'cm', maxw = 1}, nodes={
+                    {n=G.UIT.T, config={text = localize('b_buy'),colour = G.C.WHITE, scale = 0.5}}
+                  }},
+                  {n=G.UIT.R, config = {align = 'cm', maxw = 1}, nodes={
+                    {n=G.UIT.T, config={text = localize('b_and_use'),colour = G.C.WHITE, scale = 0.3}}
+                  }},
+                }} 
+              }}
+              
+  
+            card.children.price = UIBox{
+              definition = t1,
+              config = {
+                align="tm",
+                offset = {x=0,y=1.5},
+                major = card,
+                bond = 'Weak',
+                parent = card
+              }
+            }
+  
+            card.children.buy_button = UIBox{
+              definition = t2,
+              config = {
+                align="bm",
+                offset = {x=0,y=-0.3},
+                major = card,
+                bond = 'Weak',
+                parent = card
+              }
+            }
+  
+            if card.ability.consumeable then --and card:can_use_consumeable(true, true)
+              card.children.buy_and_use_button = UIBox{
+                definition = t3,
+                config = {
+                  align="cr",
+                  offset = {x=-0.3,y=0},
+                  major = card,
+                  bond = 'Weak',
+                  parent = card
+                }
+              }
+            end
+  
+            card.children.price.alignment.offset.y = 0.5
+  
+              return true
+          end)
+        }))
+    else
+        create_shop_card_ui_ref(card, type, area)
+    end
+end
+
 ---------- Card ----------
 
 -- Manage Astronomer joker
@@ -1134,7 +1539,7 @@ local card_set_cost_ref = Card.set_cost
 function Card.set_cost(self)
 
     card_set_cost_ref(self)
-    if (self.ability.set == 'Planet_dx') and #find_joker('Astronomer') > 0 then self.cost = 0 end
+    if (self.ability.set == 'Planet_dx' or ((self.ability.set == 'Booster' or self.ability.set == 'Booster_dx') and self.ability.name:find('Celestial'))) and #find_joker('Astronomer') > 0 then self.cost = 0 end
 end
 
 -- Manage usage of DX consumables
@@ -1711,17 +2116,159 @@ function Card.can_use_consumeable(self, any_state, skip_check)
     end
 end
 
+-- Manage DX boosters
+local card_open_ref = Card.open
+function Card.open(self)
+
+    card_open_ref(self)
+
+    if self.ability.set == "Booster_dx" then
+        stop_use()
+        G.STATE_COMPLETE = false 
+        self.opening = true
+
+        if not self.config.center.discovered then
+            discover_card(self.config.center)
+        end
+        self.states.hover.can = false
+
+        if self.ability.name:find('Arcana') then 
+            G.STATE = G.STATES.TAROT_PACK
+            G.GAME.pack_size = self.ability.extra
+        elseif self.ability.name:find('Celestial') then
+            G.STATE = G.STATES.PLANET_PACK
+            G.GAME.pack_size = self.ability.extra
+        elseif self.ability.name:find('Spectral') then
+            G.STATE = G.STATES.SPECTRAL_PACK
+            G.GAME.pack_size = self.ability.extra
+        elseif self.ability.name:find('Standard') then
+            G.STATE = G.STATES.STANDARD_PACK
+            G.GAME.pack_size = self.ability.extra
+        elseif self.ability.name:find('Buffoon') then
+            G.STATE = G.STATES.BUFFOON_PACK
+            G.GAME.pack_size = self.ability.extra
+        end
+
+        G.GAME.pack_choices = self.config.center.config.choose or 1
+
+        if self.cost > 0 then 
+            G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0.2, func = function()
+                inc_career_stat('c_shop_dollars_spent', self.cost)
+                self:juice_up()
+            return true end }))
+            ease_dollars(-self.cost) 
+       else
+           delay(0.2)
+       end
+
+        G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0.4, func = function()
+            self:explode()
+            local pack_cards = {}
+
+            G.E_MANAGER:add_event(Event({trigger = 'after', delay = 1.3*math.sqrt(G.SETTINGS.GAMESPEED), blockable = false, blocking = false, func = function()
+                local _size = self.ability.extra
+                
+                for i = 1, _size do
+                    local card = nil
+
+                    -- Add an increased chance for dx card
+                    local dx_modifier = pseudorandom(pseudoseed('force_dx'..G.GAME.round_resets.ante)) > 0.30
+
+                    if self.ability.name:find('Arcana') then 
+                        if G.GAME.used_vouchers.v_omen_globe and pseudorandom('omen_globe') > 0.8 then
+                            card = create_card(dx_modifier and "Spectral_dx" or "Spectral", G.pack_cards, nil, nil, true, true, nil, 'ar2')
+                        else
+                            card = create_card(dx_modifier and "Tarot_dx" or "Tarot", G.pack_cards, nil, nil, true, true, nil, 'ar1')
+                        end
+                    elseif self.ability.name:find('Celestial') then
+                        if G.GAME.used_vouchers.v_telescope and i == 1 then
+                            local _planet, _hand, _tally = nil, nil, 0
+                            for k, v in ipairs(G.handlist) do
+                                if G.GAME.hands[v].visible and G.GAME.hands[v].played > _tally then
+                                    _hand = v
+                                    _tally = G.GAME.hands[v].played
+                                end
+                            end
+                            if _hand then
+                                for k, v in pairs(G.P_CENTER_POOLS.Planet) do
+                                    if v.config.hand_type == _hand then
+                                        _planet = v.key
+                                    end
+                                end
+                            end
+                            card = create_card("Planet", G.pack_cards, nil, nil, true, true, _planet, 'pl1')
+                        else
+                            card = create_card(dx_modifier and "Planet_dx" or "Planet", G.pack_cards, nil, nil, true, true, nil, 'pl1')
+                        end
+                    elseif self.ability.name:find('Spectral') then
+                        card = create_card(dx_modifier and "Spectral_dx" or "Spectral", G.pack_cards, nil, nil, true, true, nil, 'spe')
+                    elseif self.ability.name:find('Standard') then
+                        card = create_card((pseudorandom(pseudoseed('stdset'..G.GAME.round_resets.ante)) > (dx_modifier and 0.3 or 0.6)) and "Enhanced" or "Base", G.pack_cards, nil, nil, nil, true, nil, 'sta')
+                        local edition_rate = dx_modifier and 4 or 2
+                        local edition = poll_edition('standard_edition'..G.GAME.round_resets.ante, edition_rate, true)
+                        card:set_edition(edition)
+                        local seal_rate = dx_modifier and 20 or 10
+                        local seal_poll = pseudorandom(pseudoseed('stdseal'..G.GAME.round_resets.ante))
+                        if seal_poll > 1 - 0.02*seal_rate then
+                            local seal_type = pseudorandom(pseudoseed('stdsealtype'..G.GAME.round_resets.ante))
+                            if seal_type > 0.75 then card:set_seal('Red')
+                            elseif seal_type > 0.5 then card:set_seal('Blue')
+                            elseif seal_type > 0.25 then card:set_seal('Gold')
+                            else card:set_seal('Purple')
+                            end
+                        end
+                    elseif self.ability.name:find('Buffoon') then
+                        local rarity = pseudorandom('rarity'..G.GAME.round_resets.ante..(_append or '')) + (dx_modifier and 0.3 or 0)
+                        card = create_card("Joker", G.pack_cards, nil, rarity, true, true, nil, 'buf')
+                    end
+                    card.T.x = self.T.x
+                    card.T.y = self.T.y
+                    card:start_materialize({G.C.WHITE, G.C.WHITE}, nil, 1.5*G.SETTINGS.GAMESPEED)
+                    pack_cards[i] = card
+                end
+                return true
+            end}))
+
+            G.E_MANAGER:add_event(Event({trigger = 'after', delay = 1.3*math.sqrt(G.SETTINGS.GAMESPEED), blockable = false, blocking = false, func = function()
+                if G.pack_cards then 
+                    if G.pack_cards and G.pack_cards.VT.y < G.ROOM.T.h then 
+                    for k, v in ipairs(pack_cards) do
+                        G.pack_cards:emplace(v)
+                    end
+                    return true
+                    end
+                end
+            end}))
+
+            for i = 1, #G.jokers.cards do
+                G.jokers.cards[i]:calculate_joker({open_booster = true, card = self})
+            end
+
+            if G.GAME.modifiers.inflation then 
+                G.GAME.inflation = G.GAME.inflation + 1
+                G.E_MANAGER:add_event(Event({func = function()
+                  for k, v in pairs(G.I.CARD) do
+                      if v.set_cost then v:set_cost() end
+                  end
+                  return true end }))
+            end
+
+        return true end }))
+    end
+end
+
 -- Manage DX materialize color
 local card_start_materialize_ref = Card.start_materialize
 function Card.start_materialize(self, dissolve_colours, silent, timefac)
 
     local new_dissolve_colours = nil
 
-    if self.ability.set == 'Tarot_dx' or self.ability.set == 'Planet_dx' or self.ability.set == 'Spectral_dx' then
+    if self.ability.set == 'Tarot_dx' or self.ability.set == 'Planet_dx' or self.ability.set == 'Spectral_dx' or self.ability.set == 'Booster_dx' then
         new_dissolve_colours = dissolve_colours or
         (self.ability.set == 'Tarot_dx' and {G.C.SECONDARY_SET.Tarot}) or
         (self.ability.set == 'Planet_dx'  and {G.C.SECONDARY_SET.Planet}) or
         (self.ability.set == 'Spectral_dx' and {G.C.SECONDARY_SET.Spectral}) or
+        (self.ability.set == 'Booster_dx' and {G.C.BOOSTER}) or
         {G.C.GREEN}
     else
         new_dissolve_colours = dissolve_colours
@@ -1883,6 +2430,10 @@ function Card.set_ability(self, center, initial, delay_sprites)
             end
         end
     end
+    if self.ability and self.ability.set == 'Booster_dx' then
+        self.label = self.ability.name
+        self.mouse_damping = 1.5
+    end
 end
 
 -- Prevents duplicates between normal and DX version
@@ -1947,8 +2498,68 @@ function Card.draw(self, layer)
             self.ability.name = 'The Soul DX'
         end
         self.ability.set = 'Spectral_dx'
+    elseif self.ability.set == 'Booster_dx' then
+        self.ability.set = 'Booster'
+        card_draw_ref(self, layer)
+        self.ability.set = 'Booster_dx'
     else
         card_draw_ref(self, layer)
+    end
+end
+
+-- Apply the correct scaling to Booster DX
+local card_load_ref = Card.load
+function Card.load(self, cardTable, other_card)
+    
+    local scale = 1
+    self.config = {}
+    self.config.center_key = cardTable.save_fields.center
+    self.config.center = G.P_CENTERS[self.config.center_key]
+    self.params = cardTable.params
+
+    local H = G.CARD_H
+    local W = G.CARD_W
+    if self.config.center.set == 'Booster_dx' then 
+        self.T.h = H*1.27
+        self.T.w = W*1.27
+        self.VT.h = self.T.H
+        self.VT.w = self.T.w
+    
+        self.config.card_key = cardTable.save_fields.card
+        self.config.card = G.P_CARDS[self.config.card_key]
+    
+        self.no_ui = cardTable.no_ui
+        self.base_cost = cardTable.base_cost
+        self.extra_cost = cardTable.extra_cost
+        self.cost = cardTable.cost
+        self.sell_cost = cardTable.sell_cost
+        self.facing = cardTable.facing
+        self.sprite_facing = cardTable.sprite_facing
+        self.flipping = cardTable.flipping
+        self.highlighted = cardTable.highlighted
+        self.debuff = cardTable.debuff
+        self.rank = cardTable.rank
+        self.added_to_deck = cardTable.added_to_deck
+        self.label = cardTable.label
+        self.playing_card = cardTable.playing_card
+        self.base = cardTable.base
+        self.sort_id = cardTable.sort_id
+        self.bypass_discovery_center = cardTable.bypass_discovery_center
+        self.bypass_discovery_ui = cardTable.bypass_discovery_ui
+        self.bypass_lock = cardTable.bypass_lock
+    
+        self.ability = cardTable.ability
+        self.pinned = cardTable.pinned
+        self.edition = cardTable.edition
+        self.seal = cardTable.seal
+    
+        remove_all(self.children)
+        self.children = {}
+        self.children.shadow = Moveable(0, 0, 0, 0)
+    
+        self:set_sprites(self.config.center, self.config.card)
+    else
+        card_load_ref(self, cardTable, other_card)
     end
 end
 
