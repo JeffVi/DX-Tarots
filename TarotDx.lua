@@ -1822,32 +1822,34 @@ function Card.update(self, dt)
 
     card_update_ref(self, dt)
 
-    if self.ability.name == 'Temperance DX' then
-        if G.STAGE == G.STAGES.RUN then
-            self.ability.money = 0
-            for i = 1, #G.jokers.cards do
-                if G.jokers.cards[i].ability.set == 'Joker' then
-                    self.ability.money = self.ability.money + (G.jokers.cards[i].sell_cost * 2)
+    if G.STAGE and G.STAGE == G.STAGES.RUN then
+        if self.ability.name == 'Temperance DX' then
+            if G.STAGE == G.STAGES.RUN then
+                self.ability.money = 0
+                for i = 1, #G.jokers.cards do
+                    if G.jokers.cards[i].ability.set == 'Joker' then
+                        self.ability.money = self.ability.money + (G.jokers.cards[i].sell_cost * 2)
+                    end
+                end
+                self.ability.money = math.min(self.ability.money, self.ability.extra)
+            else
+                self.ability.money = 0
+            end
+        end
+        if self.ability.name == 'The Wheel of Fortune DX' then
+            self.eligible_strength_jokers = EMPTY(self.eligible_strength_jokers)
+            for k, v in pairs(G.jokers.cards) do
+                if v.ability.set == 'Joker' and (not v.edition) then
+                    table.insert(self.eligible_strength_jokers, v)
                 end
             end
-            self.ability.money = math.min(self.ability.money, self.ability.extra)
-        else
-            self.ability.money = 0
         end
-    end
-    if self.ability.name == 'The Wheel of Fortune DX' then
-        self.eligible_strength_jokers = EMPTY(self.eligible_strength_jokers)
-        for k, v in pairs(G.jokers.cards) do
-            if v.ability.set == 'Joker' and (not v.edition) then
-                table.insert(self.eligible_strength_jokers, v)
-            end
-        end
-    end
-    if self.ability.name == 'Ectoplasm DX' or self.ability.name == 'Hex DX' then
-        self.eligible_editionless_jokers = EMPTY(self.eligible_editionless_jokers)
-        for k, v in pairs(G.jokers.cards) do
-            if v.ability.set == 'Joker' and (not v.edition) then
-                table.insert(self.eligible_editionless_jokers, v)
+        if self.ability.name == 'Ectoplasm DX' or self.ability.name == 'Hex DX' then
+            self.eligible_editionless_jokers = EMPTY(self.eligible_editionless_jokers)
+            for k, v in pairs(G.jokers.cards) do
+                if v.ability.set == 'Joker' and (not v.edition) then
+                    table.insert(self.eligible_editionless_jokers, v)
+                end
             end
         end
     end
@@ -1947,6 +1949,35 @@ function Card.draw(self, layer)
         self.ability.set = 'Spectral_dx'
     else
         card_draw_ref(self, layer)
+    end
+end
+
+-- Manage DX in collection
+local card_click_ref = Card.click
+function Card.click(self)
+
+    card_click_ref(self)
+    -- Check if we are in the collection
+    if self.area and self.area.config and self.area.config.collection then
+        -- Check if this is a DX card
+        if self.ability.set == 'Tarot_dx' or self.ability.set == 'Planet_dx' or self.ability.set == 'Spectral_dx' or self.ability.set == 'Booster_dx' then
+            local van_ver = string.sub(self.config.center_key, 1, -4)
+            for k, v in pairs(G.P_CENTER_POOLS[string.sub(self.ability.set, 1, -4)]) do
+                if v.key == van_ver then
+                    self:set_ability(G.P_CENTER_POOLS[string.sub(self.ability.set, 1, -4)][k], true)
+                    break
+                end
+            end
+        -- Check if a DX version exists
+        elseif self.ability.set == 'Tarot' or self.ability.set == 'Planet' or self.ability.set == 'Spectral' or self.ability.set == 'Booster' then
+            local dx_ver = self.config.center_key..'_dx'
+            for k, v in pairs(G.P_CENTER_POOLS[self.ability.set..'_dx']) do
+                if v.key == dx_ver then
+                    self:set_ability(G.P_CENTER_POOLS[self.ability.set..'_dx'][k], true)
+                    break
+                end
+            end
+        end
     end
 end
 
