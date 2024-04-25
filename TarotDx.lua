@@ -516,7 +516,7 @@ local function setUpLocalizationSpectralDX()
         name = "Medium DX",
         text = {
             "Add a {C:purple}Purple Seal{}",
-            "to up to {C:attention}2{} selected",
+            "to up to {C:attention}3{} selected",
             "cards in your hand"
         }
     }
