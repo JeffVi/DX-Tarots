@@ -12,7 +12,7 @@
 local tarot_dx_rate = 0.1               -- (from 0 (0%) to 1 (100%))
 local planet_dx_rate = 0.1              -- (from 0 (0%) to 1 (100%))
 local spectral_dx_rate = 0.2            -- (from 0 (0%) to 1 (100%))
-local booster_dx_rate = 0.1              -- (from 0 (0%) to 1 (100%))
+local booster_dx_rate = 0.1             -- (from 0 (0%) to 1 (100%))
 local planet_edition_enabled = true     -- Enable/Disable the possibility of planet cards edition (may not be compatible with other mods that overwrite the level_up_hand function)
 local spectral_on_blank = true          -- Enable/Disable spectral rate on blank voucher
 
@@ -24,7 +24,7 @@ local function setUpConsumables()
     
     -- Tarots
     G.P_CENTERS.c_fool_dx=             {order = 1,     discovered = true, cost = 5, consumeable = true, name = "The Fool DX", pos = {x=0,y=0}, set = "Tarot_dx", effect = "Disable Blind Effect", cost_mult = 1.0, config = {}}
-    G.P_CENTERS.c_magician_dx=         {order = 2,     discovered = true, cost = 5, consumeable = true, name = "The Magician DX", pos = {x=1,y=0}, set = "Tarot_dx", effect = "Enhance", cost_mult = 1.0, config = {mod_conv = 'm_lucky', max_highlighted = 2}}
+    G.P_CENTERS.c_magician_dx=         {order = 2,     discovered = true, cost = 5, consumeable = true, name = "The Magician DX", pos = {x=1,y=0}, set = "Tarot_dx", effect = "Enhance", cost_mult = 1.0, config = {mod_conv = 'm_lucky', max_highlighted = 4}}
     G.P_CENTERS.c_high_priestess_dx=   {order = 3,     discovered = true, cost = 5, consumeable = true, name = "The High Priestess DX", pos = {x=2,y=0}, set = "Tarot_dx", effect = "Round Bonus", cost_mult = 1.0, config = {planets = 2}}
     G.P_CENTERS.c_empress_dx=          {order = 4,     discovered = true, cost = 5, consumeable = true, name = "The Empress DX", pos = {x=3,y=0}, set = "Tarot_dx", effect = "Enhance", cost_mult = 1.0, config = {mod_conv = 'm_mult', max_highlighted = 4}}
     G.P_CENTERS.c_emperor_dx=          {order = 5,     discovered = true, cost = 5, consumeable = true, name = "The Emperor DX", pos = {x=4,y=0}, set = "Tarot_dx", effect = "Round Bonus", cost_mult = 1.0, config = {tarots = 2}}
