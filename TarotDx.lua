@@ -844,6 +844,22 @@ function G.FUNCS.use_card(e, mute, nosave)
 
 end
 
+-- Manage Ankh DX
+local G_FUNCS_buy_from_shop_ref = G.FUNCS.buy_from_shop
+function G.FUNCS.buy_from_shop(e)
+
+    local c1 = e.config.ref_table
+    if c1 and c1:is(Card) and c1.ability.name == 'Ankh DX' and e.config.id == 'buy_and_use' then
+        if #G.jokers.cards >= G.jokers.config.card_limit then  
+            alert_no_space(c1, G.jokers)
+            e.disable_button = nil
+            return false
+        end
+    end
+
+    return G_FUNCS_buy_from_shop_ref(e)
+end
+
 ---------- common_events ----------
 
 -- Manage pool if DX pool
