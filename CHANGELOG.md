@@ -12,7 +12,7 @@ DX version of Tarot cards were added. They have a 10% *(can be edited)* chance o
 
 - **The Fool DX**: Creates up to **2** copies of the last Tarot Planet (not DX) card used during this run.
 
-- **The Magician DX**: Enhances up to **2** selected cards.
+- **The Magician DX**: Enhances up to **4** selected cards.
 
 - **The High Priestess DX**: Creates up to 2 random **DX** Planet cards.
 
@@ -36,7 +36,7 @@ DX version of Tarot cards were added. They have a 10% *(can be edited)* chance o
 
 - **The Hanged Man DX**: Destroys up to ***4** selected cards.
 
-- **Death DX**: Select up to **3**card. Convert the left ones into the right one.
+- **Death DX**: Select up to **3** cards. Convert the left ones into the right one.
 
 - **Temperance DX**: Gives **double** the total sell value of all current Jokers (Max of **$60**).
 
@@ -50,7 +50,7 @@ DX version of Tarot cards were added. They have a 10% *(can be edited)* chance o
 
 - **The Sun DX**: Converts up to **5** selected cards.
 
-- **Judgement DX**: Creates a random **uncommon** (or better) joker.
+- **Judgement DX**: Creates a random **uncommon** joker.
 
 - **The World DX**: Converts up to **5** selected cards.
 
@@ -99,6 +99,20 @@ DX version of Spectral cards were added. They have a 20% *(can be edited)* chanc
 - **The Soul DX**: Creates a **negative** copy of a random Legendary Joker.
 
 - **Black Hole DX**: Upgrade every poker hand by **3** levels.
+
+### Boosters
+
+DX version of Booster packs were added. They have a 10% *(can be edited)* chance of replacing a vanilla pack in shops. They each cost **$2** more than their original counterpart and provide one extra card to pick from.
+
+- **Arcana DX**: Increased chance to pull **DX Tarots**.
+
+- **Celestial DX**: Increased chance to pull **DX Planets**.
+
+- **Spectral DX**: Increased chance to pull **DX Spectral**.
+
+- **Standard DX**: Increased chance to pull **enhancements**, **editions**, and **seals**.
+
+- **Buffoon DX**: Increased chance to pull **uncommon and rare** jokers.
 
 ## Vouchers
 

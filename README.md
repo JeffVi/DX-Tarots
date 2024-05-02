@@ -24,6 +24,10 @@ A set of deluxe planets was created, they have a set chance to replace a planet 
 
 A set of deluxe spectrals was created, they have a set chance to replace a spectral card when a spectral card is created
 
+### New Booster packs
+
+A set of deluxe boosters was created, they have a set chance to replace a booster pack in shop
+
 ### Edition on planet cards
 
 Planet cards may have editions. Using a planet card with an edition will apply the edition's effect on the leveled up hand.
