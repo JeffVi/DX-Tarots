@@ -9,12 +9,12 @@ Refer to the [Steamodded readme](https://github.com/Steamopollys/Steamodded?tab=
 
 ## Features
 
-You can edit, enable or disable features by editing variables under `CUSTOM CONFIG` (top of the lua file).  
+You can edit, enable or disable features by editing variables under `CUSTOM CONFIG` (top of the TarotDx lua file).  
 See the [CHANGELOG.md](./CHANGELOG.md) for a list of all changes.
 
 ### New Tarot cards
 
-A set of deluxe tarots was created, they have a set chance to replace a tarot card when a tarot card is created
+Two sets of tarots was created, they have a set chance to replace a tarot card when a tarot card is created
 
 ### New Planet cards
 
