@@ -1,6 +1,6 @@
 # Changelog
 
-Here is a list of all changes provided by this mod. Some values can be easily edited by editing variables in the top of the `.lua` file.
+Here is a list of all changes provided by this mod. Some values can be easily edited by editing variables in the top of the `TarotDx.lua` file.
 
 ## DX Cards
 
@@ -62,7 +62,7 @@ Planet cards (vanilla or DX) may be pulled with a random edition (foil, poly, ho
 
 ### Spectrals
 
-DX version of Spectral cards were added. They have a 15% *(can be edited)* chance of being pulled instead of a vanilla spectral. They each cost **$6**.
+DX version of Spectral cards were added. They have a 15% *(can be edited)* chance of being pulled instead of a vanilla spectral. They each cost **$6**. They are **Unique**.
 
 - **Familiar DX**: Destroy **2 selected** cards in your hand. Add **5** random Enhanced face cards to your hand.
 
@@ -102,7 +102,7 @@ DX version of Spectral cards were added. They have a 15% *(can be edited)* chanc
 
 ### Boosters
 
-DX version of Booster packs were added. They have a 10% *(can be edited)* chance of replacing a vanilla pack in shops. They each cost **$2** more than their original counterpart and provide one extra card to pick from.
+DX version of Booster packs were added. They have a 10% *(can be edited)* chance of replacing a vanilla pack in shops. They each cost **$2** more than their original counterpart and provide one extra card to pick from. They are **Unique**.
 
 - **Arcana DX**: Increased chance to pull **DX Tarots**.
 
@@ -174,7 +174,7 @@ A new badge was created for **Unique** cards. Once pulled, they can no longer be
 
 ### Tarots
 
-Cursed version of Tarot cards were added. They have a 5% *(can be edited)* chance of being pulled instead of a vanilla tarot. They each cost **$5**. Once pulled, they cannot be pulled again.
+Cursed version of Tarot cards were added. They have a 5% *(can be edited)* chance of being pulled instead of a vanilla tarot. They each cost **$5**. . They are **Unique**.
 
 - **The Cursed Fool**: **+1 consumable slot**. Creates **2 copies** of **The Fool DX**.
 
