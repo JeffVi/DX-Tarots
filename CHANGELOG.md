@@ -8,7 +8,7 @@ A new badge was created for DX (deluxe) consumables. They are enhanced versions 
 
 ### Tarots
 
-DX version of Tarot cards were added. They have a 10% *(can be edited)* chance of being pulled instead of a vanilla tarot. They each cost **$5**.
+DX version of Tarot cards were added. They have a 12% *(can be edited)* chance of being pulled instead of a vanilla tarot. They each cost **$5**.
 
 - **The Fool DX**: Creates up to **2** copies of the last Tarot Planet (not DX) card used during this run.
 
@@ -56,13 +56,13 @@ DX version of Tarot cards were added. They have a 10% *(can be edited)* chance o
 
 ### Planets
 
-DX planet cards will upgrade their respective hand level by **2**. They have a 10% *(can be edited)* chance of being pulled instead of a vanilla planet. They each cost **$5**.  
+DX planet cards will upgrade their respective hand level by **2**. They have a 12% *(can be edited)* chance of being pulled instead of a vanilla planet. They each cost **$5**.  
 
 Planet cards (vanilla or DX) may be pulled with a random edition (foil, poly, holo). The chance of pulling an edition on a planet card increase with its corresponding hand level. Using a planet card with an edition will add the edition bonus to the hand base chips or mult.
 
 ### Spectrals
 
-DX version of Spectral cards were added. They have a 20% *(can be edited)* chance of being pulled instead of a vanilla spectral. They each cost **$6**.
+DX version of Spectral cards were added. They have a 15% *(can be edited)* chance of being pulled instead of a vanilla spectral. They each cost **$6**.
 
 - **Familiar DX**: Destroy **2 selected** cards in your hand. Add **5** random Enhanced face cards to your hand.
 
@@ -113,6 +113,112 @@ DX version of Booster packs were added. They have a 10% *(can be edited)* chance
 - **Standard DX**: Increased chance to pull **enhancements**, **editions**, and **seals**.
 
 - **Buffoon DX**: Increased chance to pull **uncommon and rare** jokers.
+
+## Cursed Cards
+
+A new badge was created for **Cursed** consumables. They are greatly enhanced versions of their original counterpart that gives you a set number of random curse(s) upon being used.
+
+## Unique Cards
+
+A new badge was created for **Unique** cards. Once pulled, they can no longer be pulled during the run.
+
+### Curses
+
+**Curses** are special tags that will affect your run upon being received. They cannot be removed.
+
+- **The Hook**: Discards **1** random card per hand played.
+
+- **The Wall**: Increase blind ammounts by **40%**.
+
+- **The Wheel**: **1 in 9** cards get drawn face down.
+
+- **The Arm**: **1 in 6** chance to decrease level of played poker hand.
+
+- **The Psychic**: **X0.6 mult** if played hand does not contain 5 cards.
+
+- **The Goad**: **1 in 2** chance for a Spade card to be debuffed.
+
+- **The Water**: **-1** discard.
+
+- **The Eye**: **X0.6 mult** if played hand type was already played this round.
+
+- **The Mouth**: **X0.6 mult** if played hand type is different than the first played this round.
+
+- **The Plant**: **1 in 2** chance for a face card to be debuffed.
+
+- **The Needle**: **-1** hand.
+
+- **The Head**: **1 in 2** chance for a Heart card to be debuffed.
+
+- **The Tooth**: **2 in 5** chance per card played to lose $1.
+
+- **The Ox**: **Lose $5** if playing most played hand.
+
+- **The House**: Cards from first hand have a **2 in 3** chance to be drawn face down.
+
+- **The Club**: **1 in 2** chance for a Club card to be debuffed.
+
+- **The Fish**: Cards drawn after playing a hand have a **1 in 2** chance to be drawn face down.
+
+- **The Window**: **1 in 2** chance for a Diamond card to be debuffed.
+
+- **The Manacle**: -1 Hand Size **if more than 1 hand remaining**.
+
+- **The Serpent**: Always draw **2** cards after **first** Play or Discard.
+
+- **The Pillar**: After being played, cards have a **1 in 2** chance to be debuffed this Ante.
+
+- **The Flint**: Base Chips and Mult are reduced by **30%**.
+
+- **The Mark**: **1 in 2** chance for a face card to be drawn face down.
+
+### Tarots
+
+Cursed version of Tarot cards were added. They have a 5% *(can be edited)* chance of being pulled instead of a vanilla tarot. They each cost **$5**. Once pulled, they cannot be pulled again.
+
+- **The Cursed Fool**: **+1 consumable slot**. Creates **2 copies** of **The Fool DX**.
+
+- **The Cursed Magician**: **Doubles all listed probabilities**. Creates a copy of **The Magician DX**.
+
+- **The Cursed High Priestess**: Planet cards are **2 times more likely** to get an **edition**. Creates up to 2 random **DX** Planet cards.
+
+- **The Cursed Empress**: Increase Mult cards multiplier **from 4 to 12**. Creates a copy of **The Empress DX**.
+
+- **The Cursed Emperor**: Creates 6 random **negative DX Tarot** cards.
+
+- **The Cursed Hierophant**: Increase Bonus cards extra chips **from 30 to 90**. Creates a copy of **The Hierophant DX**.
+
+- **The Cursed Lovers**: Wild cards now **copy the rank of the card to their left** (if applicable). Creates a copy of **The Lovers DX**.
+
+- **The Cursed Chariot**: Increase Steel cards multiplier **from 1.5 to 2.5**. Creates a copy of **The Chariot DX**.
+
+- **Cursed Justice**: Increase Glass cards multiplier **from 2 to 5**. Creates a copy of **Justice DX**.
+
+- **The Cursed Hermit**: Gives **$50**.
+
+- **The Cursed Wheel of Fortune**: **Add an edition** to a random joker, **1 in 3 chance to repeat once**.
+
+- **Cursed Strength**: Select up to 5 cards. **Rank up all cards matching selected ranks**.
+
+- **The Cursed Hanged Man**: Select up to 4 cards. **Destroys all cards matching selected ranks**.
+
+- **Cursed Death**: Select up to **5** cards. Convert the left ones into the right one. Gives two copies of **Death DX**.
+
+- **Cursed Temperance**: Gives **$10** per Joker.
+
+- **The Cursed Devil**: Increase Gold cards gain from **$3 to $8**. Creates a copy of **The Devil DX**.
+
+- **The Cursed Tower**: Stone cards now grants **250 chips and 4 mult**. Creates a copy of **The Tower DX**.
+
+- **The Cursed Star**: Diamond cards **cannot get debuffed**. Creates a copy of **The Star DX**.
+
+- **The Cursed Moon**: Club cards **cannot get debuffed**. Creates a copy of **The Moon DX**.
+
+- **The Cursed Sun**: Heart cards **cannot get debuffed**. Creates a copy of **The Sun DX**.
+
+- **Cursed Judgement**: Creates a random **rare** joker.
+
+- **The Cursed World**: Spade cards **cannot get debuffed**. Creates a copy of **The World DX**.
 
 ## Vouchers
 
