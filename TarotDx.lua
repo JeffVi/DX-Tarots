@@ -3807,7 +3807,7 @@ function Card.click(self)
         if self.ability.set == 'Tarot_cu' then version = 'cu' end
 
         -- Check if a DX version exists
-        if version == 'van' then
+        if version == 'van' and G.P_CENTER_POOLS[self.ability.set..'_dx'] then
             local dx_ver = self.config.center_key..'_dx'
             for k, v in pairs(G.P_CENTER_POOLS[self.ability.set..'_dx']) do
                 if v.key == dx_ver then
@@ -3819,7 +3819,7 @@ function Card.click(self)
         end
 
         -- Check if a cursed version exists
-        if version == 'van' then
+        if version == 'van' and G.P_CENTER_POOLS[self.ability.set..'_cu'] then
             local cu_ver = self.config.center_key..'_cu'
             for k, v in pairs(G.P_CENTER_POOLS[self.ability.set..'_cu']) do
                 if v.key == cu_ver then
@@ -3828,7 +3828,7 @@ function Card.click(self)
                     break
                 end
             end
-        elseif version == 'dx' then 
+        elseif version == 'dx' and G.P_CENTER_POOLS[string.sub(self.ability.set, 1, -4)..'_cu'] then 
             local cu_ver = string.sub(self.config.center_key, 1, -4)..'_cu'
             for k, v in pairs(G.P_CENTER_POOLS[string.sub(self.ability.set, 1, -4)..'_cu']) do
                 if v.key == cu_ver then
