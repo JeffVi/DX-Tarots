@@ -2950,6 +2950,7 @@ function Card.use_consumeable(self, area, copier)
         
         if self.ability.name == 'The Cursed Wheel of Fortune' then
             local temp_pool = self.eligible_strength_jokers or {}
+            local temp_pool_count = #temp_pool
             G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0.4, func = function()
                 local eligible_card, key = pseudorandom_element(temp_pool, pseudoseed('wheel_of_fortune'))
                 local edition = poll_edition('wheel_of_fortune', nil, true, true)
@@ -2958,7 +2959,7 @@ function Card.use_consumeable(self, area, copier)
                 used_tarot:juice_up(0.3, 0.5)
                 temp_pool[key] = nil
             return true end }))
-            if pseudorandom('wheel_of_fortune') < G.GAME.probabilities.normal/self.ability.extra and #temp_pool > 0 then 
+            if pseudorandom('wheel_of_fortune') < G.GAME.probabilities.normal/self.ability.extra and temp_pool_count > 1 then 
                 G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0.4, func = function()
                     local eligible_card = pseudorandom_element(temp_pool, pseudoseed('wheel_of_fortune'))
                     local edition = poll_edition('wheel_of_fortune', nil, true, true)
@@ -4008,10 +4009,6 @@ end
 -- Manage curses
 local blind_set_blind_ref = Blind.set_blind
 function Blind.set_blind(self, blind, reset, silent)
-    sendDebugMessage("set_blind: ")
-    sendDebugMessage(reset and "T" or "F")
-    sendDebugMessage(silent and "T" or "F")
-    sendDebugMessage("curses: ")
 
     blind_set_blind_ref(self, blind, reset, silent)
     
@@ -4019,7 +4016,6 @@ function Blind.set_blind(self, blind, reset, silent)
         for k, v in pairs(G.GAME.curses) do
             -- Temp fix! For some reason, the animation of the last curse is removed at specific events. Force it back until the problem is solved. TODO
             if not G.ANIMATIONS[v.curse_sprite] then table.insert(G.ANIMATIONS, v.curse_sprite) end
-            sendDebugMessage((v.config.type == 'curse' and (not reset) and (not silent)) and "T" or "F")
 
             if v.config.type == 'curse' and (not reset) and (not silent) then
                 if v.name == "The Wall" then
