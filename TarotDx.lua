@@ -1450,7 +1450,7 @@ function create_card(_type, area, legendary, _rarity, skip_materialize, soulable
     if not forced_key then
         -- Change type pseudorandom
         if new_type == 'Tarot' and (pseudorandom('upgrade_card'..G.GAME.round_resets.ante) > math.min(1, math.max(0, 1 - tarot_dx_rate))) then new_type = "Tarot_dx" end
-        if (new_type == 'Tarot') or (new_type == 'Tarot_dx') and (pseudorandom('upgrade_card'..G.GAME.round_resets.ante) > math.min(1, math.max(0, 1 - tarot_cu_rate))) then new_type = "Tarot_cu" end
+        if ((new_type == 'Tarot') or (new_type == 'Tarot_dx')) and (pseudorandom('upgrade_card'..G.GAME.round_resets.ante) > math.min(1, math.max(0, 1 - tarot_cu_rate))) then new_type = "Tarot_cu" end
         if new_type == 'Planet' and (pseudorandom('upgrade_card'..G.GAME.round_resets.ante) > math.min(1, math.max(0, 1 - planet_dx_rate))) then new_type = "Planet_dx" end
         if new_type == 'Spectral' and (pseudorandom('upgrade_card'..G.GAME.round_resets.ante) > math.min(1, math.max(0, 1 - spectral_dx_rate))) then new_type = "Spectral_dx" end
         
