@@ -167,14 +167,12 @@ local function setup_consumables()
     table.sort(G.P_CENTER_POOLS["Booster_dx"], function (a, b) return a.order < b.order end)
 
     -- Save vanilla enhanced centers
-    enhanced_prototype_centers.m_bonus = copy_table(G.P_CENTERS.m_bonus)
-    enhanced_prototype_centers.m_mult = copy_table(G.P_CENTERS.m_mult)
-    enhanced_prototype_centers.m_wild = copy_table(G.P_CENTERS.m_wild)
-    enhanced_prototype_centers.m_glass = copy_table(G.P_CENTERS.m_glass)
-    enhanced_prototype_centers.m_steel = copy_table(G.P_CENTERS.m_steel)
-    enhanced_prototype_centers.m_stone = copy_table(G.P_CENTERS.m_stone)
-    enhanced_prototype_centers.m_gold = copy_table(G.P_CENTERS.m_gold)
-    enhanced_prototype_centers.m_lucky = copy_table(G.P_CENTERS.m_lucky)    -- not needed but w/e
+    enhanced_prototype_centers.m_bonus = G.P_CENTERS.m_bonus.config.bonus
+    enhanced_prototype_centers.m_mult = G.P_CENTERS.m_mult.config.mult
+    enhanced_prototype_centers.m_glass = G.P_CENTERS.m_glass.config.Xmult
+    enhanced_prototype_centers.m_steel = G.P_CENTERS.m_steel.config.h_x_mult
+    enhanced_prototype_centers.m_stone = G.P_CENTERS.m_stone.config.bonus
+    enhanced_prototype_centers.m_gold = G.P_CENTERS.m_gold.config.h_dollars
     
     -- Save vanilla enhanced descriptions
     G.localization.descriptions.Enhanced.m_wild_bak = G.localization.descriptions.Enhanced.m_wild
@@ -1099,26 +1097,32 @@ local function custom_debuff_card(curse, card)
 
     if card and curse then
         if curse.name == 'The Goad' and card:is_suit('Spades', true) and is_curse_triggered(curse) then
+            card.params.debuff_by_curse = true
             card:set_debuff(true)
             return
         end
         if curse.name == 'The Plant' and card:is_face(true) and is_curse_triggered(curse) then
+            card.params.debuff_by_curse = true
             card:set_debuff(true)
             return
         end
         if curse.name == 'The Head' and card:is_suit('Hearts', true) and is_curse_triggered(curse) then
+            card.params.debuff_by_curse = true
             card:set_debuff(true)
             return
         end
         if curse.name == 'The Club' and card:is_suit('Clubs', true) and is_curse_triggered(curse) then
+            card.params.debuff_by_curse = true
             card:set_debuff(true)
             return
         end
         if curse.name == 'The Window' and card:is_suit('Diamonds', true) and is_curse_triggered(curse) then
+            card.params.debuff_by_curse = true
             card:set_debuff(true)
             return
         end
         if curse.name == 'The Pillar' and card.ability.played_this_ante and is_curse_triggered(curse) then
+            card.params.debuff_by_curse = true
             card:set_debuff(true)
             return
         end
@@ -1140,14 +1144,12 @@ end
 local Game_delete_run_ref = Game.delete_run
 function Game.delete_run(self)
 
-    G.P_CENTERS.m_bonus = copy_table(enhanced_prototype_centers.m_bonus)
-    G.P_CENTERS.m_mult = copy_table(enhanced_prototype_centers.m_mult)
-    G.P_CENTERS.m_wild = copy_table(enhanced_prototype_centers.m_wild)
-    G.P_CENTERS.m_glass = copy_table(enhanced_prototype_centers.m_glass)
-    G.P_CENTERS.m_steel = copy_table(enhanced_prototype_centers.m_steel)
-    G.P_CENTERS.m_stone = copy_table(enhanced_prototype_centers.m_stone)
-    G.P_CENTERS.m_gold = copy_table(enhanced_prototype_centers.m_gold)
-    G.P_CENTERS.m_lucky = copy_table(enhanced_prototype_centers.m_lucky)    -- not needed but w/e
+    G.P_CENTERS.m_bonus.config.bonus = enhanced_prototype_centers.m_bonus
+    G.P_CENTERS.m_mult.config.mult = enhanced_prototype_centers.m_mult
+    G.P_CENTERS.m_glass.config.Xmult = enhanced_prototype_centers.m_glass
+    G.P_CENTERS.m_steel.config.h_x_mult = enhanced_prototype_centers.m_steel
+    G.P_CENTERS.m_stone.config.bonus = enhanced_prototype_centers.m_stone
+    G.P_CENTERS.m_gold.config.h_dollars = enhanced_prototype_centers.m_gold
 
     G.localization.descriptions.Enhanced.m_wild = G.localization.descriptions.Enhanced.m_wild_bak
 
@@ -1158,14 +1160,12 @@ end
 local Game_start_run_ref = Game.start_run
 function Game.start_run(self, args)
 
-    G.P_CENTERS.m_bonus = copy_table(enhanced_prototype_centers.m_bonus)
-    G.P_CENTERS.m_mult = copy_table(enhanced_prototype_centers.m_mult)
-    G.P_CENTERS.m_wild = copy_table(enhanced_prototype_centers.m_wild)
-    G.P_CENTERS.m_glass = copy_table(enhanced_prototype_centers.m_glass)
-    G.P_CENTERS.m_steel = copy_table(enhanced_prototype_centers.m_steel)
-    G.P_CENTERS.m_stone = copy_table(enhanced_prototype_centers.m_stone)
-    G.P_CENTERS.m_gold = copy_table(enhanced_prototype_centers.m_gold)
-    G.P_CENTERS.m_lucky = copy_table(enhanced_prototype_centers.m_lucky)    -- not needed but w/e
+    G.P_CENTERS.m_bonus.config.bonus = enhanced_prototype_centers.m_bonus
+    G.P_CENTERS.m_mult.config.mult = enhanced_prototype_centers.m_mult
+    G.P_CENTERS.m_glass.config.Xmult = enhanced_prototype_centers.m_glass
+    G.P_CENTERS.m_steel.config.h_x_mult = enhanced_prototype_centers.m_steel
+    G.P_CENTERS.m_stone.config.bonus = enhanced_prototype_centers.m_stone
+    G.P_CENTERS.m_gold.config.h_dollars = enhanced_prototype_centers.m_gold
 
     G.localization.descriptions.Enhanced.m_wild = G.localization.descriptions.Enhanced.m_wild_bak
 
@@ -3886,9 +3886,15 @@ end
 local card_set_debuff_ref = Card.set_debuff
 function Card.set_debuff(self, should_debuff)
 
-    if should_debuff and self.base and self.base.suit and ((self.base.suit == 'Diamonds' and G.GAME.used_cu_augments.c_star_cu) or (self.base.suit == 'Clubs' and G.GAME.used_cu_augments.c_moon_cu) or (self.base.suit == 'Hearts' and G.GAME.used_cu_augments.c_sun_cu) or (self.base.suit == 'Spades' and G.GAME.used_cu_augments.c_world_cu)) then   -- Overwrite
+    -- Check for suit buff
+    if self.base and self.base.suit and ((self.base.suit == 'Diamonds' and G.GAME.used_cu_augments.c_star_cu) or (self.base.suit == 'Clubs' and G.GAME.used_cu_augments.c_moon_cu) or (self.base.suit == 'Hearts' and G.GAME.used_cu_augments.c_sun_cu) or (self.base.suit == 'Spades' and G.GAME.used_cu_augments.c_world_cu)) then   -- Overwrite
         card_set_debuff_ref(self, false)
-    else    -- Vanilla
+        self.params.debuff_by_curse = nil
+    -- Check if the debuff is from a curse
+    elseif not should_debuff and self.params.debuff_by_curse then
+        card_set_debuff_ref(self, self.params.debuff_by_curse)
+    -- Vanilla
+    else
         card_set_debuff_ref(self, should_debuff)
     end
 end
@@ -3994,8 +4000,8 @@ function Blind.press_play(self)
                         if any_selected then G.FUNCS.discard_cards_from_highlighted(nil, true) end
                         v:juice_up(0.3, 0.2)
                         play_sound('tarot2', 0.76, 0.4)
-                        delay(0.7)
                     return true end })) 
+                    delay(0.7)
                 end
                 if v.name == "The Tooth" then
                     G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0.2, func = function()
@@ -4190,8 +4196,14 @@ end
 local blind_defeat_ref = Blind.defeat
 function Blind.defeat(self, silent)
     
-    blind_defeat_ref(self, silent)
+    for k, v in pairs(G.playing_cards) do
+        if v.params.debuff_by_curse then
+            v.params.debuff_by_curse = nil
+        end
+    end
 
+    blind_defeat_ref(self, silent)
+    
     if (G.GAME.curses) then
         for k, v in pairs(G.GAME.curses) do
             if v.config.type == 'curse' then
