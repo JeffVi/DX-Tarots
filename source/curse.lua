@@ -37,7 +37,7 @@ function Curse:load(curse_savetable)
     G.GAME.curse_tally = math.max(self.tally, G.GAME.curse_tally) + 1
 
     -- Prevent having same boss and curse
-    G.GAME.banned_keys["bl"..string.sub(curse_savetable.key, 3, -1)] = true
+    --G.GAME.banned_keys["bl"..string.sub(curse_savetable.key, 3, -1)] = true
 end
 
 function Curse:juice_up(_scale, _rot)
@@ -123,6 +123,7 @@ function Curse:get_uibox_table(curse_sprite)
     elseif name_to_check == 'The Serpent' then loc_vars = {self.config.extra}
     elseif name_to_check == 'The Pillar' then loc_vars = {self.config.chanceN, self.config.chanceD}
     elseif name_to_check == 'The Flint' then loc_vars = {math.floor(100 - self.config.extra * 100)}
+    elseif name_to_check == 'Violet Vessel' then loc_vars = {math.floor((self.config.extra^self.ability.exp) * 100 - 100), self.ability.exp}
     end
     curse_sprite.ability_UIBox_table = generate_card_ui(G.P_CURSES[self.key], nil, loc_vars, 'curse', badges)
     return curse_sprite
@@ -350,7 +351,16 @@ local function setUpLocalizationCurses()
                 "drawn {C:attention}face down{}",
                 "{C:inactive}(Fixed probability){}"
             }
-        }
+        },
+        cu_final_vessel = {
+            name = "Violet Vessel",
+            text = {
+                "Increase Blind size by {C:attention}#1#%{}",
+                "Getting a {X:black,C:white}curse{} will {C:attention}increase{} this",
+                "ammount instead of applying a new {X:black,C:white}curse{}",
+                "{C:inactive}(Currently: #2#){}"
+            }
+        },
     }
 end
 
@@ -383,6 +393,8 @@ function setUpCurses()
         cu_serpent =         {name = 'The Serpent',  set = 'Curse', discovered = true, min_ante = nil, order = 21, config = {type = 'curse', extra = 2}, pos = {x = 0,y = 15}},
         cu_pillar =          {name = 'The Pillar',   set = 'Curse', discovered = true, min_ante = nil, order = 22, config = {type = 'curse', chanceN = 1, chanceD = 2}, pos = {x = 0,y = 16}},
         cu_flint =           {name = 'The Flint',    set = 'Curse', discovered = true, min_ante = nil, order = 23, config = {type = 'curse', extra = 0.7}, pos = {x = 0,y = 24}},
+        
+        cu_final_vessel =    {name = 'Violet Vessel',set = 'Curse', discovered = true, min_ante = nil, order = 23, config = {type = 'final_curse', extra = 1.5}, pos = {x=0, y=29}},
     }
 
     G.P_CENTER_POOLS.Curse = {}
@@ -418,12 +430,12 @@ function add_curse(_curse)
     G.HUD_curses = G.HUD_curses or {}
     local curse_sprite_ui = _curse:generate_UI()
     G.HUD_curses[#G.HUD_curses+1] = UIBox{
-        definition = {n=G.UIT.ROOT, config={align = "cm",padding = 0.04, colour = G.C.CLEAR}, nodes={
+        definition = {n=G.UIT.ROOT, config={align = "cm",padding = - 0.12, colour = G.C.CLEAR}, nodes={
           curse_sprite_ui
         }},
         config = {
           align = G.HUD_curses[1] and 'tm' or 'bri',
-          offset = G.HUD_curses[1] and {x=0,y=0} or {x=1.4,y=0},
+          offset = G.HUD_curses[1] and {x=0,y=0} or {x=1.27,y=-0.5},
           major = G.HUD_curses[1] and G.HUD_curses[#G.HUD_curses] or G.ROOM_ATTACH}
     }
     
@@ -432,37 +444,63 @@ function add_curse(_curse)
 end
 
 function create_curse()
+    
+    -- Check if we already pulled the final curse
+    if G.GAME.final_curse then
+        -- Increase its exp
+        for k, v in pairs(G.GAME.curses) do
+            if v.config.type == 'final_curse' then
+                v.ability.exp = v.ability.exp + 1
+                G.E_MANAGER:add_event(Event({
+                    trigger = 'after',
+                    delay =  0.7,
+                    func = (function() 
+                            v:juice_up(0.3, 0.2)
+                            play_sound('tarot2', 0.76, 0.4)
+                        return true
+                    end)
+                }))
+                break
+            end
+        end
+    else
+        -- Create curse
+        local _pool, _pool_key = get_current_pool('Curse')
+        local _curse = pseudorandom_element(_pool, pseudoseed(_pool_key))
+        local it = 1
+        while _curse == 'UNAVAILABLE' do
+            it = it + 1
+            _curse = pseudorandom_element(_pool, pseudoseed(_pool_key..'_resample'..it))
+        end
 
-    -- Create curse
-    local _pool, _pool_key = get_current_pool('Curse')
-    local _curse = pseudorandom_element(_pool, pseudoseed(_pool_key))
-    local it = 1
-    while _curse == 'UNAVAILABLE' do
-        it = it + 1
-        _curse = pseudorandom_element(_pool, pseudoseed(_pool_key..'_resample'..it))
-    end
-    local new_curse = Curse(_curse)
+        local new_curse = Curse(_curse)
 
-    -- Add curse
-    add_curse(new_curse)
-
-    -- Prevent having same boss and curse
-    G.GAME.banned_keys["bl"..string.sub(_curse, 3, -1)] = true
-
-    if new_curse.name == 'The Eye' then
-        new_curse.ability.hand = {
-            ["Flush Five"] = false,
-            ["Flush House"] = false,
-            ["Five of a Kind"] = false,
-            ["Straight Flush"] = false,
-            ["Four of a Kind"] = false,
-            ["Full House"] = false,
-            ["Flush"] = false,
-            ["Straight"] = false,
-            ["Three of a Kind"] = false,
-            ["Two Pair"] = false,
-            ["Pair"] = false,
-            ["High Card"] = false,
-        }
+        -- Check is this is a final curse or a regular curse
+        if new_curse.config.type == 'final_curse' then
+                G.GAME.final_curse = true
+                new_curse.ability.exp = 1
+        end
+        -- Add curse
+        add_curse(new_curse)
+    
+        -- Prevent having same boss and curse
+        --G.GAME.banned_keys["bl"..string.sub(_curse, 3, -1)] = true
+    
+        if new_curse.name == 'The Eye' then
+            new_curse.ability.hand = {
+                ["Flush Five"] = false,
+                ["Flush House"] = false,
+                ["Five of a Kind"] = false,
+                ["Straight Flush"] = false,
+                ["Four of a Kind"] = false,
+                ["Full House"] = false,
+                ["Flush"] = false,
+                ["Straight"] = false,
+                ["Three of a Kind"] = false,
+                ["Two Pair"] = false,
+                ["Pair"] = false,
+                ["High Card"] = false,
+            }
+        end
     end
 end

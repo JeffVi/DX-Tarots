@@ -1132,6 +1132,7 @@ function Game.init_game_object(self)
 
     local ret = Game_init_game_object_ref(self)
     ret.used_cu_augments = {}
+    ret.final_curse = false
     return ret
 end
 
@@ -1385,7 +1386,8 @@ function get_current_pool(_type, _rarity, _legendary, _append)
                 end
             elseif _type == 'Curse' then
                 add = true
-                if v.name == G.P_BLINDS[G.GAME.round_resets.blind_choices.Boss].name then add = nil
+                --if v.name == G.P_BLINDS[G.GAME.round_resets.blind_choices.Boss].name then add = nil
+                if v.config.type == 'final_curse' then add = nil
                 else
                     for kt, vt in ipairs(G.GAME.curses) do
                         if v.name == vt.name then
@@ -1394,6 +1396,8 @@ function get_current_pool(_type, _rarity, _legendary, _append)
                         end
                     end
                 end
+            elseif _type == 'Final_Curse' then
+                if v.config.type == 'final_curse' then add = true end
             end
     
             if v.no_pool_flag and G.GAME.pool_flags[v.no_pool_flag] then add = nil end
@@ -1410,11 +1414,11 @@ function get_current_pool(_type, _rarity, _legendary, _append)
         --if pool is empty, return normal pool
         if _pool_size == 0 then
             _pool = EMPTY(G.ARGS.TEMP_POOL)
-            if _type == 'Tarot_dx' then return get_current_pool_ref("Tarot", _rarity, _legendary, _append)
-            elseif _type == 'Tarot_cu' then return get_current_pool_ref("Tarot_dx", _rarity, _legendary, _append)
-            elseif _type == 'Planet_dx' then return get_current_pool_ref("Planet", _rarity, _legendary, _append)
-            elseif _type == 'Spectral_dx' then return get_current_pool_ref("Spectral", _rarity, _legendary, _append)
-            elseif _type == 'Curse' then _pool[#_pool + 1] = "cu_wall"
+            if _type == 'Tarot_dx' then return get_current_pool("Tarot", _rarity, _legendary, _append)
+            elseif _type == 'Tarot_cu' then return get_current_pool("Tarot_dx", _rarity, _legendary, _append)
+            elseif _type == 'Planet_dx' then return get_current_pool("Planet", _rarity, _legendary, _append)
+            elseif _type == 'Spectral_dx' then return get_current_pool("Spectral", _rarity, _legendary, _append)
+            elseif _type == 'Curse' then _pool[#_pool + 1] = "cu_final_vessel"
             else _pool[#_pool + 1] = "c_fool_dx"    -- Should never happen...
             end
         end
@@ -4017,10 +4021,24 @@ function Blind.set_blind(self, blind, reset, silent)
             -- Temp fix! For some reason, the animation of the last curse is removed at specific events. Force it back until the problem is solved. TODO
             if not G.ANIMATIONS[v.curse_sprite] then table.insert(G.ANIMATIONS, v.curse_sprite) end
 
-            if v.config.type == 'curse' and (not reset) and (not silent) then
+            if (v.config.type == 'curse' or v.config.type == 'final_curse') and (not reset) and (not silent) then
                 if v.name == "The Wall" then
                     v.triggered = true
                     self.chips = math.floor(self.chips * v.config.extra)
+                    self.chip_text = number_format(self.chips)
+                    G.E_MANAGER:add_event(Event({
+                        trigger = 'after',
+                        delay =  0.7,
+                        func = (function() 
+                                v:juice_up(0.3, 0.2)
+                                play_sound('tarot2', 0.76, 0.4)
+                            return true
+                        end)
+                    }))
+                end
+                if v.name == "Violet Vessel" then
+                    v.triggered = true
+                    self.chips = math.floor(self.chips * (v.config.extra^v.ability.exp))
                     self.chip_text = number_format(self.chips)
                     G.E_MANAGER:add_event(Event({
                         trigger = 'after',
