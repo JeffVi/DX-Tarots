@@ -55,20 +55,20 @@ local function setup_consumables()
     G.P_CENTERS.c_fool_cu=             {order = 1,     discovered = true, cost = 5, consumeable = true, name = "The Cursed Fool", pos = {x=0,y=0}, set = "Tarot_cu", effect = "Disable Blind Effect", cost_mult = 1.0, config = {unique = true, nb_curse = 1}}
     G.P_CENTERS.c_magician_cu=         {order = 2,     discovered = true, cost = 5, consumeable = true, name = "The Cursed Magician", pos = {x=1,y=0}, set = "Tarot_cu", effect = "Round Bonus", cost_mult = 1.0, config = {unique = true, nb_curse = 2}}
     G.P_CENTERS.c_high_priestess_cu=   {order = 3,     discovered = true, cost = 5, consumeable = true, name = "The Cursed High Priestess", pos = {x=2,y=0}, set = "Tarot_cu", effect = "Round Bonus", cost_mult = 1.0, config = {planets = 2, prob_mult = 2, unique = true, nb_curse = 1}}
-    G.P_CENTERS.c_empress_cu=          {order = 4,     discovered = true, cost = 5, consumeable = true, name = "The Cursed Empress", pos = {x=3,y=0}, set = "Tarot_cu", effect = "Round Bonus", cost_mult = 1.0, config = {mod_conv = 'm_mult', extra = 12, unique = true, nb_curse = 1}}
+    G.P_CENTERS.c_empress_cu=          {order = 4,     discovered = true, cost = 5, consumeable = true, name = "The Cursed Empress", pos = {x=3,y=0}, set = "Tarot_cu", effect = "Round Bonus", cost_mult = 1.0, config = {mod_conv = 'm_mult', extra = 8, unique = true, nb_curse = 1}}
     G.P_CENTERS.c_emperor_cu=          {order = 5,     discovered = true, cost = 5, consumeable = true, name = "The Cursed Emperor", pos = {x=4,y=0}, set = "Tarot_cu", effect = "Round Bonus", cost_mult = 1.0, config = {tarots = 6, unique = true, nb_curse = 1}}
-    G.P_CENTERS.c_heirophant_cu=       {order = 6,     discovered = true, cost = 5, consumeable = true, name = "The Cursed Hierophant", pos = {x=5,y=0}, set = "Tarot_cu", effect = "Round Bonus", cost_mult = 1.0, config = {mod_conv = 'm_bonus', extra = 90, max_highlighted = 4, unique = true, nb_curse = 1}}
+    G.P_CENTERS.c_heirophant_cu=       {order = 6,     discovered = true, cost = 5, consumeable = true, name = "The Cursed Hierophant", pos = {x=5,y=0}, set = "Tarot_cu", effect = "Round Bonus", cost_mult = 1.0, config = {mod_conv = 'm_bonus', extra = 60, max_highlighted = 4, unique = true, nb_curse = 1}}
     G.P_CENTERS.c_lovers_cu=           {order = 7,     discovered = true, cost = 5, consumeable = true, name = "The Cursed Lovers", pos = {x=6,y=0}, set = "Tarot_cu", effect = "Round Bonus", cost_mult = 1.0, config = {mod_conv = 'm_wild', unique = true, nb_curse = 1}}
-    G.P_CENTERS.c_chariot_cu=          {order = 8,     discovered = true, cost = 5, consumeable = true, name = "The Cursed Chariot", pos = {x=7,y=0}, set = "Tarot_cu", effect = "Round Bonus", cost_mult = 1.0, config = {mod_conv = 'm_steel', extra = 2.5, unique = true, nb_curse = 2}}
-    G.P_CENTERS.c_justice_cu=          {order = 9,     discovered = true, cost = 5, consumeable = true, name = "Cursed Justice", pos = {x=8,y=0}, set = "Tarot_cu", effect = "Round Bonus", cost_mult = 1.0, config = {mod_conv = 'm_glass', extra = 5, unique = true, nb_curse = 2}}
+    G.P_CENTERS.c_chariot_cu=          {order = 8,     discovered = true, cost = 5, consumeable = true, name = "The Cursed Chariot", pos = {x=7,y=0}, set = "Tarot_cu", effect = "Round Bonus", cost_mult = 1.0, config = {mod_conv = 'm_steel', extra = 1, unique = true, nb_curse = 2}}
+    G.P_CENTERS.c_justice_cu=          {order = 9,     discovered = true, cost = 5, consumeable = true, name = "Cursed Justice", pos = {x=8,y=0}, set = "Tarot_cu", effect = "Round Bonus", cost_mult = 1.0, config = {mod_conv = 'm_glass', extra = 3, unique = true, nb_curse = 2}}
     G.P_CENTERS.c_hermit_cu=           {order = 10,    discovered = true, cost = 5, consumeable = true, name = "The Cursed Hermit", pos = {x=9,y=0}, set = "Tarot_cu", effect = "Dollar Doubler", cost_mult = 1.0, config = {extra = 50, unique = true, nb_curse = 2}}
     G.P_CENTERS.c_wheel_of_fortune_cu= {order = 11,    discovered = true, cost = 5, consumeable = true, name = "The Cursed Wheel of Fortune", pos = {x=0,y=1}, set = "Tarot_cu", effect = "Round Bonus", cost_mult = 1.0, config = {unique = true, nb_curse = 2, extra = 3}}
     G.P_CENTERS.c_strength_cu=         {order = 12,    discovered = true, cost = 5, consumeable = true, name = "Cursed Strength", pos = {x=1,y=1}, set = "Tarot_cu", effect = "Round Bonus", cost_mult = 1.0, config = {mod_conv = 'up_rank', max_highlighted = 5, min_highlighted = 1, unique = true, nb_curse = 2}}
     G.P_CENTERS.c_hanged_man_cu=       {order = 13,    discovered = true, cost = 5, consumeable = true, name = "The Cursed Hanged Man", pos = {x=2,y=1}, set = "Tarot_cu", effect = "Card Removal", cost_mult = 1.0, config = {remove_card = true, max_highlighted = 4, min_highlighted = 1, unique = true, nb_curse = 2}}
     G.P_CENTERS.c_death_cu=            {order = 14,    discovered = true, cost = 5, consumeable = true, name = "Cursed Death", pos = {x=3,y=1}, set = "Tarot_cu", effect = "Card Conversion", cost_mult = 1.0, config = {mod_conv = 'card', max_highlighted = 5, min_highlighted = 2, unique = true, nb_curse = 2}}
     G.P_CENTERS.c_temperance_cu=       {order = 15,    discovered = true, cost = 5, consumeable = true, name = "Cursed Temperance", pos = {x=4,y=1}, set = "Tarot_cu", effect = "Joker Payout", cost_mult = 1.0, config = {extra = 60, unique = true, nb_curse = 1}}
-    G.P_CENTERS.c_devil_cu=            {order = 16,    discovered = true, cost = 5, consumeable = true, name = "The Cursed Devil", pos = {x=5,y=1}, set = "Tarot_cu", effect = "Enhance", cost_mult = 1.0, config = {mod_conv = 'm_gold', extra = 8, unique = true, nb_curse = 2}}
-    G.P_CENTERS.c_tower_cu=            {order = 17,    discovered = true, cost = 5, consumeable = true, name = "The Cursed Tower", pos = {x=6,y=1}, set = "Tarot_cu", effect = "Enhance", cost_mult = 1.0, config = {mod_conv = 'm_stone', extra = 250, unique = true, nb_curse = 1}}
+    G.P_CENTERS.c_devil_cu=            {order = 16,    discovered = true, cost = 5, consumeable = true, name = "The Cursed Devil", pos = {x=5,y=1}, set = "Tarot_cu", effect = "Enhance", cost_mult = 1.0, config = {mod_conv = 'm_gold', extra = 5, unique = true, nb_curse = 2}}
+    G.P_CENTERS.c_tower_cu=            {order = 17,    discovered = true, cost = 5, consumeable = true, name = "The Cursed Tower", pos = {x=6,y=1}, set = "Tarot_cu", effect = "Enhance", cost_mult = 1.0, config = {mod_conv = 'm_stone', extra = 200, unique = true, nb_curse = 1}}
     G.P_CENTERS.c_star_cu=             {order = 18,    discovered = true, cost = 5, consumeable = true, name = "The Cursed Star", pos = {x=7,y=1}, set = "Tarot_cu", effect = "Suit Conversion", cost_mult = 1.0, config = {suit_conv = 'Diamonds', unique = true, nb_curse = 2}}
     G.P_CENTERS.c_moon_cu=             {order = 19,    discovered = true, cost = 5, consumeable = true, name = "The Cursed Moon", pos = {x=8,y=1}, set = "Tarot_cu", effect = "Suit Conversion", cost_mult = 1.0, config = {suit_conv = 'Clubs', unique = true, nb_curse = 2}}
     G.P_CENTERS.c_sun_cu=              {order = 20,    discovered = true, cost = 5, consumeable = true, name = "The Cursed Sun", pos = {x=9,y=1}, set = "Tarot_cu", effect = "Suit Conversion", cost_mult = 1.0, config = {suit_conv = 'Hearts', unique = true, nb_curse = 2}}
@@ -167,14 +167,14 @@ local function setup_consumables()
     table.sort(G.P_CENTER_POOLS["Booster_dx"], function (a, b) return a.order < b.order end)
 
     -- Save vanilla enhanced centers
-    enhanced_prototype_centers.m_bonus = G.P_CENTERS.m_bonus
-    enhanced_prototype_centers.m_mult = G.P_CENTERS.m_mult
-    enhanced_prototype_centers.m_wild = G.P_CENTERS.m_wild
-    enhanced_prototype_centers.m_glass = G.P_CENTERS.m_glass
-    enhanced_prototype_centers.m_steel = G.P_CENTERS.m_steel
-    enhanced_prototype_centers.m_stone = G.P_CENTERS.m_stone
-    enhanced_prototype_centers.m_gold = G.P_CENTERS.m_gold
-    enhanced_prototype_centers.m_lucky = G.P_CENTERS.m_lucky    -- not needed but w/e
+    enhanced_prototype_centers.m_bonus = copy_table(G.P_CENTERS.m_bonus)
+    enhanced_prototype_centers.m_mult = copy_table(G.P_CENTERS.m_mult)
+    enhanced_prototype_centers.m_wild = copy_table(G.P_CENTERS.m_wild)
+    enhanced_prototype_centers.m_glass = copy_table(G.P_CENTERS.m_glass)
+    enhanced_prototype_centers.m_steel = copy_table(G.P_CENTERS.m_steel)
+    enhanced_prototype_centers.m_stone = copy_table(G.P_CENTERS.m_stone)
+    enhanced_prototype_centers.m_gold = copy_table(G.P_CENTERS.m_gold)
+    enhanced_prototype_centers.m_lucky = copy_table(G.P_CENTERS.m_lucky)    -- not needed but w/e
     
     -- Save vanilla enhanced descriptions
     G.localization.descriptions.Enhanced.m_wild_bak = G.localization.descriptions.Enhanced.m_wild
@@ -558,7 +558,7 @@ local function setUpLocalizationTarotCU()
         name = "Cursed Judgement",
         text = {
             "Creates a random",
-            "{C:red}Rare{} {C:attention}Joker{} card",
+            "{C:red}rare{} {C:attention}Joker{} card",
             "{C:inactive}(Must have room)"
         }
     }
@@ -1140,14 +1140,14 @@ end
 local Game_delete_run_ref = Game.delete_run
 function Game.delete_run(self)
 
-    G.P_CENTERS.m_bonus = enhanced_prototype_centers.m_bonus
-    G.P_CENTERS.m_mult = enhanced_prototype_centers.m_mult
-    G.P_CENTERS.m_wild = enhanced_prototype_centers.m_wild
-    G.P_CENTERS.m_glass = enhanced_prototype_centers.m_glass
-    G.P_CENTERS.m_steel = enhanced_prototype_centers.m_steel
-    G.P_CENTERS.m_stone = enhanced_prototype_centers.m_stone
-    G.P_CENTERS.m_gold = enhanced_prototype_centers.m_gold
-    G.P_CENTERS.m_lucky = enhanced_prototype_centers.m_lucky    -- not needed but w/e
+    G.P_CENTERS.m_bonus = copy_table(enhanced_prototype_centers.m_bonus)
+    G.P_CENTERS.m_mult = copy_table(enhanced_prototype_centers.m_mult)
+    G.P_CENTERS.m_wild = copy_table(enhanced_prototype_centers.m_wild)
+    G.P_CENTERS.m_glass = copy_table(enhanced_prototype_centers.m_glass)
+    G.P_CENTERS.m_steel = copy_table(enhanced_prototype_centers.m_steel)
+    G.P_CENTERS.m_stone = copy_table(enhanced_prototype_centers.m_stone)
+    G.P_CENTERS.m_gold = copy_table(enhanced_prototype_centers.m_gold)
+    G.P_CENTERS.m_lucky = copy_table(enhanced_prototype_centers.m_lucky)    -- not needed but w/e
 
     G.localization.descriptions.Enhanced.m_wild = G.localization.descriptions.Enhanced.m_wild_bak
 
@@ -1157,6 +1157,17 @@ end
 -- Track cursed tarots usage
 local Game_start_run_ref = Game.start_run
 function Game.start_run(self, args)
+
+    G.P_CENTERS.m_bonus = copy_table(enhanced_prototype_centers.m_bonus)
+    G.P_CENTERS.m_mult = copy_table(enhanced_prototype_centers.m_mult)
+    G.P_CENTERS.m_wild = copy_table(enhanced_prototype_centers.m_wild)
+    G.P_CENTERS.m_glass = copy_table(enhanced_prototype_centers.m_glass)
+    G.P_CENTERS.m_steel = copy_table(enhanced_prototype_centers.m_steel)
+    G.P_CENTERS.m_stone = copy_table(enhanced_prototype_centers.m_stone)
+    G.P_CENTERS.m_gold = copy_table(enhanced_prototype_centers.m_gold)
+    G.P_CENTERS.m_lucky = copy_table(enhanced_prototype_centers.m_lucky)    -- not needed but w/e
+
+    G.localization.descriptions.Enhanced.m_wild = G.localization.descriptions.Enhanced.m_wild_bak
 
     Game_start_run_ref(self, args)
 
@@ -1175,14 +1186,14 @@ function Game.start_run(self, args)
     end
     
     if G.GAME.used_cu_augments.c_empress_cu then
-        G.P_CENTERS.m_mult.config.mult = G.P_CENTERS.c_empress_cu.config.extra
+        G.P_CENTERS.m_mult.config.mult = G.P_CENTERS.m_mult.config.mult + (G.P_CENTERS.c_empress_cu.config.extra * G.GAME.used_cu_augments.c_empress_cu)
         for k, v in pairs(G.playing_cards) do
             if v.config.center_key == G.P_CENTERS.c_empress_cu.config.mod_conv then v:set_ability(G.P_CENTERS[G.P_CENTERS.c_empress_cu.config.mod_conv]) end
         end
     end
     
     if G.GAME.used_cu_augments.c_heirophant_cu then
-        G.P_CENTERS.m_bonus.config.bonus = G.P_CENTERS.c_heirophant_cu.config.extra
+        G.P_CENTERS.m_bonus.config.bonus = G.P_CENTERS.m_bonus.config.bonus + (G.P_CENTERS.c_heirophant_cu.config.extra * G.GAME.used_cu_augments.c_heirophant_cu)
         for k, v in pairs(G.playing_cards) do
             if v.config.center_key == G.P_CENTERS.c_heirophant_cu.config.mod_conv then v:set_ability(G.P_CENTERS[G.P_CENTERS.c_heirophant_cu.config.mod_conv]) end
         end
@@ -1193,28 +1204,28 @@ function Game.start_run(self, args)
     end
     
     if G.GAME.used_cu_augments.c_chariot_cu then
-        G.P_CENTERS.m_steel.config.h_x_mult = G.P_CENTERS.c_chariot_cu.config.extra
+        G.P_CENTERS.m_steel.config.h_x_mult = G.P_CENTERS.m_steel.config.h_x_mult + (G.P_CENTERS.c_chariot_cu.config.extra * G.GAME.used_cu_augments.c_chariot_cu)
         for k, v in pairs(G.playing_cards) do
             if v.config.center_key == G.P_CENTERS.c_chariot_cu.config.mod_conv then v:set_ability(G.P_CENTERS[G.P_CENTERS.c_chariot_cu.config.mod_conv]) end
         end
     end
     
     if G.GAME.used_cu_augments.c_justice_cu then
-        G.P_CENTERS.m_glass.config.Xmult = G.P_CENTERS.c_justice_cu.config.extra
+        G.P_CENTERS.m_glass.config.Xmult = G.P_CENTERS.m_glass.config.Xmult + (G.P_CENTERS.c_justice_cu.config.extra * G.GAME.used_cu_augments.c_justice_cu)
         for k, v in pairs(G.playing_cards) do
             if v.config.center_key == G.P_CENTERS.c_justice_cu.config.mod_conv then v:set_ability(G.P_CENTERS[G.P_CENTERS.c_justice_cu.config.mod_conv]) end
         end
     end
     
     if G.GAME.used_cu_augments.c_devil_cu then
-        G.P_CENTERS.m_gold.config.h_dollars = G.P_CENTERS.c_devil_cu.config.extra
+        G.P_CENTERS.m_gold.config.h_dollars = G.P_CENTERS.m_gold.config.h_dollars + (G.P_CENTERS.c_devil_cu.config.extra * G.GAME.used_cu_augments.c_devil_cu)
         for k, v in pairs(G.playing_cards) do
             if v.config.center_key == G.P_CENTERS.c_devil_cu.config.mod_conv then v:set_ability(G.P_CENTERS[G.P_CENTERS.c_devil_cu.config.mod_conv]) end
         end
     end
     
     if G.GAME.used_cu_augments.c_tower_cu then
-        G.P_CENTERS.m_stone.config.bonus = G.P_CENTERS.c_tower_cu.config.extra
+        G.P_CENTERS.m_stone.config.bonus = G.P_CENTERS.m_stone.config.bonus + (G.P_CENTERS.c_tower_cu.config.extra * G.GAME.used_cu_augments.c_tower_cu)
         for k, v in pairs(G.playing_cards) do
             if v.config.center_key == G.P_CENTERS.c_tower_cu.config.mod_conv then v:set_ability(G.P_CENTERS[G.P_CENTERS.c_tower_cu.config.mod_conv]) end
         end
@@ -1848,7 +1859,7 @@ function generate_card_ui(_c, full_UI_table, specific_vars, card_type, badges, h
                if fool_c then
                     info_queue[#info_queue+1] = fool_c
                end
-                loc_vars = {_c.config.extra, localize{type = 'name_text', set = 'Enhanced', key = _c.config.mod_conv, created_card}};
+                loc_vars = {G.P_CENTERS.m_mult.config.mult + _c.config.extra, localize{type = 'name_text', set = 'Enhanced', key = _c.config.mod_conv, created_card}};
             elseif _c.name == "The Cursed Emperor" then
                 info_queue[#info_queue+1] = {key = 'e_negative_consumable', set = 'Edition', config = {extra = 1}}
                 loc_vars = {_c.config.tarots}
@@ -1858,7 +1869,7 @@ function generate_card_ui(_c, full_UI_table, specific_vars, card_type, badges, h
                if fool_c then
                     info_queue[#info_queue+1] = fool_c
                end
-                loc_vars = {_c.config.extra, localize{type = 'name_text', set = 'Enhanced', key = _c.config.mod_conv}}
+                loc_vars = {G.P_CENTERS.m_bonus.config.bonus + _c.config.extra, localize{type = 'name_text', set = 'Enhanced', key = _c.config.mod_conv}}
             elseif _c.name == "The Cursed Lovers" then
                 local fool_c = G.P_CENTERS["c_lovers_dx"] or nil
                 local created_card = fool_c and localize{type = 'name_text', key = fool_c.key, set = fool_c.set} or localize('k_none')
@@ -1872,14 +1883,14 @@ function generate_card_ui(_c, full_UI_table, specific_vars, card_type, badges, h
                if fool_c then
                     info_queue[#info_queue+1] = fool_c
                end
-               loc_vars = {_c.config.extra, localize{type = 'name_text', set = 'Enhanced', key = _c.config.mod_conv}}
+               loc_vars = {G.P_CENTERS.m_steel.config.h_x_mult + _c.config.extra, localize{type = 'name_text', set = 'Enhanced', key = _c.config.mod_conv}}
             elseif _c.name == "Cursed Justice" then
                 local fool_c = G.P_CENTERS["c_justice_dx"] or nil
                 local created_card = fool_c and localize{type = 'name_text', key = fool_c.key, set = fool_c.set} or localize('k_none')
                if fool_c then
                     info_queue[#info_queue+1] = fool_c
                end
-               loc_vars = {_c.config.extra, localize{type = 'name_text', set = 'Enhanced', key = _c.config.mod_conv}}
+               loc_vars = {G.P_CENTERS.m_glass.config.Xmult + _c.config.extra, localize{type = 'name_text', set = 'Enhanced', key = _c.config.mod_conv}}
             elseif _c.name == "The Cursed Hermit" then loc_vars = {_c.config.extra}
             elseif _c.name == "The Cursed Wheel of Fortune" then loc_vars = {G.GAME.probabilities.normal, _c.config.extra}; info_queue[#info_queue+1] = G.P_CENTERS.e_foil; info_queue[#info_queue+1] = G.P_CENTERS.e_holo; info_queue[#info_queue+1] = G.P_CENTERS.e_polychrome; 
             elseif _c.name == "Cursed Strength" then loc_vars = {_c.config.max_highlighted}
@@ -1907,14 +1918,14 @@ function generate_card_ui(_c, full_UI_table, specific_vars, card_type, badges, h
                if fool_c then
                     info_queue[#info_queue+1] = fool_c
                end
-               loc_vars = {_c.config.extra, localize{type = 'name_text', set = 'Enhanced', key = _c.config.mod_conv}}
+               loc_vars = {G.P_CENTERS.m_gold.config.h_dollars + _c.config.extra, localize{type = 'name_text', set = 'Enhanced', key = _c.config.mod_conv}}
             elseif _c.name == "The Cursed Tower" then
                 local fool_c = G.P_CENTERS["c_tower_dx"] or nil
                 local created_card = fool_c and localize{type = 'name_text', key = fool_c.key, set = fool_c.set} or localize('k_none')
                if fool_c then
                     info_queue[#info_queue+1] = fool_c
                end
-               loc_vars = {_c.config.extra, localize{type = 'name_text', set = 'Enhanced', key = _c.config.mod_conv}}
+               loc_vars = {G.P_CENTERS.m_stone.config.bonus + _c.config.extra, localize{type = 'name_text', set = 'Enhanced', key = _c.config.mod_conv}}
             elseif _c.name == "The Cursed Star" then
                 local fool_c = G.P_CENTERS["c_star_dx"] or nil
                 local created_card = fool_c and localize{type = 'name_text', key = fool_c.key, set = fool_c.set} or localize('k_none')
@@ -2784,7 +2795,7 @@ function Card.use_consumeable(self, area, copier)
         if self.debuff then return nil end
         local used_tarot = copier or self
 
-        G.GAME.used_cu_augments[self.config.center_key] = true
+        G.GAME.used_cu_augments[self.config.center_key] = (G.GAME.used_cu_augments[self.config.center_key] or 0) + 1
     
         if self.ability.consumeable.max_highlighted then
             update_hand_text({immediate = true, nopulse = true, delay = 0}, {mult = 0, chips = 0, level = '', handname = ''})
@@ -2851,7 +2862,7 @@ function Card.use_consumeable(self, area, copier)
                         card:add_to_deck()
                         G.consumeables:emplace(card)
                     end
-                    G.P_CENTERS.m_mult.config.mult = self.ability.extra
+                    G.P_CENTERS.m_mult.config.mult = G.P_CENTERS.m_mult.config.mult + self.ability.extra
                     for k, v in pairs(G.playing_cards) do
                         if v.config.center_key == self.ability.consumeable.mod_conv then v:set_ability(G.P_CENTERS[self.ability.consumeable.mod_conv]) end
                     end
@@ -2883,7 +2894,7 @@ function Card.use_consumeable(self, area, copier)
                         card:add_to_deck()
                         G.consumeables:emplace(card)
                     end
-                    G.P_CENTERS.m_bonus.config.bonus = self.ability.extra
+                    G.P_CENTERS.m_bonus.config.bonus = G.P_CENTERS.m_bonus.config.bonus + self.ability.extra
                     for k, v in pairs(G.playing_cards) do
                         if v.config.center_key == self.ability.consumeable.mod_conv then v:set_ability(G.P_CENTERS[self.ability.consumeable.mod_conv]) end
                     end
@@ -2916,7 +2927,7 @@ function Card.use_consumeable(self, area, copier)
                         card:add_to_deck()
                         G.consumeables:emplace(card)
                     end
-                    G.P_CENTERS.m_steel.config.h_x_mult = self.ability.extra
+                    G.P_CENTERS.m_steel.config.h_x_mult = G.P_CENTERS.m_steel.config.h_x_mult + self.ability.extra
                     for k, v in pairs(G.playing_cards) do
                         if v.config.center_key == self.ability.consumeable.mod_conv then v:set_ability(G.P_CENTERS[self.ability.consumeable.mod_conv]) end
                     end
@@ -2934,7 +2945,7 @@ function Card.use_consumeable(self, area, copier)
                         card:add_to_deck()
                         G.consumeables:emplace(card)
                     end
-                    G.P_CENTERS.m_glass.config.Xmult = self.ability.extra
+                    G.P_CENTERS.m_glass.config.Xmult = G.P_CENTERS.m_glass.config.Xmult + self.ability.extra
                     for k, v in pairs(G.playing_cards) do
                         if v.config.center_key == self.ability.consumeable.mod_conv then v:set_ability(G.P_CENTERS[self.ability.consumeable.mod_conv]) end
                     end
@@ -3125,7 +3136,7 @@ function Card.use_consumeable(self, area, copier)
                         card:add_to_deck()
                         G.consumeables:emplace(card)
                     end
-                    G.P_CENTERS.m_gold.config.h_dollars = self.ability.extra
+                    G.P_CENTERS.m_gold.config.h_dollars = G.P_CENTERS.m_gold.config.h_dollars + self.ability.extra
                     for k, v in pairs(G.playing_cards) do
                         if v.config.center_key == self.ability.consumeable.mod_conv then v:set_ability(G.P_CENTERS[self.ability.consumeable.mod_conv]) end
                     end
@@ -3143,7 +3154,7 @@ function Card.use_consumeable(self, area, copier)
                         card:add_to_deck()
                         G.consumeables:emplace(card)
                     end
-                    G.P_CENTERS.m_stone.config.bonus = self.ability.extra
+                    G.P_CENTERS.m_stone.config.bonus = G.P_CENTERS.m_stone.config.bonus + self.ability.extra
                     for k, v in pairs(G.playing_cards) do
                         if v.config.center_key == self.ability.consumeable.mod_conv then v:set_ability(G.P_CENTERS[self.ability.consumeable.mod_conv]) end
                     end

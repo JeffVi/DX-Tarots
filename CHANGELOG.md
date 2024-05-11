@@ -128,7 +128,7 @@ A new badge was created for **Unique** cards. Once pulled, they can no longer be
 
 - **The Hook**: Discards **1** random card per hand played.
 
-- **The Wall**: Increase blind ammounts by **40%**.
+- **The Wall**: Increase blind amounts by **40%**.
 
 - **The Wheel**: **1 in 9** cards get drawn face down.
 
@@ -171,6 +171,8 @@ A new badge was created for **Unique** cards. Once pulled, they can no longer be
 - **The Flint**: Base Chips and Mult are reduced by **30%**.
 
 - **The Mark**: **1 in 2** chance for a face card to be drawn face down.
+
+- **Violet Vessel**: Increase blind amounts by **50%**. Future curses will increase the amount instead of applying new curses.
 
 ### Tarots
 

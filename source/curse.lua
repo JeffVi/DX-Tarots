@@ -21,7 +21,8 @@ function Curse:save()
     return {
         key = self.key,
         tally = self.tally,
-        triggered = self.triggered
+        triggered = self.triggered,
+        ability = self.ability
     }
 end
 
@@ -357,7 +358,7 @@ local function setUpLocalizationCurses()
             text = {
                 "Increase Blind size by {C:attention}#1#%{}",
                 "Getting a {X:black,C:white}curse{} will {C:attention}increase{} this",
-                "ammount instead of applying a new {X:black,C:white}curse{}",
+                "amount instead of applying a new {X:black,C:white}curse{}",
                 "{C:inactive}(Currently: #2#){}"
             }
         },
