@@ -501,7 +501,7 @@ local function setUpLocalizationTarotCU()
     G.localization.descriptions.Tarot_cu.c_temperance_cu = {
         name = "Cursed Temperance",
         text = {
-            "Gives {C:money}$25{} per",
+            "Gives {C:money}$10{} per",
             "current Joker",
             "{C:inactive}(Max of {C:money}$#1#{C:inactive})",
             "{C:inactive}(Currently {C:money}$#2#{C:inactive})"
