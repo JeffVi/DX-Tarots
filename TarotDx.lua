@@ -3306,7 +3306,7 @@ function Card.can_use_consumeable(self, any_state, skip_check)
                     return false
                 end
             end
-            if self.ability.name == 'The Cursed Magician' or self.ability.name == 'The Cursed Empress' or self.ability.name == 'The Cursed Hierophant' or self.ability.name == 'The Cursed Lovers' or self.ability.name == 'The Cursed Chariot' or self.ability.name == 'Cursed Justice' or self.ability.name == 'The Cursed Tower' or self.ability.name == 'The Cursed Moon' or self.ability.name == 'The Cursed Star' or self.ability.name == 'The Cursed Sun' or self.ability.name == 'The Cursed World' then 
+            if self.ability.name == 'The Cursed Magician' or self.ability.name == 'The Cursed Empress' or self.ability.name == 'The Cursed Hierophant' or self.ability.name == 'The Cursed Lovers' or self.ability.name == 'The Cursed Chariot' or self.ability.name == 'Cursed Justice' or self.ability.name == 'The Cursed Devil' or self.ability.name == 'The Cursed Tower' or self.ability.name == 'The Cursed Moon' or self.ability.name == 'The Cursed Star' or self.ability.name == 'The Cursed Sun' or self.ability.name == 'The Cursed World' then 
                 return true
             end
             if G.STATE == G.STATES.SELECTING_HAND or G.STATE == G.STATES.TAROT_PACK or G.STATE == G.STATES.SPECTRAL_PACK or G.STATE == G.STATES.PLANET_PACK then
