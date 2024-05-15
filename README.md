@@ -2,6 +2,10 @@
 
 A Balatro mod that adds Deluxe consumables !
 
+## Feedback
+
+If you've tested this mod, it would be awesome if you could take 5-10 min to give a feedback through [this form](https://forms.gle/qeGz7AGMYQbhgehQ6). It'll greatly help balance future updates!
+
 ## Usage
 
 This mod uses [Steamodded](https://github.com/Steamopollys/Steamodded/).  
