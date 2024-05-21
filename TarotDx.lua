@@ -1535,10 +1535,11 @@ function get_pack(_key, _type)
             end
         end
 
-        return center
-    else
-        return get_pack_ref(_key, _type)
+        if center ~= nil then
+            return center
+        end
     end
+    return get_pack_ref(_key, _type)
 end
 
 -- Overwrite level_up_hand if planet edition is enabled 
