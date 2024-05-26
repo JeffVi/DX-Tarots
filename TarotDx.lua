@@ -3683,7 +3683,7 @@ function SMODS.INIT.JeffDeluxeConsumablesPack()
     sprite_dx:register()
     sprite_dx = SMODS.Sprite:new("Spectral_dx", js_mod.path, "Tarots_dx.png", 71, 95, "asset_atli")
     sprite_dx:register()
-    sprite_dx = SMODS.Sprite:new("Booster_dx", js_mod.path, "Booster_dx.png", 71, 95, "asset_atli")
+    sprite_dx = SMODS.Sprite:new("Booster_dx", js_mod.path, "booster_dx.png", 71, 95, "asset_atli")
     sprite_dx:register()
 
     -- Add consumables
