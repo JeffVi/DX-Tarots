@@ -8,7 +8,7 @@ A new badge was created for DX (deluxe) consumables. They are enhanced versions 
 
 ### Tarots
 
-DX version of Tarot cards were added. They have a 12% *(can be edited)* chance of being pulled instead of a vanilla tarot. They each cost **$5**.
+DX version of Tarot cards were added. They have a 10% *(can be edited)* chance of being pulled instead of a vanilla tarot. They each cost **$5**.
 
 - **The Fool DX**: Creates up to **2** copies of the last Tarot Planet (not DX) card used during this run.
 
@@ -30,7 +30,7 @@ DX version of Tarot cards were added. They have a 12% *(can be edited)* chance o
 
 - **The Hermit DX**: **Triples** money (Max of **$30**).
 
-- **The Wheel of Fortune DX**: 1 in **3** chance to add an edition.
+- **The Wheel of Fortune DX**: 1 in **2** chance to add an edition.
 
 - **Strength DX**: Rank up to ***4** selected cards.
 
@@ -132,23 +132,23 @@ A new badge was created for **Unique** cards. Once pulled, they can no longer be
 
 - **The Wheel**: **1 in 9** cards get drawn face down.
 
-- **The Arm**: **1 in 6** chance to decrease level of played poker hand.
+- **The Arm**: **1 in 7** chance to decrease level of played poker hand.
 
 - **The Psychic**: **X0.6 mult** if played hand does not contain 5 cards.
 
-- **The Goad**: **1 in 2** chance for a Spade card to be debuffed.
+- **The Goad**: **2 in 5** chance for a Spade card to be debuffed.
 
 - **The Water**: **-1** discard.
 
-- **The Eye**: **X0.6 mult** if played hand type was already played this round.
+- **The Eye**: **X0.65 mult** if played hand type was already played this round.
 
-- **The Mouth**: **X0.6 mult** if played hand type is different than the first played this round.
+- **The Mouth**: **X0.65 mult** if played hand type is different than the first played this round.
 
-- **The Plant**: **1 in 2** chance for a face card to be debuffed.
+- **The Plant**: **2 in 5** chance for a face card to be debuffed.
 
 - **The Needle**: **-1** hand.
 
-- **The Head**: **1 in 2** chance for a Heart card to be debuffed.
+- **The Head**: **2 in 5** chance for a Heart card to be debuffed.
 
 - **The Tooth**: **2 in 5** chance per card played to lose $1.
 
@@ -156,27 +156,27 @@ A new badge was created for **Unique** cards. Once pulled, they can no longer be
 
 - **The House**: Cards from first hand have a **2 in 3** chance to be drawn face down.
 
-- **The Club**: **1 in 2** chance for a Club card to be debuffed.
+- **The Club**: **2 in 5** chance for a Club card to be debuffed.
 
-- **The Fish**: Cards drawn after playing a hand have a **1 in 2** chance to be drawn face down.
+- **The Fish**: Cards drawn after playing a hand have a **2 in 3** chance to be drawn face down.
 
-- **The Window**: **1 in 2** chance for a Diamond card to be debuffed.
+- **The Window**: **2 in 5** chance for a Diamond card to be debuffed.
 
 - **The Manacle**: -1 Hand Size **if more than 1 hand remaining**.
 
 - **The Serpent**: Always draw **2** cards after **first** Play or Discard.
 
-- **The Pillar**: After being played, cards have a **1 in 2** chance to be debuffed this Ante.
+- **The Pillar**: After being played, cards have a **2 in 5** chance to be debuffed this Ante.
 
-- **The Flint**: Base Chips and Mult are reduced by **30%**.
+- **The Flint**: Base Chips and Mult are reduced by **20%**.
 
 - **The Mark**: **1 in 2** chance for a face card to be drawn face down.
 
 - **Violet Vessel**: Increase blind amounts by **50%**. Future curses will increase the amount instead of applying new curses.
 
-### Tarots
+### Cursed Tarots
 
-Cursed version of Tarot cards were added. They have a 5% *(can be edited)* chance of being pulled instead of a vanilla tarot. They each cost **$5**. . They are **Unique**.
+Cursed version of Tarot cards were added. They have a 6% *(can be edited)* chance of being pulled instead of a vanilla tarot. They each cost **$5**. . They are **Unique**.
 
 - **The Cursed Fool**: **+1 consumable slot**. Creates **2 copies** of **The Fool DX**.
 
@@ -194,7 +194,7 @@ Cursed version of Tarot cards were added. They have a 5% *(can be edited)* chanc
 
 - **The Cursed Chariot**: Increase Steel cards multiplier **from 1.5 to 2.5**. Creates a copy of **The Chariot DX**.
 
-- **Cursed Justice**: Increase Glass cards multiplier **from 2 to 5**. Creates a copy of **Justice DX**.
+- **Cursed Justice**: Increase Glass cards multiplier **from 2 to 3.5**. Creates a copy of **Justice DX**.
 
 - **The Cursed Hermit**: Gives **$50**.
 

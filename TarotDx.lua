@@ -10,8 +10,8 @@
 
 -- SET CUSTOM CONFIG HERE
 
-local tarot_dx_rate = 0.12              -- (from 0 (0%) to 1 (100%))
-local tarot_cu_rate = 0.1               -- (from 0 (0%) to 1 (100%))
+local tarot_dx_rate = 0.1               -- (from 0 (0%) to 1 (100%))
+local tarot_cu_rate = 0.06              -- (from 0 (0%) to 1 (100%))
 local planet_dx_rate = 0.12             -- (from 0 (0%) to 1 (100%))
 local spectral_dx_rate = 0.15           -- (from 0 (0%) to 1 (100%))
 local booster_dx_rate = 0.1             -- (from 0 (0%) to 1 (100%))
@@ -38,7 +38,7 @@ local function setup_consumables()
     G.P_CENTERS.c_chariot_dx=          {order = 8,     discovered = true, cost = 5, consumeable = true, name = "The Chariot DX", pos = {x=7,y=0}, set = "Tarot_dx", effect = "Enhance", cost_mult = 1.0, config = {mod_conv = 'm_steel', max_highlighted = 2}}
     G.P_CENTERS.c_justice_dx=          {order = 9,     discovered = true, cost = 5, consumeable = true, name = "Justice DX", pos = {x=8,y=0}, set = "Tarot_dx", effect = "Enhance", cost_mult = 1.0, config = {mod_conv = 'm_glass', max_highlighted = 2}}
     G.P_CENTERS.c_hermit_dx=           {order = 10,    discovered = true, cost = 5, consumeable = true, name = "The Hermit DX", pos = {x=9,y=0}, set = "Tarot_dx", effect = "Dollar Doubler", cost_mult = 1.0, config = {extra = 30}}
-    G.P_CENTERS.c_wheel_of_fortune_dx= {order = 11,    discovered = true, cost = 5, consumeable = true, name = "The Wheel of Fortune DX", pos = {x=0,y=1}, set = "Tarot_dx", effect = "Round Bonus", cost_mult = 1.0, config = {extra = 3}}
+    G.P_CENTERS.c_wheel_of_fortune_dx= {order = 11,    discovered = true, cost = 5, consumeable = true, name = "The Wheel of Fortune DX", pos = {x=0,y=1}, set = "Tarot_dx", effect = "Round Bonus", cost_mult = 1.0, config = {extra = 2}}
     G.P_CENTERS.c_strength_dx=         {order = 12,    discovered = true, cost = 5, consumeable = true, name = "Strength DX", pos = {x=1,y=1}, set = "Tarot_dx", effect = "Round Bonus", cost_mult = 1.0, config = {mod_conv = 'up_rank', max_highlighted = 4}}
     G.P_CENTERS.c_hanged_man_dx=       {order = 13,    discovered = true, cost = 5, consumeable = true, name = "The Hanged Man DX", pos = {x=2,y=1}, set = "Tarot_dx", effect = "Card Removal", cost_mult = 1.0, config = {remove_card = true, max_highlighted = 4}}
     G.P_CENTERS.c_death_dx=            {order = 14,    discovered = true, cost = 5, consumeable = true, name = "Death DX", pos = {x=3,y=1}, set = "Tarot_dx", effect = "Card Conversion", cost_mult = 1.0, config = {mod_conv = 'card', max_highlighted = 3, min_highlighted = 2}}
@@ -60,7 +60,7 @@ local function setup_consumables()
     G.P_CENTERS.c_heirophant_cu=       {order = 6,     discovered = true, cost = 5, consumeable = true, name = "The Cursed Hierophant", pos = {x=5,y=0}, set = "Tarot_cu", effect = "Round Bonus", cost_mult = 1.0, config = {mod_conv = 'm_bonus', extra = 60, max_highlighted = 4, unique = true, nb_curse = 1}}
     G.P_CENTERS.c_lovers_cu=           {order = 7,     discovered = true, cost = 5, consumeable = true, name = "The Cursed Lovers", pos = {x=6,y=0}, set = "Tarot_cu", effect = "Round Bonus", cost_mult = 1.0, config = {mod_conv = 'm_wild', unique = true, nb_curse = 1}}
     G.P_CENTERS.c_chariot_cu=          {order = 8,     discovered = true, cost = 5, consumeable = true, name = "The Cursed Chariot", pos = {x=7,y=0}, set = "Tarot_cu", effect = "Round Bonus", cost_mult = 1.0, config = {mod_conv = 'm_steel', extra = 1, unique = true, nb_curse = 2}}
-    G.P_CENTERS.c_justice_cu=          {order = 9,     discovered = true, cost = 5, consumeable = true, name = "Cursed Justice", pos = {x=8,y=0}, set = "Tarot_cu", effect = "Round Bonus", cost_mult = 1.0, config = {mod_conv = 'm_glass', extra = 3, unique = true, nb_curse = 2}}
+    G.P_CENTERS.c_justice_cu=          {order = 9,     discovered = true, cost = 5, consumeable = true, name = "Cursed Justice", pos = {x=8,y=0}, set = "Tarot_cu", effect = "Round Bonus", cost_mult = 1.0, config = {mod_conv = 'm_glass', extra = 1.5, unique = true, nb_curse = 2}}
     G.P_CENTERS.c_hermit_cu=           {order = 10,    discovered = true, cost = 5, consumeable = true, name = "The Cursed Hermit", pos = {x=9,y=0}, set = "Tarot_cu", effect = "Dollar Doubler", cost_mult = 1.0, config = {extra = 50, unique = true, nb_curse = 2}}
     G.P_CENTERS.c_wheel_of_fortune_cu= {order = 11,    discovered = true, cost = 5, consumeable = true, name = "The Cursed Wheel of Fortune", pos = {x=0,y=1}, set = "Tarot_cu", effect = "Round Bonus", cost_mult = 1.0, config = {unique = true, nb_curse = 2, extra = 3}}
     G.P_CENTERS.c_strength_cu=         {order = 12,    discovered = true, cost = 5, consumeable = true, name = "Cursed Strength", pos = {x=1,y=1}, set = "Tarot_cu", effect = "Round Bonus", cost_mult = 1.0, config = {mod_conv = 'up_rank', max_highlighted = 5, min_highlighted = 1, unique = true, nb_curse = 2}}
@@ -1292,9 +1292,6 @@ local function overrides()
                 end
             end
         end
-
-        if ((new_type == 'Tarot') or (new_type == 'Tarot_dx') or (new_type == 'Spectral') or (new_type == 'Spectral_dx')) then new_forced_key = 'c_aura_dx' end
-        G.GAME.banned_keys['c_aura_dx'] = false
 
         local created_card = create_card_ref(new_type, area, legendary, _rarity, skip_materialize, soulable, new_forced_key, key_append)
 

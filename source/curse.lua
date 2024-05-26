@@ -60,7 +60,7 @@ local function setUpLocalizationCurses()
                 "{X:red,C:white} X#1# {} Mult if hand type",
                 "was already played",
                 "this round",
-                "{C:inactive}#2#{}"
+                "{C:attention}#2#{}"
             }
         },
         cu_mouth = {
@@ -69,7 +69,7 @@ local function setUpLocalizationCurses()
                 "{X:red,C:white} X#1# {} Mult if hand type",
                 "is different than the",
                 "first played this round",
-                "{C:inactive}#2#{}"
+                "{C:attention}#2#{}"
             }
         },
         cu_plant = {
@@ -411,23 +411,23 @@ local function override()
                     self:juice_up(0.3, 0.5)
                     create_curse()
                     return true end }))
+                G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0.4, func = function()
+                    attention_text({
+                        text = 'Cursed',
+                        scale = 1.3, 
+                        hold = 1.4,
+                        major = self,
+                        backdrop_colour = G.C.SECONDARY_SET.Tarot,
+                        align = (G.STATE == G.STATES.TAROT_PACK or G.STATE == G.STATES.SPECTRAL_PACK) and 'tm' or 'cm',
+                        offset = {x = 0, y = (G.STATE == G.STATES.TAROT_PACK or G.STATE == G.STATES.SPECTRAL_PACK) and -0.2 or 0},
+                        silent = true
+                        })
+                        G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0.06*G.SETTINGS.GAMESPEED, blockable = false, blocking = false, func = function()
+                            play_sound('tarot2', 0.76, 0.4);return true end}))
+                        play_sound('tarot2', 1, 0.4)
+                        self:juice_up(0.3, 0.5)
+                return true end }))
             end
-            G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0.4, func = function()
-                attention_text({
-                    text = 'Cursed',
-                    scale = 1.3, 
-                    hold = 1.4,
-                    major = self,
-                    backdrop_colour = G.C.SECONDARY_SET.Tarot,
-                    align = (G.STATE == G.STATES.TAROT_PACK or G.STATE == G.STATES.SPECTRAL_PACK) and 'tm' or 'cm',
-                    offset = {x = 0, y = (G.STATE == G.STATES.TAROT_PACK or G.STATE == G.STATES.SPECTRAL_PACK) and -0.2 or 0},
-                    silent = true
-                    })
-                    G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0.06*G.SETTINGS.GAMESPEED, blockable = false, blocking = false, func = function()
-                        play_sound('tarot2', 0.76, 0.4);return true end}))
-                    play_sound('tarot2', 1, 0.4)
-                    self:juice_up(0.3, 0.5)
-            return true end }))
         end
     end
 
@@ -889,9 +889,9 @@ function setup_curses()
     G.P_CURSES = {
         cu_ox =              {name = 'The Ox',       set = 'Curse', discovered = true, min_ante = nil, order = 1, config = {type = 'curse', extra = 5}, pos = {x = 0,y = 2}},
         cu_hook =            {name = 'The Hook',     set = 'Curse', discovered = true, min_ante = nil, order = 2, config = {type = 'curse', extra = 1}, pos = {x = 0,y = 7}},
-        cu_mouth =           {name = 'The Mouth',    set = 'Curse', discovered = true, min_ante = nil, order = 3, config = {type = 'curse', extra = 0.6}, pos = {x = 0,y = 18}},
-        cu_fish =            {name = 'The Fish',     set = 'Curse', discovered = true, min_ante = nil, order = 4, config = {type = 'curse', chanceN = 1, chanceD = 2}, pos = {x = 0,y = 5}},
-        cu_club =            {name = 'The Club',     set = 'Curse', discovered = true, min_ante = nil, order = 5, config = {type = 'curse', chanceN = 1, chanceD = 2}, pos = {x = 0,y = 4}},
+        cu_mouth =           {name = 'The Mouth',    set = 'Curse', discovered = true, min_ante = nil, order = 3, config = {type = 'curse', extra = 0.65}, pos = {x = 0,y = 18}},
+        cu_fish =            {name = 'The Fish',     set = 'Curse', discovered = true, min_ante = nil, order = 4, config = {type = 'curse', chanceN = 2, chanceD = 5}, pos = {x = 0,y = 5}},
+        cu_club =            {name = 'The Club',     set = 'Curse', discovered = true, min_ante = nil, order = 5, config = {type = 'curse', chanceN = 2, chanceD = 5}, pos = {x = 0,y = 4}},
         cu_manacle =         {name = 'The Manacle',  set = 'Curse', discovered = true, min_ante = nil, order = 6, config = {type = 'curse', extra = 1}, pos = {x = 0,y = 8}},
         cu_tooth =           {name = 'The Tooth',    set = 'Curse', discovered = true, min_ante = nil, order = 7, config = {type = 'curse', chanceN = 2, chanceD = 5}, pos = {x = 0,y = 22}},
         cu_wall =            {name = 'The Wall',     set = 'Curse', discovered = true, min_ante = nil, order = 8, config = {type = 'curse', extra = 1.4}, pos = {x = 0,y = 9}},
@@ -899,19 +899,19 @@ function setup_curses()
         cu_mark =            {name = 'The Mark',     set = 'Curse', discovered = true, min_ante = nil, order = 10, config = {type = 'curse', chanceN = 1, chanceD = 2}, pos = {x = 0,y = 23}},
 
         cu_wheel =           {name = 'The Wheel',    set = 'Curse', discovered = true, min_ante = nil, order = 11, config = {type = 'curse', chanceN = 1, chanceD = 9}, pos = {x = 0,y = 10}},
-        cu_arm =             {name = 'The Arm',      set = 'Curse', discovered = true, min_ante = nil, order = 12, config = {type = 'curse', chanceN = 1, chanceD = 6}, pos = {x = 0,y = 11}},
+        cu_arm =             {name = 'The Arm',      set = 'Curse', discovered = true, min_ante = nil, order = 12, config = {type = 'curse', chanceN = 1, chanceD = 7}, pos = {x = 0,y = 11}},
         cu_psychic =         {name = 'The Psychic',  set = 'Curse', discovered = true, min_ante = nil, order = 13, config = {type = 'curse', extra = 0.6}, pos = {x = 0,y = 12}},
-        cu_goad =            {name = 'The Goad',     set = 'Curse', discovered = true, min_ante = nil, order = 14, config = {type = 'curse', chanceN = 1, chanceD = 2}, pos = {x = 0,y = 13}},
+        cu_goad =            {name = 'The Goad',     set = 'Curse', discovered = true, min_ante = nil, order = 14, config = {type = 'curse', chanceN = 2, chanceD = 5}, pos = {x = 0,y = 13}},
         cu_water =           {name = 'The Water',    set = 'Curse', discovered = true, min_ante = nil, order = 15, config = {type = 'curse', extra = 1}, pos = {x = 0,y = 14}},
-        cu_eye =             {name = 'The Eye',      set = 'Curse', discovered = true, min_ante = nil, order = 16, config = {type = 'curse', extra = 0.6}, pos = {x = 0,y = 17}},
-        cu_plant =           {name = 'The Plant',    set = 'Curse', discovered = true, min_ante = nil, order = 17, config = {type = 'curse', chanceN = 1, chanceD = 2}, pos = {x = 0,y = 19}},
+        cu_eye =             {name = 'The Eye',      set = 'Curse', discovered = true, min_ante = nil, order = 16, config = {type = 'curse', extra = 0.65}, pos = {x = 0,y = 17}},
+        cu_plant =           {name = 'The Plant',    set = 'Curse', discovered = true, min_ante = nil, order = 17, config = {type = 'curse', chanceN = 2, chanceD = 5}, pos = {x = 0,y = 19}},
         cu_needle =          {name = 'The Needle',   set = 'Curse', discovered = true, min_ante = nil, order = 18, config = {type = 'curse', extra = 1}, pos = {x = 0,y = 20}},
-        cu_head =            {name = 'The Head',     set = 'Curse', discovered = true, min_ante = nil, order = 19, config = {type = 'curse', chanceN = 1, chanceD = 2}, pos = {x = 0,y = 21}},
-        cu_window =          {name = 'The Window',   set = 'Curse', discovered = true, min_ante = nil, order = 20, config = {type = 'curse', chanceN = 1, chanceD = 2}, pos = {x = 0,y = 6}},
+        cu_head =            {name = 'The Head',     set = 'Curse', discovered = true, min_ante = nil, order = 19, config = {type = 'curse', chanceN = 2, chanceD = 5}, pos = {x = 0,y = 21}},
+        cu_window =          {name = 'The Window',   set = 'Curse', discovered = true, min_ante = nil, order = 20, config = {type = 'curse', chanceN = 2, chanceD = 5}, pos = {x = 0,y = 6}},
 
         cu_serpent =         {name = 'The Serpent',  set = 'Curse', discovered = true, min_ante = nil, order = 21, config = {type = 'curse', extra = 2}, pos = {x = 0,y = 15}},
-        cu_pillar =          {name = 'The Pillar',   set = 'Curse', discovered = true, min_ante = nil, order = 22, config = {type = 'curse', chanceN = 1, chanceD = 2}, pos = {x = 0,y = 16}},
-        cu_flint =           {name = 'The Flint',    set = 'Curse', discovered = true, min_ante = nil, order = 23, config = {type = 'curse', extra = 0.7}, pos = {x = 0,y = 24}},
+        cu_pillar =          {name = 'The Pillar',   set = 'Curse', discovered = true, min_ante = nil, order = 22, config = {type = 'curse', chanceN = 2, chanceD = 5}, pos = {x = 0,y = 16}},
+        cu_flint =           {name = 'The Flint',    set = 'Curse', discovered = true, min_ante = nil, order = 23, config = {type = 'curse', extra = 0.8}, pos = {x = 0,y = 24}},
         
         cu_final_vessel =    {name = 'Violet Vessel',set = 'Curse', discovered = true, min_ante = nil, order = 24, config = {type = 'final_curse', extra = 1.5}, pos = {x=0, y=29}},
     }
