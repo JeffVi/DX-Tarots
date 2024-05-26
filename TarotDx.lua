@@ -1341,12 +1341,12 @@ local function overrides()
                     end
                 end
             end
-        if center ~= nil then
-            return center
+            if center ~= nil then
+                return center
+            end
         end
+        return get_pack_ref(_key, _type)
     end
-    return get_pack_ref(_key, _type)
-end
 
     -- Overwrite level_up_hand if planet edition is enabled 
     local level_up_hand_ref = level_up_hand
