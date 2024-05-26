@@ -2189,7 +2189,6 @@ local function overrides()
                     G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0.4, func = function()
                         local over = false
                         local edition = poll_edition('aura', nil, true, true)
-                        edition = {negative = true}
                         local aura_card = G.hand.highlighted[i]
                         aura_card:set_edition(edition, true)
                     return true end }))
