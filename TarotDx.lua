@@ -578,7 +578,7 @@ local function setUpLocalizationPlanetDX()
     G.localization.descriptions.Planet_dx.c_mercury_dx = {
         name = "Mercury DX",
         text = {
-            "{S:0.8}({S:0.8,V:1}lvl.#1#{S:0.8}){} Level up {C:dark_edition}x2{}",
+            "{s:0.8}({s:0.8,V:1}lvl.#1#{s:0.8}){} Level up {C:dark_edition}x2{}",
             "{C:attention}#2#",
             "{C:mult}+#3#{} Mult and",
             "{C:chips}+#4#{} chips"
@@ -587,7 +587,7 @@ local function setUpLocalizationPlanetDX()
     G.localization.descriptions.Planet_dx.c_venus_dx = {
         name = "Venus DX",
         text = {
-            "{S:0.8}({S:0.8,V:1}lvl.#1#{S:0.8}){} Level up {C:dark_edition}x2{}",
+            "{s:0.8}({s:0.8,V:1}lvl.#1#{s:0.8}){} Level up {C:dark_edition}x2{}",
             "{C:attention}#2#",
             "{C:mult}+#3#{} Mult and",
             "{C:chips}+#4#{} chips"
@@ -596,7 +596,7 @@ local function setUpLocalizationPlanetDX()
     G.localization.descriptions.Planet_dx.c_earth_dx = {
         name = "Earth DX",
         text = {
-            "{S:0.8}({S:0.8,V:1}lvl.#1#{S:0.8}){} Level up {C:dark_edition}x2{}",
+            "{s:0.8}({s:0.8,V:1}lvl.#1#{s:0.8}){} Level up {C:dark_edition}x2{}",
             "{C:attention}#2#",
             "{C:mult}+#3#{} Mult and",
             "{C:chips}+#4#{} chips"
@@ -605,7 +605,7 @@ local function setUpLocalizationPlanetDX()
     G.localization.descriptions.Planet_dx.c_mars_dx = {
         name = "Mars DX",
         text = {
-            "{S:0.8}({S:0.8,V:1}lvl.#1#{S:0.8}){} Level up {C:dark_edition}x2{}",
+            "{s:0.8}({s:0.8,V:1}lvl.#1#{s:0.8}){} Level up {C:dark_edition}x2{}",
             "{C:attention}#2#",
             "{C:mult}+#3#{} Mult and",
             "{C:chips}+#4#{} chips"
@@ -614,7 +614,7 @@ local function setUpLocalizationPlanetDX()
     G.localization.descriptions.Planet_dx.c_jupiter_dx = {
         name = "Jupiter DX",
         text = {
-            "{S:0.8}({S:0.8,V:1}lvl.#1#{S:0.8}){} Level up {C:dark_edition}x2{}",
+            "{s:0.8}({s:0.8,V:1}lvl.#1#{s:0.8}){} Level up {C:dark_edition}x2{}",
             "{C:attention}#2#",
             "{C:mult}+#3#{} Mult and",
             "{C:chips}+#4#{} chips"
@@ -623,7 +623,7 @@ local function setUpLocalizationPlanetDX()
     G.localization.descriptions.Planet_dx.c_saturn_dx = {
         name = "Saturn DX",
         text = {
-            "{S:0.8}({S:0.8,V:1}lvl.#1#{S:0.8}){} Level up {C:attention}x2{}",
+            "{s:0.8}({s:0.8,V:1}lvl.#1#{s:0.8}){} Level up {C:attention}x2{}",
             "{C:attention}#2#",
             "{C:mult}+#3#{} Mult and",
             "{C:chips}+#4#{} chips"
@@ -632,7 +632,7 @@ local function setUpLocalizationPlanetDX()
     G.localization.descriptions.Planet_dx.c_uranus_dx = {
         name = "Uranus DX",
         text = {
-            "{S:0.8}({S:0.8,V:1}lvl.#1#{S:0.8}){} Level up {C:dark_edition}x2{}",
+            "{s:0.8}({s:0.8,V:1}lvl.#1#{s:0.8}){} Level up {C:dark_edition}x2{}",
             "{C:attention}#2#",
             "{C:mult}+#3#{} Mult and",
             "{C:chips}+#4#{} chips"
@@ -641,7 +641,7 @@ local function setUpLocalizationPlanetDX()
     G.localization.descriptions.Planet_dx.c_neptune_dx = {
         name = "Neptune DX",
         text = {
-            "{S:0.8}({S:0.8,V:1}lvl.#1#{S:0.8}){} Level up {C:dark_edition}x2{}",
+            "{s:0.8}({s:0.8,V:1}lvl.#1#{s:0.8}){} Level up {C:dark_edition}x2{}",
             "{C:attention}#2#",
             "{C:mult}+#3#{} Mult and",
             "{C:chips}+#4#{} chips"
@@ -650,7 +650,7 @@ local function setUpLocalizationPlanetDX()
     G.localization.descriptions.Planet_dx.c_pluto_dx = {
         name = "Pluto DX",
         text = {
-            "{S:0.8}({S:0.8,V:1}lvl.#1#{S:0.8}){} Level up {C:dark_edition}x2{}",
+            "{s:0.8}({s:0.8,V:1}lvl.#1#{s:0.8}){} Level up {C:dark_edition}x2{}",
             "{C:attention}#2#",
             "{C:mult}+#3#{} Mult and",
             "{C:chips}+#4#{} chips"
@@ -659,7 +659,7 @@ local function setUpLocalizationPlanetDX()
     G.localization.descriptions.Planet_dx.c_ceres_dx = {
         name = "Ceres DX",
         text = {
-            "{S:0.8}({S:0.8,V:1}lvl.#1#{S:0.8}){} Level up {C:dark_edition}x2{}",
+            "{s:0.8}({s:0.8,V:1}lvl.#1#{s:0.8}){} Level up {C:dark_edition}x2{}",
             "{C:attention}#2#",
             "{C:mult}+#3#{} Mult and",
             "{C:chips}+#4#{} chips"
@@ -668,7 +668,7 @@ local function setUpLocalizationPlanetDX()
     G.localization.descriptions.Planet_dx.c_planet_x_dx = {
         name = "Planet X DX",
         text = {
-            "{S:0.8}({S:0.8,V:1}lvl.#1#{S:0.8}){} Level up {C:dark_edition}x2{}",
+            "{s:0.8}({s:0.8,V:1}lvl.#1#{s:0.8}){} Level up {C:dark_edition}x2{}",
             "{C:attention}#2#",
             "{C:mult}+#3#{} Mult and",
             "{C:chips}+#4#{} chips"
@@ -677,7 +677,7 @@ local function setUpLocalizationPlanetDX()
     G.localization.descriptions.Planet_dx.c_eris_dx = {
         name = "Eris DX",
         text = {
-            "{S:0.8}({S:0.8,V:1}lvl.#1#{S:0.8}){} Level up {C:dark_edition}x2{}",
+            "{s:0.8}({s:0.8,V:1}lvl.#1#{s:0.8}){} Level up {C:dark_edition}x2{}",
             "{C:attention}#2#",
             "{C:mult}+#3#{} Mult and",
             "{C:chips}+#4#{} chips"
@@ -2603,11 +2603,11 @@ local function overrides()
                             card:add_to_deck()
                             G.consumeables:emplace(card)
                         end
-                        for k, v in pairs(G.GAME.probabilities) do 
-                            G.GAME.probabilities[k] = v*2
-                        end
-                        used_tarot:juice_up(0.3, 0.5)
                     end
+                    for k, v in pairs(G.GAME.probabilities) do 
+                        G.GAME.probabilities[k] = v*2
+                    end
+                    used_tarot:juice_up(0.3, 0.5)
                     return true end }))
             end
 
