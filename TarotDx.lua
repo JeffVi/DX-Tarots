@@ -27,121 +27,121 @@ local enhanced_prototype_descriptions = {}
 
 local function setup_consumables()
     
-    -- DX Tarots
-    G.P_CENTERS.c_fool_dx=             {order = 1,     discovered = true, cost = 5, consumeable = true, name = "The Fool DX", pos = {x=0,y=0}, set = "Tarot_dx", effect = "Disable Blind Effect", cost_mult = 1.0, config = {}}
-    G.P_CENTERS.c_magician_dx=         {order = 2,     discovered = true, cost = 5, consumeable = true, name = "The Magician DX", pos = {x=1,y=0}, set = "Tarot_dx", effect = "Enhance", cost_mult = 1.0, config = {mod_conv = 'm_lucky', max_highlighted = 4}}
-    G.P_CENTERS.c_high_priestess_dx=   {order = 3,     discovered = true, cost = 5, consumeable = true, name = "The High Priestess DX", pos = {x=2,y=0}, set = "Tarot_dx", effect = "Round Bonus", cost_mult = 1.0, config = {planets = 2}}
-    G.P_CENTERS.c_empress_dx=          {order = 4,     discovered = true, cost = 5, consumeable = true, name = "The Empress DX", pos = {x=3,y=0}, set = "Tarot_dx", effect = "Enhance", cost_mult = 1.0, config = {mod_conv = 'm_mult', max_highlighted = 4}}
-    G.P_CENTERS.c_emperor_dx=          {order = 5,     discovered = true, cost = 5, consumeable = true, name = "The Emperor DX", pos = {x=4,y=0}, set = "Tarot_dx", effect = "Round Bonus", cost_mult = 1.0, config = {tarots = 2}}
-    G.P_CENTERS.c_heirophant_dx=       {order = 6,     discovered = true, cost = 5, consumeable = true, name = "The Hierophant DX", pos = {x=5,y=0}, set = "Tarot_dx", effect = "Enhance", cost_mult = 1.0, config = {mod_conv = 'm_bonus', max_highlighted = 4}}
-    G.P_CENTERS.c_lovers_dx=           {order = 7,     discovered = true, cost = 5, consumeable = true, name = "The Lovers DX", pos = {x=6,y=0}, set = "Tarot_dx", effect = "Enhance", cost_mult = 1.0, config = {mod_conv = 'm_wild', max_highlighted = 2}}
-    G.P_CENTERS.c_chariot_dx=          {order = 8,     discovered = true, cost = 5, consumeable = true, name = "The Chariot DX", pos = {x=7,y=0}, set = "Tarot_dx", effect = "Enhance", cost_mult = 1.0, config = {mod_conv = 'm_steel', max_highlighted = 2}}
-    G.P_CENTERS.c_justice_dx=          {order = 9,     discovered = true, cost = 5, consumeable = true, name = "Justice DX", pos = {x=8,y=0}, set = "Tarot_dx", effect = "Enhance", cost_mult = 1.0, config = {mod_conv = 'm_glass', max_highlighted = 2}}
-    G.P_CENTERS.c_hermit_dx=           {order = 10,    discovered = true, cost = 5, consumeable = true, name = "The Hermit DX", pos = {x=9,y=0}, set = "Tarot_dx", effect = "Dollar Doubler", cost_mult = 1.0, config = {extra = 30}}
-    G.P_CENTERS.c_wheel_of_fortune_dx= {order = 11,    discovered = true, cost = 5, consumeable = true, name = "The Wheel of Fortune DX", pos = {x=0,y=1}, set = "Tarot_dx", effect = "Round Bonus", cost_mult = 1.0, config = {extra = 2}}
-    G.P_CENTERS.c_strength_dx=         {order = 12,    discovered = true, cost = 5, consumeable = true, name = "Strength DX", pos = {x=1,y=1}, set = "Tarot_dx", effect = "Round Bonus", cost_mult = 1.0, config = {mod_conv = 'up_rank', max_highlighted = 4}}
-    G.P_CENTERS.c_hanged_man_dx=       {order = 13,    discovered = true, cost = 5, consumeable = true, name = "The Hanged Man DX", pos = {x=2,y=1}, set = "Tarot_dx", effect = "Card Removal", cost_mult = 1.0, config = {remove_card = true, max_highlighted = 4}}
-    G.P_CENTERS.c_death_dx=            {order = 14,    discovered = true, cost = 5, consumeable = true, name = "Death DX", pos = {x=3,y=1}, set = "Tarot_dx", effect = "Card Conversion", cost_mult = 1.0, config = {mod_conv = 'card', max_highlighted = 3, min_highlighted = 2}}
-    G.P_CENTERS.c_temperance_dx=       {order = 15,    discovered = true, cost = 5, consumeable = true, name = "Temperance DX", pos = {x=4,y=1}, set = "Tarot_dx", effect = "Joker Payout", cost_mult = 1.0, config = {extra = 60}}
-    G.P_CENTERS.c_devil_dx=            {order = 16,    discovered = true, cost = 5, consumeable = true, name = "The Devil DX", pos = {x=5,y=1}, set = "Tarot_dx", effect = "Enhance", cost_mult = 1.0, config = {mod_conv = 'm_gold', max_highlighted = 2}}
-    G.P_CENTERS.c_tower_dx=            {order = 17,    discovered = true, cost = 5, consumeable = true, name = "The Tower DX", pos = {x=6,y=1}, set = "Tarot_dx", effect = "Enhance", cost_mult = 1.0, config = {mod_conv = 'm_stone', max_highlighted = 2}}
-    G.P_CENTERS.c_star_dx=             {order = 18,    discovered = true, cost = 5, consumeable = true, name = "The Star DX", pos = {x=7,y=1}, set = "Tarot_dx", effect = "Suit Conversion", cost_mult = 1.0, config = {suit_conv = 'Diamonds', max_highlighted = 5}}
-    G.P_CENTERS.c_moon_dx=             {order = 19,    discovered = true, cost = 5, consumeable = true, name = "The Moon DX", pos = {x=8,y=1}, set = "Tarot_dx", effect = "Suit Conversion", cost_mult = 1.0, config = {suit_conv = 'Clubs', max_highlighted = 5}}
-    G.P_CENTERS.c_sun_dx=              {order = 20,    discovered = true, cost = 5, consumeable = true, name = "The Sun DX", pos = {x=9,y=1}, set = "Tarot_dx", effect = "Suit Conversion", cost_mult = 1.0, config = {suit_conv = 'Hearts', max_highlighted = 5}}
-    G.P_CENTERS.c_judgement_dx=        {order = 21,    discovered = true, cost = 5, consumeable = true, name = "Judgement DX", pos = {x=0,y=2}, set = "Tarot_dx", effect = "Random Joker", cost_mult = 1.0, config = {}}
-    G.P_CENTERS.c_world_dx=            {order = 22,    discovered = true, cost = 5, consumeable = true, name = "The World DX", pos = {x=1,y=2}, set = "Tarot_dx", effect = "Suit Conversion", cost_mult = 1.0, config = {suit_conv = 'Spades', max_highlighted = 5}}
+    -- Vanilla DX Tarots
+    G.P_CENTERS.c_fool_dx=             {order = 1,     discovered = true, cost = 5, consumeable = true, name = "The Fool DX", pos = {x=0,y=0}, set = "Tarot", effect = "Disable Blind Effect", cost_mult = 1.0, config = {type = '_dx'}, atlas = 'Van_dx'}
+    G.P_CENTERS.c_magician_dx=         {order = 2,     discovered = true, cost = 5, consumeable = true, name = "The Magician DX", pos = {x=1,y=0}, set = "Tarot", effect = "Enhance", cost_mult = 1.0, config = {type = '_dx', mod_conv = 'm_lucky', max_highlighted = 4}, atlas = 'Van_dx'}
+    G.P_CENTERS.c_high_priestess_dx=   {order = 3,     discovered = true, cost = 5, consumeable = true, name = "The High Priestess DX", pos = {x=2,y=0}, set = "Tarot", effect = "Round Bonus", cost_mult = 1.0, config = {type = '_dx', planets = 2}, atlas = 'Van_dx'}
+    G.P_CENTERS.c_empress_dx=          {order = 4,     discovered = true, cost = 5, consumeable = true, name = "The Empress DX", pos = {x=3,y=0}, set = "Tarot", effect = "Enhance", cost_mult = 1.0, config = {type = '_dx', mod_conv = 'm_mult', max_highlighted = 4}, atlas = 'Van_dx'}
+    G.P_CENTERS.c_emperor_dx=          {order = 5,     discovered = true, cost = 5, consumeable = true, name = "The Emperor DX", pos = {x=4,y=0}, set = "Tarot", effect = "Round Bonus", cost_mult = 1.0, config = {type = '_dx', tarots = 2}, atlas = 'Van_dx'}
+    G.P_CENTERS.c_heirophant_dx=       {order = 6,     discovered = true, cost = 5, consumeable = true, name = "The Hierophant DX", pos = {x=5,y=0}, set = "Tarot", effect = "Enhance", cost_mult = 1.0, config = {type = '_dx', mod_conv = 'm_bonus', max_highlighted = 4}, atlas = 'Van_dx'}
+    G.P_CENTERS.c_lovers_dx=           {order = 7,     discovered = true, cost = 5, consumeable = true, name = "The Lovers DX", pos = {x=6,y=0}, set = "Tarot", effect = "Enhance", cost_mult = 1.0, config = {type = '_dx', mod_conv = 'm_wild', max_highlighted = 2}, atlas = 'Van_dx'}
+    G.P_CENTERS.c_chariot_dx=          {order = 8,     discovered = true, cost = 5, consumeable = true, name = "The Chariot DX", pos = {x=7,y=0}, set = "Tarot", effect = "Enhance", cost_mult = 1.0, config = {type = '_dx', mod_conv = 'm_steel', max_highlighted = 2}, atlas = 'Van_dx'}
+    G.P_CENTERS.c_justice_dx=          {order = 9,     discovered = true, cost = 5, consumeable = true, name = "Justice DX", pos = {x=8,y=0}, set = "Tarot", effect = "Enhance", cost_mult = 1.0, config = {type = '_dx', mod_conv = 'm_glass', max_highlighted = 2}, atlas = 'Van_dx'}
+    G.P_CENTERS.c_hermit_dx=           {order = 10,    discovered = true, cost = 5, consumeable = true, name = "The Hermit DX", pos = {x=9,y=0}, set = "Tarot", effect = "Dollar Doubler", cost_mult = 1.0, config = {type = '_dx', extra = 30}, atlas = 'Van_dx'}
+    G.P_CENTERS.c_wheel_of_fortune_dx= {order = 11,    discovered = true, cost = 5, consumeable = true, name = "The Wheel of Fortune DX", pos = {x=0,y=1}, set = "Tarot", effect = "Round Bonus", cost_mult = 1.0, config = {type = '_dx', extra = 2}, atlas = 'Van_dx'}
+    G.P_CENTERS.c_strength_dx=         {order = 12,    discovered = true, cost = 5, consumeable = true, name = "Strength DX", pos = {x=1,y=1}, set = "Tarot", effect = "Round Bonus", cost_mult = 1.0, config = {type = '_dx', mod_conv = 'up_rank', max_highlighted = 4}, atlas = 'Van_dx'}
+    G.P_CENTERS.c_hanged_man_dx=       {order = 13,    discovered = true, cost = 5, consumeable = true, name = "The Hanged Man DX", pos = {x=2,y=1}, set = "Tarot", effect = "Card Removal", cost_mult = 1.0, config = {type = '_dx', remove_card = true, max_highlighted = 4}, atlas = 'Van_dx'}
+    G.P_CENTERS.c_death_dx=            {order = 14,    discovered = true, cost = 5, consumeable = true, name = "Death DX", pos = {x=3,y=1}, set = "Tarot", effect = "Card Conversion", cost_mult = 1.0, config = {type = '_dx', mod_conv = 'card', max_highlighted = 3, min_highlighted = 2}, atlas = 'Van_dx'}
+    G.P_CENTERS.c_temperance_dx=       {order = 15,    discovered = true, cost = 5, consumeable = true, name = "Temperance DX", pos = {x=4,y=1}, set = "Tarot", effect = "Joker Payout", cost_mult = 1.0, config = {type = '_dx', extra = 60}, atlas = 'Van_dx'}
+    G.P_CENTERS.c_devil_dx=            {order = 16,    discovered = true, cost = 5, consumeable = true, name = "The Devil DX", pos = {x=5,y=1}, set = "Tarot", effect = "Enhance", cost_mult = 1.0, config = {type = '_dx', mod_conv = 'm_gold', max_highlighted = 2}, atlas = 'Van_dx'}
+    G.P_CENTERS.c_tower_dx=            {order = 17,    discovered = true, cost = 5, consumeable = true, name = "The Tower DX", pos = {x=6,y=1}, set = "Tarot", effect = "Enhance", cost_mult = 1.0, config = {type = '_dx', mod_conv = 'm_stone', max_highlighted = 2}, atlas = 'Van_dx'}
+    G.P_CENTERS.c_star_dx=             {order = 18,    discovered = true, cost = 5, consumeable = true, name = "The Star DX", pos = {x=7,y=1}, set = "Tarot", effect = "Suit Conversion", cost_mult = 1.0, config = {type = '_dx', suit_conv = 'Diamonds', max_highlighted = 5}, atlas = 'Van_dx'}
+    G.P_CENTERS.c_moon_dx=             {order = 19,    discovered = true, cost = 5, consumeable = true, name = "The Moon DX", pos = {x=8,y=1}, set = "Tarot", effect = "Suit Conversion", cost_mult = 1.0, config = {type = '_dx', suit_conv = 'Clubs', max_highlighted = 5}, atlas = 'Van_dx'}
+    G.P_CENTERS.c_sun_dx=              {order = 20,    discovered = true, cost = 5, consumeable = true, name = "The Sun DX", pos = {x=9,y=1}, set = "Tarot", effect = "Suit Conversion", cost_mult = 1.0, config = {type = '_dx', suit_conv = 'Hearts', max_highlighted = 5}, atlas = 'Van_dx'}
+    G.P_CENTERS.c_judgement_dx=        {order = 21,    discovered = true, cost = 5, consumeable = true, name = "Judgement DX", pos = {x=0,y=2}, set = "Tarot", effect = "Random Joker", cost_mult = 1.0, config = {type = '_dx', }, atlas = 'Van_dx'}
+    G.P_CENTERS.c_world_dx=            {order = 22,    discovered = true, cost = 5, consumeable = true, name = "The World DX", pos = {x=1,y=2}, set = "Tarot", effect = "Suit Conversion", cost_mult = 1.0, config = {type = '_dx', suit_conv = 'Spades', max_highlighted = 5}, atlas = 'Van_dx'}
 
-    -- Cursed Tarots
-    G.P_CENTERS.c_fool_cu=             {order = 1,     discovered = true, cost = 5, consumeable = true, name = "The Cursed Fool", pos = {x=0,y=0}, set = "Tarot_cu", effect = "Disable Blind Effect", cost_mult = 1.0, config = {unique = true, nb_curse = 1}}
-    G.P_CENTERS.c_magician_cu=         {order = 2,     discovered = true, cost = 5, consumeable = true, name = "The Cursed Magician", pos = {x=1,y=0}, set = "Tarot_cu", effect = "Round Bonus", cost_mult = 1.0, config = {unique = true, nb_curse = 2}}
-    G.P_CENTERS.c_high_priestess_cu=   {order = 3,     discovered = true, cost = 5, consumeable = true, name = "The Cursed High Priestess", pos = {x=2,y=0}, set = "Tarot_cu", effect = "Round Bonus", cost_mult = 1.0, config = {planets = 2, prob_mult = 2, unique = true, nb_curse = 1}}
-    G.P_CENTERS.c_empress_cu=          {order = 4,     discovered = true, cost = 5, consumeable = true, name = "The Cursed Empress", pos = {x=3,y=0}, set = "Tarot_cu", effect = "Round Bonus", cost_mult = 1.0, config = {mod_conv = 'm_mult', extra = 8, unique = true, nb_curse = 1}}
-    G.P_CENTERS.c_emperor_cu=          {order = 5,     discovered = true, cost = 5, consumeable = true, name = "The Cursed Emperor", pos = {x=4,y=0}, set = "Tarot_cu", effect = "Round Bonus", cost_mult = 1.0, config = {tarots = 6, unique = true, nb_curse = 1}}
-    G.P_CENTERS.c_heirophant_cu=       {order = 6,     discovered = true, cost = 5, consumeable = true, name = "The Cursed Hierophant", pos = {x=5,y=0}, set = "Tarot_cu", effect = "Round Bonus", cost_mult = 1.0, config = {mod_conv = 'm_bonus', extra = 60, max_highlighted = 4, unique = true, nb_curse = 1}}
-    G.P_CENTERS.c_lovers_cu=           {order = 7,     discovered = true, cost = 5, consumeable = true, name = "The Cursed Lovers", pos = {x=6,y=0}, set = "Tarot_cu", effect = "Round Bonus", cost_mult = 1.0, config = {mod_conv = 'm_wild', unique = true, nb_curse = 1}}
-    G.P_CENTERS.c_chariot_cu=          {order = 8,     discovered = true, cost = 5, consumeable = true, name = "The Cursed Chariot", pos = {x=7,y=0}, set = "Tarot_cu", effect = "Round Bonus", cost_mult = 1.0, config = {mod_conv = 'm_steel', extra = 1, unique = true, nb_curse = 2}}
-    G.P_CENTERS.c_justice_cu=          {order = 9,     discovered = true, cost = 5, consumeable = true, name = "Cursed Justice", pos = {x=8,y=0}, set = "Tarot_cu", effect = "Round Bonus", cost_mult = 1.0, config = {mod_conv = 'm_glass', extra = 1.5, unique = true, nb_curse = 2}}
-    G.P_CENTERS.c_hermit_cu=           {order = 10,    discovered = true, cost = 5, consumeable = true, name = "The Cursed Hermit", pos = {x=9,y=0}, set = "Tarot_cu", effect = "Dollar Doubler", cost_mult = 1.0, config = {extra = 50, unique = true, nb_curse = 2}}
-    G.P_CENTERS.c_wheel_of_fortune_cu= {order = 11,    discovered = true, cost = 5, consumeable = true, name = "The Cursed Wheel of Fortune", pos = {x=0,y=1}, set = "Tarot_cu", effect = "Round Bonus", cost_mult = 1.0, config = {unique = true, nb_curse = 2, extra = 3}}
-    G.P_CENTERS.c_strength_cu=         {order = 12,    discovered = true, cost = 5, consumeable = true, name = "Cursed Strength", pos = {x=1,y=1}, set = "Tarot_cu", effect = "Round Bonus", cost_mult = 1.0, config = {mod_conv = 'up_rank', max_highlighted = 5, min_highlighted = 1, unique = true, nb_curse = 2}}
-    G.P_CENTERS.c_hanged_man_cu=       {order = 13,    discovered = true, cost = 5, consumeable = true, name = "The Cursed Hanged Man", pos = {x=2,y=1}, set = "Tarot_cu", effect = "Card Removal", cost_mult = 1.0, config = {remove_card = true, max_highlighted = 4, min_highlighted = 1, unique = true, nb_curse = 2}}
-    G.P_CENTERS.c_death_cu=            {order = 14,    discovered = true, cost = 5, consumeable = true, name = "Cursed Death", pos = {x=3,y=1}, set = "Tarot_cu", effect = "Card Conversion", cost_mult = 1.0, config = {mod_conv = 'card', max_highlighted = 5, min_highlighted = 2, unique = true, nb_curse = 2}}
-    G.P_CENTERS.c_temperance_cu=       {order = 15,    discovered = true, cost = 5, consumeable = true, name = "Cursed Temperance", pos = {x=4,y=1}, set = "Tarot_cu", effect = "Joker Payout", cost_mult = 1.0, config = {extra = 60, unique = true, nb_curse = 1}}
-    G.P_CENTERS.c_devil_cu=            {order = 16,    discovered = true, cost = 5, consumeable = true, name = "The Cursed Devil", pos = {x=5,y=1}, set = "Tarot_cu", effect = "Enhance", cost_mult = 1.0, config = {mod_conv = 'm_gold', extra = 5, unique = true, nb_curse = 2}}
-    G.P_CENTERS.c_tower_cu=            {order = 17,    discovered = true, cost = 5, consumeable = true, name = "The Cursed Tower", pos = {x=6,y=1}, set = "Tarot_cu", effect = "Enhance", cost_mult = 1.0, config = {mod_conv = 'm_stone', extra = 200, unique = true, nb_curse = 1}}
-    G.P_CENTERS.c_star_cu=             {order = 18,    discovered = true, cost = 5, consumeable = true, name = "The Cursed Star", pos = {x=7,y=1}, set = "Tarot_cu", effect = "Suit Conversion", cost_mult = 1.0, config = {suit_conv = 'Diamonds', unique = true, nb_curse = 2}}
-    G.P_CENTERS.c_moon_cu=             {order = 19,    discovered = true, cost = 5, consumeable = true, name = "The Cursed Moon", pos = {x=8,y=1}, set = "Tarot_cu", effect = "Suit Conversion", cost_mult = 1.0, config = {suit_conv = 'Clubs', unique = true, nb_curse = 2}}
-    G.P_CENTERS.c_sun_cu=              {order = 20,    discovered = true, cost = 5, consumeable = true, name = "The Cursed Sun", pos = {x=9,y=1}, set = "Tarot_cu", effect = "Suit Conversion", cost_mult = 1.0, config = {suit_conv = 'Hearts', unique = true, nb_curse = 2}}
-    G.P_CENTERS.c_judgement_cu=        {order = 21,    discovered = true, cost = 5, consumeable = true, name = "Cursed Judgement", pos = {x=0,y=2}, set = "Tarot_cu", effect = "Random Joker", cost_mult = 1.0, config = {unique = true, nb_curse = 1}}
-    G.P_CENTERS.c_world_cu=            {order = 22,    discovered = true, cost = 5, consumeable = true, name = "The Cursed World", pos = {x=1,y=2}, set = "Tarot_cu", effect = "Suit Conversion", cost_mult = 1.0, config = {suit_conv = 'Spades', unique = true, nb_curse = 2}}
+    -- Vanilla Cursed Tarots
+    G.P_CENTERS.c_fool_cu=             {order = 1,     discovered = true, cost = 5, consumeable = true, name = "The Cursed Fool", pos = {x=0,y=0}, set = "Tarot", effect = "Disable Blind Effect", cost_mult = 1.0, config = {type = '_cu', unique = true, nb_curse = 1}, atlas = 'Van_cu'}
+    G.P_CENTERS.c_magician_cu=         {order = 2,     discovered = true, cost = 5, consumeable = true, name = "The Cursed Magician", pos = {x=1,y=0}, set = "Tarot", effect = "Round Bonus", cost_mult = 1.0, config = {type = '_cu', unique = true, nb_curse = 2}, atlas = 'Van_cu'}
+    G.P_CENTERS.c_high_priestess_cu=   {order = 3,     discovered = true, cost = 5, consumeable = true, name = "The Cursed High Priestess", pos = {x=2,y=0}, set = "Tarot", effect = "Round Bonus", cost_mult = 1.0, config = {type = '_cu', planets = 2, prob_mult = 2, unique = true, nb_curse = 1}, atlas = 'Van_cu'}
+    G.P_CENTERS.c_empress_cu=          {order = 4,     discovered = true, cost = 5, consumeable = true, name = "The Cursed Empress", pos = {x=3,y=0}, set = "Tarot", effect = "Round Bonus", cost_mult = 1.0, config = {type = '_cu', mod_conv = 'm_mult', extra = 8, unique = true, nb_curse = 1}, atlas = 'Van_cu'}
+    G.P_CENTERS.c_emperor_cu=          {order = 5,     discovered = true, cost = 5, consumeable = true, name = "The Cursed Emperor", pos = {x=4,y=0}, set = "Tarot", effect = "Round Bonus", cost_mult = 1.0, config = {type = '_cu', tarots = 6, unique = true, nb_curse = 1}, atlas = 'Van_cu'}
+    G.P_CENTERS.c_heirophant_cu=       {order = 6,     discovered = true, cost = 5, consumeable = true, name = "The Cursed Hierophant", pos = {x=5,y=0}, set = "Tarot", effect = "Round Bonus", cost_mult = 1.0, config = {type = '_cu', mod_conv = 'm_bonus', extra = 60, max_highlighted = 4, unique = true, nb_curse = 1}, atlas = 'Van_cu'}
+    G.P_CENTERS.c_lovers_cu=           {order = 7,     discovered = true, cost = 5, consumeable = true, name = "The Cursed Lovers", pos = {x=6,y=0}, set = "Tarot", effect = "Round Bonus", cost_mult = 1.0, config = {type = '_cu', mod_conv = 'm_wild', unique = true, nb_curse = 1}, atlas = 'Van_cu'}
+    G.P_CENTERS.c_chariot_cu=          {order = 8,     discovered = true, cost = 5, consumeable = true, name = "The Cursed Chariot", pos = {x=7,y=0}, set = "Tarot", effect = "Round Bonus", cost_mult = 1.0, config = {type = '_cu', mod_conv = 'm_steel', extra = 1, unique = true, nb_curse = 2}, atlas = 'Van_cu'}
+    G.P_CENTERS.c_justice_cu=          {order = 9,     discovered = true, cost = 5, consumeable = true, name = "Cursed Justice", pos = {x=8,y=0}, set = "Tarot", effect = "Round Bonus", cost_mult = 1.0, config = {type = '_cu', mod_conv = 'm_glass', extra = 1.5, unique = true, nb_curse = 2}, atlas = 'Van_cu'}
+    G.P_CENTERS.c_hermit_cu=           {order = 10,    discovered = true, cost = 5, consumeable = true, name = "The Cursed Hermit", pos = {x=9,y=0}, set = "Tarot", effect = "Dollar Doubler", cost_mult = 1.0, config = {type = '_cu', extra = 50, unique = true, nb_curse = 2}, atlas = 'Van_cu'}
+    G.P_CENTERS.c_wheel_of_fortune_cu= {order = 11,    discovered = true, cost = 5, consumeable = true, name = "The Cursed Wheel of Fortune", pos = {x=0,y=1}, set = "Tarot", effect = "Round Bonus", cost_mult = 1.0, config = {type = '_cu', unique = true, nb_curse = 2, extra = 3}, atlas = 'Van_cu'}
+    G.P_CENTERS.c_strength_cu=         {order = 12,    discovered = true, cost = 5, consumeable = true, name = "Cursed Strength", pos = {x=1,y=1}, set = "Tarot", effect = "Round Bonus", cost_mult = 1.0, config = {type = '_cu', mod_conv = 'up_rank', max_highlighted = 5, min_highlighted = 1, unique = true, nb_curse = 2}, atlas = 'Van_cu'}
+    G.P_CENTERS.c_hanged_man_cu=       {order = 13,    discovered = true, cost = 5, consumeable = true, name = "The Cursed Hanged Man", pos = {x=2,y=1}, set = "Tarot", effect = "Card Removal", cost_mult = 1.0, config = {type = '_cu', remove_card = true, max_highlighted = 4, min_highlighted = 1, unique = true, nb_curse = 2}, atlas = 'Van_cu'}
+    G.P_CENTERS.c_death_cu=            {order = 14,    discovered = true, cost = 5, consumeable = true, name = "Cursed Death", pos = {x=3,y=1}, set = "Tarot", effect = "Card Conversion", cost_mult = 1.0, config = {type = '_cu', mod_conv = 'card', max_highlighted = 5, min_highlighted = 2, unique = true, nb_curse = 2}, atlas = 'Van_cu'}
+    G.P_CENTERS.c_temperance_cu=       {order = 15,    discovered = true, cost = 5, consumeable = true, name = "Cursed Temperance", pos = {x=4,y=1}, set = "Tarot", effect = "Joker Payout", cost_mult = 1.0, config = {type = '_cu', extra = 60, unique = true, nb_curse = 1}, atlas = 'Van_cu'}
+    G.P_CENTERS.c_devil_cu=            {order = 16,    discovered = true, cost = 5, consumeable = true, name = "The Cursed Devil", pos = {x=5,y=1}, set = "Tarot", effect = "Enhance", cost_mult = 1.0, config = {type = '_cu', mod_conv = 'm_gold', extra = 5, unique = true, nb_curse = 2}, atlas = 'Van_cu'}
+    G.P_CENTERS.c_tower_cu=            {order = 17,    discovered = true, cost = 5, consumeable = true, name = "The Cursed Tower", pos = {x=6,y=1}, set = "Tarot", effect = "Enhance", cost_mult = 1.0, config = {type = '_cu', mod_conv = 'm_stone', extra = 200, unique = true, nb_curse = 1}, atlas = 'Van_cu'}
+    G.P_CENTERS.c_star_cu=             {order = 18,    discovered = true, cost = 5, consumeable = true, name = "The Cursed Star", pos = {x=7,y=1}, set = "Tarot", effect = "Suit Conversion", cost_mult = 1.0, config = {type = '_cu', suit_conv = 'Diamonds', unique = true, nb_curse = 2}, atlas = 'Van_cu'}
+    G.P_CENTERS.c_moon_cu=             {order = 19,    discovered = true, cost = 5, consumeable = true, name = "The Cursed Moon", pos = {x=8,y=1}, set = "Tarot", effect = "Suit Conversion", cost_mult = 1.0, config = {type = '_cu', suit_conv = 'Clubs', unique = true, nb_curse = 2}, atlas = 'Van_cu'}
+    G.P_CENTERS.c_sun_cu=              {order = 20,    discovered = true, cost = 5, consumeable = true, name = "The Cursed Sun", pos = {x=9,y=1}, set = "Tarot", effect = "Suit Conversion", cost_mult = 1.0, config = {type = '_cu', suit_conv = 'Hearts', unique = true, nb_curse = 2}, atlas = 'Van_cu'}
+    G.P_CENTERS.c_judgement_cu=        {order = 21,    discovered = true, cost = 5, consumeable = true, name = "Cursed Judgement", pos = {x=0,y=2}, set = "Tarot", effect = "Random Joker", cost_mult = 1.0, config = {type = '_cu', unique = true, nb_curse = 1}, atlas = 'Van_cu'}
+    G.P_CENTERS.c_world_cu=            {order = 22,    discovered = true, cost = 5, consumeable = true, name = "The Cursed World", pos = {x=1,y=2}, set = "Tarot", effect = "Suit Conversion", cost_mult = 1.0, config = {type = '_cu', suit_conv = 'Spades', unique = true, nb_curse = 2}, atlas = 'Van_cu'}
 
-    -- DX Planets
-    G.P_CENTERS.c_mercury_dx=          {order = 1,    discovered = true, cost = 5, consumeable = true, freq = 1, name = "Mercury DX", pos = {x=0,y=3}, set = "Planet_dx", effect = "Hand Upgrade", cost_mult = 1.0, config = {hand_type = 'Pair'}}
-    G.P_CENTERS.c_venus_dx=            {order = 2,    discovered = true, cost = 5, consumeable = true, freq = 1, name = "Venus DX", pos = {x=1,y=3}, set = "Planet_dx", effect = "Hand Upgrade", cost_mult = 1.0, config = {hand_type = 'Three of a Kind'}}
-    G.P_CENTERS.c_earth_dx=            {order = 3,    discovered = true, cost = 5, consumeable = true, freq = 1, name = "Earth DX", pos = {x=2,y=3}, set = "Planet_dx", effect = "Hand Upgrade", cost_mult = 1.0, config = {hand_type = 'Full House'}}
-    G.P_CENTERS.c_mars_dx=             {order = 4,    discovered = true, cost = 5, consumeable = true, freq = 1, name = "Mars DX", pos = {x=3,y=3}, set = "Planet_dx", effect = "Hand Upgrade", cost_mult = 1.0, config = {hand_type = 'Four of a Kind'}}
-    G.P_CENTERS.c_jupiter_dx=          {order = 5,    discovered = true, cost = 5, consumeable = true, freq = 1, name = "Jupiter DX", pos = {x=4,y=3}, set = "Planet_dx", effect = "Hand Upgrade", cost_mult = 1.0, config = {hand_type = 'Flush'}}
-    G.P_CENTERS.c_saturn_dx=           {order = 6,    discovered = true, cost = 5, consumeable = true, freq = 1, name = "Saturn DX", pos = {x=5,y=3}, set = "Planet_dx", effect = "Hand Upgrade", cost_mult = 1.0, config = {hand_type = 'Straight'}}
-    G.P_CENTERS.c_uranus_dx=           {order = 7,    discovered = true, cost = 5, consumeable = true, freq = 1, name = "Uranus DX", pos = {x=6,y=3}, set = "Planet_dx", effect = "Hand Upgrade", cost_mult = 1.0, config = {hand_type = 'Two Pair'}}
-    G.P_CENTERS.c_neptune_dx=          {order = 8,    discovered = true, cost = 5, consumeable = true, freq = 1, name = "Neptune DX", pos = {x=7,y=3}, set = "Planet_dx", effect = "Hand Upgrade", cost_mult = 1.0, config = {hand_type = 'Straight Flush'}}
-    G.P_CENTERS.c_pluto_dx=            {order = 9,    discovered = true, cost = 5, consumeable = true, freq = 1, name = "Pluto DX", pos = {x=8,y=3}, set = "Planet_dx", effect = "Hand Upgrade", cost_mult = 1.0, config = {hand_type = 'High Card'}}
-    G.P_CENTERS.c_planet_x_dx=         {order = 10,   discovered = true, cost = 5, consumeable = true, freq = 1, name = "Planet X DX", pos = {x=9,y=2}, set = "Planet_dx", effect = "Hand Upgrade", cost_mult = 1.0, config = {hand_type = 'Five of a Kind', softlock = true}}
-    G.P_CENTERS.c_ceres_dx=            {order = 11,   discovered = true, cost = 5, consumeable = true, freq = 1, name = "Ceres DX", pos = {x=8,y=2}, set = "Planet_dx", effect = "Hand Upgrade", cost_mult = 1.0, config = {hand_type = 'Flush House', softlock = true}}
-    G.P_CENTERS.c_eris_dx=             {order = 12,   discovered = true, cost = 5, consumeable = true, freq = 1, name = "Eris DX", pos = {x=3,y=2}, set = "Planet_dx", effect = "Hand Upgrade", cost_mult = 1.0, config = {hand_type = 'Flush Five', softlock = true}}
+    -- Vanilla DX Planets
+    G.P_CENTERS.c_mercury_dx=          {order = 1,    discovered = true, cost = 5, consumeable = true, freq = 1, name = "Mercury DX", pos = {x=0,y=3}, set = "Planet", effect = "Hand Upgrade", cost_mult = 1.0, config = {type = '_dx', hand_type = 'Pair'}, atlas = 'Van_dx'}
+    G.P_CENTERS.c_venus_dx=            {order = 2,    discovered = true, cost = 5, consumeable = true, freq = 1, name = "Venus DX", pos = {x=1,y=3}, set = "Planet", effect = "Hand Upgrade", cost_mult = 1.0, config = {type = '_dx', hand_type = 'Three of a Kind'}, atlas = 'Van_dx'}
+    G.P_CENTERS.c_earth_dx=            {order = 3,    discovered = true, cost = 5, consumeable = true, freq = 1, name = "Earth DX", pos = {x=2,y=3}, set = "Planet", effect = "Hand Upgrade", cost_mult = 1.0, config = {type = '_dx', hand_type = 'Full House'}, atlas = 'Van_dx'}
+    G.P_CENTERS.c_mars_dx=             {order = 4,    discovered = true, cost = 5, consumeable = true, freq = 1, name = "Mars DX", pos = {x=3,y=3}, set = "Planet", effect = "Hand Upgrade", cost_mult = 1.0, config = {type = '_dx', hand_type = 'Four of a Kind'}, atlas = 'Van_dx'}
+    G.P_CENTERS.c_jupiter_dx=          {order = 5,    discovered = true, cost = 5, consumeable = true, freq = 1, name = "Jupiter DX", pos = {x=4,y=3}, set = "Planet", effect = "Hand Upgrade", cost_mult = 1.0, config = {type = '_dx', hand_type = 'Flush'}, atlas = 'Van_dx'}
+    G.P_CENTERS.c_saturn_dx=           {order = 6,    discovered = true, cost = 5, consumeable = true, freq = 1, name = "Saturn DX", pos = {x=5,y=3}, set = "Planet", effect = "Hand Upgrade", cost_mult = 1.0, config = {type = '_dx', hand_type = 'Straight'}, atlas = 'Van_dx'}
+    G.P_CENTERS.c_uranus_dx=           {order = 7,    discovered = true, cost = 5, consumeable = true, freq = 1, name = "Uranus DX", pos = {x=6,y=3}, set = "Planet", effect = "Hand Upgrade", cost_mult = 1.0, config = {type = '_dx', hand_type = 'Two Pair'}, atlas = 'Van_dx'}
+    G.P_CENTERS.c_neptune_dx=          {order = 8,    discovered = true, cost = 5, consumeable = true, freq = 1, name = "Neptune DX", pos = {x=7,y=3}, set = "Planet", effect = "Hand Upgrade", cost_mult = 1.0, config = {type = '_dx', hand_type = 'Straight Flush'}, atlas = 'Van_dx'}
+    G.P_CENTERS.c_pluto_dx=            {order = 9,    discovered = true, cost = 5, consumeable = true, freq = 1, name = "Pluto DX", pos = {x=8,y=3}, set = "Planet", effect = "Hand Upgrade", cost_mult = 1.0, config = {type = '_dx', hand_type = 'High Card'}, atlas = 'Van_dx'}
+    G.P_CENTERS.c_planet_x_dx=         {order = 10,   discovered = true, cost = 5, consumeable = true, freq = 1, name = "Planet X DX", pos = {x=9,y=2}, set = "Planet", effect = "Hand Upgrade", cost_mult = 1.0, config = {type = '_dx', hand_type = 'Five of a Kind', softlock = true}, atlas = 'Van_dx'}
+    G.P_CENTERS.c_ceres_dx=            {order = 11,   discovered = true, cost = 5, consumeable = true, freq = 1, name = "Ceres DX", pos = {x=8,y=2}, set = "Planet", effect = "Hand Upgrade", cost_mult = 1.0, config = {type = '_dx', hand_type = 'Flush House', softlock = true}, atlas = 'Van_dx'}
+    G.P_CENTERS.c_eris_dx=             {order = 12,   discovered = true, cost = 5, consumeable = true, freq = 1, name = "Eris DX", pos = {x=3,y=2}, set = "Planet", effect = "Hand Upgrade", cost_mult = 1.0, config = {type = '_dx', hand_type = 'Flush Five', softlock = true}, atlas = 'Van_dx'}
 
-    -- DX Spectrals
-    G.P_CENTERS.c_familiar_dx=         {order = 1,    discovered = true, cost = 6, consumeable = true, name = "Familiar DX", pos = {x=0,y=4}, set = "Spectral_dx", config = {max_highlighted = 2, min_highlighted = 2, remove_card = true, extra = 5, unique = true}}
-    G.P_CENTERS.c_grim_dx=             {order = 2,    discovered = true, cost = 6, consumeable = true, name = "Grim DX",     pos = {x=1,y=4}, set = "Spectral_dx", config = {max_highlighted = 2, min_highlighted = 2, remove_card = true, extra = 4, unique = true}}
-    G.P_CENTERS.c_incantation_dx=      {order = 3,    discovered = true, cost = 6, consumeable = true, name = "Incantation DX", pos = {x=2,y=4}, set = "Spectral_dx", config = {max_highlighted = 2, min_highlighted = 2, remove_card = true, extra = 6, unique = true}}
-    G.P_CENTERS.c_talisman_dx=         {order = 4,    discovered = true, cost = 6, consumeable = true, name = "Talisman DX", pos = {x=3,y=4}, set = "Spectral_dx", config = {extra = 'Gold', max_highlighted = 3, unique = true}}
-    G.P_CENTERS.c_aura_dx=             {order = 5,    discovered = true, cost = 6, consumeable = true, name = "Aura DX", pos = {x=4,y=4}, set = "Spectral_dx", config = {max_highlighted = 3, unique = true}}
-    G.P_CENTERS.c_wraith_dx=           {order = 6,    discovered = true, cost = 6, consumeable = true, name = "Wraith DX", pos = {x=5,y=4}, set = "Spectral_dx", config = {unique = true}}
-    G.P_CENTERS.c_sigil_dx=            {order = 7,    discovered = true, cost = 6, consumeable = true, name = "Sigil DX", pos = {x=6,y=4}, set = "Spectral_dx", config = {max_highlighted = 1, unique = true}}
-    G.P_CENTERS.c_ouija_dx=            {order = 8,    discovered = true, cost = 6, consumeable = true, name = "Ouija DX", pos = {x=7,y=4}, set = "Spectral_dx", config = {max_highlighted = 1, unique = true}}
-    G.P_CENTERS.c_ectoplasm_dx=        {order = 9,    discovered = true, cost = 6, consumeable = true, name = "Ectoplasm DX", pos = {x=8,y=4}, set = "Spectral_dx", config = {unique = true}}
-    G.P_CENTERS.c_immolate_dx=         {order = 10,   discovered = true, cost = 6, consumeable = true, name = "Immolate DX", pos = {x=9,y=4}, set = "Spectral_dx", config = {max_highlighted = 5, min_highlighted = 5, remove_card = true, extra = {destroy = 5, dollars = 20}, unique = true}}
-    G.P_CENTERS.c_ankh_dx=             {order = 11,   discovered = true, cost = 6, consumeable = true, name = "Ankh DX", pos = {x=0,y=5}, set = "Spectral_dx", config = {extra = 2, unique = true}}
-    G.P_CENTERS.c_deja_vu_dx=          {order = 12,   discovered = true, cost = 6, consumeable = true, name = "Deja Vu DX", pos = {x=1,y=5}, set = "Spectral_dx", config = {extra = 'Red', max_highlighted = 3, unique = true}}
-    G.P_CENTERS.c_hex_dx=              {order = 13,   discovered = true, cost = 6, consumeable = true, name = "Hex DX", pos = {x=2,y=5}, set = "Spectral_dx", config = {extra = 2, unique = true}}
-    G.P_CENTERS.c_trance_dx=           {order = 14,   discovered = true, cost = 6, consumeable = true, name = "Trance DX", pos = {x=3,y=5}, set = "Spectral_dx", config = {extra = 'Blue', max_highlighted = 3, unique = true}}
-    G.P_CENTERS.c_medium_dx=           {order = 15,   discovered = true, cost = 6, consumeable = true, name = "Medium DX", pos = {x=4,y=5}, set = "Spectral_dx", config = {extra = 'Purple', max_highlighted = 3, unique = true}}
-    G.P_CENTERS.c_cryptid_dx=          {order = 16,   discovered = true, cost = 6, consumeable = true, name = "Cryptid DX", pos = {x=5,y=5}, set = "Spectral_dx", config = {extra = 4, max_highlighted = 1, unique = true}}
-    G.P_CENTERS.c_soul_dx=             {order = 17,   discovered = true, cost = 6, consumeable = true, name = "The Soul DX", pos = {x=2,y=2}, set = "Spectral_dx", effect = "Unlocker", config = {unique = true}, hidden = true}
-    G.P_CENTERS.c_black_hole_dx=       {order = 18,   discovered = true, cost = 6, consumeable = true, name = "Black Hole DX", pos = {x=9,y=3}, set = "Spectral_dx", config = {unique = true}, hidden = true}
+    -- Vanilla DX Spectrals
+    G.P_CENTERS.c_familiar_dx=         {order = 1,    discovered = true, cost = 6, consumeable = true, name = "Familiar DX", pos = {x=0,y=4}, set = "Spectral", config = {type = '_dx', max_highlighted = 2, min_highlighted = 2, remove_card = true, extra = 5, unique = true}, atlas = 'Van_dx'}
+    G.P_CENTERS.c_grim_dx=             {order = 2,    discovered = true, cost = 6, consumeable = true, name = "Grim DX",     pos = {x=1,y=4}, set = "Spectral", config = {type = '_dx', max_highlighted = 2, min_highlighted = 2, remove_card = true, extra = 4, unique = true}, atlas = 'Van_dx'}
+    G.P_CENTERS.c_incantation_dx=      {order = 3,    discovered = true, cost = 6, consumeable = true, name = "Incantation DX", pos = {x=2,y=4}, set = "Spectral", config = {type = '_dx', max_highlighted = 2, min_highlighted = 2, remove_card = true, extra = 6, unique = true}, atlas = 'Van_dx'}
+    G.P_CENTERS.c_talisman_dx=         {order = 4,    discovered = true, cost = 6, consumeable = true, name = "Talisman DX", pos = {x=3,y=4}, set = "Spectral", config = {type = '_dx', extra = 'Gold', max_highlighted = 3, unique = true}, atlas = 'Van_dx'}
+    G.P_CENTERS.c_aura_dx=             {order = 5,    discovered = true, cost = 6, consumeable = true, name = "Aura DX", pos = {x=4,y=4}, set = "Spectral", config = {type = '_dx', max_highlighted = 3, unique = true}, atlas = 'Van_dx'}
+    G.P_CENTERS.c_wraith_dx=           {order = 6,    discovered = true, cost = 6, consumeable = true, name = "Wraith DX", pos = {x=5,y=4}, set = "Spectral", config = {type = '_dx', unique = true}, atlas = 'Van_dx'}
+    G.P_CENTERS.c_sigil_dx=            {order = 7,    discovered = true, cost = 6, consumeable = true, name = "Sigil DX", pos = {x=6,y=4}, set = "Spectral", config = {type = '_dx', max_highlighted = 1, unique = true}, atlas = 'Van_dx'}
+    G.P_CENTERS.c_ouija_dx=            {order = 8,    discovered = true, cost = 6, consumeable = true, name = "Ouija DX", pos = {x=7,y=4}, set = "Spectral", config = {type = '_dx', max_highlighted = 1, unique = true}, atlas = 'Van_dx'}
+    G.P_CENTERS.c_ectoplasm_dx=        {order = 9,    discovered = true, cost = 6, consumeable = true, name = "Ectoplasm DX", pos = {x=8,y=4}, set = "Spectral", config = {type = '_dx', unique = true}, atlas = 'Van_dx'}
+    G.P_CENTERS.c_immolate_dx=         {order = 10,   discovered = true, cost = 6, consumeable = true, name = "Immolate DX", pos = {x=9,y=4}, set = "Spectral", config = {type = '_dx', max_highlighted = 5, min_highlighted = 5, remove_card = true, extra = {destroy = 5, dollars = 20}, unique = true}, atlas = 'Van_dx'}
+    G.P_CENTERS.c_ankh_dx=             {order = 11,   discovered = true, cost = 6, consumeable = true, name = "Ankh DX", pos = {x=0,y=5}, set = "Spectral", config = {type = '_dx', extra = 2, unique = true}, atlas = 'Van_dx'}
+    G.P_CENTERS.c_deja_vu_dx=          {order = 12,   discovered = true, cost = 6, consumeable = true, name = "Deja Vu DX", pos = {x=1,y=5}, set = "Spectral", config = {type = '_dx', extra = 'Red', max_highlighted = 3, unique = true}, atlas = 'Van_dx'}
+    G.P_CENTERS.c_hex_dx=              {order = 13,   discovered = true, cost = 6, consumeable = true, name = "Hex DX", pos = {x=2,y=5}, set = "Spectral", config = {type = '_dx', extra = 2, unique = true}, atlas = 'Van_dx'}
+    G.P_CENTERS.c_trance_dx=           {order = 14,   discovered = true, cost = 6, consumeable = true, name = "Trance DX", pos = {x=3,y=5}, set = "Spectral", config = {type = '_dx', extra = 'Blue', max_highlighted = 3, unique = true}, atlas = 'Van_dx'}
+    G.P_CENTERS.c_medium_dx=           {order = 15,   discovered = true, cost = 6, consumeable = true, name = "Medium DX", pos = {x=4,y=5}, set = "Spectral", config = {type = '_dx', extra = 'Purple', max_highlighted = 3, unique = true}, atlas = 'Van_dx'}
+    G.P_CENTERS.c_cryptid_dx=          {order = 16,   discovered = true, cost = 6, consumeable = true, name = "Cryptid DX", pos = {x=5,y=5}, set = "Spectral", config = {type = '_dx', extra = 4, max_highlighted = 1, unique = true}, atlas = 'Van_dx'}
+    G.P_CENTERS.c_soul_dx=             {order = 17,   discovered = true, cost = 6, consumeable = true, name = "The Soul DX", pos = {x=2,y=2}, set = "Spectral", effect = "Unlocker", config = {type = '_dx', unique = true}, hidden = true, atlas = 'Van_dx'}
+    G.P_CENTERS.c_black_hole_dx=       {order = 18,   discovered = true, cost = 6, consumeable = true, name = "Black Hole DX", pos = {x=9,y=3}, set = "Spectral", config = {type = '_dx', unique = true}, hidden = true, atlas = 'Van_dx'}
 
     -- DX Booster Packs
-    G.P_CENTERS.p_arcana_normal_1_dx =         {order = 1,  discovered = true, name = "Arcana Pack DX", weight = 1, kind = 'Arcana', cost = 6, pos = {x=0,y=0}, atlas = 'Booster_dx', set = 'Booster_dx', config = {extra = 4, choose = 1, unique = true}}
-    G.P_CENTERS.p_arcana_normal_2_dx =         {order = 2,  discovered = true, name = "Arcana Pack DX", weight = 1, kind = 'Arcana', cost = 6, pos = {x=1,y=0}, atlas = 'Booster_dx', set = 'Booster_dx', config = {extra = 4, choose = 1, unique = true}}
-    G.P_CENTERS.p_arcana_normal_3_dx =         {order = 3,  discovered = true, name = "Arcana Pack DX", weight = 1, kind = 'Arcana', cost = 6, pos = {x=2,y=0}, atlas = 'Booster_dx', set = 'Booster_dx', config = {extra = 4, choose = 1, unique = true}}
-    G.P_CENTERS.p_arcana_normal_4_dx =         {order = 4,  discovered = true, name = "Arcana Pack DX", weight = 1, kind = 'Arcana', cost = 6, pos = {x=3,y=0}, atlas = 'Booster_dx', set = 'Booster_dx', config = {extra = 4, choose = 1, unique = true}}
-    G.P_CENTERS.p_arcana_jumbo_1_dx =          {order = 5,  discovered = true, name = "Jumbo Arcana Pack DX", weight = 1, kind = 'Arcana', cost = 8, pos = {x=0,y=2}, atlas = 'Booster_dx', set = 'Booster_dx', config = {extra = 6, choose = 1, unique = true}}
-    G.P_CENTERS.p_arcana_jumbo_2_dx =          {order = 6,  discovered = true, name = "Jumbo Arcana Pack DX", weight = 1, kind = 'Arcana', cost = 8, pos = {x=1,y=2}, atlas = 'Booster_dx', set = 'Booster_dx', config = {extra = 6, choose = 1, unique = true}}
-    G.P_CENTERS.p_arcana_mega_1_dx =           {order = 7,  discovered = true, name = "Mega Arcana Pack DX", weight = 0.25, kind = 'Arcana', cost = 10, pos = {x=2,y=2}, atlas = 'Booster_dx', set = 'Booster_dx', config = {extra = 6, choose = 2, unique = true}}
-    G.P_CENTERS.p_arcana_mega_2_dx =           {order = 8,  discovered = true, name = "Mega Arcana Pack DX", weight = 0.25, kind = 'Arcana', cost = 10, pos = {x=3,y=2}, atlas = 'Booster_dx', set = 'Booster_dx', config = {extra = 6, choose = 2, unique = true}}
-    G.P_CENTERS.p_celestial_normal_1_dx =      {order = 9,  discovered = true, name = "Celestial Pack DX", weight = 1, kind = 'Celestial', cost = 6, pos = {x=0,y=1}, atlas = 'Booster_dx', set = 'Booster_dx', config = {extra = 4, choose = 1, unique = true}}
-    G.P_CENTERS.p_celestial_normal_2_dx =      {order = 10, discovered = true, name = "Celestial Pack DX", weight = 1, kind = 'Celestial', cost = 6, pos = {x=1,y=1}, atlas = 'Booster_dx', set = 'Booster_dx', config = {extra = 4, choose = 1, unique = true}}
-    G.P_CENTERS.p_celestial_normal_3_dx =      {order = 11, discovered = true, name = "Celestial Pack DX", weight = 1, kind = 'Celestial', cost = 6, pos = {x=2,y=1}, atlas = 'Booster_dx', set = 'Booster_dx', config = {extra = 4, choose = 1, unique = true}}
-    G.P_CENTERS.p_celestial_normal_4_dx =      {order = 12, discovered = true, name = "Celestial Pack DX", weight = 1, kind = 'Celestial', cost = 6, pos = {x=3,y=1}, atlas = 'Booster_dx', set = 'Booster_dx', config = {extra = 4, choose = 1, unique = true}}
-    G.P_CENTERS.p_celestial_jumbo_1_dx =       {order = 13, discovered = true, name = "Jumbo Celestial Pack DX", weight = 1, kind = 'Celestial', cost = 8, pos = {x=0,y=3}, atlas = 'Booster_dx', set = 'Booster_dx', config = {extra = 6, choose = 1, unique = true}}
-    G.P_CENTERS.p_celestial_jumbo_2_dx =       {order = 14, discovered = true, name = "Jumbo Celestial Pack DX", weight = 1, kind = 'Celestial', cost = 8, pos = {x=1,y=3}, atlas = 'Booster_dx', set = 'Booster_dx', config = {extra = 6, choose = 1, unique = true}}
-    G.P_CENTERS.p_celestial_mega_1_dx =        {order = 15, discovered = true, name = "Mega Celestial Pack DX", weight = 0.25, kind = 'Celestial', cost = 10, pos = {x=2,y=3}, atlas = 'Booster_dx', set = 'Booster_dx', config = {extra = 6, choose = 2, unique = true}}
-    G.P_CENTERS.p_celestial_mega_2_dx =        {order = 16, discovered = true, name = "Mega Celestial Pack DX", weight = 0.25, kind = 'Celestial', cost = 10, pos = {x=3,y=3}, atlas = 'Booster_dx', set = 'Booster_dx', config = {extra = 6, choose = 2, unique = true}}
-    G.P_CENTERS.p_spectral_normal_1_dx =       {order = 29, discovered = true, name = "Spectral Pack DX", weight = 0.3, kind = 'Spectral', cost = 6, pos = {x=0,y=4}, atlas = 'Booster_dx', set = 'Booster_dx', config = {extra = 3, choose = 1, unique = true}}
-    G.P_CENTERS.p_spectral_normal_2_dx =       {order = 30, discovered = true, name = "Spectral Pack DX", weight = 0.3, kind = 'Spectral', cost = 6, pos = {x=1,y=4}, atlas = 'Booster_dx', set = 'Booster_dx', config = {extra = 3, choose = 1, unique = true}}
-    G.P_CENTERS.p_spectral_jumbo_1_dx =        {order = 31, discovered = true, name = "Jumbo Spectral Pack DX", weight = 0.3, kind = 'Spectral', cost = 8, pos = {x=2,y=4}, atlas = 'Booster_dx', set = 'Booster_dx', config = {extra = 5, choose = 1, unique = true}}
-    G.P_CENTERS.p_spectral_mega_1_dx =         {order = 32, discovered = true, name = "Mega Spectral Pack DX", weight = 0.07, kind = 'Spectral', cost = 10, pos = {x=3,y=4}, atlas = 'Booster_dx', set = 'Booster_dx', config = {extra = 5, choose = 2, unique = true}}
-    G.P_CENTERS.p_standard_normal_1_dx =       {order = 17, discovered = true, name = "Standard Pack DX", weight = 1, kind = 'Standard', cost = 6, pos = {x=0,y=6}, atlas = 'Booster_dx', set = 'Booster_dx', config = {extra = 4, choose = 1, unique = true}}
-    G.P_CENTERS.p_standard_normal_2_dx =       {order = 18, discovered = true, name = "Standard Pack DX", weight = 1, kind = 'Standard', cost = 6, pos = {x=1,y=6}, atlas = 'Booster_dx', set = 'Booster_dx', config = {extra = 4, choose = 1, unique = true}}
-    G.P_CENTERS.p_standard_normal_3_dx =       {order = 19, discovered = true, name = "Standard Pack DX", weight = 1, kind = 'Standard', cost = 6, pos = {x=2,y=6}, atlas = 'Booster_dx', set = 'Booster_dx', config = {extra = 4, choose = 1, unique = true}}
-    G.P_CENTERS.p_standard_normal_4_dx =       {order = 20, discovered = true, name = "Standard Pack DX", weight = 1, kind = 'Standard', cost = 6, pos = {x=3,y=6}, atlas = 'Booster_dx', set = 'Booster_dx', config = {extra = 4, choose = 1, unique = true}}
-    G.P_CENTERS.p_standard_jumbo_1_dx =        {order = 21, discovered = true, name = "Jumbo Standard Pack DX", weight = 1, kind = 'Standard', cost = 8, pos = {x=0,y=7}, atlas = 'Booster_dx', set = 'Booster_dx', config = {extra = 6, choose = 1, unique = true}}
-    G.P_CENTERS.p_standard_jumbo_2_dx =        {order = 22, discovered = true, name = "Jumbo Standard Pack DX", weight = 1, kind = 'Standard', cost = 8, pos = {x=1,y=7}, atlas = 'Booster_dx', set = 'Booster_dx', config = {extra = 6, choose = 1, unique = true}}
-    G.P_CENTERS.p_standard_mega_1_dx =         {order = 23, discovered = true, name = "Mega Standard Pack DX", weight = 0.25, kind = 'Standard', cost = 10, pos = {x=2,y=7}, atlas = 'Booster_dx', set = 'Booster_dx', config = {extra = 6, choose = 2, unique = true}}
-    G.P_CENTERS.p_standard_mega_2_dx =         {order = 24, discovered = true, name = "Mega Standard Pack DX", weight = 0.25, kind = 'Standard', cost = 10, pos = {x=3,y=7}, atlas = 'Booster_dx', set = 'Booster_dx', config = {extra = 6, choose = 2, unique = true}}
-    G.P_CENTERS.p_buffoon_normal_1_dx =        {order = 25, discovered = true, name = "Buffoon Pack DX", weight = 0.6, kind = 'Buffoon', cost = 6, pos = {x=0,y=8}, atlas = 'Booster_dx', set = 'Booster_dx', config = {extra = 3, choose = 1, unique = true}}
-    G.P_CENTERS.p_buffoon_normal_2_dx =        {order = 26, discovered = true, name = "Buffoon Pack DX", weight = 0.6, kind = 'Buffoon', cost = 6, pos = {x=1,y=8}, atlas = 'Booster_dx', set = 'Booster_dx', config = {extra = 3, choose = 1, unique = true}}
-    G.P_CENTERS.p_buffoon_jumbo_1_dx =         {order = 27, discovered = true, name = "Jumbo Buffoon Pack DX", weight = 0.6, kind = 'Buffoon', cost = 8, pos = {x=2,y=8}, atlas = 'Booster_dx', set = 'Booster_dx', config = {extra = 5, choose = 1, unique = true}}
-    G.P_CENTERS.p_buffoon_mega_1_dx =          {order = 28, discovered = true, name = "Mega Buffoon Pack DX", weight = 0.15, kind = 'Buffoon', cost = 10, pos = {x=3,y=8}, atlas = 'Booster_dx', set = 'Booster_dx', config = {extra = 5, choose = 2, unique = true}}
+    G.P_CENTERS.p_arcana_normal_1_dx =         {order = 1,  discovered = true, name = "Arcana Pack DX", weight = 1, kind = 'Arcana', cost = 6, pos = {x=0,y=0}, atlas = 'Van_Booster_dx', set = 'Booster', config = {type = '_dx', extra = 4, choose = 1, unique = true}}
+    G.P_CENTERS.p_arcana_normal_2_dx =         {order = 2,  discovered = true, name = "Arcana Pack DX", weight = 1, kind = 'Arcana', cost = 6, pos = {x=1,y=0}, atlas = 'Van_Booster_dx', set = 'Booster', config = {type = '_dx', extra = 4, choose = 1, unique = true}}
+    G.P_CENTERS.p_arcana_normal_3_dx =         {order = 3,  discovered = true, name = "Arcana Pack DX", weight = 1, kind = 'Arcana', cost = 6, pos = {x=2,y=0}, atlas = 'Van_Booster_dx', set = 'Booster', config = {type = '_dx', extra = 4, choose = 1, unique = true}}
+    G.P_CENTERS.p_arcana_normal_4_dx =         {order = 4,  discovered = true, name = "Arcana Pack DX", weight = 1, kind = 'Arcana', cost = 6, pos = {x=3,y=0}, atlas = 'Van_Booster_dx', set = 'Booster', config = {type = '_dx', extra = 4, choose = 1, unique = true}}
+    G.P_CENTERS.p_arcana_jumbo_1_dx =          {order = 5,  discovered = true, name = "Jumbo Arcana Pack DX", weight = 1, kind = 'Arcana', cost = 8, pos = {x=0,y=2}, atlas = 'Van_Booster_dx', set = 'Booster', config = {type = '_dx', extra = 6, choose = 1, unique = true}}
+    G.P_CENTERS.p_arcana_jumbo_2_dx =          {order = 6,  discovered = true, name = "Jumbo Arcana Pack DX", weight = 1, kind = 'Arcana', cost = 8, pos = {x=1,y=2}, atlas = 'Van_Booster_dx', set = 'Booster', config = {type = '_dx', extra = 6, choose = 1, unique = true}}
+    G.P_CENTERS.p_arcana_mega_1_dx =           {order = 7,  discovered = true, name = "Mega Arcana Pack DX", weight = 0.25, kind = 'Arcana', cost = 10, pos = {x=2,y=2}, atlas = 'Van_Booster_dx', set = 'Booster', config = {type = '_dx', extra = 6, choose = 2, unique = true}}
+    G.P_CENTERS.p_arcana_mega_2_dx =           {order = 8,  discovered = true, name = "Mega Arcana Pack DX", weight = 0.25, kind = 'Arcana', cost = 10, pos = {x=3,y=2}, atlas = 'Van_Booster_dx', set = 'Booster', config = {type = '_dx', extra = 6, choose = 2, unique = true}}
+    G.P_CENTERS.p_celestial_normal_1_dx =      {order = 9,  discovered = true, name = "Celestial Pack DX", weight = 1, kind = 'Celestial', cost = 6, pos = {x=0,y=1}, atlas = 'Van_Booster_dx', set = 'Booster', config = {type = '_dx', extra = 4, choose = 1, unique = true}}
+    G.P_CENTERS.p_celestial_normal_2_dx =      {order = 10, discovered = true, name = "Celestial Pack DX", weight = 1, kind = 'Celestial', cost = 6, pos = {x=1,y=1}, atlas = 'Van_Booster_dx', set = 'Booster', config = {type = '_dx', extra = 4, choose = 1, unique = true}}
+    G.P_CENTERS.p_celestial_normal_3_dx =      {order = 11, discovered = true, name = "Celestial Pack DX", weight = 1, kind = 'Celestial', cost = 6, pos = {x=2,y=1}, atlas = 'Van_Booster_dx', set = 'Booster', config = {type = '_dx', extra = 4, choose = 1, unique = true}}
+    G.P_CENTERS.p_celestial_normal_4_dx =      {order = 12, discovered = true, name = "Celestial Pack DX", weight = 1, kind = 'Celestial', cost = 6, pos = {x=3,y=1}, atlas = 'Van_Booster_dx', set = 'Booster', config = {type = '_dx', extra = 4, choose = 1, unique = true}}
+    G.P_CENTERS.p_celestial_jumbo_1_dx =       {order = 13, discovered = true, name = "Jumbo Celestial Pack DX", weight = 1, kind = 'Celestial', cost = 8, pos = {x=0,y=3}, atlas = 'Van_Booster_dx', set = 'Booster', config = {type = '_dx', extra = 6, choose = 1, unique = true}}
+    G.P_CENTERS.p_celestial_jumbo_2_dx =       {order = 14, discovered = true, name = "Jumbo Celestial Pack DX", weight = 1, kind = 'Celestial', cost = 8, pos = {x=1,y=3}, atlas = 'Van_Booster_dx', set = 'Booster', config = {type = '_dx', extra = 6, choose = 1, unique = true}}
+    G.P_CENTERS.p_celestial_mega_1_dx =        {order = 15, discovered = true, name = "Mega Celestial Pack DX", weight = 0.25, kind = 'Celestial', cost = 10, pos = {x=2,y=3}, atlas = 'Van_Booster_dx', set = 'Booster', config = {type = '_dx', extra = 6, choose = 2, unique = true}}
+    G.P_CENTERS.p_celestial_mega_2_dx =        {order = 16, discovered = true, name = "Mega Celestial Pack DX", weight = 0.25, kind = 'Celestial', cost = 10, pos = {x=3,y=3}, atlas = 'Van_Booster_dx', set = 'Booster', config = {type = '_dx', extra = 6, choose = 2, unique = true}}
+    G.P_CENTERS.p_spectral_normal_1_dx =       {order = 29, discovered = true, name = "Spectral Pack DX", weight = 0.3, kind = 'Spectral', cost = 6, pos = {x=0,y=4}, atlas = 'Van_Booster_dx', set = 'Booster', config = {type = '_dx', extra = 3, choose = 1, unique = true}}
+    G.P_CENTERS.p_spectral_normal_2_dx =       {order = 30, discovered = true, name = "Spectral Pack DX", weight = 0.3, kind = 'Spectral', cost = 6, pos = {x=1,y=4}, atlas = 'Van_Booster_dx', set = 'Booster', config = {type = '_dx', extra = 3, choose = 1, unique = true}}
+    G.P_CENTERS.p_spectral_jumbo_1_dx =        {order = 31, discovered = true, name = "Jumbo Spectral Pack DX", weight = 0.3, kind = 'Spectral', cost = 8, pos = {x=2,y=4}, atlas = 'Van_Booster_dx', set = 'Booster', config = {type = '_dx', extra = 5, choose = 1, unique = true}}
+    G.P_CENTERS.p_spectral_mega_1_dx =         {order = 32, discovered = true, name = "Mega Spectral Pack DX", weight = 0.07, kind = 'Spectral', cost = 10, pos = {x=3,y=4}, atlas = 'Van_Booster_dx', set = 'Booster', config = {type = '_dx', extra = 5, choose = 2, unique = true}}
+    G.P_CENTERS.p_standard_normal_1_dx =       {order = 17, discovered = true, name = "Standard Pack DX", weight = 1, kind = 'Standard', cost = 6, pos = {x=0,y=6}, atlas = 'Van_Booster_dx', set = 'Booster', config = {type = '_dx', extra = 4, choose = 1, unique = true}}
+    G.P_CENTERS.p_standard_normal_2_dx =       {order = 18, discovered = true, name = "Standard Pack DX", weight = 1, kind = 'Standard', cost = 6, pos = {x=1,y=6}, atlas = 'Van_Booster_dx', set = 'Booster', config = {type = '_dx', extra = 4, choose = 1, unique = true}}
+    G.P_CENTERS.p_standard_normal_3_dx =       {order = 19, discovered = true, name = "Standard Pack DX", weight = 1, kind = 'Standard', cost = 6, pos = {x=2,y=6}, atlas = 'Van_Booster_dx', set = 'Booster', config = {type = '_dx', extra = 4, choose = 1, unique = true}}
+    G.P_CENTERS.p_standard_normal_4_dx =       {order = 20, discovered = true, name = "Standard Pack DX", weight = 1, kind = 'Standard', cost = 6, pos = {x=3,y=6}, atlas = 'Van_Booster_dx', set = 'Booster', config = {type = '_dx', extra = 4, choose = 1, unique = true}}
+    G.P_CENTERS.p_standard_jumbo_1_dx =        {order = 21, discovered = true, name = "Jumbo Standard Pack DX", weight = 1, kind = 'Standard', cost = 8, pos = {x=0,y=7}, atlas = 'Van_Booster_dx', set = 'Booster', config = {type = '_dx', extra = 6, choose = 1, unique = true}}
+    G.P_CENTERS.p_standard_jumbo_2_dx =        {order = 22, discovered = true, name = "Jumbo Standard Pack DX", weight = 1, kind = 'Standard', cost = 8, pos = {x=1,y=7}, atlas = 'Van_Booster_dx', set = 'Booster', config = {type = '_dx', extra = 6, choose = 1, unique = true}}
+    G.P_CENTERS.p_standard_mega_1_dx =         {order = 23, discovered = true, name = "Mega Standard Pack DX", weight = 0.25, kind = 'Standard', cost = 10, pos = {x=2,y=7}, atlas = 'Van_Booster_dx', set = 'Booster', config = {type = '_dx', extra = 6, choose = 2, unique = true}}
+    G.P_CENTERS.p_standard_mega_2_dx =         {order = 24, discovered = true, name = "Mega Standard Pack DX", weight = 0.25, kind = 'Standard', cost = 10, pos = {x=3,y=7}, atlas = 'Van_Booster_dx', set = 'Booster', config = {type = '_dx', extra = 6, choose = 2, unique = true}}
+    G.P_CENTERS.p_buffoon_normal_1_dx =        {order = 25, discovered = true, name = "Buffoon Pack DX", weight = 0.6, kind = 'Buffoon', cost = 6, pos = {x=0,y=8}, atlas = 'Van_Booster_dx', set = 'Booster', config = {type = '_dx', extra = 3, choose = 1, unique = true}}
+    G.P_CENTERS.p_buffoon_normal_2_dx =        {order = 26, discovered = true, name = "Buffoon Pack DX", weight = 0.6, kind = 'Buffoon', cost = 6, pos = {x=1,y=8}, atlas = 'Van_Booster_dx', set = 'Booster', config = {type = '_dx', extra = 3, choose = 1, unique = true}}
+    G.P_CENTERS.p_buffoon_jumbo_1_dx =         {order = 27, discovered = true, name = "Jumbo Buffoon Pack DX", weight = 0.6, kind = 'Buffoon', cost = 8, pos = {x=2,y=8}, atlas = 'Van_Booster_dx', set = 'Booster', config = {type = '_dx', extra = 5, choose = 1, unique = true}}
+    G.P_CENTERS.p_buffoon_mega_1_dx =          {order = 28, discovered = true, name = "Mega Buffoon Pack DX", weight = 0.15, kind = 'Buffoon', cost = 10, pos = {x=3,y=8}, atlas = 'Van_Booster_dx', set = 'Booster', config = {type = '_dx', extra = 5, choose = 2, unique = true}}
 
 
     -- Update tables
@@ -154,8 +154,10 @@ local function setup_consumables()
     for k, v in pairs(G.P_CENTERS) do
         v.key = k
         if not v.wip then 
-            if v.set == 'Tarot_dx' or v.set == 'Tarot_cu' or v.set == 'Planet_dx' or v.set == 'Spectral_dx' or v.set == 'Booster_dx' then
-                table.insert(G.P_CENTER_POOLS[v.set], v)
+            if v.set == 'Tarot' or v.set == 'Planet' or v.set == 'Spectral' or v.set == 'Booster' then
+                if v.config and (v.config.type ==  '_dx' or v.config.type ==  '_cu') then
+                    table.insert(G.P_CENTER_POOLS[v.set..v.config.type], v)
+                end
             end
         end
     end
@@ -1093,83 +1095,6 @@ local function overrides()
 
     ---------- button_callbacks ----------
 
-    -- Manage DX boosters
-    local G_FUNCS_use_card_ref = G.FUNCS.use_card
-    function G.FUNCS.use_card(e, mute, nosave)
-        
-        -- Use the vanilla function for now, TODO
-        if e.config.ref_table and e.config.ref_table.ability.set == 'Booster_dx' then
-            e.config.button = nil
-            local card = e.config.ref_table
-            local area = card.area
-            local prev_state = G.STATE
-            local dont_dissolve = nil
-            local delay_fac = 1
-        
-            if card:check_use() then 
-            G.E_MANAGER:add_event(Event({func = function()
-                e.disable_button = nil
-                e.config.button = 'use_card'
-            return true end }))
-            return
-            end
-        
-            if not nosave and G.STATE == G.STATES.SHOP then
-            save_with_action({
-                type = 'use_card',
-                card = card.sort_id,
-            })
-            end
-        
-            G.TAROT_INTERRUPT = G.STATE
-            G.GAME.PACK_INTERRUPT = G.STATE
-            G.STATE = (G.STATE == G.STATES.TAROT_PACK and G.STATES.TAROT_PACK) or
-            (G.STATE == G.STATES.PLANET_PACK and G.STATES.PLANET_PACK) or
-            (G.STATE == G.STATES.SPECTRAL_PACK and G.STATES.SPECTRAL_PACK) or
-            (G.STATE == G.STATES.STANDARD_PACK and G.STATES.STANDARD_PACK) or
-            (G.STATE == G.STATES.BUFFOON_PACK and G.STATES.BUFFOON_PACK) or
-            G.STATES.PLAY_TAROT
-            
-            G.CONTROLLER.locks.use = true
-            if G.booster_pack and not G.booster_pack.alignment.offset.py and (card.ability.consumeable or not (G.GAME.pack_choices and G.GAME.pack_choices > 1)) then
-            G.booster_pack.alignment.offset.py = G.booster_pack.alignment.offset.y
-            G.booster_pack.alignment.offset.y = G.ROOM.T.y + 29
-            end
-            if G.shop and not G.shop.alignment.offset.py then
-            G.shop.alignment.offset.py = G.shop.alignment.offset.y
-            G.shop.alignment.offset.y = G.ROOM.T.y + 29
-            end
-            if G.blind_select and not G.blind_select.alignment.offset.py then
-            G.blind_select.alignment.offset.py = G.blind_select.alignment.offset.y
-            G.blind_select.alignment.offset.y = G.ROOM.T.y + 39
-            end
-            if G.round_eval and not G.round_eval.alignment.offset.py then
-            G.round_eval.alignment.offset.py = G.round_eval.alignment.offset.y
-            G.round_eval.alignment.offset.y = G.ROOM.T.y + 29
-            end
-        
-            if card.children.use_button then card.children.use_button:remove(); card.children.use_button = nil end
-            if card.children.sell_button then card.children.sell_button:remove(); card.children.sell_button = nil end
-            if card.children.price then card.children.price:remove(); card.children.price = nil end
-        
-            if card.area then card.area:remove_card(card) end
-            
-            delay(0.1)
-            if card.ability.booster_pos then G.GAME.current_round.used_packs[card.ability.booster_pos] = 'USED' end
-            draw_card(G.hand, G.play, 1, 'up', true, card, nil, true) 
-            if not card.from_tag then 
-            G.GAME.round_scores.cards_purchased.amt = G.GAME.round_scores.cards_purchased.amt + 1
-            end
-            e.config.ref_table:open()
-            
-            G.CONTROLLER.locks.use = false
-            G.TAROT_INTERRUPT = nil
-        else
-            G_FUNCS_use_card_ref(e, mute, nosave)
-        end
-
-    end
-
     -- Manage Ankh DX
     local G_FUNCS_buy_from_shop_ref = G.FUNCS.buy_from_shop
     function G.FUNCS.buy_from_shop(e)
@@ -1302,7 +1227,7 @@ local function overrides()
 
         -- poll planet edition if it is enabled
         if planet_edition_enabled then
-            if (_type == 'Planet' or _type == 'Planet_dx') and created_card.ability.consumeable.hand_type then
+            if (_type == 'Planet' or _type == 'Planet_dx') and created_card.ability.consumeable and created_card.ability.consumeable.hand_type then
                 local mod = math.max(1, 1 + (0.07 * math.min(7, G.GAME.hands[created_card.ability.consumeable.hand_type].level))) or 1
                 if G.GAME.used_cu_augments and G.GAME.used_cu_augments.c_high_priestess_cu then mod = mod * G.P_CENTERS.c_high_priestess_cu.config.prob_mult end
                 local edition = poll_edition('edi'..(key_append or '')..G.GAME.round_resets.ante, mod, true)
@@ -1376,7 +1301,7 @@ local function overrides()
                     return true end }))
                 update_hand_text({sound = 'button', volume = 0.7, pitch = 0.9, delay = 0}, {level=G.GAME.hands[hand].level})
                 
-                if card and card.ability and card.ability.set and card.ability.set == "Planet_dx" then
+                if card and card.ability and card.ability.set and card.ability.type == '_dx' then
                     G.GAME.hands[hand].level = math.max(0, G.GAME.hands[hand].level + amount)
                     G.GAME.hands[hand].mult = math.max(G.GAME.hands[hand].mult + G.GAME.hands[hand].l_mult*(amount), 1)
                     G.GAME.hands[hand].chips = math.max(G.GAME.hands[hand].chips + G.GAME.hands[hand].l_chips*(amount), 0)
@@ -1459,7 +1384,7 @@ local function overrides()
 
         -- Add custom badges
         if first_pass and badges then
-            if _c.set == 'Tarot_dx' or _c.set == 'Planet_dx' or _c.set == 'Spectral_dx' or _c.set == 'Booster_dx' then
+            if _c.config.type == '_dx' then
                 -- Add the DX badge
                 badges[#badges + 1] = 'dx'
             end
@@ -1482,7 +1407,7 @@ local function overrides()
             end
         end
 
-        if _c.set == 'Tarot_dx' or _c.set == 'Tarot_cu' or _c.set == 'Planet_dx' or _c.set == 'Spectral_dx' or _c.set == 'Booster_dx' then    -- Overwrite
+        if _c.config and (_c.config.type == '_dx' or _c.config.type == '_cu') then    -- Overwrite
 
             -- Just copy-paste for now... TODO
             if first_pass then 
@@ -1517,10 +1442,10 @@ local function overrides()
                         localize{type = 'other', key = 'playing_card', set = 'Other', nodes = full_UI_table.name, vars = {localize(specific_vars.value, 'ranks'), localize(specific_vars.suit, 'suits_plural'), colours = {specific_vars.colour}}}
                         full_UI_table.name = full_UI_table.name[1]
                     end
-                elseif card_type == 'Booster' or card_type == 'Booster_dx' then
+                elseif card_type == 'Booster' then
                     
                 else
-                    full_UI_table.name = localize{type = 'name', set = _c.set, key = _c.key, nodes = full_UI_table.name}
+                    full_UI_table.name = localize{type = 'name', set = _c.set.._c.config.type, key = _c.key, nodes = full_UI_table.name}
                 end
                 full_UI_table.card_type = card_type or _c.set
             end 
@@ -1530,7 +1455,7 @@ local function overrides()
                 desc_nodes[#desc_nodes+1] = main_start 
             end
             
-            if _c.set == 'Booster_dx' then 
+            if _c.set == 'Booster' then 
                 local desc_override = 'p_arcana_normal_dx'
                 if _c.name == 'Arcana Pack DX' then desc_override = 'p_arcana_normal_dx'; loc_vars = {_c.config.choose, _c.config.extra}
                 elseif _c.name == 'Jumbo Arcana Pack DX' then desc_override = 'p_arcana_jumbo_dx'; loc_vars = {_c.config.choose, _c.config.extra}
@@ -1551,7 +1476,7 @@ local function overrides()
                 name_override = desc_override
                 if not full_UI_table.name then full_UI_table.name = localize{type = 'name', set = 'Other', key = name_override, nodes = full_UI_table.name} end
                 localize{type = 'other', key = desc_override, nodes = desc_nodes, vars = loc_vars}
-            elseif _c.set == 'Spectral_dx' then 
+            elseif _c.set == 'Spectral' then 
                 if _c.name == 'Familiar DX' or _c.name == 'Grim DX' or _c.name == 'Incantation DX' then loc_vars = {_c.config.extra}
                 elseif _c.name == 'Immolate DX' then loc_vars = {_c.config.extra.destroy, _c.config.extra.dollars}
                 elseif _c.name == 'Hex DX' then info_queue[#info_queue+1] = G.P_CENTERS.e_polychrome
@@ -1579,14 +1504,14 @@ local function overrides()
                     info_queue[#info_queue+1] = G.P_CENTERS.e_holo
                     info_queue[#info_queue+1] = G.P_CENTERS.e_polychrome
                 end
-                localize{type = 'descriptions', key = _c.key, set = _c.set, nodes = desc_nodes, vars = loc_vars}
-            elseif _c.set == 'Planet_dx' then
+                localize{type = 'descriptions', key = _c.key, set = _c.set.._c.config.type, nodes = desc_nodes, vars = loc_vars}
+            elseif _c.set == 'Planet' then
                 loc_vars = {
                     G.GAME.hands[_c.config.hand_type].level,localize(_c.config.hand_type, 'poker_hands'), G.GAME.hands[_c.config.hand_type].l_mult * 2, G.GAME.hands[_c.config.hand_type].l_chips * 2,
                     colours = {(G.GAME.hands[_c.config.hand_type].level==1 and G.C.UI.TEXT_DARK or G.C.HAND_LEVELS[math.min(7, G.GAME.hands[_c.config.hand_type].level)])}
                 }
-                localize{type = 'descriptions', key = _c.key, set = _c.set, nodes = desc_nodes, vars = loc_vars}
-            elseif _c.set == 'Tarot_dx' then
+                localize{type = 'descriptions', key = _c.key, set = _c.set.._c.config.type, nodes = desc_nodes, vars = loc_vars}
+            elseif _c.set == 'Tarot' then
                 if _c.name == "The Fool DX" then
                     local fool_c = G.GAME.last_tarot_planet and G.P_CENTERS[G.GAME.last_tarot_planet] or nil
                     local last_tarot_planet = fool_c and localize{type = 'name_text', key = fool_c.key, set = fool_c.set} or localize('k_none')
@@ -1632,19 +1557,17 @@ local function overrides()
                 elseif _c.name == "The Sun DX" then loc_vars = {_c.config.max_highlighted, localize(_c.config.suit_conv, 'suits_plural'), colours = {G.C.SUITS[_c.config.suit_conv]}}
                 elseif _c.name == "Judgement DX" then
                 elseif _c.name == "The World DX" then loc_vars = {_c.config.max_highlighted, localize(_c.config.suit_conv, 'suits_plural'), colours = {G.C.SUITS[_c.config.suit_conv]}}
-                end
-                localize{type = 'descriptions', key = _c.key, set = _c.set, nodes = desc_nodes, vars = loc_vars}
-            elseif _c.set == 'Tarot_cu' then
-                if _c.name == "The Cursed Fool" then
+
+                elseif _c.name == "The Cursed Fool" then
                     local fool_c = G.P_CENTERS["c_fool_dx"] or nil
-                    local created_card = fool_c and localize{type = 'name_text', key = fool_c.key, set = fool_c.set} or localize('k_none')
+                    local created_card = fool_c and localize{type = 'name_text', key = fool_c.key, set = fool_c.set..fool_c.config.type} or localize('k_none')
                     loc_vars = {created_card}
                     if fool_c then
                         info_queue[#info_queue+1] = fool_c
                     end
                 elseif _c.name == "The Cursed Magician" then
                     local fool_c = G.P_CENTERS["c_magician_dx"] or nil
-                    local created_card = fool_c and localize{type = 'name_text', key = fool_c.key, set = fool_c.set} or localize('k_none')
+                    local created_card = fool_c and localize{type = 'name_text', key = fool_c.key, set = fool_c.set..fool_c.config.type} or localize('k_none')
                 loc_vars = {created_card}
                 if fool_c then
                         info_queue[#info_queue+1] = fool_c
@@ -1652,7 +1575,7 @@ local function overrides()
                 elseif _c.name == "The Cursed High Priestess" then loc_vars = {_c.config.prob_mult}; info_queue[#info_queue+1] = G.P_CENTERS.e_foil; info_queue[#info_queue+1] = G.P_CENTERS.e_holo; info_queue[#info_queue+1] = G.P_CENTERS.e_polychrome; 
                 elseif _c.name == "The Cursed Empress" then
                     local fool_c = G.P_CENTERS["c_empress_dx"] or nil
-                    local created_card = fool_c and localize{type = 'name_text', key = fool_c.key, set = fool_c.set} or localize('k_none')
+                    local created_card = fool_c and localize{type = 'name_text', key = fool_c.key, set = fool_c.set..fool_c.config.type} or localize('k_none')
                 if fool_c then
                         info_queue[#info_queue+1] = fool_c
                 end
@@ -1662,28 +1585,28 @@ local function overrides()
                     loc_vars = {_c.config.tarots}
                 elseif _c.name == "The Cursed Hierophant" then
                     local fool_c = G.P_CENTERS["c_heirophant_dx"] or nil
-                    local created_card = fool_c and localize{type = 'name_text', key = fool_c.key, set = fool_c.set} or localize('k_none')
+                    local created_card = fool_c and localize{type = 'name_text', key = fool_c.key, set = fool_c.set..fool_c.config.type} or localize('k_none')
                 if fool_c then
                         info_queue[#info_queue+1] = fool_c
                 end
                     loc_vars = {G.P_CENTERS.m_bonus.config.bonus + _c.config.extra, localize{type = 'name_text', set = 'Enhanced', key = _c.config.mod_conv}}
                 elseif _c.name == "The Cursed Lovers" then
                     local fool_c = G.P_CENTERS["c_lovers_dx"] or nil
-                    local created_card = fool_c and localize{type = 'name_text', key = fool_c.key, set = fool_c.set} or localize('k_none')
+                    local created_card = fool_c and localize{type = 'name_text', key = fool_c.key, set = fool_c.set..fool_c.config.type} or localize('k_none')
                 if fool_c then
                         info_queue[#info_queue+1] = fool_c
                 end
                 loc_vars = {localize{type = 'name_text', set = 'Enhanced', key = _c.config.mod_conv}}
                 elseif _c.name == "The Cursed Chariot" then
                     local fool_c = G.P_CENTERS["c_chariot_dx"] or nil
-                    local created_card = fool_c and localize{type = 'name_text', key = fool_c.key, set = fool_c.set} or localize('k_none')
+                    local created_card = fool_c and localize{type = 'name_text', key = fool_c.key, set = fool_c.set..fool_c.config.type} or localize('k_none')
                 if fool_c then
                         info_queue[#info_queue+1] = fool_c
                 end
                 loc_vars = {G.P_CENTERS.m_steel.config.h_x_mult + _c.config.extra, localize{type = 'name_text', set = 'Enhanced', key = _c.config.mod_conv}}
                 elseif _c.name == "Cursed Justice" then
                     local fool_c = G.P_CENTERS["c_justice_dx"] or nil
-                    local created_card = fool_c and localize{type = 'name_text', key = fool_c.key, set = fool_c.set} or localize('k_none')
+                    local created_card = fool_c and localize{type = 'name_text', key = fool_c.key, set = fool_c.set..fool_c.config.type} or localize('k_none')
                 if fool_c then
                         info_queue[#info_queue+1] = fool_c
                 end
@@ -1694,7 +1617,7 @@ local function overrides()
                 elseif _c.name == "The Cursed Hanged Man" then loc_vars = {_c.config.max_highlighted}
                 elseif _c.name == "Cursed Death" then
                     local fool_c = G.P_CENTERS["c_death_dx"] or nil
-                    local created_card = fool_c and localize{type = 'name_text', key = fool_c.key, set = fool_c.set} or localize('k_none')
+                    local created_card = fool_c and localize{type = 'name_text', key = fool_c.key, set = fool_c.set..fool_c.config.type} or localize('k_none')
                 if fool_c then
                         info_queue[#info_queue+1] = fool_c
                 end
@@ -1711,35 +1634,35 @@ local function overrides()
                 loc_vars = {_c.config.extra, math.min(_c.config.extra, _money)}
                 elseif _c.name == "The Cursed Devil" then
                     local fool_c = G.P_CENTERS["c_devil_dx"] or nil
-                    local created_card = fool_c and localize{type = 'name_text', key = fool_c.key, set = fool_c.set} or localize('k_none')
+                    local created_card = fool_c and localize{type = 'name_text', key = fool_c.key, set = fool_c.set..fool_c.config.type} or localize('k_none')
                 if fool_c then
                         info_queue[#info_queue+1] = fool_c
                 end
                 loc_vars = {G.P_CENTERS.m_gold.config.h_dollars + _c.config.extra, localize{type = 'name_text', set = 'Enhanced', key = _c.config.mod_conv}}
                 elseif _c.name == "The Cursed Tower" then
                     local fool_c = G.P_CENTERS["c_tower_dx"] or nil
-                    local created_card = fool_c and localize{type = 'name_text', key = fool_c.key, set = fool_c.set} or localize('k_none')
+                    local created_card = fool_c and localize{type = 'name_text', key = fool_c.key, set = fool_c.set..fool_c.config.type} or localize('k_none')
                 if fool_c then
                         info_queue[#info_queue+1] = fool_c
                 end
                 loc_vars = {G.P_CENTERS.m_stone.config.bonus + _c.config.extra, localize{type = 'name_text', set = 'Enhanced', key = _c.config.mod_conv}}
                 elseif _c.name == "The Cursed Star" then
                     local fool_c = G.P_CENTERS["c_star_dx"] or nil
-                    local created_card = fool_c and localize{type = 'name_text', key = fool_c.key, set = fool_c.set} or localize('k_none')
+                    local created_card = fool_c and localize{type = 'name_text', key = fool_c.key, set = fool_c.set..fool_c.config.type} or localize('k_none')
                 if fool_c then
                         info_queue[#info_queue+1] = fool_c
                 end
                 loc_vars = {localize(_c.config.suit_conv, 'suits_plural'), colours = {G.C.SUITS[_c.config.suit_conv]}}
                 elseif _c.name == "The Cursed Moon" then
                     local fool_c = G.P_CENTERS["c_moon_dx"] or nil
-                    local created_card = fool_c and localize{type = 'name_text', key = fool_c.key, set = fool_c.set} or localize('k_none')
+                    local created_card = fool_c and localize{type = 'name_text', key = fool_c.key, set = fool_c.set..fool_c.config.type} or localize('k_none')
                 if fool_c then
                         info_queue[#info_queue+1] = fool_c
                 end
                 loc_vars = {localize(_c.config.suit_conv, 'suits_plural'), colours = {G.C.SUITS[_c.config.suit_conv]}}
                 elseif _c.name == "The Cursed Sun" then
                     local fool_c = G.P_CENTERS["c_sun_dx"] or nil
-                    local created_card = fool_c and localize{type = 'name_text', key = fool_c.key, set = fool_c.set} or localize('k_none')
+                    local created_card = fool_c and localize{type = 'name_text', key = fool_c.key, set = fool_c.set..fool_c.config.type} or localize('k_none')
                 if fool_c then
                         info_queue[#info_queue+1] = fool_c
                 end
@@ -1747,13 +1670,13 @@ local function overrides()
                 elseif _c.name == "Cursed Judgement" then
                 elseif _c.name == "The Cursed World" then
                     local fool_c = G.P_CENTERS["c_world_dx"] or nil
-                    local created_card = fool_c and localize{type = 'name_text', key = fool_c.key, set = fool_c.set} or localize('k_none')
+                    local created_card = fool_c and localize{type = 'name_text', key = fool_c.key, set = fool_c.set..fool_c.config.type} or localize('k_none')
                 if fool_c then
                         info_queue[#info_queue+1] = fool_c
                 end
                 loc_vars = {localize(_c.config.suit_conv, 'suits_plural'), colours = {G.C.SUITS[_c.config.suit_conv]}}
                 end
-                localize{type = 'descriptions', key = _c.key, set = _c.set, nodes = desc_nodes, vars = loc_vars}
+                localize{type = 'descriptions', key = _c.key, set = _c.set.._c.config.type, nodes = desc_nodes, vars = loc_vars}
             end
 
             if main_end then 
@@ -1763,10 +1686,10 @@ local function overrides()
             --Fill all remaining info if this is the main desc
             if not ((specific_vars and not specific_vars.sticker) and (card_type == 'Default' or card_type == 'Enhanced')) then
                 if desc_nodes == full_UI_table.main and not full_UI_table.name then
-                    localize{type = 'name', key = _c.key, set = _c.set, nodes = full_UI_table.name} 
+                    localize{type = 'name', key = _c.key, set = _c.set.._c.config.type, nodes = full_UI_table.name} 
                     if not full_UI_table.name then full_UI_table.name = {} end
                 elseif desc_nodes ~= full_UI_table.main then 
-                    desc_nodes.name = localize{type = 'name_text', key = name_override or _c.key, set = name_override and 'Other' or _c.set} 
+                    desc_nodes.name = localize{type = 'name_text', key = name_override or _c.key, set = name_override and 'Other' or _c.set.._c.config.type} 
                 end
             end
 
@@ -1839,69 +1762,6 @@ local function overrides()
         return ret
     end
 
-    -- Manage DX boosters
-    local get_type_colour_ref = get_type_colour
-    function get_type_colour(_c, card)
-
-        if _c.set == 'Booster_dx' then return G.C.BOOSTER end
-        return get_type_colour_ref(_c, card)
-    end
-
-    ---------- misc_functions ----------
-
-    -- Manage consumable usage
-    local set_consumeable_usage_ref = set_consumeable_usage
-    function set_consumeable_usage(card)
-
-        set_consumeable_usage_ref(card)
-
-        if card.config.center_key and card.ability.consumeable and (card.config.center.set == 'Tarot_dx' or card.config.center.set == 'Tarot_cu' or card.config.center.set == 'Planet_dx' or card.config.center.set == 'Spectral_dx') then
-
-            -- Vanilla consumable usage count (profile), only for already used vanilla, don't create entry if it doesn't exist
-            if G.PROFILES[G.SETTINGS.profile].consumeable_usage[string.sub(card.config.center_key, 1, -4)] then
-                G.PROFILES[G.SETTINGS.profile].consumeable_usage[string.sub(card.config.center_key, 1, -4)].count = G.PROFILES[G.SETTINGS.profile].consumeable_usage[string.sub(card.config.center_key, 1, -4)].count + 1
-            end
-            if G.GAME.consumeable_usage[string.sub(card.config.center_key, 1, -4)] then
-                G.GAME.consumeable_usage[string.sub(card.config.center_key, 1, -4)].count = G.GAME.consumeable_usage[string.sub(card.config.center_key, 1, -4)].count + 1
-            else
-                G.GAME.consumeable_usage[string.sub(card.config.center_key, 1, -4)] = {count = 1, order = card.config.center.order, set = string.sub(card.ability.set, 1, -4)}
-            end
-
-            -- Remove DX card count on profile
-            if G.PROFILES[G.SETTINGS.profile].consumeable_usage[card.config.center_key] then
-                G.PROFILES[G.SETTINGS.profile].consumeable_usage[card.config.center_key] = nil
-            end
-
-            -- DX/Cursed consumable usage count
-            if card.config.center.set == 'Tarot_dx' or card.config.center.set == 'Tarot_cu' then
-                G.GAME.consumeable_usage_total.tarot = G.GAME.consumeable_usage_total.tarot + 1  
-                G.GAME.consumeable_usage_total.tarot_planet = G.GAME.consumeable_usage_total.tarot_planet + 1
-            elseif card.config.center.set == 'Planet_dx' then
-                G.GAME.consumeable_usage_total.planet = G.GAME.consumeable_usage_total.planet + 1
-                G.GAME.consumeable_usage_total.tarot_planet = G.GAME.consumeable_usage_total.tarot_planet + 1
-            elseif card.config.center.set == 'Spectral_dx' then
-                G.GAME.consumeable_usage_total.spectral = G.GAME.consumeable_usage_total.spectral + 1
-            end
-
-            -- Last consumable used, set it to vanilla version
-            if card.config.center.set == 'Tarot_dx' or card.config.center.set == 'Tarot_cu' or card.config.center.set == 'Planet_dx' then 
-            G.E_MANAGER:add_event(Event({
-                trigger = 'immediate',
-                func = function()
-                G.E_MANAGER:add_event(Event({
-                    trigger = 'immediate',
-                    func = function()
-                    G.GAME.last_tarot_planet = string.sub(card.config.center_key, 1, -4)
-                        return true
-                    end
-                }))
-                    return true
-                end
-            }))
-            end
-        end
-    end
-
     ---------- UI_definitions ----------
 
     -- Manage DX planets badge
@@ -1964,101 +1824,12 @@ local function overrides()
         end
     end
 
-    -- Manage DX boosters shop UI
-    local create_shop_card_ui_ref = create_shop_card_ui
-    function create_shop_card_ui(card, type, area)
-        
-        -- Use the vanilla function for now, TODO
-        if card.ability.set == 'Booster_dx' then
-            G.E_MANAGER:add_event(Event({
-            trigger = 'after',
-            delay = 0.43,
-            blocking = false,
-            blockable = false,
-            func = (function()
-                if card.opening then return true end
-                local t1 = {
-                    n=G.UIT.ROOT, config = {minw = 0.6, align = 'tm', colour = darken(G.C.BLACK, 0.2), shadow = true, r = 0.05, padding = 0.05, minh = 1}, nodes={
-                        {n=G.UIT.R, config={align = "cm", colour = lighten(G.C.BLACK, 0.1), r = 0.1, minw = 1, minh = 0.55, emboss = 0.05, padding = 0.03}, nodes={
-                        {n=G.UIT.O, config={object = DynaText({string = {{prefix = localize('$'), ref_table = card, ref_value = 'cost'}}, colours = {G.C.MONEY},shadow = true, silent = true, bump = true, pop_in = 0, scale = 0.5})}},
-                        }}
-                    }}
-                local t2 = {
-                n=G.UIT.ROOT, config = {ref_table = card, minw = 1.1, maxw = 1.3, padding = 0.1, align = 'bm', colour = G.C.GREEN, shadow = true, r = 0.08, minh = 0.94, func = 'can_open', one_press = true, button = 'open_booster', hover = true}, nodes={
-                    {n=G.UIT.T, config={text = localize('b_open'),colour = G.C.WHITE, scale = 0.5}}
-                }}
-                local t3 = {
-                n=G.UIT.ROOT, config = {id = 'buy_and_use', ref_table = card, minh = 1.1, padding = 0.1, align = 'cr', colour = G.C.RED, shadow = true, r = 0.08, minw = 1.1, func = 'can_buy_and_use', one_press = true, button = 'buy_from_shop', hover = true, focus_args = {type = 'none'}}, nodes={
-                    {n=G.UIT.B, config = {w=0.1,h=0.6}},
-                    {n=G.UIT.C, config = {align = 'cm'}, nodes={
-                    {n=G.UIT.R, config = {align = 'cm', maxw = 1}, nodes={
-                        {n=G.UIT.T, config={text = localize('b_buy'),colour = G.C.WHITE, scale = 0.5}}
-                    }},
-                    {n=G.UIT.R, config = {align = 'cm', maxw = 1}, nodes={
-                        {n=G.UIT.T, config={text = localize('b_and_use'),colour = G.C.WHITE, scale = 0.3}}
-                    }},
-                    }} 
-                }}
-                
-    
-                card.children.price = UIBox{
-                definition = t1,
-                config = {
-                    align="tm",
-                    offset = {x=0,y=1.5},
-                    major = card,
-                    bond = 'Weak',
-                    parent = card
-                }
-                }
-    
-                card.children.buy_button = UIBox{
-                definition = t2,
-                config = {
-                    align="bm",
-                    offset = {x=0,y=-0.3},
-                    major = card,
-                    bond = 'Weak',
-                    parent = card
-                }
-                }
-    
-                if card.ability.consumeable then --and card:can_use_consumeable(true, true)
-                card.children.buy_and_use_button = UIBox{
-                    definition = t3,
-                    config = {
-                    align="cr",
-                    offset = {x=-0.3,y=0},
-                    major = card,
-                    bond = 'Weak',
-                    parent = card
-                    }
-                }
-                end
-    
-                card.children.price.alignment.offset.y = 0.5
-    
-                return true
-            end)
-            }))
-        else
-            create_shop_card_ui_ref(card, type, area)
-        end
-    end
     ---------- Card ----------
-
-    -- Manage Astronomer joker
-    local card_set_cost_ref = Card.set_cost
-    function Card.set_cost(self)
-
-        card_set_cost_ref(self)
-        if (self.ability.set == 'Planet_dx' or ((self.ability.set == 'Booster' or self.ability.set == 'Booster_dx') and self.ability.name:find('Celestial'))) and #find_joker('Astronomer') > 0 then self.cost = 0 end
-    end
 
     -- Manage usage of DX consumables
     local card_use_consumeable_ref = Card.use_consumeable
     function Card.use_consumeable(self, area, copier)
-        if self.ability.set == 'Tarot_dx' or self.ability.set == 'Planet_dx' or self.ability.set == 'Spectral_dx' then  -- Manage DX
+        if self.ability.type == '_dx' then  -- Manage DX
             stop_use()
             if not copier then set_consumeable_usage(self) end
             if self.debuff then return nil end
@@ -2562,7 +2333,8 @@ local function overrides()
                 level_up_hand(self, k, true)
             end
             update_hand_text({sound = 'button', volume = 0.7, pitch = 1.1, delay = 0}, {mult = 0, chips = 0, handname = '', level = ''})
-        elseif self.ability.set == 'Tarot_cu' then      -- Manage curses
+
+        elseif self.ability.type == '_cu' then      -- Manage curses
             stop_use()
             if not copier then set_consumeable_usage(self) end
             if self.debuff then return nil end
@@ -3013,7 +2785,7 @@ local function overrides()
     local card_can_use_consumeable_ref = Card.can_use_consumeable
     function Card.can_use_consumeable(self, any_state, skip_check)
 
-        if self.ability.set == 'Tarot_dx' or self.ability.set == 'Tarot_cu' or self.ability.set == 'Spectral_dx' then
+        if self.ability.type == '_dx' or self.ability.type == '_cu' then
 
             if not skip_check and ((G.play and #G.play.cards > 0) or
                 (G.CONTROLLER.locked) or
@@ -3022,7 +2794,7 @@ local function overrides()
 
             if G.STATE ~= G.STATES.HAND_PLAYED and G.STATE ~= G.STATES.DRAW_TO_HAND and G.STATE ~= G.STATES.PLAY_TAROT or any_state then
 
-                if self.ability.name == 'The Hermit DX' or self.ability.name == 'Temperance DX' or self.ability.name == 'Black Hole DX' or self.ability.name == 'The Soul DX' then
+                if self.ability.name == 'The Hermit DX' or self.ability.consumeable.hand_type or self.ability.name == 'Temperance DX' or self.ability.name == 'Black Hole DX' or self.ability.name == 'The Soul DX' then
                     return true
                 end
                 if self.ability.name == 'The Wheel of Fortune DX' then 
@@ -3100,7 +2872,7 @@ local function overrides()
     local card_open_ref = Card.open
     function Card.open(self)
 
-        if self.ability.set == "Booster_dx" then
+        if self.ability.set == "Booster" and self.ability.type == '_dx' then
             stop_use()
             G.STATE_COMPLETE = false 
             self.opening = true
@@ -3237,63 +3009,13 @@ local function overrides()
         end
     end
 
-    -- Manage DX materialize color
-    local card_start_materialize_ref = Card.start_materialize
-    function Card.start_materialize(self, dissolve_colours, silent, timefac)
-
-        local new_dissolve_colours = nil
-
-        if self.ability.set == 'Tarot_dx' or self.ability.set == 'Tarot_cu' or self.ability.set == 'Planet_dx' or self.ability.set == 'Spectral_dx' or self.ability.set == 'Booster_dx' then
-            new_dissolve_colours = dissolve_colours or
-            (self.ability.set == 'Tarot_dx' and {G.C.SECONDARY_SET.Tarot}) or
-            (self.ability.set == 'Tarot_cu' and {G.C.SECONDARY_SET.Tarot}) or
-            (self.ability.set == 'Planet_dx'  and {G.C.SECONDARY_SET.Planet}) or
-            (self.ability.set == 'Spectral_dx' and {G.C.SECONDARY_SET.Spectral}) or
-            (self.ability.set == 'Booster_dx' and {G.C.BOOSTER}) or
-            {G.C.GREEN}
-        else
-            new_dissolve_colours = dissolve_colours
-        end
-
-        card_start_materialize_ref(self, new_dissolve_colours, silent, timefac)
-    end
-
-    -- Manage Satellite joker
-    local card_calculate_dollar_bonus_ref = Card.calculate_dollar_bonus
-    function Card.calculate_dollar_bonus(self)
-
-        ret = card_calculate_dollar_bonus_ref(self)
-
-        if not self.debuff and self.ability.set == "Joker" and self.ability.name == 'Satellite' then
-            local planets_used = 0
-            for k, v in pairs(G.GAME.consumeable_usage) do
-                if v.set == 'Planet' or v.set == 'Planet_dx' then planets_used = planets_used + 1 end
-            end
-            if planets_used == 0 then return end
-            ret = self.ability.extra*planets_used
-        end
-
-        return ret
-    end
-
-    -- Update calculate_joker for DX
+    -- Update calculate_joker for Hanged Man DX/CU
     local card_calculate_joker_ref = Card.calculate_joker
     function Card.calculate_joker(self, context)
 
-        if self.ability.set == "Planet_dx" and not self.debuff then
-            if context.joker_main then
-                if G.GAME.used_vouchers.v_observatory and self.ability.consumeable.hand_type == context.scoring_name then
-                    return {
-                        message = localize{type = 'variable', key = 'a_xmult', vars = {G.P_CENTERS.v_observatory.config.extra}},
-                        Xmult_mod = G.P_CENTERS.v_observatory.config.extra
-                    }
-                end
-            end
-        end
-
         if self.ability.set == "Joker" and not self.debuff then
             if context.using_consumeable then
-                if self.ability.name == 'Glass Joker' and not context.blueprint and (context.consumeable.ability.name == 'The Hanged Man DX')  then
+                if self.ability.name == 'Glass Joker' and not context.blueprint and (context.consumeable.ability.name == 'The Hanged Man DX' or context.consumeable.ability.name == 'The Cursed Hanged Man')  then
                     local shattered_glass = 0
                     for k, val in ipairs(G.hand.highlighted) do
                         if val.ability.name == 'Glass Card' then shattered_glass = shattered_glass + 1 end
@@ -3304,19 +3026,6 @@ local function overrides()
                             func = function() card_eval_status_text(self, 'extra', nil, nil, nil, {message = localize{type='variable',key='a_xmult',vars={self.ability.x_mult}}}); return true
                             end}))
                     end
-                    return
-                end
-                if self.ability.name == 'Fortune Teller' and not context.blueprint and (context.consumeable.ability.set == "Tarot_dx" or context.consumeable.ability.set == "Tarot_cu") then
-                    G.E_MANAGER:add_event(Event({
-                        func = function() card_eval_status_text(self, 'extra', nil, nil, nil, {message = localize{type='variable',key='a_mult',vars={G.GAME.consumeable_usage_total.tarot}}}); return true
-                        end}))
-                    return
-                end
-                if self.ability.name == 'Constellation' and not context.blueprint and (context.consumeable.ability.set == 'Planet_dx') then
-                    self.ability.x_mult = self.ability.x_mult + self.ability.extra
-                    G.E_MANAGER:add_event(Event({
-                        func = function() card_eval_status_text(self, 'extra', nil, nil, nil, {message = localize{type='variable',key='a_xmult',vars={self.ability.x_mult}}}); return true
-                        end}))
                     return
                 end
             end
@@ -3411,12 +3120,24 @@ local function overrides()
         card_set_ability_ref(self, center, initial, delay_sprites)
 
         if self.ability and self.ability.consumeable and self.ability.name and self.ability.set then 
-            if self.ability.set == 'Tarot_dx' or self.ability.set == 'Planet_dx' or self.ability.set == 'Spectral_dx' or self.ability.set == 'Booster_dx' then
+            if self.ability.type == '_dx' then
                 if not G.OVERLAY_MENU then 
                     for k, v in pairs(G.P_CENTERS) do
                         if v.name == self.ability.name then
-                            -- Add normal version
+                            -- Add normal and cursed version
                             G.GAME.used_jokers[string.sub(k, 1, -4)] = true
+                            G.GAME.used_jokers[string.sub(k, 1, -4)..'_cu'] = true
+                        end
+                    end
+                end
+            end
+            if self.ability.type == '_cu' then
+                if not G.OVERLAY_MENU then 
+                    for k, v in pairs(G.P_CENTERS) do
+                        if v.name == self.ability.name then
+                            -- Add normal and DX version
+                            G.GAME.used_jokers[string.sub(k, 1, -4)] = true
+                            G.GAME.used_jokers[string.sub(k, 1, -4)..'_dx'] = true
                         end
                     end
                 end
@@ -3425,16 +3146,13 @@ local function overrides()
                 if not G.OVERLAY_MENU then 
                     for k, v in pairs(G.P_CENTERS) do
                         if v.name == self.ability.name then
-                            -- Add DX version
+                            -- Add DX/CU version
                             G.GAME.used_jokers[k..'_dx'] = true
+                            G.GAME.used_jokers[k..'_cu'] = true
                         end
                     end
                 end
             end
-        end
-        if self.ability and self.ability.set == 'Booster_dx' then
-            self.label = self.ability.name
-            self.mouse_damping = 1.5
         end
     end
 
@@ -3443,13 +3161,27 @@ local function overrides()
     function Card.remove(self)
 
         if self.ability and self.ability.consumeable and self.ability.name and self.ability.set then 
-            if self.ability.set == 'Tarot_dx' or self.ability.set == 'Planet_dx' or self.ability.set == 'Spectral_dx' or self.ability.set == 'Booster_dx' then
+            if self.ability.type == '_dx' then
                 if not G.OVERLAY_MENU then 
                     for k, v in pairs(G.P_CENTERS) do
                         if v.name == self.ability.name then
                             if not next(find_joker(self.ability.name, true)) then 
-                                -- Remove normal version
+                                -- Remove normal and cursed version
                                 G.GAME.used_jokers[string.sub(k, 1, -4)] = nil
+                                G.GAME.used_jokers[string.sub(k, 1, -4)..'_cu'] = nil
+                            end
+                        end
+                    end
+                end
+            end
+            if self.ability.type == '_cu' then
+                if not G.OVERLAY_MENU then 
+                    for k, v in pairs(G.P_CENTERS) do
+                        if v.name == self.ability.name then
+                            if not next(find_joker(self.ability.name, true)) then 
+                                -- Remove normal and DX version
+                                G.GAME.used_jokers[string.sub(k, 1, -4)] = nil
+                                G.GAME.used_jokers[string.sub(k, 1, -4)..'_dx'] = nil
                             end
                         end
                     end
@@ -3460,8 +3192,9 @@ local function overrides()
                     for k, v in pairs(G.P_CENTERS) do
                         if v.name == self.ability.name then
                             if not next(find_joker(self.ability.name, true)) then 
-                                -- Remove DX version
+                                -- Remove DX/CU version
                                 G.GAME.used_jokers[k..'_dx'] = nil
+                                G.GAME.used_jokers[k..'_cu'] = nil
                             end
                         end
                     end
@@ -3485,13 +3218,12 @@ local function overrides()
         card_check_use_ref(self)
     end
 
-    -- Apply the correct shader to Spectral DX
+    -- Apply the correct shader to Soul DX
     local card_draw_ref = Card.draw
     function Card.draw(self, layer)
         
         -- Use the vanilla function for now, TODO
-        if self.ability.set == 'Spectral_dx' then
-            self.ability.set = 'Spectral'
+        if self.ability.type == '_dx' or self.ability.type == '_cu' then
             if self.ability.name == 'The Soul DX' then
                 self.ability.name = 'The Soul'
             end
@@ -3499,69 +3231,8 @@ local function overrides()
             if self.ability.name == 'The Soul' then
                 self.ability.name = 'The Soul DX'
             end
-            self.ability.set = 'Spectral_dx'
-        elseif self.ability.set == 'Booster_dx' then
-            self.ability.set = 'Booster'
-            card_draw_ref(self, layer)
-            self.ability.set = 'Booster_dx'
         else
             card_draw_ref(self, layer)
-        end
-    end
-
-    -- Apply the correct scaling to Booster DX
-    local card_load_ref = Card.load
-    function Card.load(self, cardTable, other_card)
-        
-        local scale = 1
-        self.config = {}
-        self.config.center_key = cardTable.save_fields.center
-        self.config.center = G.P_CENTERS[self.config.center_key]
-        self.params = cardTable.params
-
-        local H = G.CARD_H
-        local W = G.CARD_W
-        if self.config.center.set == 'Booster_dx' then 
-            self.T.h = H*1.27
-            self.T.w = W*1.27
-            self.VT.h = self.T.H
-            self.VT.w = self.T.w
-        
-            self.config.card_key = cardTable.save_fields.card
-            self.config.card = G.P_CARDS[self.config.card_key]
-        
-            self.no_ui = cardTable.no_ui
-            self.base_cost = cardTable.base_cost
-            self.extra_cost = cardTable.extra_cost
-            self.cost = cardTable.cost
-            self.sell_cost = cardTable.sell_cost
-            self.facing = cardTable.facing
-            self.sprite_facing = cardTable.sprite_facing
-            self.flipping = cardTable.flipping
-            self.highlighted = cardTable.highlighted
-            self.debuff = cardTable.debuff
-            self.rank = cardTable.rank
-            self.added_to_deck = cardTable.added_to_deck
-            self.label = cardTable.label
-            self.playing_card = cardTable.playing_card
-            self.base = cardTable.base
-            self.sort_id = cardTable.sort_id
-            self.bypass_discovery_center = cardTable.bypass_discovery_center
-            self.bypass_discovery_ui = cardTable.bypass_discovery_ui
-            self.bypass_lock = cardTable.bypass_lock
-        
-            self.ability = cardTable.ability
-            self.pinned = cardTable.pinned
-            self.edition = cardTable.edition
-            self.seal = cardTable.seal
-        
-            remove_all(self.children)
-            self.children = {}
-            self.children.shadow = Moveable(0, 0, 0, 0)
-        
-            self:set_sprites(self.config.center, self.config.card)
-        else
-            card_load_ref(self, cardTable, other_card)
         end
     end
 
@@ -3574,9 +3245,9 @@ local function overrides()
         if self.area and self.area.config and self.area.config.collection then
             local version = 'van'
             -- Check if this is a DX card
-            if self.ability.set == 'Tarot_dx' or self.ability.set == 'Planet_dx' or self.ability.set == 'Spectral_dx' or self.ability.set == 'Booster_dx' then version = 'dx' end
+            if self.ability.type == '_dx' then version = 'dx' end
             -- Check if this is a Cursed card
-            if self.ability.set == 'Tarot_cu' then version = 'cu' end
+            if self.ability.type == '_cu' then version = 'cu' end
 
             -- Check if a DX version exists
             if version == 'van' and G.P_CENTER_POOLS[self.ability.set..'_dx'] then
@@ -3600,11 +3271,11 @@ local function overrides()
                         break
                     end
                 end
-            elseif version == 'dx' and G.P_CENTER_POOLS[string.sub(self.ability.set, 1, -4)..'_cu'] then 
+            elseif version == 'dx' and G.P_CENTER_POOLS[self.ability.set..'_cu'] then 
                 local cu_ver = string.sub(self.config.center_key, 1, -4)..'_cu'
-                for k, v in pairs(G.P_CENTER_POOLS[string.sub(self.ability.set, 1, -4)..'_cu']) do
+                for k, v in pairs(G.P_CENTER_POOLS[self.ability.set..'_cu']) do
                     if v.key == cu_ver then
-                        self:set_ability(G.P_CENTER_POOLS[string.sub(self.ability.set, 1, -4)..'_cu'][k], true)
+                        self:set_ability(G.P_CENTER_POOLS[self.ability.set..'_cu'][k], true)
                         version = nil
                         break
                     end
@@ -3614,9 +3285,9 @@ local function overrides()
             -- Back to vanilla
             if version == 'dx' or version == 'cu' then
                 local van_ver = string.sub(self.config.center_key, 1, -4)
-                for k, v in pairs(G.P_CENTER_POOLS[string.sub(self.ability.set, 1, -4)]) do
+                for k, v in pairs(G.P_CENTER_POOLS[self.ability.set]) do
                     if v.key == van_ver then
-                        self:set_ability(G.P_CENTER_POOLS[string.sub(self.ability.set, 1, -4)][k], true)
+                        self:set_ability(G.P_CENTER_POOLS[self.ability.set][k], true)
                         break
                     end
                 end
@@ -3655,6 +3326,49 @@ local function overrides()
         end
     end
 
+    -- Manage custom sprites
+    local card_set_sprites_ref = Card.set_sprites
+    function Card.set_sprites(self, _center, _front)
+        
+        -- Override if DX/CU
+        if _center and _center.set and _center.consumeable and _center.config and (_center.config.type == '_dx' or _center.config.type == '_cu') then 
+            
+            if self.children.center then
+                self.children.center.atlas = G.ASSET_ATLAS[_center.atlas or 'centers']
+                self.children.center:set_sprite_pos(_center.pos)
+            else
+                if self.config.center.consumeable and self.config.center.demo then 
+                    self.children.center = Sprite(self.T.x, self.T.y, self.T.w, self.T.h, G.ASSET_ATLAS[_center.atlas], G.c_locked.pos)
+                elseif not self.params.bypass_discovery_center and (_center.consumeable or _center.set == 'Booster') and not _center.discovered then 
+                    self.children.center = Sprite(self.T.x, self.T.y, self.T.w, self.T.h, G.ASSET_ATLAS[_center.atlas or _center.set], 
+                    (_center.set == 'Tarot' and G.t_undiscovered.pos) or 
+                    (_center.set == 'Planet' and G.p_undiscovered.pos) or 
+                    (_center.set == 'Spectral' and G.s_undiscovered.pos) or 
+                    (_center.set == 'Booster' and G.booster_undiscovered.pos))
+                else
+                    self.children.center = Sprite(self.T.x, self.T.y, self.T.w, self.T.h, G.ASSET_ATLAS[_center.atlas or 'centers'], _center.pos)
+                end
+                self.children.center.states.hover = self.states.hover
+                self.children.center.states.click = self.states.click
+                self.children.center.states.drag = self.states.drag
+                self.children.center.states.collide.can = false
+                self.children.center:set_role({major = self, role_type = 'Glued', draw_major = self})
+            end
+            
+            if not self.children.back then
+                self.children.back = Sprite(self.T.x, self.T.y, self.T.w, self.T.h, G.ASSET_ATLAS["centers"], self.params.bypass_back or (self.playing_card and G.GAME[self.back].pos or G.P_CENTERS['b_red'].pos))
+                self.children.back.states.hover = self.states.hover
+                self.children.back.states.click = self.states.click
+                self.children.back.states.drag = self.states.drag
+                self.children.back.states.collide.can = false
+                self.children.back:set_role({major = self, role_type = 'Glued', draw_major = self})
+            end
+
+        else
+            card_set_sprites_ref(self, _center, _front)
+        end
+    end
+
     ---------- cardarea ----------
 
     -- Manage enhanced wild cards
@@ -3674,15 +3388,11 @@ function SMODS.INIT.JeffDeluxeConsumablesPack()
     -- DX/Curses Sprites
 
     local js_mod = SMODS.findModByID("JeffDeluxeConsumablesPack")
-    local sprite_dx = SMODS.Sprite:new("Tarot_dx", js_mod.path, "Tarots_dx.png", 71, 95, "asset_atli")
+    local sprite_dx = SMODS.Sprite:new("Van_dx", js_mod.path, "Tarots_dx.png", 71, 95, "asset_atli")
     sprite_dx:register()
-    sprite_dx = SMODS.Sprite:new("Tarot_cu", js_mod.path, "Tarots_cu.png", 71, 95, "asset_atli")
+    sprite_dx = SMODS.Sprite:new("Van_cu", js_mod.path, "Tarots_cu.png", 71, 95, "asset_atli")
     sprite_dx:register()
-    sprite_dx = SMODS.Sprite:new("Planet_dx", js_mod.path, "Tarots_dx.png", 71, 95, "asset_atli")
-    sprite_dx:register()
-    sprite_dx = SMODS.Sprite:new("Spectral_dx", js_mod.path, "Tarots_dx.png", 71, 95, "asset_atli")
-    sprite_dx:register()
-    sprite_dx = SMODS.Sprite:new("Booster_dx", js_mod.path, "booster_dx.png", 71, 95, "asset_atli")
+    sprite_dx = SMODS.Sprite:new("Van_Booster_dx", js_mod.path, "booster_dx.png", 71, 95, "asset_atli")
     sprite_dx:register()
 
     -- Add consumables
