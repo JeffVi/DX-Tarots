@@ -530,7 +530,7 @@ local function override()
                         if v.ability.hand and v.ability.hand ~= handname then
                             v.triggered = true
                         end
-                        if not check then v.ability.hand = handname end
+                        if (not check) and v.ability.hand ~= nil then v.ability.hand = handname end
                     end
                     if v.name == 'The Arm' then
                         if G.GAME.hands[handname].level > 1 then
@@ -705,7 +705,7 @@ local function override()
                             }))
                         end
                     end
-                    if v.name == 'The Goad' or v.name == 'The Plant' or v.name == 'The Head' or v.name == 'The Club' or v.name == 'The Window' or v.name == 'The Pillar' then
+                    if (v.name == 'The Goad' or v.name == 'The Plant' or v.name == 'The Head' or v.name == 'The Club' or v.name == 'The Window' or v.name == 'The Pillar') and not v.triggered then
                         v.triggered = true
                         G.E_MANAGER:add_event(Event({
                             trigger = 'after',

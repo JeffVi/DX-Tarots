@@ -1130,7 +1130,7 @@ local function overrides()
                 if _type == 'Tarot_dx' or _type == 'Tarot_cu' or _type == 'Planet_dx' or _type == 'Spectral_dx' then
                     if not (G.GAME.used_jokers[v.key] and not next(find_joker("Showman"))) and
                         (v.unlocked ~= false or v.rarity == 4) then
-                        if v.set == 'Planet_dx' then
+                        if v.set == 'Planet' then
                             -- Check if hand is unlocked
                             if (not v.config.softlock or G.GAME.hands[v.config.hand_type].played > 0) then
                                 add = true
