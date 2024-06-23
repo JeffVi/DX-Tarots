@@ -14,6 +14,7 @@ local tarot_dx_rate = 0.1               -- (from 0 (0%) to 1 (100%))
 local tarot_cu_rate = 0.06              -- (from 0 (0%) to 1 (100%))
 local planet_dx_rate = 0.12             -- (from 0 (0%) to 1 (100%))
 local spectral_dx_rate = 0.15           -- (from 0 (0%) to 1 (100%))
+local alchemical_dx_rate = 0.1          -- (from 0 (0%) to 1 (100%))
 local booster_dx_rate = 0.1             -- (from 0 (0%) to 1 (100%))
 local planet_edition_enabled = true     -- Enable/Disable the possibility of planet cards edition (may not be compatible with other mods that overwrite the level_up_hand function)
 local spectral_on_blank = true          -- Enable/Disable spectral rate on blank voucher
@@ -986,7 +987,7 @@ local function setUpLocalizationEnhanced()
     }
 end
 
--- Should be called after everything was overrided...
+-- Should be called after everithing was overrided...
 local function loadCursesModule()
 
     local js_mod = SMODS.findModByID("JeffDeluxeConsumablesPack")
@@ -996,6 +997,19 @@ local function loadCursesModule()
     
     -- Add curses
     setup_curses()
+end
+
+local function loadCodexArcanumModule()
+
+    if SMODS.findModByID("CodexArcanum") then
+        local js_mod = SMODS.findModByID("JeffDeluxeConsumablesPack")
+
+        -- Load modules
+        assert(load(love.filesystem.read(js_mod.path .. "source/alchemical_dx.lua")))()
+        
+        -- Add new dx stuff
+        CodexArcanum.LoadDX()
+    end
 end
 
 ---------- mod init ----------
@@ -1164,7 +1178,7 @@ local function overrides()
                         else
                             add = true
                         end
-                        if v.name == 'Black Hole DX' or v.name == 'The Soul DX' then
+                        if v.name == 'Black Hole DX' or v.name == 'The Soul DX' or v.name == "Philosopher's Stone DX" then
                             add = false
                         end
                     end
@@ -1226,7 +1240,8 @@ local function overrides()
             if ((new_type == 'Tarot') or (new_type == 'Tarot_dx')) and (pseudorandom('upgrade_card'..G.GAME.round_resets.ante) > math.min(1, math.max(0, 1 - tarot_cu_rate))) then new_type = "Tarot_cu" end
             if new_type == 'Planet' and (pseudorandom('upgrade_card'..G.GAME.round_resets.ante) > math.min(1, math.max(0, 1 - planet_dx_rate))) then new_type = "Planet_dx" end
             if new_type == 'Spectral' and (pseudorandom('upgrade_card'..G.GAME.round_resets.ante) > math.min(1, math.max(0, 1 - spectral_dx_rate))) then new_type = "Spectral_dx" end
-            
+            if new_type == 'Alchemical' and (pseudorandom('upgrade_card'..G.GAME.round_resets.ante) > math.min(1, math.max(0, 1 - alchemical_dx_rate))) then new_type = "Alchemical_dx" end
+
             -- If type is set to DX, need to manage soulable option
             if soulable and (not G.GAME.banned_keys['c_soul']) then
                 if (new_type == 'Tarot_dx' or new_type == 'Spectral_dx') and
@@ -1239,6 +1254,12 @@ local function overrides()
                 not (G.GAME.used_jokers['c_black_hole_dx'] and not next(find_joker("Showman")))  then 
                     if pseudorandom('soul_'.._type..G.GAME.round_resets.ante) > 0.997 then
                         new_forced_key = 'c_black_hole_dx'
+                    end
+                end
+                if (new_type == 'Alchemical_dx' or new_type == 'Spectral_dx') and
+                not (G.GAME.used_jokers['c_philosopher_stone_dx'] and not next(find_joker("Showman")))  then
+                    if pseudorandom('soul_'.._type..G.GAME.round_resets.ante) > 0.997 then
+                        new_forced_key = 'c_philosopher_stone_dx'
                     end
                 end
             end
@@ -1433,7 +1454,7 @@ local function overrides()
             end
         end
 
-        if _c.config and (_c.config.type == '_dx' or _c.config.type == '_cu') then    -- Overwrite
+        if _c.config and (_c.config.type == '_dx' or _c.config.type == '_cu') and (_c.atlas == 'Van_dx' or _c.atlas == 'Van_cu' or _c.atlas == 'Van_Booster_dx') then    -- Overwrite
 
             -- Just copy-paste for now... TODO
             if first_pass then 
@@ -1749,6 +1770,7 @@ local function overrides()
             -- Add extra badges info
             if first_pass and badges then
                 for k, v in ipairs(badges) do
+                    if v == 'dx' then info_queue[#info_queue+1] = {key = 'dx', set = 'Other'} end
                     if v == 'unique' then info_queue[#info_queue+1] = {key = 'unique', set = 'Other'} end
                 end
                 for _, v in ipairs(info_queue) do
@@ -1855,7 +1877,7 @@ local function overrides()
     -- Manage usage of DX consumables
     local card_use_consumeable_ref = Card.use_consumeable
     function Card.use_consumeable(self, area, copier)
-        if self.ability.type == '_dx' then  -- Manage DX
+        if self.ability.type == '_dx' and self.config.center and self.config.center.atlas == 'Van_dx' then  -- Manage DX
             stop_use()
             if not copier then set_consumeable_usage(self) end
             if self.debuff then return nil end
@@ -2360,7 +2382,7 @@ local function overrides()
             end
             update_hand_text({sound = 'button', volume = 0.7, pitch = 1.1, delay = 0}, {mult = 0, chips = 0, handname = '', level = ''})
 
-        elseif self.ability.type == '_cu' then      -- Manage curses
+        elseif self.ability.type == '_cu' and self.config.center and self.config.center.atlas == 'Van_cu' then      -- Manage curses
             stop_use()
             if not copier then set_consumeable_usage(self) end
             if self.debuff then return nil end
@@ -2811,7 +2833,7 @@ local function overrides()
     local card_can_use_consumeable_ref = Card.can_use_consumeable
     function Card.can_use_consumeable(self, any_state, skip_check)
 
-        if self.ability.type == '_dx' or self.ability.type == '_cu' then
+        if (self.ability.type == '_dx' or self.ability.type == '_cu') and (self.config.center and (self.config.center.atlas == 'Van_dx' or self.config.center.atlas == 'Van_cu')) then
 
             if not skip_check and ((G.play and #G.play.cards > 0) or
                 (G.CONTROLLER.locked) or
@@ -2923,6 +2945,9 @@ local function overrides()
             elseif self.ability.name:find('Buffoon') then
                 G.STATE = G.STATES.BUFFOON_PACK
                 G.GAME.pack_size = self.ability.extra
+            elseif self.ability.name:find('Alchemy') then
+                G.STATE = G.STATES.BUFFOON_PACK
+                G.GAME.pack_size = self.ability.extra
             end
 
             G.GAME.pack_choices = self.config.center.config.choose or 1
@@ -2996,6 +3021,8 @@ local function overrides()
                         elseif self.ability.name:find('Buffoon') then
                             local rarity = pseudorandom('rarity'..G.GAME.round_resets.ante..(_append or '')) + (dx_modifier and 0.3 or 0)
                             card = create_card("Joker", G.pack_cards, nil, rarity, true, true, nil, 'buf')
+                        elseif self.ability.name:find('Alchemy') then
+                            card = create_card(dx_modifier and "Alchemical_dx" or "Alchemical", G.pack_cards, nil, nil, true, true, nil, 'alc')
                         end
                         card.T.x = self.T.x
                         card.T.y = self.T.y
@@ -3492,6 +3519,9 @@ function SMODS.INIT.JeffDeluxeConsumablesPack()
     -------------------------------
     ---------- OVERRIDES ----------
     -------------------------------
+
+    -- ORDER IS IMPORTANT !!!
+    loadCodexArcanumModule()
 
     overrides()
 
