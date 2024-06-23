@@ -110,9 +110,9 @@ DX version of Booster packs were added. They have a 10% *(can be edited)* chance
 
 - **Spectral DX**: Increased chance to pull **DX Spectral**.
 
-- **Standard DX**: Increased chance to pull **enhancements**, **editions**, and **seals**.
+- **Standard DX**: Guarantee chance to pull **enhanced** cards. Increased chance to get **editions** and **seals**.
 
-- **Buffoon DX**: Increased chance to pull **uncommon and rare** jokers.
+- **Buffoon DX**: Increased chance to pull **uncommon and rare** jokers. Increased chance to get **editions**.
 
 ## Cursed Cards
 
@@ -124,59 +124,59 @@ A new badge was created for **Unique** cards. Once pulled, they can no longer be
 
 ### Curses
 
-**Curses** are special tags that will affect your run upon being received. They cannot be removed.
+**Curses** are special tags that will affect your run upon being received. They can be lifted if specific conditions are met.
 
-- **The Hook**: Discards **1** random card per hand played.
+- **The Hook**: Discards **1** random card per hand played. Lifted after discarding **40 cards**.
 
-- **The Wall**: Increase blind amounts by **40%**.
+- **The Wall**: Increase blind amounts by **40%**. Lifted after scoring more than **150%** of the blind ammount **2 times**.
 
-- **The Wheel**: **1 in 9** cards get drawn face down.
+- **The Wheel**: **1 in 9** cards get drawn face down. Lifted after playing **5 hands** containing at least **3** face down cards.
 
-- **The Arm**: **1 in 7** chance to decrease level of played poker hand.
+- **The Arm**: **1 in 7** chance to decrease level of played poker hand. Lifted after playing **40 levels** worth of poker hands.
 
-- **The Psychic**: **X0.6 mult** if played hand does not contain 5 cards.
+- **The Psychic**: **X0.6 mult** if played hand does not contain 5 cards. Lifted after playing **12 hands** containing 5 cards.
 
-- **The Goad**: **2 in 5** chance for a Spade card to be debuffed.
+- **The Goad**: **2 in 5** chance for a Spade card to be debuffed. Lifted after playing **12 hands** with no scoring Spade card.
 
-- **The Water**: **-1** discard.
+- **The Water**: **-1** discard. Lifted after defeating **3 blinds** without using discards.
 
-- **The Eye**: **X0.65 mult** if played hand type was already played this round.
+- **The Eye**: **X0.65 mult** if played hand type was already played this round. Lifted after defeating **3 blinds** with no repeated hands.
 
-- **The Mouth**: **X0.65 mult** if played hand type is different than the first played this round.
+- **The Mouth**: **X0.65 mult** if played hand type is different than the first played this round. Lifted after defeating **3 blinds** with the first played hand.
 
-- **The Plant**: **2 in 5** chance for a face card to be debuffed.
+- **The Plant**: **2 in 5** chance for a face card to be debuffed. Lifted after playing **12 hands** with no scoring face card.
 
-- **The Needle**: **-1** hand.
+- **The Needle**: **-1** hand. Lifted after defeating **3 blinds** with no remaining hand.
 
-- **The Head**: **2 in 5** chance for a Heart card to be debuffed.
+- **The Head**: **2 in 5** chance for a Heart card to be debuffed. Lifted after playing **12 hands** with no scoring Heart card.
 
-- **The Tooth**: **2 in 5** chance per card played to lose $1.
+- **The Tooth**: **2 in 5** chance per card played to lose $1. Lifted after playing **35 cards**.
 
-- **The Ox**: **Lose $5** if playing most played hand.
+- **The Ox**: **Lose $5** if playing most played hand. Lifted after defeating **3 blinds** without using your most played hand.
 
-- **The House**: Cards from first hand have a **2 in 3** chance to be drawn face down.
+- **The House**: Cards from first hand have a **2 in 3** chance to be drawn face down. Lifted after playing **15** face down cards.
 
-- **The Club**: **2 in 5** chance for a Club card to be debuffed.
+- **The Club**: **2 in 5** chance for a Club card to be debuffed. Lifted after playing **12 hands** with no scoring Club card.
 
-- **The Fish**: Cards drawn after playing a hand have a **2 in 3** chance to be drawn face down.
+- **The Fish**: Cards drawn after playing a hand have a **2 in 3** chance to be drawn face down. Lifted after discarding **20** face down cards.
 
-- **The Window**: **2 in 5** chance for a Diamond card to be debuffed.
+- **The Window**: **2 in 5** chance for a Diamond card to be debuffed. Lifted after plaing **12 hands** with no scoring Diamond card.
 
-- **The Manacle**: -1 Hand Size **if more than 1 hand remaining**.
+- **The Manacle**: -1 Hand Size **if more than 1 hand remaining**. Lifted after playing **7 hands** containing 5 scoring cards.
 
-- **The Serpent**: Always draw **2** cards after **first** Play or Discard.
+- **The Serpent**: Always draw **2** cards after **first** Play or Discard. Lifted after drawing **40 cards**.
 
-- **The Pillar**: After being played, cards have a **2 in 5** chance to be debuffed this Ante.
+- **The Pillar**: After being played, cards have a **2 in 5** chance to be debuffed this Ante. Lifted after playing **9 hands** containing a debuffed scoring card.
 
-- **The Flint**: Base Chips and Mult are reduced by **20%**.
+- **The Flint**: Base Chips and Mult are reduced by **20%**. Lifted after playing **20 hands**.
 
-- **The Mark**: **1 in 2** chance for a face card to be drawn face down.
+- **The Mark**: **1 in 2** chance for a face card to be drawn face down. Lifted after discarding **7 hands** containing at least **3** face down cards.
 
-- **Violet Vessel**: Increase blind amounts by **50%**. Future curses will increase the amount instead of applying new curses.
+- **Violet Vessel**: Increase blind amounts by **50%**. Future curses will increase the amount instead of applying new curses. **Cannot be lifted**.
 
 ### Cursed Tarots
 
-Cursed version of Tarot cards were added. They have a 6% *(can be edited)* chance of being pulled instead of a vanilla tarot. They each cost **$5**. . They are **Unique**.
+Cursed version of Tarot cards were added. They have a 8% *(can be edited)* chance of being pulled instead of a vanilla tarot. They each cost **$5**. They are **Unique**.
 
 - **The Cursed Fool**: **+1 consumable slot**. Creates **2 copies** of **The Fool DX**.
 

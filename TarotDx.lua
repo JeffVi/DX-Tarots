@@ -11,7 +11,7 @@
 -- SET CUSTOM CONFIG HERE
 
 local tarot_dx_rate = 0.1               -- (from 0 (0%) to 1 (100%))
-local tarot_cu_rate = 0.06              -- (from 0 (0%) to 1 (100%))
+local tarot_cu_rate = 0.07              -- (from 0 (0%) to 1 (100%))
 local planet_dx_rate = 0.12             -- (from 0 (0%) to 1 (100%))
 local spectral_dx_rate = 0.15           -- (from 0 (0%) to 1 (100%))
 local alchemical_dx_rate = 0.1          -- (from 0 (0%) to 1 (100%))
@@ -2962,101 +2962,104 @@ local function overrides()
             delay(0.2)
         end
 
-            G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0.4, func = function()
-                self:explode()
-                local pack_cards = {}
+        G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0.4, func = function()
+            self:explode()
+            local pack_cards = {}
 
-                G.E_MANAGER:add_event(Event({trigger = 'after', delay = 1.3*math.sqrt(G.SETTINGS.GAMESPEED), blockable = false, blocking = false, func = function()
-                    local _size = self.ability.extra
-                    
-                    for i = 1, _size do
-                        local card = nil
+            G.E_MANAGER:add_event(Event({trigger = 'after', delay = 1.3*math.sqrt(G.SETTINGS.GAMESPEED), blockable = false, blocking = false, func = function()
+                local _size = self.ability.extra
+                
+                for i = 1, _size do
+                    local card = nil
 
-                        -- Add an increased chance for dx card
-                        local dx_modifier = pseudorandom(pseudoseed('force_dx'..G.GAME.round_resets.ante)) > 0.30
+                    -- Add an increased chance for dx card
+                    local dx_modifier = pseudorandom(pseudoseed('force_dx'..G.GAME.round_resets.ante)) > 0.35
 
-                        if self.ability.name:find('Arcana') then 
-                            if G.GAME.used_vouchers.v_omen_globe and pseudorandom('omen_globe') > 0.8 then
-                                card = create_card(dx_modifier and "Spectral_dx" or "Spectral", G.pack_cards, nil, nil, true, true, nil, 'ar2')
-                            else
-                                card = create_card(dx_modifier and "Tarot_dx" or "Tarot", G.pack_cards, nil, nil, true, true, nil, 'ar1')
-                            end
-                        elseif self.ability.name:find('Celestial') then
-                            if G.GAME.used_vouchers.v_telescope and i == 1 then
-                                local _planet, _hand, _tally = nil, nil, 0
-                                for k, v in ipairs(G.handlist) do
-                                    if G.GAME.hands[v].visible and G.GAME.hands[v].played > _tally then
-                                        _hand = v
-                                        _tally = G.GAME.hands[v].played
-                                    end
-                                end
-                                if _hand then
-                                    for k, v in pairs(G.P_CENTER_POOLS.Planet) do
-                                        if v.config.hand_type == _hand then
-                                            _planet = v.key
-                                        end
-                                    end
-                                end
-                                card = create_card("Planet", G.pack_cards, nil, nil, true, true, _planet, 'pl1')
-                            else
-                                card = create_card(dx_modifier and "Planet_dx" or "Planet", G.pack_cards, nil, nil, true, true, nil, 'pl1')
-                            end
-                        elseif self.ability.name:find('Spectral') then
-                            card = create_card(dx_modifier and "Spectral_dx" or "Spectral", G.pack_cards, nil, nil, true, true, nil, 'spe')
-                        elseif self.ability.name:find('Standard') then
-                            card = create_card((pseudorandom(pseudoseed('stdset'..G.GAME.round_resets.ante)) > (dx_modifier and 0.3 or 0.6)) and "Enhanced" or "Base", G.pack_cards, nil, nil, nil, true, nil, 'sta')
-                            local edition_rate = dx_modifier and 4 or 2
-                            local edition = poll_edition('standard_edition'..G.GAME.round_resets.ante, edition_rate, true)
-                            card:set_edition(edition)
-                            local seal_rate = dx_modifier and 20 or 10
-                            local seal_poll = pseudorandom(pseudoseed('stdseal'..G.GAME.round_resets.ante))
-                            if seal_poll > 1 - 0.02*seal_rate then
-                                local seal_type = pseudorandom(pseudoseed('stdsealtype'..G.GAME.round_resets.ante))
-                                if seal_type > 0.75 then card:set_seal('Red')
-                                elseif seal_type > 0.5 then card:set_seal('Blue')
-                                elseif seal_type > 0.25 then card:set_seal('Gold')
-                                else card:set_seal('Purple')
-                                end
-                            end
-                        elseif self.ability.name:find('Buffoon') then
-                            local rarity = pseudorandom('rarity'..G.GAME.round_resets.ante..(_append or '')) + (dx_modifier and 0.3 or 0)
-                            card = create_card("Joker", G.pack_cards, nil, rarity, true, true, nil, 'buf')
-                        elseif self.ability.name:find('Alchemy') then
-                            card = create_card(dx_modifier and "Alchemical_dx" or "Alchemical", G.pack_cards, nil, nil, true, true, nil, 'alc')
+                    if self.ability.name:find('Arcana') then 
+                        if G.GAME.used_vouchers.v_omen_globe and pseudorandom('omen_globe') > 0.8 then
+                            card = create_card(dx_modifier and "Spectral_dx" or "Spectral", G.pack_cards, nil, nil, true, true, nil, 'ar2')
+                        else
+                            card = create_card(dx_modifier and "Tarot_dx" or "Tarot", G.pack_cards, nil, nil, true, true, nil, 'ar1')
                         end
-                        card.T.x = self.T.x
-                        card.T.y = self.T.y
-                        card:start_materialize({G.C.WHITE, G.C.WHITE}, nil, 1.5*G.SETTINGS.GAMESPEED)
-                        pack_cards[i] = card
+                    elseif self.ability.name:find('Celestial') then
+                        if G.GAME.used_vouchers.v_telescope and i == 1 then
+                            local _planet, _hand, _tally = nil, nil, 0
+                            for k, v in ipairs(G.handlist) do
+                                if G.GAME.hands[v].visible and G.GAME.hands[v].played > _tally then
+                                    _hand = v
+                                    _tally = G.GAME.hands[v].played
+                                end
+                            end
+                            if _hand then
+                                for k, v in pairs(G.P_CENTER_POOLS.Planet) do
+                                    if v.config.hand_type == _hand then
+                                        _planet = v.key
+                                    end
+                                end
+                            end
+                            card = create_card("Planet", G.pack_cards, nil, nil, true, true, _planet, 'pl1')
+                        else
+                            card = create_card(dx_modifier and "Planet_dx" or "Planet", G.pack_cards, nil, nil, true, true, nil, 'pl1')
+                        end
+                    elseif self.ability.name:find('Spectral') then
+                        card = create_card(dx_modifier and "Spectral_dx" or "Spectral", G.pack_cards, nil, nil, true, true, nil, 'spe')
+                    elseif self.ability.name:find('Standard') then
+                        card = create_card("Enhanced", G.pack_cards, nil, nil, nil, true, nil, 'sta')
+                        local edition_rate = dx_modifier and 6 or 3
+                        local edition = poll_edition('standard_edition'..G.GAME.round_resets.ante, edition_rate, true)
+                        card:set_edition(edition)
+                        local seal_rate = dx_modifier and 30 or 15
+                        local seal_poll = pseudorandom(pseudoseed('stdseal'..G.GAME.round_resets.ante))
+                        if seal_poll > 1 - 0.02*seal_rate then
+                            local seal_type = pseudorandom(pseudoseed('stdsealtype'..G.GAME.round_resets.ante))
+                            if seal_type > 0.75 then card:set_seal('Red')
+                            elseif seal_type > 0.5 then card:set_seal('Blue')
+                            elseif seal_type > 0.25 then card:set_seal('Gold')
+                            else card:set_seal('Purple')
+                            end
+                        end
+                    elseif self.ability.name:find('Buffoon') then
+                        local rarity = pseudorandom('rarity'..G.GAME.round_resets.ante..(_append or '')) + (dx_modifier and 0.3 or 0)
+                        card = create_card("Joker", G.pack_cards, nil, rarity, true, true, nil, 'buf')
+                        local edition_rate = dx_modifier and 3 or 1.5
+                        local edition = poll_edition('standard_edition'..G.GAME.round_resets.ante, edition_rate, true)
+                        card:set_edition(edition)
+                    elseif self.ability.name:find('Alchemy') then
+                        card = create_card(dx_modifier and "Alchemical_dx" or "Alchemical", G.pack_cards, nil, nil, true, true, nil, 'alc')
+                    end
+                    card.T.x = self.T.x
+                    card.T.y = self.T.y
+                    card:start_materialize({G.C.WHITE, G.C.WHITE}, nil, 1.5*G.SETTINGS.GAMESPEED)
+                    pack_cards[i] = card
+                end
+                return true
+            end}))
+
+            G.E_MANAGER:add_event(Event({trigger = 'after', delay = 1.3*math.sqrt(G.SETTINGS.GAMESPEED), blockable = false, blocking = false, func = function()
+                if G.pack_cards then 
+                    if G.pack_cards and G.pack_cards.VT.y < G.ROOM.T.h then 
+                    for k, v in ipairs(pack_cards) do
+                        G.pack_cards:emplace(v)
                     end
                     return true
-                end}))
-
-                G.E_MANAGER:add_event(Event({trigger = 'after', delay = 1.3*math.sqrt(G.SETTINGS.GAMESPEED), blockable = false, blocking = false, func = function()
-                    if G.pack_cards then 
-                        if G.pack_cards and G.pack_cards.VT.y < G.ROOM.T.h then 
-                        for k, v in ipairs(pack_cards) do
-                            G.pack_cards:emplace(v)
-                        end
-                        return true
-                        end
                     end
-                end}))
-
-                for i = 1, #G.jokers.cards do
-                    G.jokers.cards[i]:calculate_joker({open_booster = true, card = self})
                 end
+            end}))
 
-                if G.GAME.modifiers.inflation then 
-                    G.GAME.inflation = G.GAME.inflation + 1
-                    G.E_MANAGER:add_event(Event({func = function()
-                    for k, v in pairs(G.I.CARD) do
-                        if v.set_cost then v:set_cost() end
-                    end
-                    return true end }))
+            for i = 1, #G.jokers.cards do
+                G.jokers.cards[i]:calculate_joker({open_booster = true, card = self})
+            end
+
+            if G.GAME.modifiers.inflation then 
+                G.GAME.inflation = G.GAME.inflation + 1
+                G.E_MANAGER:add_event(Event({func = function()
+                for k, v in pairs(G.I.CARD) do
+                    if v.set_cost then v:set_cost() end
                 end
+                return true end }))
+            end
 
-            return true end }))
+        return true end }))
         else
             card_open_ref(self)
         end
