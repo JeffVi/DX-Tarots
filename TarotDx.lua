@@ -986,7 +986,7 @@ local function setUpLocalizationEnhanced()
     }
 end
 
--- Should be called after everithing was overrided...
+-- Should be called after everything was overrided...
 local function loadCursesModule()
 
     local js_mod = SMODS.findModByID("JeffDeluxeConsumablesPack")
@@ -1090,6 +1090,32 @@ local function overrides()
             for k, v in pairs(G.playing_cards) do
                 if v.config.center_key == G.P_CENTERS.c_tower_cu.config.mod_conv then v:set_ability(G.P_CENTERS[G.P_CENTERS.c_tower_cu.config.mod_conv]) end
             end
+        end
+    end
+        
+    ---------- misc_functions ----------
+
+    -- Manage consumable usage
+    local set_consumeable_usage_ref = set_consumeable_usage
+    function set_consumeable_usage(card)
+
+        set_consumeable_usage_ref(card)
+
+        -- Last consumable used, set it to vanilla version
+        if card.config.center_key and card.ability.consumeable and (card.config.center.set == 'Tarot' or card.config.center.set == 'Planet') and (card.ability.type == '_dx' or card.ability.type == '_cu') then 
+            G.E_MANAGER:add_event(Event({
+                trigger = 'immediate',
+                func = function()
+                G.E_MANAGER:add_event(Event({
+                    trigger = 'immediate',
+                    func = function()
+                    G.GAME.last_tarot_planet = string.sub(card.config.center_key, 1, -4)
+                        return true
+                    end
+                }))
+                    return true
+                end
+            }))
         end
     end
 

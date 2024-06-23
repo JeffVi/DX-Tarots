@@ -199,6 +199,192 @@ local function setUpLocalizationCurses()
             }
         },
     }
+
+    G.localization.descriptions.CurseLiftCondition = {
+        cu_hook = {
+            name = "Lift condition",
+            text = {
+                "Discard {C:red}#1#{} cards",
+                "{C:inactive}(Progress: #2#/#1#){}"
+            }
+        },
+        cu_wall = {
+            name = "Lift condition",
+            text = {
+                "Score more than",
+                "{C:attention}150%{} of blind size",
+                "{C:attention}#1#{} times",
+                "{C:inactive}(Progress: #2#/#1#){}"
+            }
+        },
+        cu_wheel = {
+            name = "Lift condition",
+            text = {
+                "Play {C:blue}#1#{} hands",
+                "containing at least",
+                "3 {C:attention}face down{} cards",
+                "{C:inactive}(Progress: #2#/#1#){}"
+            }
+        },
+        cu_arm = {
+            name = "Lift condition",
+            text = {
+                "Play {C:attention}#1# levels{} worth",
+                "of poker hands",
+                "{C:inactive}(Progress: #2#/#1#){}"
+            }
+        },
+        cu_psychic = {
+            name = "Lift condition",
+            text = {
+                "Play {C:blue}#1#{} hands",
+                "containing {C:attention}5 cards{}",
+                "{C:inactive}(Progress: #2#/#1#){}"
+            }
+        },
+        cu_goad = {
+            name = "Lift condition",
+            text = {
+                "Play {C:blue}#1#{} hands with",
+                "no scoring {C:spades}Spade{} card",
+                "{C:inactive}(Progress: #2#/#1#){}"
+            }
+        },
+        cu_water = {
+            name = "Lift condition",
+            text = {
+                "Defeat {C:attention}#1#{} blinds without",
+                "using any discard",
+                "{C:inactive}(Progress: #2#/#1#){}"
+            }
+        },
+        cu_eye = {
+            name = "Lift condition",
+            text = {
+                "Defeat {C:attention}#1#{} blinds without",
+                "playing any repeated hand",
+                "{C:inactive}(Progress: #2#/#1#){}"
+            }
+        },
+        cu_mouth = {
+            name = "Lift condition",
+            text = {
+                "Defeat {C:attention}#1#{} blinds with",
+                "only one played hand",
+                "{C:inactive}(Progress: #2#/#1#){}"
+            }
+        },
+        cu_plant = {
+            name = "Lift condition",
+            text = {
+                "Play {C:blue}#1#{} hands with",
+                "no scoring {C:attention}face{} card",
+                "{C:inactive}(Progress: #2#/#1#){}"
+            }
+        },
+        cu_needle = {
+            name = "Lift condition",
+            text = {
+                "Defeat {C:attention}#1#{} blinds without",
+                "any hand remaining",
+                "{C:inactive}(Progress: #2#/#1#){}"
+            }
+        },
+        cu_head = {
+            name = "Lift condition",
+            text = {
+                "Play {C:blue}#1#{} hands with",
+                "no scoring {C:hearts}Heart{} card",
+                "{C:inactive}(Progress: #2#/#1#){}"
+            }
+        },
+        cu_tooth = {
+            name = "Lift condition",
+            text = {
+                "Play {C:blue}#1#{} cards",
+                "{C:inactive}(Progress: #2#/#1#){}"
+            }
+        },
+        cu_ox = {
+            name = "Lift condition",
+            text = {
+                "Defeat {C:attention}#1#{} blinds without",
+                "triggering this curse",
+                "{C:inactive}(Progress: #2#/#1#){}"
+            }
+        },
+        cu_house = {
+            name = "Lift condition",
+            text = {
+                "Play {C:blue}#1#{}",
+                "face down cards",
+                "{C:inactive}(Progress: #2#/#1#){}"
+            }
+        },
+        cu_club = {
+            name = "Lift condition",
+            text = {
+                "Play {C:blue}#1#{} hands with",
+                "no scoring {C:clubs}Club{} card",
+                "{C:inactive}(Progress: #2#/#1#){}"
+            }
+        },
+        cu_fish = {
+            name = "Lift condition",
+            text = {
+                "Discard {C:red}#1#{}",
+                "face down cards",
+                "{C:inactive}(Progress: #2#/#1#){}"
+            }
+        },
+        cu_window = {
+            name = "Lift condition",
+            text = {
+                "Play {C:attention}#1#{} hands with",
+                "no scoring {C:diamonds}Diamond{} card",
+                "{C:inactive}(Progress: #2#/#1#){}"
+            }
+        },
+        cu_manacle = {
+            name = "Lift condition",
+            text = {
+                "Play {C:blue}#1#{} hands with",
+                "{C:attention}5 scoring cards{}",
+                "{C:inactive}(Progress: #2#/#1#){}"
+            }
+        },
+        cu_serpent = {
+            name = "Lift condition",
+            text = {
+                "Draw {C:attention}#1#{} cards",
+                "{C:inactive}(Progress: #2#/#1#){}"
+            }
+        },
+        cu_pillar = {
+            name = "Lift condition",
+            text = {
+                "Play {C:blue}#1#{} hands with",
+                "{C:attention}5 debuffed scoring cards{}",
+                "{C:inactive}(Progress: #2#/#1#){}"
+            }
+        },
+        cu_flint = {
+            name = "Lift condition",
+            text = {
+                "Play {C:blue}#1#{} hands",
+                "{C:inactive}(Progress: #2#/#1#){}"
+            }
+        },
+        cu_mark = {
+            name = "Lift condition",
+            text = {
+                "Discard {C:red}#1#{} hands",
+                "containing at least",
+                "{C:attention}3 face down{} cards",
+                "{C:inactive}(Progress: #2#/#1#){}"
+            }
+        },
+    }
 end
 
 ---------------------------
@@ -354,12 +540,42 @@ local function override()
                 desc_nodes[#desc_nodes+1] = main_end 
             end
 
+            -- Manage lift condition
+            if _c.config.type == 'curse' then
+                local lifts_c = 0
+                for k, v in ipairs(G.GAME.curses or {}) do
+                    if v.config.type == 'curse' then 
+                        if v.key == _c.key then
+                            lifts_c = v.lifts
+                            break
+                        end
+                    end
+                end
+                if lifts_c < _c.config.lift then info_queue[#info_queue+1] = {key = _c.key, set = 'CurseLiftCondition', vars = {_c.config.lift, lifts_c}}
+                else info_queue[#info_queue+1] = {key = 'liftedCurse', set = 'Other', vars = {_c.config.lift, lifts_c}}
+                end
+            end
+
             for _, v in ipairs(info_queue) do
                 generate_card_ui(v, full_UI_table)
             end
         
             return full_UI_table
 
+        elseif _c.set == 'CurseLiftCondition' then
+
+            local desc_nodes = (not full_UI_table.name and full_UI_table.main) or full_UI_table.info
+
+            if full_UI_table.name then
+                full_UI_table.info[#full_UI_table.info+1] = {}
+                desc_nodes = full_UI_table.info[#full_UI_table.info]
+            end
+
+            desc_nodes.name = localize{type = 'name_text', key = _c.key, set = 'CurseLiftCondition'}
+            localize{type = 'descriptions', key = _c.key, set = 'CurseLiftCondition', nodes = desc_nodes, vars = _c.vars or {}}
+        
+            return full_UI_table
+        
         else    -- Do not overwrite
             local ret = generate_card_ui_ref(_c, full_UI_table, specific_vars, card_type, badges, hide_desc, main_start, main_end)
 
@@ -479,7 +695,7 @@ local function override()
         local _e = e
         if (G.GAME.curses) then
             for k, v in pairs(G.GAME.curses) do
-                if v.config.type == 'curse' then
+                if v.config.type == 'curse' and (v.lifts < v.config.lift) then
                     if v.name == "The Serpent" and not v.triggered then
                         if not (G.STATE == G.STATES.TAROT_PACK or G.STATE == G.STATES.SPECTRAL_PACK) then
                             if not v.triggered and (G.GAME.current_round.hands_played > 0 or G.GAME.current_round.discards_used > 0) then
@@ -491,20 +707,60 @@ local function override()
                         end
                     end
                 end
-            end
-        end
-
-        G_FUNCS_draw_from_deck_to_hand_ref(_e)
-
-        if (G.GAME.curses) then
-            for k, v in pairs(G.GAME.curses) do
                 if v.config.type == 'curse' then
-                    if v.name == "The Fish" then
-                        v.triggered = false
+                    if v.name == "The Serpent" then
+                        if not (G.STATE == G.STATES.TAROT_PACK or G.STATE == G.STATES.SPECTRAL_PACK) then
+                            local draws = _e or math.min(#G.deck.cards, G.hand.config.card_limit - #G.hand.cards)
+                            v.lifts = v.lifts + draws
+                        end
                     end
                 end
             end
         end
+
+        G_FUNCS_draw_from_deck_to_hand_ref(_e)
+        
+        G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0.2, func = function()
+            if (G.GAME.curses) then
+                for k, v in pairs(G.GAME.curses) do
+                    if v.config.type == 'curse' then
+                        if v.name == "The Fish" then
+                            v.triggered = false
+                        end
+                    end
+                end
+            end
+        return true end }))
+    end
+
+    -- Manage curses
+    local G_FUNCS_discard_cards_from_highlighted_ref = G.FUNCS.discard_cards_from_highlighted
+    function G.FUNCS.discard_cards_from_highlighted(e, hook)
+
+        local highlighted_cards = G.hand.highlighted
+        local highlighted_count = math.min(#G.hand.highlighted, G.discard.config.card_limit - #G.play.cards)
+        local face_down_cards = 0
+        for i = 1, highlighted_count, 1 do
+            face_down_cards = face_down_cards + ((highlighted_cards[i].ability.wheel_flipped and 1) or 0)
+        end
+        
+        if (G.GAME.curses) then
+            for k, v in pairs(G.GAME.curses) do
+                if v.config.type == 'curse' then
+                    if v.name == 'The Hook' then
+                        v.lifts = v.lifts + (highlighted_count or 0)
+                    end
+                    if v.name == 'The Fish' then
+                        v.lifts = v.lifts + face_down_cards
+                    end
+                    if v.name == 'The Mark' then
+                        v.lifts = v.lifts + ((face_down_cards > 2) and 1 or 0)
+                    end
+                end
+            end
+        end
+
+        G_FUNCS_discard_cards_from_highlighted_ref(e, hook)
     end
 
     ---------- Blind ----------
@@ -513,9 +769,11 @@ local function override()
     local blind_debuff_hand_ref = Blind.debuff_hand
     function Blind.debuff_hand(self, cards, hand, handname, check)
         
+        local text, disp_text, poker_hands, scoring_hand, non_loc_disp_text = G.FUNCS.get_poker_hand_info(cards)
+
         if (G.GAME.curses) then
             for k, v in pairs(G.GAME.curses) do
-                if v.config.type == 'curse' then
+                if v.config.type == 'curse' and (v.lifts < v.config.lift) then
                     if v.name == 'The Psychic' and #cards < 5 and not check then
                         v.triggered = true
                     end
@@ -551,6 +809,7 @@ local function override()
                     if v.name == 'The Ox' then
                         if handname == G.GAME.current_round.most_played_poker_hand then
                             if not check then
+                                v.triggered = true
                                 G.E_MANAGER:add_event(Event({
                                     trigger = 'after',
                                     delay =  0.7,
@@ -565,6 +824,65 @@ local function override()
                         end 
                     end
                 end
+                if v.config.type == 'curse' and not check then
+                    if v.name == 'The Arm' then
+                        v.lifts = v.lifts + G.GAME.hands[handname].level
+                    end
+                    if v.name == 'The Psychic' and #cards == 5 then
+                        v.lifts = v.lifts + 1
+                    end
+                    if v.name == 'The Manacle' and #scoring_hand == 5 then
+                        v.lifts = v.lifts + 1
+                    end
+                    if v.name == 'The Goad' then
+                        local scoring = false
+                        for i = 1, #scoring_hand do
+                            if scoring_hand[i]:is_suit('Spades', true) then scoring = true end
+                        end
+                        v.lifts = v.lifts + (scoring and 0 or 1)
+                    end
+                    if v.name == 'The Head' then
+                        local scoring = false
+                        for i = 1, #scoring_hand do
+                            if scoring_hand[i]:is_suit('Hearts', true) then scoring = true end
+                        end
+                        v.lifts = v.lifts + (scoring and 0 or 1)
+                    end
+                    if v.name == 'The Club' then
+                        local scoring = false
+                        for i = 1, #scoring_hand do
+                            if scoring_hand[i]:is_suit('Clubs', true) then scoring = true end
+                        end
+                        v.lifts = v.lifts + (scoring and 0 or 1)
+                    end
+                    if v.name == 'The Window' then
+                        local scoring = false
+                        for i = 1, #scoring_hand do
+                            if scoring_hand[i]:is_suit('Diamonds', true) then scoring = true end
+                        end
+                        v.lifts = v.lifts + (scoring and 0 or 1)
+                    end
+                    if v.name == 'The Plant' then
+                        local scoring = false
+                        for i = 1, #scoring_hand do
+                            if scoring_hand[i]:is_face(true) then scoring = true end
+                        end
+                        v.lifts = v.lifts + (scoring and 0 or 1)
+                    end
+                    if v.name == 'The Pillar' then
+                        local scoring = false
+                        for i = 1, #scoring_hand do
+                            if scoring_hand[i].debuff then scoring = true end
+                        end
+                        v.lifts = v.lifts + (scoring and 1 or 0)
+                    end
+                    if v.name == 'The Flint' then
+                        v.lifts = v.lifts + 1
+                    end
+                    if v.name == 'The Tooth' then
+                        v.lifts = v.lifts + #cards
+                    end
+                end
             end
         end
 
@@ -575,13 +893,21 @@ local function override()
     local blind_press_play_ref = Blind.press_play
     function Blind.press_play(self)
 
+        local highlighted_cards = G.hand.highlighted
+        local highlighted_count = math.min(#G.hand.highlighted, G.discard.config.card_limit - #G.play.cards)
+        local face_down_cards = 0
+        for i = 1, highlighted_count, 1 do
+            face_down_cards = face_down_cards + ((highlighted_cards[i].ability.wheel_flipped and 1) or 0)
+        end
+
         if (G.GAME.curses) then
             for k, v in pairs(G.GAME.curses) do
-                if v.config.type == 'curse' then
+                if v.config.type == 'curse' and (v.lifts < v.config.lift) then
                     if v.name == "The Hook" then
                         G.E_MANAGER:add_event(Event({ func = function()
                             local any_selected = nil
                             local _cards = {}
+                            v.triggered = true
                             for kc, vc in ipairs(G.hand.cards) do
                                 _cards[#_cards+1] = vc
                             end
@@ -595,6 +921,7 @@ local function override()
                                 end
                             end
                             if any_selected then G.FUNCS.discard_cards_from_highlighted(nil, true) end
+                            v.triggered = false
                             v:juice_up(0.3, 0.2)
                             play_sound('tarot2', 0.76, 0.4)
                         return true end })) 
@@ -618,6 +945,14 @@ local function override()
                         v.triggered = true
                     end
                 end
+                if v.config.type == 'curse' then
+                    if v.name == "The Wheel" then
+                        v.lifts = v.lifts + ((face_down_cards > 2) and 1 or 0)
+                    end
+                    if v.name == "The House" then
+                        v.lifts = v.lifts + face_down_cards
+                    end
+                end
             end
         end
 
@@ -635,24 +970,10 @@ local function override()
                 -- Temp fix! For some reason, the animation of the last curse is removed at specific events. Force it back until the problem is solved. TODO
                 if not G.ANIMATIONS[v.curse_sprite] then table.insert(G.ANIMATIONS, v.curse_sprite) end
 
-                if (v.config.type == 'curse' or v.config.type == 'final_curse') and (not reset) and (not silent) then
+                if v.config.type == 'curse' and (not reset) and (not silent) and (v.lifts < v.config.lift) then
                     if v.name == "The Wall" then
                         v.triggered = true
                         self.chips = math.floor(self.chips * v.config.extra)
-                        self.chip_text = number_format(self.chips)
-                        G.E_MANAGER:add_event(Event({
-                            trigger = 'after',
-                            delay =  0.7,
-                            func = (function() 
-                                    v:juice_up(0.3, 0.2)
-                                    play_sound('tarot2', 0.76, 0.4)
-                                return true
-                            end)
-                        }))
-                    end
-                    if v.name == "Violet Vessel" then
-                        v.triggered = true
-                        self.chips = math.floor(self.chips * (v.config.extra^v.ability.exp))
                         self.chip_text = number_format(self.chips)
                         G.E_MANAGER:add_event(Event({
                             trigger = 'after',
@@ -721,6 +1042,23 @@ local function override()
                         }))
                     end
                 end
+
+                if v.config.type == 'final_curse' and (not reset) and (not silent) then
+                    if v.name == "Violet Vessel" then
+                        v.triggered = true
+                        self.chips = math.floor(self.chips * (v.config.extra^v.ability.exp))
+                        self.chip_text = number_format(self.chips)
+                        G.E_MANAGER:add_event(Event({
+                            trigger = 'after',
+                            delay =  0.7,
+                            func = (function() 
+                                    v:juice_up(0.3, 0.2)
+                                    play_sound('tarot2', 0.76, 0.4)
+                                return true
+                            end)
+                        }))
+                    end
+                end
             end
         end
     end
@@ -731,7 +1069,7 @@ local function override()
         
         if (G.GAME.curses) then
             for k, v in pairs(G.GAME.curses) do
-                if v.config.type == 'curse' then
+                if v.config.type == 'curse'and (v.lifts < v.config.lift) then
                     if area == G.hand then
                         if v.name == 'The Wheel' and is_curse_triggered(v) then
                             v:juice_up(0.3, 0.2)
@@ -768,7 +1106,7 @@ local function override()
         
         if (G.GAME.curses) then
             for k, v in pairs(G.GAME.curses) do
-                if v.config.type == 'curse' then
+                if v.config.type == 'curse' and (v.lifts < v.config.lift) then
                     if v.name == "The Flint" then
                         G.E_MANAGER:add_event(Event({
                             trigger = 'after',
@@ -808,6 +1146,11 @@ local function override()
                         G.hand:change_size(1)
                     end
                     if v.name == 'The Eye' then
+                        local trig_count = 0
+                        for kh, vh in pairs(v.ability.hand) do
+                            trig_count = trig_count + (vh and 1 or 0)
+                        end
+                        v.lifts = v.lifts + ((G.GAME.current_round.hands_played <= trig_count) and 1 or 0)
                         v.ability.hand = {
                             ["Flush Five"] = false,
                             ["Flush House"] = false,
@@ -826,6 +1169,20 @@ local function override()
                     end
                     if v.name == 'The Mouth' then
                         v.ability.hand = nil
+                        v.lifts = v.lifts + ((G.GAME.current_round.hands_played <= 1) and 1 or 0)
+                    end
+                    if v.name == 'The Wall' then
+                        local overkill = G.GAME.chips - G.GAME.blind.chips
+                        v.lifts = v.lifts + ((overkill > (G.GAME.blind.chips / 2)) and 1 or 0)
+                    end
+                    if v.name == 'The Water' then
+                        v.lifts = v.lifts + ((G.GAME.current_round.discards_used == 0) and 1 or 0)
+                    end
+                    if v.name == 'The Needle' then
+                        v.lifts = v.lifts + ((G.GAME.current_round.hands_left == 0) and 1 or 0)
+                    end
+                    if v.name == 'The Ox' and not v.triggered then
+                        v.lifts = v.lifts + 1
                     end
                     v.triggered = false
                 end
@@ -887,31 +1244,31 @@ function setup_curses()
     
     -- Curses
     G.P_CURSES = {
-        cu_ox =              {name = 'The Ox',       set = 'Curse', discovered = true, min_ante = nil, order = 1, config = {type = 'curse', extra = 5}, pos = {x = 0,y = 2}},
-        cu_hook =            {name = 'The Hook',     set = 'Curse', discovered = true, min_ante = nil, order = 2, config = {type = 'curse', extra = 1}, pos = {x = 0,y = 7}},
-        cu_mouth =           {name = 'The Mouth',    set = 'Curse', discovered = true, min_ante = nil, order = 3, config = {type = 'curse', extra = 0.65}, pos = {x = 0,y = 18}},
-        cu_fish =            {name = 'The Fish',     set = 'Curse', discovered = true, min_ante = nil, order = 4, config = {type = 'curse', chanceN = 2, chanceD = 5}, pos = {x = 0,y = 5}},
-        cu_club =            {name = 'The Club',     set = 'Curse', discovered = true, min_ante = nil, order = 5, config = {type = 'curse', chanceN = 2, chanceD = 5}, pos = {x = 0,y = 4}},
-        cu_manacle =         {name = 'The Manacle',  set = 'Curse', discovered = true, min_ante = nil, order = 6, config = {type = 'curse', extra = 1}, pos = {x = 0,y = 8}},
-        cu_tooth =           {name = 'The Tooth',    set = 'Curse', discovered = true, min_ante = nil, order = 7, config = {type = 'curse', chanceN = 2, chanceD = 5}, pos = {x = 0,y = 22}},
-        cu_wall =            {name = 'The Wall',     set = 'Curse', discovered = true, min_ante = nil, order = 8, config = {type = 'curse', extra = 1.4}, pos = {x = 0,y = 9}},
-        cu_house =           {name = 'The House',    set = 'Curse', discovered = true, min_ante = nil, order = 9, config = {type = 'curse', chanceN = 2, chanceD = 3}, pos = {x = 0,y = 3}},
-        cu_mark =            {name = 'The Mark',     set = 'Curse', discovered = true, min_ante = nil, order = 10, config = {type = 'curse', chanceN = 1, chanceD = 2}, pos = {x = 0,y = 23}},
+        cu_ox =              {name = 'The Ox',       set = 'Curse', discovered = true, min_ante = nil, order = 1, config = {type = 'curse', extra = 5, lift = 3}, pos = {x = 0,y = 2}},
+        cu_hook =            {name = 'The Hook',     set = 'Curse', discovered = true, min_ante = nil, order = 2, config = {type = 'curse', extra = 1, lift = 40}, pos = {x = 0,y = 7}},
+        cu_mouth =           {name = 'The Mouth',    set = 'Curse', discovered = true, min_ante = nil, order = 3, config = {type = 'curse', extra = 0.65, lift = 3}, pos = {x = 0,y = 18}},
+        cu_fish =            {name = 'The Fish',     set = 'Curse', discovered = true, min_ante = nil, order = 4, config = {type = 'curse', chanceN = 2, chanceD = 5, lift = 20}, pos = {x = 0,y = 5}},
+        cu_club =            {name = 'The Club',     set = 'Curse', discovered = true, min_ante = nil, order = 5, config = {type = 'curse', chanceN = 2, chanceD = 5, lift = 12}, pos = {x = 0,y = 4}},
+        cu_manacle =         {name = 'The Manacle',  set = 'Curse', discovered = true, min_ante = nil, order = 6, config = {type = 'curse', extra = 1, lift = 7}, pos = {x = 0,y = 8}},
+        cu_tooth =           {name = 'The Tooth',    set = 'Curse', discovered = true, min_ante = nil, order = 7, config = {type = 'curse', chanceN = 2, chanceD = 5, lift = 35}, pos = {x = 0,y = 22}},
+        cu_wall =            {name = 'The Wall',     set = 'Curse', discovered = true, min_ante = nil, order = 8, config = {type = 'curse', extra = 1.5, lift = 2}, pos = {x = 0,y = 9}},
+        cu_house =           {name = 'The House',    set = 'Curse', discovered = true, min_ante = nil, order = 9, config = {type = 'curse', chanceN = 2, chanceD = 3, lift = 15}, pos = {x = 0,y = 3}},
+        cu_mark =            {name = 'The Mark',     set = 'Curse', discovered = true, min_ante = nil, order = 10, config = {type = 'curse', chanceN = 1, chanceD = 2, lift = 7}, pos = {x = 0,y = 23}},
 
-        cu_wheel =           {name = 'The Wheel',    set = 'Curse', discovered = true, min_ante = nil, order = 11, config = {type = 'curse', chanceN = 1, chanceD = 9}, pos = {x = 0,y = 10}},
-        cu_arm =             {name = 'The Arm',      set = 'Curse', discovered = true, min_ante = nil, order = 12, config = {type = 'curse', chanceN = 1, chanceD = 7}, pos = {x = 0,y = 11}},
-        cu_psychic =         {name = 'The Psychic',  set = 'Curse', discovered = true, min_ante = nil, order = 13, config = {type = 'curse', extra = 0.6}, pos = {x = 0,y = 12}},
-        cu_goad =            {name = 'The Goad',     set = 'Curse', discovered = true, min_ante = nil, order = 14, config = {type = 'curse', chanceN = 2, chanceD = 5}, pos = {x = 0,y = 13}},
-        cu_water =           {name = 'The Water',    set = 'Curse', discovered = true, min_ante = nil, order = 15, config = {type = 'curse', extra = 1}, pos = {x = 0,y = 14}},
-        cu_eye =             {name = 'The Eye',      set = 'Curse', discovered = true, min_ante = nil, order = 16, config = {type = 'curse', extra = 0.65}, pos = {x = 0,y = 17}},
-        cu_plant =           {name = 'The Plant',    set = 'Curse', discovered = true, min_ante = nil, order = 17, config = {type = 'curse', chanceN = 2, chanceD = 5}, pos = {x = 0,y = 19}},
-        cu_needle =          {name = 'The Needle',   set = 'Curse', discovered = true, min_ante = nil, order = 18, config = {type = 'curse', extra = 1}, pos = {x = 0,y = 20}},
-        cu_head =            {name = 'The Head',     set = 'Curse', discovered = true, min_ante = nil, order = 19, config = {type = 'curse', chanceN = 2, chanceD = 5}, pos = {x = 0,y = 21}},
-        cu_window =          {name = 'The Window',   set = 'Curse', discovered = true, min_ante = nil, order = 20, config = {type = 'curse', chanceN = 2, chanceD = 5}, pos = {x = 0,y = 6}},
+        cu_wheel =           {name = 'The Wheel',    set = 'Curse', discovered = true, min_ante = nil, order = 11, config = {type = 'curse', chanceN = 1, chanceD = 9, lift = 5}, pos = {x = 0,y = 10}},
+        cu_arm =             {name = 'The Arm',      set = 'Curse', discovered = true, min_ante = nil, order = 12, config = {type = 'curse', chanceN = 1, chanceD = 7, lift = 40}, pos = {x = 0,y = 11}},
+        cu_psychic =         {name = 'The Psychic',  set = 'Curse', discovered = true, min_ante = nil, order = 13, config = {type = 'curse', extra = 0.6, lift = 12}, pos = {x = 0,y = 12}},
+        cu_goad =            {name = 'The Goad',     set = 'Curse', discovered = true, min_ante = nil, order = 14, config = {type = 'curse', chanceN = 2, chanceD = 5, lift = 12}, pos = {x = 0,y = 13}},
+        cu_water =           {name = 'The Water',    set = 'Curse', discovered = true, min_ante = nil, order = 15, config = {type = 'curse', extra = 1, lift = 3}, pos = {x = 0,y = 14}},
+        cu_eye =             {name = 'The Eye',      set = 'Curse', discovered = true, min_ante = nil, order = 16, config = {type = 'curse', extra = 0.65, lift = 3}, pos = {x = 0,y = 17}},
+        cu_plant =           {name = 'The Plant',    set = 'Curse', discovered = true, min_ante = nil, order = 17, config = {type = 'curse', chanceN = 2, chanceD = 5, lift = 12}, pos = {x = 0,y = 19}},
+        cu_needle =          {name = 'The Needle',   set = 'Curse', discovered = true, min_ante = nil, order = 18, config = {type = 'curse', extra = 1, lift = 3}, pos = {x = 0,y = 20}},
+        cu_head =            {name = 'The Head',     set = 'Curse', discovered = true, min_ante = nil, order = 19, config = {type = 'curse', chanceN = 2, chanceD = 5, lift = 12}, pos = {x = 0,y = 21}},
+        cu_window =          {name = 'The Window',   set = 'Curse', discovered = true, min_ante = nil, order = 20, config = {type = 'curse', chanceN = 2, chanceD = 5, lift = 12}, pos = {x = 0,y = 6}},
 
-        cu_serpent =         {name = 'The Serpent',  set = 'Curse', discovered = true, min_ante = nil, order = 21, config = {type = 'curse', extra = 2}, pos = {x = 0,y = 15}},
-        cu_pillar =          {name = 'The Pillar',   set = 'Curse', discovered = true, min_ante = nil, order = 22, config = {type = 'curse', chanceN = 2, chanceD = 5}, pos = {x = 0,y = 16}},
-        cu_flint =           {name = 'The Flint',    set = 'Curse', discovered = true, min_ante = nil, order = 23, config = {type = 'curse', extra = 0.8}, pos = {x = 0,y = 24}},
+        cu_serpent =         {name = 'The Serpent',  set = 'Curse', discovered = true, min_ante = nil, order = 21, config = {type = 'curse', extra = 2, lift = 40}, pos = {x = 0,y = 15}},
+        cu_pillar =          {name = 'The Pillar',   set = 'Curse', discovered = true, min_ante = nil, order = 22, config = {type = 'curse', chanceN = 2, chanceD = 5, lift = 9}, pos = {x = 0,y = 16}},
+        cu_flint =           {name = 'The Flint',    set = 'Curse', discovered = true, min_ante = nil, order = 23, config = {type = 'curse', extra = 0.8, lift = 20}, pos = {x = 0,y = 24}},
         
         cu_final_vessel =    {name = 'Violet Vessel',set = 'Curse', discovered = true, min_ante = nil, order = 24, config = {type = 'final_curse', extra = 1.5}, pos = {x=0, y=29}},
     }
@@ -935,6 +1292,14 @@ function setup_curses()
             "Get a random",
             "{X:black,C:white} curse {} if used",
             "{C:attention}(x#1#){}"
+        }
+    }
+    G.localization.descriptions.Other.liftedCurse = {
+        name = "Lifted",
+        text = {
+            "The {X:black,C:white}Curse{}",
+            "was {C:attention}lifted!{}",
+            "{C:inactive}(Progress: #2#/#1#){}"
         }
     }
     G.localization.misc.labels['cursed'] = "Cursed Version"
@@ -961,6 +1326,7 @@ function Curse:init(_curse)
     self.name = proto.name
     self.tally = G.GAME.curse_tally or 0
     self.triggered = false
+    self.lifts = 0
     G.curseid = G.curseid or 0
     self.ID = G.curseid
     G.curseid = G.curseid + 1
@@ -973,6 +1339,7 @@ function Curse:save()
         key = self.key,
         tally = self.tally,
         triggered = self.triggered,
+        lifts = self.lifts,
         ability = self.ability
     }
 end
@@ -986,6 +1353,7 @@ function Curse:load(curse_savetable)
     self.tally = curse_savetable.tally
     self.ability = curse_savetable.ability
     self.triggered = curse_savetable.triggered
+    self.lifts = curse_savetable.lifts
     G.GAME.curse_tally = math.max(self.tally, G.GAME.curse_tally) + 1
 
     -- Prevent having same boss and curse
@@ -1078,6 +1446,7 @@ function Curse:get_uibox_table(curse_sprite)
     elseif name_to_check == 'Violet Vessel' then loc_vars = {math.floor((self.config.extra^(self.ability.exp or 1)) * 100 - 100), (self.ability.exp or 1)}
     end
     curse_sprite.ability_UIBox_table = generate_card_ui(G.P_CURSES[self.key], nil, loc_vars, 'curse', badges)
+
     return curse_sprite
 end
 
