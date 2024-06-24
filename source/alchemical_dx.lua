@@ -486,24 +486,16 @@ end
 
 local G_FUNCS_select_alchemical_ref = G.FUNCS.select_alchemical
 function G.FUNCS.select_alchemical(e, mute, nosave)
-    local card = e.config.ref_table
-    local dont_dissolve = nil
     
-    if card.ability.name == "Philosopher's Stone DX" then
-      card:add_to_deck()
-      G.consumeables:emplace(card)
-      play_sound('card1', 0.8, 0.6)
-      play_sound('generic1')
-      dont_dissolve = true
+    local card = e.config.ref_table
+    if card.ability.name == "Philosopher's Stone DX" then -- Use vanilla for now TODO
+        card.ability.name = "Philosopher's Stone"
+        G_FUNCS_select_alchemical_ref(e, mute, nosave)
+        card = e.config.ref_table
+        card.ability.name = "Philosopher's Stone DX"
+    else
+        G_FUNCS_select_alchemical_ref(e, mute, nosave)
     end
-
-    G_FUNCS_select_alchemical_ref(e, mute, nosave)
-
-    G.E_MANAGER:add_event(Event({trigger = 'after',delay = 0.2,
-        func = function()
-            if not dont_dissolve then card:start_dissolve() end
-            return true
-        end}))
 end
 
 -- Load the DX alchemical cards
