@@ -161,7 +161,6 @@ function Card.use_consumeable(self, area, copier)
         G.deck.config.philosopher = true
         G.deck.config.philosopher_dx = 3
     elseif not self.config.in_booster and self.ability.set == "Alchemical" and self.ability.type == "_dx" then
-        local used_alchemical = copier or self
         local key = self.config.center.key
         local center_obj = CodexArcanum.DXAlchemicals[key]
         if center_obj and center_obj.use and type(center_obj.use) == 'function' then
