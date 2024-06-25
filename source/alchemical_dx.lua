@@ -550,7 +550,7 @@ function load_dx_alchemical_cards()
         }
     }
 
-    local alchemy_terra = CodexArcanum.Alchemical:newDX("Terra", "terra", {extra = 70}, { x = 2, y = 0 }, alchemy_terra_def, 5)
+    local alchemy_terra = CodexArcanum.Alchemical:newDX("Terra", "terra", {extra = 0.7}, { x = 2, y = 0 }, alchemy_terra_def, 5)
     alchemy_terra:registerDX()
                           
     function CodexArcanum.DXAlchemicals.c_alchemy_terra_dx.can_use(card)
