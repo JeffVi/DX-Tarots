@@ -3008,7 +3008,7 @@ local function overrides()
                         card = create_card("Enhanced", G.pack_cards, nil, nil, nil, true, nil, 'sta')
                         local edition_rate = dx_modifier and 6 or 3
                         local edition = poll_edition('standard_edition'..G.GAME.round_resets.ante, edition_rate, true)
-                        card:set_edition(edition)
+                        if not card.edition then card:set_edition(edition) end
                         local seal_rate = dx_modifier and 30 or 15
                         local seal_poll = pseudorandom(pseudoseed('stdseal'..G.GAME.round_resets.ante))
                         if seal_poll > 1 - 0.02*seal_rate then
@@ -3024,7 +3024,7 @@ local function overrides()
                         card = create_card("Joker", G.pack_cards, nil, rarity, true, true, nil, 'buf')
                         local edition_rate = dx_modifier and 3 or 1.5
                         local edition = poll_edition('standard_edition'..G.GAME.round_resets.ante, edition_rate, true)
-                        card:set_edition(edition)
+                        if not card.edition then card:set_edition(edition) end
                     elseif self.ability.name:find('Alchemy') then
                         G.ARGS.is_alchemical_booster = true
                         card = create_card(dx_modifier and "Alchemical_dx" or "Alchemical", G.pack_cards, nil, nil, true, true, nil, 'alc')
