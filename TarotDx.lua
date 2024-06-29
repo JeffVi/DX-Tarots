@@ -18,6 +18,7 @@ local alchemical_dx_rate = 0.1          -- (from 0 (0%) to 1 (100%))
 local booster_dx_rate = 0.1             -- (from 0 (0%) to 1 (100%))
 local planet_edition_enabled = true     -- Enable/Disable the possibility of planet cards edition (may not be compatible with other mods that overwrite the level_up_hand function)
 local spectral_on_blank = true          -- Enable/Disable spectral rate on blank voucher
+local unique_enabled = true             -- Enable/Disable the unique badge management.
 
 -- END CUSTOM CONFIGS
 
@@ -1268,7 +1269,7 @@ local function overrides()
         local created_card = create_card_ref(new_type, area, legendary, _rarity, skip_materialize, soulable, new_forced_key, key_append)
 
         -- manage unique cards
-        if created_card.config and created_card.config.center and created_card.config.center.config and created_card.config.center.config.unique and created_card.config.center_key then
+        if unique_enabled and created_card.config and created_card.config.center and created_card.config.center.config and created_card.config.center.config.unique and created_card.config.center_key then
             G.GAME.banned_keys[created_card.config.center_key] = true
         end
 
@@ -1436,7 +1437,7 @@ local function overrides()
                 badges[#badges + 1] = 'dx'
             end
 
-            if _c.config.unique then
+            if _c.config.unique and unique_enabled then
                 -- Add the Unique badge
                 badges[#badges + 1] = 'unique'
             end
@@ -3007,7 +3008,7 @@ local function overrides()
                         card = create_card("Enhanced", G.pack_cards, nil, nil, nil, true, nil, 'sta')
                         local edition_rate = dx_modifier and 6 or 3
                         local edition = poll_edition('standard_edition'..G.GAME.round_resets.ante, edition_rate, true)
-                        card:set_edition(edition)
+                        if not card.edition then card:set_edition(edition) end
                         local seal_rate = dx_modifier and 30 or 15
                         local seal_poll = pseudorandom(pseudoseed('stdseal'..G.GAME.round_resets.ante))
                         if seal_poll > 1 - 0.02*seal_rate then
@@ -3023,7 +3024,7 @@ local function overrides()
                         card = create_card("Joker", G.pack_cards, nil, rarity, true, true, nil, 'buf')
                         local edition_rate = dx_modifier and 3 or 1.5
                         local edition = poll_edition('standard_edition'..G.GAME.round_resets.ante, edition_rate, true)
-                        card:set_edition(edition)
+                        if not card.edition then card:set_edition(edition) end
                     elseif self.ability.name:find('Alchemy') then
                         G.ARGS.is_alchemical_booster = true
                         card = create_card(dx_modifier and "Alchemical_dx" or "Alchemical", G.pack_cards, nil, nil, true, true, nil, 'alc')
