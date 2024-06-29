@@ -54,6 +54,8 @@ DX version of Tarot cards were added. They have a 10% *(can be edited)* chance o
 
 - **The World DX**: Converts up to **5** selected cards.
 
+- **The Seeker DX**: Creates up to 2 random **DX** Alchemical cards. *Requires Codex Arcanum.*
+
 ### Planets
 
 DX planet cards will upgrade their respective hand level by **2**. They have a 12% *(can be edited)* chance of being pulled instead of a vanilla planet. They each cost **$5**.  
@@ -100,6 +102,8 @@ DX version of Spectral cards were added. They have a 15% *(can be edited)* chanc
 
 - **Black Hole DX**: Upgrade every poker hand by **3** levels.
 
+- **Philosopher's Stone DX**: Retrigger all played cards for **three** blinds. *Requires Codex Arcanum.*
+
 ### Boosters
 
 DX version of Booster packs were added. They have a 10% *(can be edited)* chance of replacing a vanilla pack in shops. They each cost **$2** more than their original counterpart and provide one extra card to pick from. They are **Unique**.
@@ -114,13 +118,68 @@ DX version of Booster packs were added. They have a 10% *(can be edited)* chance
 
 - **Buffoon DX**: Increased chance to pull **uncommon and rare** jokers. Increased chance to get **editions**.
 
+- **Alchemy DX**: Increased chance to pull **DX Alchemicals**. *Requires Codex Arcanum.*
+
+### Alchemicals (Codex Arcanum)
+
+DX version of Alchemical cards were added. They have a 10% *(can be edited)* chance of being pulled instead of a vanilla alchemical. They each cost **$5**.
+
+- **Ignis DX**: Gain **2** discards.
+
+- **Aqua DX**: Gain **2** hands.
+
+- **Terra DX**: Reduce blind by **30%**.
+
+- **Aero DX**: Draw **8** cards.
+
+- **Quicksilver DX**: **+4** hand size for one blind.
+
+- **Salt DX**: Gain **2** tags.
+
+- **Sulfur DX**: Reduce hands to 1. Gain **$6** for each hand removed.
+
+- **Phosphorus DX**: Draw **8** discarded cards.
+
+- **Bismuth DX**: Converts up to **4** selected cards to polychrome for one blind.
+
+- **Cobalt DX**: Upgrade selected poker hand by **3** levels.
+
+- **Arsenic DX**: Set **both** hands and discards to the **highest value** of the two.
+
+- **Antimony DX**: Create a negative eternal copy of a **selected** joker for one blind.
+
+- **Soap DX**: Select up to 3 cards. Replace **any non selected card** with cards from your deck.
+
+- **Manganese DX**: Enhances up to 4 selected cards into Steel Cards for one blind. **Creates a copy of Manganese**.
+
+- **Wax DX**: Create **4** temporary copies of a selected card.
+
+- **Borax DX**: Converts **your hand** into most common suit for one blind.
+
+- **Glass DX**: Enhances up to 4 selected cards into Glass Cards for one blind. **Creates a copy of Glass**.
+
+- **Magnet DX**: Draw **4** cards of the same rank as the selected one.
+
+- **Gold DX**: Enhances up to 4 selected cards into Gold Cards for one blind. **Creates a copy of Gold**.
+
+- **Silver DX**: Enhances up to 4 selected cards into Lucky Cards for one blind. **Creates a copy of Silver**.
+
+- **Oil DX**: Removes debuffs of **all cards in hand**. **Creates a copy of Oil**.
+
+- **Acid DX**: Select up to **3** cards, destroy all cards of the selected ranks. All cards are returned after one blind.
+
+- **Brimstone DX**: **+2** hands and discards.
+
+- **Uranium DX**: Copy the selected card's enhancement, seal, and edition to **unenhanced cards in hand** for one blind.
+
+
 ## Cursed Cards
 
 A new badge was created for **Cursed** consumables. They are greatly enhanced versions of their original counterpart that gives you a set number of random curse(s) upon being used.
 
 ## Unique Cards
 
-A new badge was created for **Unique** cards. Once pulled, they can no longer be pulled during the run.
+A new badge was created for **Unique** cards. Once pulled, they can no longer be pulled during the run. You can disable this feature.
 
 ### Curses
 
