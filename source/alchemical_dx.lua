@@ -236,7 +236,7 @@ function Card.can_use_consumeable(self, any_state, skip_check)
 
         if G.STATE ~= G.STATES.HAND_PLAYED and G.STATE ~= G.STATES.DRAW_TO_HAND and G.STATE ~= G.STATES.PLAY_TAROT or any_state then
             if self.ability.name == 'The Seeker DX' then
-                return #G.consumeables.cards < G.consumeables.config.card_limit or card.area == G.consumeables
+                return #G.consumeables.cards < G.consumeables.config.card_limit or self.area == G.consumeables
             end
             if self.ability.name == "Philosopher's Stone DX" then
                 if G.STATE == G.STATES.SELECTING_HAND then
