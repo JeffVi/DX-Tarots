@@ -785,7 +785,7 @@ local function override()
                         v.ability.indicate_trig = v.ability.hand[handname]
                     end
                     if v.name == 'The Mouth' then
-                        if v.ability.hand and v.ability.hand ~= handname then
+                        if v.ability.hand and v.ability.hand ~= handname and not check then
                             v.triggered = true
                         end
                         if (not check) and v.ability.hand ~= nil then v.ability.hand = handname end
