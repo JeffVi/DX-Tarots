@@ -257,18 +257,6 @@ function Card.can_use_consumeable(self, any_state, skip_check)
     end
 end
 
-local Game_init_item_prototypes_ref = Game.init_item_prototypes
-function Game.init_item_prototypes(self)
-
-    Game_init_item_prototypes_ref(self)
-
-    G.P_CENTER_POOLS.Alchemical_dx = {}
-    G.localization.descriptions.Alchemical_dx = {}
-
-    load_dx_alchemical_packs()
-    load_dx_alchemical_cards()
-end
-
 local Game_update_round_eval_ref = Game.update_round_eval
 function Game.update_round_eval(self, dt)
 
