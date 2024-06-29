@@ -18,6 +18,7 @@ local alchemical_dx_rate = 0.1          -- (from 0 (0%) to 1 (100%))
 local booster_dx_rate = 0.1             -- (from 0 (0%) to 1 (100%))
 local planet_edition_enabled = true     -- Enable/Disable the possibility of planet cards edition (may not be compatible with other mods that overwrite the level_up_hand function)
 local spectral_on_blank = true          -- Enable/Disable spectral rate on blank voucher
+local unique_enabled = true             -- Enable/Disable the unique badge management.
 
 -- END CUSTOM CONFIGS
 
@@ -1268,7 +1269,7 @@ local function overrides()
         local created_card = create_card_ref(new_type, area, legendary, _rarity, skip_materialize, soulable, new_forced_key, key_append)
 
         -- manage unique cards
-        if created_card.config and created_card.config.center and created_card.config.center.config and created_card.config.center.config.unique and created_card.config.center_key then
+        if unique_enabled and created_card.config and created_card.config.center and created_card.config.center.config and created_card.config.center.config.unique and created_card.config.center_key then
             G.GAME.banned_keys[created_card.config.center_key] = true
         end
 
@@ -1436,7 +1437,7 @@ local function overrides()
                 badges[#badges + 1] = 'dx'
             end
 
-            if _c.config.unique then
+            if _c.config.unique and unique_enabled then
                 -- Add the Unique badge
                 badges[#badges + 1] = 'unique'
             end
