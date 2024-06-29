@@ -257,12 +257,13 @@ function Card.can_use_consumeable(self, any_state, skip_check)
     end
 end
 
-local Game_update_round_eval_ref = Game.update_round_eval
-function Game.update_round_eval(self, dt)
+-- Manage Philosopher DX
+local blind_set_blind_ref = Blind.set_blind
+function Blind.set_blind(self, blind, reset, silent)
 
-    Game_update_round_eval_ref(self, dt)
+    blind_set_blind_ref(self, blind, reset, silent)
 
-    if G.deck.config.philosopher_dx and G.deck.config.philosopher_dx > 0 then
+    if G.deck.config.philosopher_dx and G.deck.config.philosopher_dx > 0 and (not reset) and (not silent) then
         G.deck.config.philosopher = true
         G.deck.config.philosopher_dx = G.deck.config.philosopher_dx - 1
     end
