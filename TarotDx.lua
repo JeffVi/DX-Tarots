@@ -64,7 +64,7 @@ local function setup_consumables()
     G.P_CENTERS.c_chariot_cu=          {order = 8,     discovered = true, cost = 5, consumeable = true, name = "The Cursed Chariot", pos = {x=7,y=0}, set = "Tarot", effect = "Round Bonus", cost_mult = 1.0, config = {type = '_cu', mod_conv = 'm_steel', extra = 1, unique = true, nb_curse = 2}, atlas = 'Van_cu'}
     G.P_CENTERS.c_justice_cu=          {order = 9,     discovered = true, cost = 5, consumeable = true, name = "Cursed Justice", pos = {x=8,y=0}, set = "Tarot", effect = "Round Bonus", cost_mult = 1.0, config = {type = '_cu', mod_conv = 'm_glass', extra = 1.5, unique = true, nb_curse = 2}, atlas = 'Van_cu'}
     G.P_CENTERS.c_hermit_cu=           {order = 10,    discovered = true, cost = 5, consumeable = true, name = "The Cursed Hermit", pos = {x=9,y=0}, set = "Tarot", effect = "Dollar Doubler", cost_mult = 1.0, config = {type = '_cu', extra = 50, unique = true, nb_curse = 2}, atlas = 'Van_cu'}
-    G.P_CENTERS.c_wheel_of_fortune_cu= {order = 11,    discovered = true, cost = 5, consumeable = true, name = "The Cursed Wheel of Fortune", pos = {x=0,y=1}, set = "Tarot", effect = "Round Bonus", cost_mult = 1.0, config = {type = '_cu', unique = true, nb_curse = 2, extra = 3}, atlas = 'Van_cu'}
+    G.P_CENTERS.c_wheel_of_fortune_cu= {order = 11,    discovered = true, cost = 5, consumeable = true, name = "The Cursed Wheel of Fortune", pos = {x=0,y=1}, set = "Tarot", effect = "Round Bonus", cost_mult = 1.0, config = {type = '_cu', unique = true, nb_curse = 1, extra = 2}, atlas = 'Van_cu'}
     G.P_CENTERS.c_strength_cu=         {order = 12,    discovered = true, cost = 5, consumeable = true, name = "Cursed Strength", pos = {x=1,y=1}, set = "Tarot", effect = "Round Bonus", cost_mult = 1.0, config = {type = '_cu', mod_conv = 'up_rank', max_highlighted = 5, min_highlighted = 1, unique = true, nb_curse = 2}, atlas = 'Van_cu'}
     G.P_CENTERS.c_hanged_man_cu=       {order = 13,    discovered = true, cost = 5, consumeable = true, name = "The Cursed Hanged Man", pos = {x=2,y=1}, set = "Tarot", effect = "Card Removal", cost_mult = 1.0, config = {type = '_cu', remove_card = true, max_highlighted = 4, min_highlighted = 1, unique = true, nb_curse = 2}, atlas = 'Van_cu'}
     G.P_CENTERS.c_death_cu=            {order = 14,    discovered = true, cost = 5, consumeable = true, name = "Cursed Death", pos = {x=3,y=1}, set = "Tarot", effect = "Card Conversion", cost_mult = 1.0, config = {type = '_cu', mod_conv = 'card', max_highlighted = 5, min_highlighted = 2, unique = true, nb_curse = 2}, atlas = 'Van_cu'}
@@ -561,6 +561,7 @@ local function setUpLocalizationTarotCU()
         text = {
             "Creates a random",
             "{C:red}rare{} {C:attention}Joker{} card",
+            "with a random {C:dark_edition}edition{}",
             "{C:inactive}(Must have room)"
         }
     }
@@ -1719,6 +1720,7 @@ local function overrides()
                 end
                 loc_vars = {localize(_c.config.suit_conv, 'suits_plural'), colours = {G.C.SUITS[_c.config.suit_conv]}}
                 elseif _c.name == "Cursed Judgement" then
+                    info_queue[#info_queue+1] = G.P_CENTERS.e_foil; info_queue[#info_queue+1] = G.P_CENTERS.e_holo; info_queue[#info_queue+1] = G.P_CENTERS.e_polychrome;
                 elseif _c.name == "The Cursed World" then
                     local fool_c = G.P_CENTERS["c_world_dx"] or nil
                     local created_card = fool_c and localize{type = 'name_text', key = fool_c.key, set = fool_c.set..fool_c.config.type} or localize('k_none')
@@ -2807,6 +2809,8 @@ local function overrides()
                     play_sound('timpani')
                     local rarity = 0.98
                     local card = create_card('Joker', G.jokers, false, rarity, nil, nil, nil, 'jud')
+                    local edition = poll_edition('cu_judg', nil, true, true)
+                    if not card.edition then card:set_edition(edition) end
                     card:add_to_deck()
                     G.jokers:emplace(card)
                     used_tarot:juice_up(0.3, 0.5)

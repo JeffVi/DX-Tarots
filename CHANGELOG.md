@@ -200,7 +200,7 @@ Cursed version of Tarot cards were added. They have a 8% *(can be edited)* chanc
 
 - **The Cursed Hermit**: Gives **$50**.
 
-- **The Cursed Wheel of Fortune**: **Add an edition** to a random joker, **1 in 3 chance to repeat once**.
+- **The Cursed Wheel of Fortune**: **Add an edition** to a random joker, **1 in 2 chance to repeat once**.
 
 - **Cursed Strength**: Select up to 5 cards. **Rank up all cards matching selected ranks**.
 
@@ -220,7 +220,7 @@ Cursed version of Tarot cards were added. They have a 8% *(can be edited)* chanc
 
 - **The Cursed Sun**: Heart cards **cannot get debuffed**. Creates a copy of **The Sun DX**.
 
-- **Cursed Judgement**: Creates a random **rare** joker.
+- **Cursed Judgement**: Creates a random **rare** joker with a **random edition**.
 
 - **The Cursed World**: Spade cards **cannot get debuffed**. Creates a copy of **The World DX**.
 
@@ -230,13 +230,13 @@ Cursed version of Tarot cards were added. They have a 8% *(can be edited)* chanc
 
 **Curses** are special tags that will affect your run upon being received. They can be lifted if specific conditions are met.
 
-- **The Hook**: Discards **1** random card per hand played. Lifted after discarding **40 cards**.
+- **The Hook**: Discards **1** random card per hand played. Lifted after discarding **60 cards**.
 
 - **The Wall**: Increase blind amounts by **40%**. Lifted after scoring more than **150%** of the blind ammount **2 times**.
 
-- **The Wheel**: **1 in 9** cards get drawn face down. Lifted after playing **5 hands** containing at least **3** face down cards.
+- **The Wheel**: **1 in 8** cards get drawn face down. Lifted after playing **5 hands** containing at least **3** face down cards.
 
-- **The Arm**: **1 in 7** chance to decrease level of played poker hand. Lifted after playing **40 levels** worth of poker hands.
+- **The Arm**: **1 in 6** chance to decrease level of played poker hand. Lifted after playing **40 levels** worth of poker hands.
 
 - **The Psychic**: **X0.6 mult** if played hand does not contain 5 cards. Lifted after playing **12 hands** containing 5 cards.
 
@@ -244,9 +244,9 @@ Cursed version of Tarot cards were added. They have a 8% *(can be edited)* chanc
 
 - **The Water**: **-1** discard. Lifted after defeating **3 blinds** without using discards.
 
-- **The Eye**: **X0.65 mult** if played hand type was already played this round. Lifted after defeating **3 blinds** with no repeated hands.
+- **The Eye**: **X0.6 mult** if played hand type was already played this round. Lifted after defeating **3 blinds** with no repeated hands.
 
-- **The Mouth**: **X0.65 mult** if played hand type is different than the first played this round. Lifted after defeating **3 blinds** with the first played hand.
+- **The Mouth**: **X0.6 mult** if played hand type is different than the first played this round. Lifted after defeating **3 blinds** with the first played hand.
 
 - **The Plant**: **2 in 5** chance for a face card to be debuffed. Lifted after playing **12 hands** with no scoring face card.
 
