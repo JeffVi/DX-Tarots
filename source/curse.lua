@@ -793,16 +793,9 @@ local function override()
                     if v.name == 'The Arm' then
                         if G.GAME.hands[handname].level > 1 then
                             if not check and is_curse_triggered(v) then
-                                G.E_MANAGER:add_event(Event({
-                                    trigger = 'after',
-                                    delay =  0.7,
-                                    func = (function() 
-                                            level_up_hand(v, handname, nil, -1)
-                                            v:juice_up(0.3, 0.2)
-                                            play_sound('tarot2', 0.76, 0.4)
-                                        return true
-                                    end)
-                                }))
+                                level_up_hand(v, handname, nil, -1)
+                                v:juice_up(0.3, 0.2)
+                                play_sound('tarot2', 0.76, 0.4)
                             end
                         end
                     end
