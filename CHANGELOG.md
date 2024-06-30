@@ -172,16 +172,61 @@ DX version of Alchemical cards were added. They have a 10% *(can be edited)* cha
 
 - **Uranium DX**: Copy the selected card's enhancement, seal, and edition to **unenhanced cards in hand** for one blind.
 
-
 ## Cursed Cards
 
 A new badge was created for **Cursed** consumables. They are greatly enhanced versions of their original counterpart that gives you a set number of random curse(s) upon being used.
 
-## Unique Cards
+### Cursed Tarots
 
-A new badge was created for **Unique** cards. Once pulled, they can no longer be pulled during the run. You can disable this feature.
+Cursed version of Tarot cards were added. They have a 8% *(can be edited)* chance of being pulled instead of a vanilla tarot. They each cost **$5**. They are **Unique**.
 
-### Curses
+- **The Cursed Fool**: **+1 consumable slot**. Creates **2 copies** of **The Fool DX**.
+
+- **The Cursed Magician**: **Doubles all listed probabilities**. Creates a copy of **The Magician DX**.
+
+- **The Cursed High Priestess**: Planet cards are **2 times more likely** to get an **edition**. Creates up to 2 random **DX** Planet cards.
+
+- **The Cursed Empress**: Increase Mult cards multiplier **from 4 to 12**. Creates a copy of **The Empress DX**.
+
+- **The Cursed Emperor**: Creates 6 random **negative DX Tarot** cards.
+
+- **The Cursed Hierophant**: Increase Bonus cards extra chips **from 30 to 90**. Creates a copy of **The Hierophant DX**.
+
+- **The Cursed Lovers**: Wild cards now **copy the rank of the card to their left** (if applicable). Creates a copy of **The Lovers DX**.
+
+- **The Cursed Chariot**: Increase Steel cards multiplier **from 1.5 to 2.5**. Creates a copy of **The Chariot DX**.
+
+- **Cursed Justice**: Increase Glass cards multiplier **from 2 to 3.5**. Creates a copy of **Justice DX**.
+
+- **The Cursed Hermit**: Gives **$50**.
+
+- **The Cursed Wheel of Fortune**: **Add an edition** to a random joker, **1 in 3 chance to repeat once**.
+
+- **Cursed Strength**: Select up to 5 cards. **Rank up all cards matching selected ranks**.
+
+- **The Cursed Hanged Man**: Select up to 4 cards. **Destroys all cards matching selected ranks**.
+
+- **Cursed Death**: Select up to **5** cards. Convert the left ones into the right one. Gives two copies of **Death DX**.
+
+- **Cursed Temperance**: Gives **$10** per Joker.
+
+- **The Cursed Devil**: Increase Gold cards gain from **$3 to $8**. Creates a copy of **The Devil DX**.
+
+- **The Cursed Tower**: Stone cards now grants **250 chips and 4 mult**. Creates a copy of **The Tower DX**.
+
+- **The Cursed Star**: Diamond cards **cannot get debuffed**. Creates a copy of **The Star DX**.
+
+- **The Cursed Moon**: Club cards **cannot get debuffed**. Creates a copy of **The Moon DX**.
+
+- **The Cursed Sun**: Heart cards **cannot get debuffed**. Creates a copy of **The Sun DX**.
+
+- **Cursed Judgement**: Creates a random **rare** joker.
+
+- **The Cursed World**: Spade cards **cannot get debuffed**. Creates a copy of **The World DX**.
+
+- **The Cursed Seeker**: Alchemical packs and cards are **free**. Alchemical cards are **2 times** more likely to be **DX**. *Requires Codex Arcanum.*
+
+## Curses
 
 **Curses** are special tags that will affect your run upon being received. They can be lifted if specific conditions are met.
 
@@ -233,53 +278,9 @@ A new badge was created for **Unique** cards. Once pulled, they can no longer be
 
 - **Violet Vessel**: Increase blind amounts by **50%**. Future curses will increase the amount instead of applying new curses. **Cannot be lifted**.
 
-### Cursed Tarots
+## Unique Cards
 
-Cursed version of Tarot cards were added. They have a 8% *(can be edited)* chance of being pulled instead of a vanilla tarot. They each cost **$5**. They are **Unique**.
-
-- **The Cursed Fool**: **+1 consumable slot**. Creates **2 copies** of **The Fool DX**.
-
-- **The Cursed Magician**: **Doubles all listed probabilities**. Creates a copy of **The Magician DX**.
-
-- **The Cursed High Priestess**: Planet cards are **2 times more likely** to get an **edition**. Creates up to 2 random **DX** Planet cards.
-
-- **The Cursed Empress**: Increase Mult cards multiplier **from 4 to 12**. Creates a copy of **The Empress DX**.
-
-- **The Cursed Emperor**: Creates 6 random **negative DX Tarot** cards.
-
-- **The Cursed Hierophant**: Increase Bonus cards extra chips **from 30 to 90**. Creates a copy of **The Hierophant DX**.
-
-- **The Cursed Lovers**: Wild cards now **copy the rank of the card to their left** (if applicable). Creates a copy of **The Lovers DX**.
-
-- **The Cursed Chariot**: Increase Steel cards multiplier **from 1.5 to 2.5**. Creates a copy of **The Chariot DX**.
-
-- **Cursed Justice**: Increase Glass cards multiplier **from 2 to 3.5**. Creates a copy of **Justice DX**.
-
-- **The Cursed Hermit**: Gives **$50**.
-
-- **The Cursed Wheel of Fortune**: **Add an edition** to a random joker, **1 in 3 chance to repeat once**.
-
-- **Cursed Strength**: Select up to 5 cards. **Rank up all cards matching selected ranks**.
-
-- **The Cursed Hanged Man**: Select up to 4 cards. **Destroys all cards matching selected ranks**.
-
-- **Cursed Death**: Select up to **5** cards. Convert the left ones into the right one. Gives two copies of **Death DX**.
-
-- **Cursed Temperance**: Gives **$10** per Joker.
-
-- **The Cursed Devil**: Increase Gold cards gain from **$3 to $8**. Creates a copy of **The Devil DX**.
-
-- **The Cursed Tower**: Stone cards now grants **250 chips and 4 mult**. Creates a copy of **The Tower DX**.
-
-- **The Cursed Star**: Diamond cards **cannot get debuffed**. Creates a copy of **The Star DX**.
-
-- **The Cursed Moon**: Club cards **cannot get debuffed**. Creates a copy of **The Moon DX**.
-
-- **The Cursed Sun**: Heart cards **cannot get debuffed**. Creates a copy of **The Sun DX**.
-
-- **Cursed Judgement**: Creates a random **rare** joker.
-
-- **The Cursed World**: Spade cards **cannot get debuffed**. Creates a copy of **The World DX**.
+A new badge was created for **Unique** cards. Once pulled, they can no longer be pulled during the run. You can disable this feature.
 
 ## Vouchers
 

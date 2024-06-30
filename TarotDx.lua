@@ -1241,7 +1241,10 @@ local function overrides()
             if ((new_type == 'Tarot') or (new_type == 'Tarot_dx')) and (pseudorandom('upgrade_card'..G.GAME.round_resets.ante) > math.min(1, math.max(0, 1 - tarot_cu_rate))) then new_type = "Tarot_cu" end
             if new_type == 'Planet' and (pseudorandom('upgrade_card'..G.GAME.round_resets.ante) > math.min(1, math.max(0, 1 - planet_dx_rate))) then new_type = "Planet_dx" end
             if new_type == 'Spectral' and (pseudorandom('upgrade_card'..G.GAME.round_resets.ante) > math.min(1, math.max(0, 1 - spectral_dx_rate))) then new_type = "Spectral_dx" end
-            if new_type == 'Alchemical' and (pseudorandom('upgrade_card'..G.GAME.round_resets.ante) > math.min(1, math.max(0, 1 - alchemical_dx_rate))) then new_type = "Alchemical_dx" end
+            
+            local alc_mod = alchemical_dx_rate
+            if G.GAME.used_cu_augments and G.GAME.used_cu_augments.c_seeker_cu then alc_mod = alchemical_dx_rate * G.P_CENTERS.c_seeker_cu.config.prob_mult * G.GAME.used_cu_augments.c_seeker_cu end
+            if new_type == 'Alchemical' and (pseudorandom('upgrade_card'..G.GAME.round_resets.ante) > math.min(1, math.max(0, 1 - (alc_mod)))) then new_type = "Alchemical_dx" end
 
             -- If type is set to DX, need to manage soulable option
             if soulable and (not G.GAME.banned_keys['c_soul']) then
@@ -1277,14 +1280,14 @@ local function overrides()
         if planet_edition_enabled then
             if (_type == 'Planet' or _type == 'Planet_dx') and created_card.ability.consumeable and created_card.ability.consumeable.hand_type then
                 local mod = math.max(1, 1 + (0.07 * math.min(7, G.GAME.hands[created_card.ability.consumeable.hand_type].level))) or 1
-                if G.GAME.used_cu_augments and G.GAME.used_cu_augments.c_high_priestess_cu then mod = mod * G.P_CENTERS.c_high_priestess_cu.config.prob_mult end
+                if G.GAME.used_cu_augments and G.GAME.used_cu_augments.c_high_priestess_cu then mod = mod * G.P_CENTERS.c_high_priestess_cu.config.prob_mult * G.GAME.used_cu_augments.c_high_priestess_cu end
                 local edition = poll_edition('edi'..(key_append or '')..G.GAME.round_resets.ante, mod, true)
                 created_card:set_edition(edition)
                 check_for_unlock({type = 'have_edition'})
             end
             if created_card.ability.name == 'Black Hole' or created_card.ability.name == 'Black Hole DX' then
                 local mod = 1
-                if G.GAME.used_cu_augments and G.GAME.used_cu_augments.c_high_priestess_cu then mod = mod * G.P_CENTERS.c_high_priestess_cu.config.prob_mult end
+                if G.GAME.used_cu_augments and G.GAME.used_cu_augments.c_high_priestess_cu then mod = mod * G.P_CENTERS.c_high_priestess_cu.config.prob_mult * G.GAME.used_cu_augments.c_high_priestess_cu end
                 local edition = poll_edition('edi'..(key_append or '')..G.GAME.round_resets.ante, mod, true)
                 created_card:set_edition(edition)
                 check_for_unlock({type = 'have_edition'})
@@ -1620,7 +1623,7 @@ local function overrides()
                 if fool_c then
                         info_queue[#info_queue+1] = fool_c
                 end
-                elseif _c.name == "The Cursed High Priestess" then loc_vars = {_c.config.prob_mult}; info_queue[#info_queue+1] = G.P_CENTERS.e_foil; info_queue[#info_queue+1] = G.P_CENTERS.e_holo; info_queue[#info_queue+1] = G.P_CENTERS.e_polychrome; 
+                elseif _c.name == "The Cursed High Priestess" then loc_vars = {_c.config.prob_mult * ((G.GAME.used_cu_augments.c_high_priestess_cu or 0) + 1)}; info_queue[#info_queue+1] = G.P_CENTERS.e_foil; info_queue[#info_queue+1] = G.P_CENTERS.e_holo; info_queue[#info_queue+1] = G.P_CENTERS.e_polychrome; 
                 elseif _c.name == "The Cursed Empress" then
                     local fool_c = G.P_CENTERS["c_empress_dx"] or nil
                     local created_card = fool_c and localize{type = 'name_text', key = fool_c.key, set = fool_c.set..fool_c.config.type} or localize('k_none')

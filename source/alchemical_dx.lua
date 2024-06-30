@@ -124,6 +124,7 @@ function SMODS.Booster:registerDX()
 						 " have been registered at the id " .. id .. ".")
 end
 
+-- For Phosphorus DX
 function draw_cards_from_discard(count)
     G.E_MANAGER:add_event(Event({
         trigger = 'immediate',
@@ -194,6 +195,21 @@ function Card.use_consumeable(self, area, copier)
             end
             delay(0.6)
         end
+    elseif self.ability.set == "Tarot" and self.ability.type == '_cu' and self.config.center and self.config.center.atlas == 'ca_others_cu_atlas' then
+        stop_use()
+        if not copier then set_consumeable_usage(self) end
+        if self.debuff then return nil end
+        local used_tarot = copier or self
+
+        G.GAME.used_cu_augments[self.config.center_key] = (G.GAME.used_cu_augments[self.config.center_key] or 0) + 1
+
+        if self.ability.name == 'The Cursed Seeker' then
+            G.E_MANAGER:add_event(Event({func = function()
+                for k, v in pairs(G.I.CARD) do
+                    if v.set_cost then v:set_cost() end
+                end
+                return true end }))
+        end
 
     else -- Call vanilla
         card_use_consumeable_ref(self, area, copier)
@@ -228,7 +244,7 @@ function Card.can_use_consumeable(self, any_state, skip_check)
             self.config.in_booster = true
             return true
         end
-    elseif self.ability.type == '_dx' and self.config.center and self.config.center.atlas == 'ca_others_dx_atlas' then
+    elseif (self.ability.type == '_dx' or self.ability.type == '_cu') and self.config.center and (self.config.center.atlas == 'ca_others_dx_atlas' or self.config.center.atlas == 'ca_others_cu_atlas') then
         if not skip_check and ((G.play and #G.play.cards > 0) or
         (G.CONTROLLER.locked) or
         (G.GAME.STOP_USE and G.GAME.STOP_USE > 0))
@@ -250,6 +266,10 @@ function Card.can_use_consumeable(self, any_state, skip_check)
                     return true
                 end
             end
+            
+            if self.ability.name == 'The Cursed Seeker' then
+                return true
+            end
         end
         return false
     else -- Call vanilla
@@ -269,6 +289,17 @@ function Blind.set_blind(self, blind, reset, silent)
     end
 end
 
+-- Manage Cursed Seeker joker
+local card_set_cost_ref = Card.set_cost
+function Card.set_cost(self)
+
+    card_set_cost_ref(self)
+
+    if G.GAME.used_cu_augments and G.GAME.used_cu_augments.c_seeker_cu then 
+        if self.ability.set == 'Alchemical' or (self.ability.set == 'Booster' and self.ability.name:find('Alchemy')) then self.cost = math.floor(self.cost / 2) end
+    end
+end
+
 -- Manage card UI if DX
 local generate_card_ui_ref = generate_card_ui
 function generate_card_ui(_c, full_UI_table, specific_vars, card_type, badges, hide_desc, main_start, main_end)
@@ -277,7 +308,7 @@ function generate_card_ui(_c, full_UI_table, specific_vars, card_type, badges, h
     first_pass = not full_UI_table
     local info_queue = {}
 
-    if _c.config and (_c.config.type == '_dx' or _c.config.type == '_cu') and (_c.atlas == 'alchemical_dx_atlas' or _c.atlas == 'ca_booster_dx_atlas' or _c.atlas == 'ca_others_dx_atlas') then    -- Overwrite
+    if _c.config and (_c.config.type == '_dx' or _c.config.type == '_cu') and (_c.atlas == 'alchemical_dx_atlas' or _c.atlas == 'ca_booster_dx_atlas' or _c.atlas == 'ca_others_dx_atlas' or _c.atlas == 'ca_others_cu_atlas') then    -- Overwrite
 
         -- Just copy-paste for now... TODO
         if first_pass then 
@@ -361,6 +392,7 @@ function generate_card_ui(_c, full_UI_table, specific_vars, card_type, badges, h
             localize{type = 'descriptions', key = _c.key, set = _c.set.._c.config.type, nodes = desc_nodes, vars = loc_vars}
         elseif _c.set == 'Tarot' then
             if _c.name == 'The Seeker DX' then loc_vars = {_c.config.alchemicals} end
+            if _c.name == 'The Cursed Seeker' then loc_vars = {_c.config.prob_mult * ((G.GAME.used_cu_augments.c_seeker_cu or 0) + 1)} end
             localize{type = 'descriptions', key = _c.key, set = _c.set.._c.config.type, nodes = desc_nodes, vars = loc_vars}
         end
 
@@ -1311,7 +1343,7 @@ function load_dx_alchemical_packs()
 end
 
 -- Load DX tarots
-function load_dx_alchemical_tarots()
+function load_dx_cu_alchemical_tarots()
 
     G.localization.descriptions.Tarot_dx.c_seeker_dx = {
         name = "The Seeker DX",
@@ -1328,10 +1360,24 @@ function load_dx_alchemical_tarots()
             "for three blinds"
         }
     }
+    
+    G.localization.descriptions.Tarot_cu.c_seeker_cu = {
+        name = "The Cursed Seeker",
+        text = {
+            "{C:alchemical}Alchemical{} packs and cards",
+            "are {C:attention}50% off{}. {C:alchemical}Alchemical{} cards",
+            "are {C:attention}#1# times{} more likely",
+            "to be {C:dark_edition}DX{}"
+        }
+    }
 
+    -- DX
     G.P_CENTERS.c_seeker_dx =               {order = 22,    discovered = true, cost = 5, consumeable = true, name = "The Seeker DX", pos = {x=0,y=0}, set = "Tarot", effect = "Round Bonus", cost_mult = 1.0, config = {type = '_dx', alchemicals = 2}, atlas = 'ca_others_dx_atlas'}
     G.P_CENTERS.c_philosopher_stone_dx =    {order = 19,    discovered = true, cost = 6, consumeable = true, name = "Philosopher's Stone DX", pos = {x=0,y=1}, set = "Spectral", config = {type = '_dx', extra = 3, unique = true}, atlas = 'ca_others_dx_atlas'}
     
+    -- Cursed
+    G.P_CENTERS.c_seeker_cu=                {order = 23,    discovered = true, cost = 5, consumeable = true, name = "The Cursed Seeker", pos = {x=0,y=0}, set = "Tarot", effect = "Round Bonus", cost_mult = 1.0, config = {type = '_cu', prob_mult = 2, unique = true, nb_curse = 2}, atlas = 'ca_others_cu_atlas'}
+
     -- Update tables
     G.P_CENTER_POOLS.Tarot_dx = {}
     G.P_CENTER_POOLS.Tarot_cu = {}
@@ -1368,12 +1414,13 @@ function CodexArcanum.LoadDX()
     SMODS.Sprite:new("alchemical_dx_atlas", js_mod.path, "alchemical_dx_atlas.png", 71, 95, "asset_atli"):register();
 	SMODS.Sprite:new("ca_booster_dx_atlas", js_mod.path, "ca_booster_dx_atlas.png", 71, 95, "asset_atli"):register();
 	SMODS.Sprite:new("ca_others_dx_atlas", js_mod.path, "ca_others_dx_atlas.png", 71, 95, "asset_atli"):register();
+	SMODS.Sprite:new("ca_others_cu_atlas", js_mod.path, "ca_others_cu_atlas.png", 71, 95, "asset_atli"):register();
     
 	G.P_CENTER_POOLS.Alchemical_dx = {}
 	G.localization.descriptions.Alchemical_dx = {}
 
     load_dx_alchemical_cards()
     load_dx_alchemical_packs()
-    load_dx_alchemical_tarots()
+    load_dx_cu_alchemical_tarots()
 
 end
