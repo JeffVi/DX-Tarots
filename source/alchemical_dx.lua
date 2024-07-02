@@ -491,16 +491,16 @@ function G.UIDEF.use_and_sell_buttons(card)
 
 	local ret = G_UIDEF_use_and_sell_buttons_ref(card)
 
-  if (card.ability.name == "Philosopher's Stone DX") and G.ARGS.is_alchemical_booster and (card.area == G.pack_cards and G.pack_cards) then
-		return {
-			n=G.UIT.ROOT, config = {padding = 0, colour = G.C.CLEAR}, nodes={
-				{n=G.UIT.R, config={mid = true}, nodes={
-				}},
-				{n=G.UIT.R, config={ref_table = card, r = 0.08, padding = 0.1, align = "bm", minw = 0.5*card.T.w - 0.15, minh = 0.8*card.T.h, maxw = 0.7*card.T.w - 0.15, hover = true, shadow = true, colour = G.C.UI.BACKGROUND_INACTIVE, one_press = true, button = 'select_alchemical', func = 'can_select_alchemical'}, nodes={
-				{n=G.UIT.T, config={text = localize("b_select"),colour = G.C.UI.TEXT_LIGHT, scale = 0.55, shadow = true}}
-			}},
-		}}
-	end
+    if (card.ability.name == "Philosopher's Stone DX") and G.ARGS.is_alchemical_booster and (card.area == G.pack_cards and G.pack_cards) then
+	    return {
+		    n=G.UIT.ROOT, config = {padding = 0, colour = G.C.CLEAR}, nodes={
+			    {n=G.UIT.R, config={mid = true}, nodes={
+			    }},
+			    {n=G.UIT.R, config={ref_table = card, r = 0.08, padding = 0.1, align = "bm", minw = 0.5*card.T.w - 0.15, minh = 0.8*card.T.h, maxw = 0.7*card.T.w - 0.15, hover = true, shadow = true, colour = G.C.UI.BACKGROUND_INACTIVE, one_press = true, button = 'select_alchemical', func = 'can_select_alchemical'}, nodes={
+			    {n=G.UIT.T, config={text = localize("b_select"),colour = G.C.UI.TEXT_LIGHT, scale = 0.55, shadow = true}}
+		    }},
+	    }}
+    end
 	
 	return ret
 end
@@ -857,7 +857,7 @@ function load_dx_alchemical_cards()
         G.E_MANAGER:add_event(Event({trigger = 'after',delay = 0.1,func = function()
             local nb = 0
             for k, _card in ipairs(G.hand.cards) do
-                if _card.highlighted then return_to_deck(card.ability.extra, _card); nb = nb + 1 end
+                if not _card.highlighted then return_to_deck(card.ability.extra, _card); nb = nb + 1 end
             end
             G.FUNCS.draw_from_deck_to_hand(nb)
         return true end }))
@@ -1046,10 +1046,10 @@ function load_dx_alchemical_cards()
 
     function CodexArcanum.DXAlchemicals.c_alchemy_magnet_dx.use(card, area, copier)
         G.E_MANAGER:add_event(Event({trigger = 'after',delay = 0.1,func = function()
-            local cur_rank = G.hand.highlighted[1].base.original_value
+            local cur_rank = G.hand.highlighted[1].base.id
             local count = card.ability.extra
             for _, v in pairs(G.deck.cards) do
-                if v.base.original_value == cur_rank and count > 0 then
+                if v.base.id == cur_rank and count > 0 then
                     delay(0.05)
                     draw_card(G.deck, G.hand, 100, 'up', true, v)
                     count = count - 1
@@ -1164,8 +1164,8 @@ function load_dx_alchemical_cards()
                 v:juice_up(1, 0.5)
                 v.params.debuff_by_curse = nil
                 v:set_debuff(false)
-                v.ability.extra = v.ability.extra or {}
-                v.ability.extra.oil = true
+                v.config = v.config or {}
+                v.config.oil = true
                 if v.facing == 'back' then
                     v:flip()
                 end
@@ -1228,6 +1228,9 @@ function load_dx_alchemical_cards()
                     end 
                 end
             end
+            for j=1, #G.jokers.cards do
+                eval_card(G.jokers.cards[j], {cardarea = G.jokers, remove_playing_cards = true, removed = G.deck.config.acid})
+            end
         return true end }))
     end
 
@@ -1287,13 +1290,15 @@ function load_dx_alchemical_cards()
                 end
             end
 
-            for k, v in ipairs(eligible_cards) do
-                delay(0.05)
-                if not (G.hand.highlighted[1].edition) then v:juice_up(1, 0.5) end
-                v:set_ability(G.hand.highlighted[1].config.center)
-                v:set_seal(G.hand.highlighted[1]:get_seal(true))
-                v:set_edition(G.hand.highlighted[1].edition)
-                table.insert(G.deck.config.uranium, v.unique_val)
+            if #eligible_cards > 0 then
+                for k, v in ipairs(eligible_cards) do
+                    delay(0.05)
+                    if not (G.hand.highlighted[1].edition) then v:juice_up(1, 0.5) end
+                    v:set_ability(G.hand.highlighted[1].config.center)
+                    v:set_seal(G.hand.highlighted[1]:get_seal(true))
+                    v:set_edition(G.hand.highlighted[1].edition)
+                    table.insert(G.deck.config.uranium, v.unique_val)
+                end
             end
         return true end }))
     end
@@ -1337,9 +1342,9 @@ function load_dx_alchemical_packs()
     SMODS.Booster:newDX("Alchemy Pack", "alchemy_normal_2", {extra = 3, choose = 1, unique = true}, { x = 1, y = 0 }, 6, false, 1, "Celestial", "ca_booster_dx_atlas"):registerDX()
     SMODS.Booster:newDX("Alchemy Pack", "alchemy_normal_3", {extra = 3, choose = 1, unique = true}, { x = 2, y = 0 }, 6, false, 1, "Celestial", "ca_booster_dx_atlas"):registerDX()
     SMODS.Booster:newDX("Alchemy Pack", "alchemy_normal_4", {extra = 3, choose = 1, unique = true}, { x = 3, y = 0 }, 6, false, 1, "Celestial", "ca_booster_dx_atlas"):registerDX()
-    SMODS.Booster:newDX("Jumbo Alchemy Pack", "alchemy_jumbo_1", {extra = 5, choose = 1, unique = true}, { x = 0, y = 1 }, 6, false, 1, "Celestial", "ca_booster_dx_atlas"):registerDX()
-    SMODS.Booster:newDX("Jumbo Alchemy Pack", "alchemy_jumbo_2", {extra = 5, choose = 1, unique = true}, { x = 1, y = 1 }, 6, false, 1, "Celestial", "ca_booster_dx_atlas"):registerDX()
-    SMODS.Booster:newDX("Mega Alchemy Pack", "alchemy_mega_1", {extra = 5, choose = 2, unique = true}, { x = 2, y = 1 }, 6, false, 0.25, "Celestial", "ca_booster_dx_atlas"):registerDX()
+    SMODS.Booster:newDX("Jumbo Alchemy Pack", "alchemy_jumbo_1", {extra = 5, choose = 1, unique = true}, { x = 0, y = 1 }, 8, false, 1, "Celestial", "ca_booster_dx_atlas"):registerDX()
+    SMODS.Booster:newDX("Jumbo Alchemy Pack", "alchemy_jumbo_2", {extra = 5, choose = 1, unique = true}, { x = 1, y = 1 }, 8, false, 1, "Celestial", "ca_booster_dx_atlas"):registerDX()
+    SMODS.Booster:newDX("Mega Alchemy Pack", "alchemy_mega_1", {extra = 5, choose = 2, unique = true}, { x = 2, y = 1 }, 10, false, 0.25, "Celestial", "ca_booster_dx_atlas"):registerDX()
 end
 
 -- Load DX tarots
