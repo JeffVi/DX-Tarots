@@ -2051,6 +2051,8 @@ local function overrides()
                 end
                 delay(0.2)
                 if self.ability.name == 'Sigil DX' then
+                    -- Need to change that because of how Bunco manage suits, hopefully it'll get more vanilla friendly...
+                    --[[
                     local _suit = string.sub(G.hand.highlighted[1].base.suit, 1, 1)
                     for i=1, #G.hand.cards do
                         G.E_MANAGER:add_event(Event({func = function()
@@ -2063,6 +2065,13 @@ local function overrides()
                             card:set_base(G.P_CARDS[suit_prefix..rank_suffix])
                         return true end }))
                     end  
+                    ]]
+                    local suit = G.hand.highlighted[1].base.suit
+                    for i=1, #G.hand.cards do
+                        G.E_MANAGER:add_event(Event({func = function()
+                            G.hand.cards[i]:change_suit(suit)
+                        return true end }))
+                    end
                 end
                 if self.ability.name == 'Ouija DX' then
                     local _rank = G.hand.highlighted[1].base.id < 10 and tostring(G.hand.highlighted[1].base.id) or
