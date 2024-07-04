@@ -254,7 +254,7 @@ Cursed version of Tarot cards were added. They have a 8% *(can be edited)* chanc
 
 - **The Head**: **2 in 5** chance for a Heart card to be debuffed. Lifted after playing **12 hands** with no scoring Heart card.
 
-- **The Tooth**: **2 in 5** chance per card played to lose $1. Lifted after playing **35 cards**.
+- **The Tooth**: **2 in 5** chance per card played to lose $1. Lifted after playing **40 cards**.
 
 - **The Ox**: **Lose $5** if playing most played hand. Lifted after defeating **3 blinds** without using your most played hand.
 
@@ -262,7 +262,7 @@ Cursed version of Tarot cards were added. They have a 8% *(can be edited)* chanc
 
 - **The Club**: **2 in 5** chance for a Club card to be debuffed. Lifted after playing **12 hands** with no scoring Club card.
 
-- **The Fish**: Cards drawn after playing a hand have a **2 in 3** chance to be drawn face down. Lifted after discarding **20** face down cards.
+- **The Fish**: Cards drawn after playing a hand have a **2 in 3** chance to be drawn face down. Lifted after discarding **25** face down cards.
 
 - **The Window**: **2 in 5** chance for a Diamond card to be debuffed. Lifted after plaing **12 hands** with no scoring Diamond card.
 
@@ -272,7 +272,7 @@ Cursed version of Tarot cards were added. They have a 8% *(can be edited)* chanc
 
 - **The Pillar**: After being played, cards have a **2 in 5** chance to be debuffed this Ante. Lifted after playing **9 hands** containing a debuffed scoring card.
 
-- **The Flint**: Base Chips and Mult are reduced by **20%**. Lifted after playing **20 hands**.
+- **The Flint**: Base Chips and Mult are reduced by **25%**. Lifted after playing **20 hands**.
 
 - **The Mark**: **1 in 2** chance for a face card to be drawn face down. Lifted after discarding **7 hands** containing at least **3** face down cards.
 
