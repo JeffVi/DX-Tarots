@@ -3207,7 +3207,7 @@ local function overrides()
                     end
                 end
             end
-            if self.ability.set == 'Tarot' or self.ability.set == 'Planet' or self.ability.set == 'Spectral' or self.ability.set == 'Booster' then
+            if self.ability.set == 'Tarot' or self.ability.set == 'Planet' or self.ability.set == 'Spectral' or self.ability.set == 'Booster' or self.ability.set == 'Alchemical' then
                 if not G.OVERLAY_MENU then 
                     for k, v in pairs(G.P_CENTERS) do
                         if v.name == self.ability.name then
@@ -3252,7 +3252,7 @@ local function overrides()
                     end
                 end
             end
-            if self.ability.set == 'Tarot' or self.ability.set == 'Planet' or self.ability.set == 'Spectral' or self.ability.set == 'Booster' then
+            if self.ability.set == 'Tarot' or self.ability.set == 'Planet' or self.ability.set == 'Spectral' or self.ability.set == 'Booster' or self.ability.set == 'Alchemical' then
                 if not G.OVERLAY_MENU then 
                     for k, v in pairs(G.P_CENTERS) do
                         if v.name == self.ability.name then
