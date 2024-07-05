@@ -2372,7 +2372,7 @@ local function overrides()
                         play_sound('foil1')
                         self:juice_up(0.8, 0.5)
                         return true end }))
-                        update_hand_text({delay = 0}, {mult = '+' .. tostring(G.P_CENTERS.e_foil.config.extra), StatusText = true})
+                        update_hand_text({delay = 0}, {chips = '+' .. tostring(G.P_CENTERS.e_foil.config.extra), StatusText = true})
                 end
                 if self.edition.polychrome then
                     G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0.9, func = function()
