@@ -1997,6 +1997,13 @@ local function overrides()
                             return true end }))
                             update_hand_text({delay = 0}, {mult = 'x' .. tostring(G.P_CENTERS.e_polychrome.config.extra), StatusText = true})
                     end
+                    if self.edition.bunc_glitter then
+                        G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0.9, func = function()
+                            play_sound('bunc_glitter')
+                            self:juice_up(0.8, 0.5)
+                            return true end }))
+                            update_hand_text({delay = 0}, {chips = 'x' .. tostring(G.P_CENTERS.e_bunc_glitter.config.Xchips), StatusText = true})
+                    end
                 end
                 delay(1.3)
                 for k, v in pairs(G.GAME.hands) do
