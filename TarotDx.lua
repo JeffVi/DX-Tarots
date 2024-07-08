@@ -3210,35 +3210,21 @@ local function overrides()
         card_set_ability_ref(self, center, initial, delay_sprites)
 
         if self.ability and self.ability.consumeable and self.ability.name and self.ability.set then 
-            if self.ability.type == '_dx' then
-                if not G.OVERLAY_MENU then 
-                    for k, v in pairs(G.P_CENTERS) do
-                        if v.name == self.ability.name then
-                            -- Add normal and cursed version
-                            G.GAME.used_jokers[string.sub(k, 1, -4)] = true
-                            G.GAME.used_jokers[string.sub(k, 1, -4)..'_cu'] = true
-                        end
-                    end
-                end
-            end
-            if self.ability.type == '_cu' then
-                if not G.OVERLAY_MENU then 
-                    for k, v in pairs(G.P_CENTERS) do
-                        if v.name == self.ability.name then
-                            -- Add normal and DX version
-                            G.GAME.used_jokers[string.sub(k, 1, -4)] = true
-                            G.GAME.used_jokers[string.sub(k, 1, -4)..'_dx'] = true
-                        end
-                    end
-                end
-            end
             if self.ability.set == 'Tarot' or self.ability.set == 'Planet' or self.ability.set == 'Spectral' or self.ability.set == 'Booster' or self.ability.set == 'Alchemical' then
                 if not G.OVERLAY_MENU then 
                     for k, v in pairs(G.P_CENTERS) do
                         if v.name == self.ability.name then
-                            -- Add DX/CU version
-                            G.GAME.used_jokers[k..'_dx'] = true
-                            G.GAME.used_jokers[k..'_cu'] = true
+                            local normal_k = k
+                            if self.ability.type == '_dx' then
+                                normal_k = string.sub(normal_k, 1, -4)
+                            end
+                            if self.ability.type == '_cu' then
+                                normal_k = string.sub(normal_k, 1, -4)
+                            end
+                            -- Add normal/DX/CU version
+                            G.GAME.used_jokers[normal_k] = true
+                            G.GAME.used_jokers[normal_k..'_dx'] = true
+                            G.GAME.used_jokers[normal_k..'_cu'] = true
                         end
                     end
                 end
@@ -3251,40 +3237,38 @@ local function overrides()
     function Card.remove(self)
 
         if self.ability and self.ability.consumeable and self.ability.name and self.ability.set then 
-            if self.ability.type == '_dx' then
-                if not G.OVERLAY_MENU then 
-                    for k, v in pairs(G.P_CENTERS) do
-                        if v.name == self.ability.name then
-                            if not next(find_joker(self.ability.name, true)) then 
-                                -- Remove normal and cursed version
-                                G.GAME.used_jokers[string.sub(k, 1, -4)] = nil
-                                G.GAME.used_jokers[string.sub(k, 1, -4)..'_cu'] = nil
-                            end
-                        end
-                    end
-                end
-            end
-            if self.ability.type == '_cu' then
-                if not G.OVERLAY_MENU then 
-                    for k, v in pairs(G.P_CENTERS) do
-                        if v.name == self.ability.name then
-                            if not next(find_joker(self.ability.name, true)) then 
-                                -- Remove normal and DX version
-                                G.GAME.used_jokers[string.sub(k, 1, -4)] = nil
-                                G.GAME.used_jokers[string.sub(k, 1, -4)..'_dx'] = nil
-                            end
-                        end
-                    end
-                end
-            end
             if self.ability.set == 'Tarot' or self.ability.set == 'Planet' or self.ability.set == 'Spectral' or self.ability.set == 'Booster' or self.ability.set == 'Alchemical' then
                 if not G.OVERLAY_MENU then 
                     for k, v in pairs(G.P_CENTERS) do
                         if v.name == self.ability.name then
-                            if not next(find_joker(self.ability.name, true)) then 
-                                -- Remove DX/CU version
-                                G.GAME.used_jokers[k..'_dx'] = nil
-                                G.GAME.used_jokers[k..'_cu'] = nil
+                            print(inspect(self))
+                            print("ability.type")
+                            print(self.ability.type)
+                            
+                            local normal_k = k
+                            if self.ability.type == '_dx' then
+                                normal_k = string.sub(normal_k, 1, -4)
+                            end
+                            if self.ability.type == '_cu' then
+                                normal_k = string.sub(normal_k, 1, -4)
+                            end
+                            local consumeable_exists
+                            for k, v in pairs(G.consumeables.cards) do
+                                print("center")
+                                print(inspect(v.config.center))
+                                if v and type(v) == 'table' and (
+                                    v.config.center.key == normal_k 
+                                    or v.config.center.key == normal_k..'_dx'
+                                    or v.config.center.key == normal_k..'_cu'
+                                ) then
+                                    consumeable_exists = true
+                                end
+                            end
+                            if not consumeable_exists then 
+                                -- Remove normal/DX/CU version
+                                G.GAME.used_jokers[normal_k] = nil
+                                G.GAME.used_jokers[normal_k..'_dx'] = nil
+                                G.GAME.used_jokers[normal_k..'_cu'] = nil
                             end
                         end
                     end
