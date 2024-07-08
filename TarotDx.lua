@@ -3241,10 +3241,6 @@ local function overrides()
                 if not G.OVERLAY_MENU then 
                     for k, v in pairs(G.P_CENTERS) do
                         if v.name == self.ability.name then
-                            print(inspect(self))
-                            print("ability.type")
-                            print(self.ability.type)
-                            
                             local normal_k = k
                             if self.ability.type == '_dx' then
                                 normal_k = string.sub(normal_k, 1, -4)
@@ -3254,8 +3250,6 @@ local function overrides()
                             end
                             local consumeable_exists
                             for k, v in pairs(G.consumeables.cards) do
-                                print("center")
-                                print(inspect(v.config.center))
                                 if v and type(v) == 'table' and (
                                     v.config.center.key == normal_k 
                                     or v.config.center.key == normal_k..'_dx'
