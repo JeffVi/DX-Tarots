@@ -1414,8 +1414,9 @@ local function overrides()
                             delay(1.3)
                         end
                     end
-                    if card.edition.bunc_glitter then
-                        G.GAME.hands[hand].chips = math.floor(math.max(G.GAME.hands[hand].chips * G.P_CENTERS.e_bunc_glitter.config.Xchips, 1))
+                    -- Bunco Glitter compat
+                    if SMODS.Mods and SMODS.Mods['Bunco'] and card.edition.bunc_glitter then
+                        G.GAME.hands[hand].chips = math.floor(math.max(G.GAME.hands[hand].chips * G.P_CENTERS.e_bunc_glitter.config.Xchips, 0))
                         if not instant then
                             G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0.3, func = function()
                                 play_sound('bunc_glitter')
@@ -1423,6 +1424,64 @@ local function overrides()
                                 return true end }))
                             update_hand_text({delay = 0}, {chips = 'x' .. tostring(G.P_CENTERS.e_bunc_glitter.config.Xchips), StatusText = true})
                             delay(1.3)
+                        end
+                    end
+                    -- Cryptid Mosaic compat
+                    if SMODS.Mods and SMODS.Mods['Cryptid'] and card.edition.cry_mosaic then
+                        G.GAME.hands[hand].chips = math.floor(math.max(G.GAME.hands[hand].chips * G.P_CENTERS.e_cry_mosaic.config.Xchips, 0))
+                        if not instant then
+                            G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0.3, func = function()
+                                play_sound('cry_e_mosaic')
+                                card:juice_up(0.8, 0.5)
+                                return true end }))
+                            update_hand_text({delay = 0}, {chips = 'x' .. tostring(G.P_CENTERS.e_cry_mosaic.config.Xchips), StatusText = true})
+                            delay(1.3)
+                        end
+                    end
+                    -- Cryptid Oversaturated compat
+                    if SMODS.Mods and SMODS.Mods['Cryptid'] and card.edition.cry_oversat then
+                        G.GAME.hands[hand].chips = math.floor(math.max(G.GAME.hands[hand].chips * 2, 0))
+                        G.GAME.hands[hand].mult = math.floor(math.max(G.GAME.hands[hand].mult * 2, 1))
+                        if not instant then
+                            G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0.3, func = function()
+                                play_sound('cry_e_oversaturated')
+                                card:juice_up(0.8, 0.5)
+                                return true end }))
+                            update_hand_text({delay = 0}, {chips = 'x2', StatusText = true})
+                            update_hand_text({delay = 0}, {mult = 'x2', StatusText = true})
+                            delay(1.3)
+                        end
+                    end
+                    -- Cryptid Astral Compat
+                    if SMODS.Mods and SMODS.Mods['Cryptid'] and card.edition.cry_astral then
+                        G.GAME.hands[hand].mult = math.floor(math.max(G.GAME.hands[hand].mult ^ 1.1, 1))
+                        if not instant then
+                            G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0.3, func = function()
+                                play_sound('cry_^Mult')
+                                card:juice_up(0.8, 0.5)
+                                return true end }))
+                            update_hand_text({delay = 0}, {mult = '^1.1', StatusText = true})
+                            delay(1.3)
+                        end
+                    end
+                    -- Cryptid Glitched compat
+                    if SMODS.Mods and SMODS.Mods['Cryptid'] and card.edition.cry_glitched then
+
+                        local bad = (love.math.random(1, 10) / 10)
+                        local gud = (love.math.random(11, 100) / 10)
+                        local hellno = love.math.random() < 1 / 3
+
+                        G.GAME.hands[hand].chips = math.floor(math.max(G.GAME.hands[hand].chips * ((hellno and bad) or gud), 0))
+                        G.GAME.hands[hand].mult = math.floor(math.max(G.GAME.hands[hand].mult * ((hellno and bad) or gud), 1))
+
+                        if not instant then
+                            G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0.3, func = function()
+                                play_sound('cry_e_glitched')
+                                card:juice_up(0.8, 0.5)
+                                return true end }))
+                            update_hand_text({ delay = 0 }, { chips = 'x' .. ((hellno and tostring(bad)) or gud), StatusText = true })
+                            update_hand_text({ delay = 0 }, { mult = 'x' .. ((hellno and tostring(bad)) or gud), StatusText = true })
+                            delay(2.6)
                         end
                     end
                 end
@@ -1997,12 +2056,48 @@ local function overrides()
                             return true end }))
                             update_hand_text({delay = 0}, {mult = 'x' .. tostring(G.P_CENTERS.e_polychrome.config.extra), StatusText = true})
                     end
-                    if self.edition.bunc_glitter then
-                        G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0.9, func = function()
+                    -- Bunco Glitter compat
+                    if SMODS.Mods and SMODS.Mods['Bunco'] and card.edition.bunc_glitter then
+                        G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0.3, func = function()
                             play_sound('bunc_glitter')
-                            self:juice_up(0.8, 0.5)
+                            card:juice_up(0.8, 0.5)
                             return true end }))
-                            update_hand_text({delay = 0}, {chips = 'x' .. tostring(G.P_CENTERS.e_bunc_glitter.config.Xchips), StatusText = true})
+                        update_hand_text({delay = 0}, {chips = 'x' .. tostring(G.P_CENTERS.e_bunc_glitter.config.Xchips), StatusText = true})
+                    end
+                    -- Cryptid Mosaic compat
+                    if SMODS.Mods and SMODS.Mods['Cryptid'] and card.edition.cry_mosaic then
+                        G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0.3, func = function()
+                            play_sound('cry_e_mosaic')
+                            card:juice_up(0.8, 0.5)
+                            return true end }))
+                        update_hand_text({delay = 0}, {chips = 'x' .. tostring(G.P_CENTERS.e_cry_mosaic.config.Xchips), StatusText = true})
+                    end
+                    -- Cryptid Oversaturated compat
+                    if SMODS.Mods and SMODS.Mods['Cryptid'] and card.edition.cry_oversat then
+                        G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0.3, func = function()
+                            play_sound('cry_e_oversaturated')
+                            card:juice_up(0.8, 0.5)
+                            return true end }))
+                        update_hand_text({delay = 0}, {chips = 'x2', StatusText = true})
+                        update_hand_text({delay = 0}, {mult = 'x2', StatusText = true})
+                    end
+                    -- Cryptid Astral Compat
+                    if SMODS.Mods and SMODS.Mods['Cryptid'] and card.edition.cry_astral then
+                        G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0.3, func = function()
+                            play_sound('cry_^Mult')
+                            card:juice_up(0.8, 0.5)
+                            return true end }))
+                        update_hand_text({delay = 0}, {mult = '^1.1', StatusText = true})
+                    end
+                    -- Cryptid Glitched compat
+                    if SMODS.Mods and SMODS.Mods['Cryptid'] and card.edition.cry_glitched then
+                        G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0.3, func = function()
+                            play_sound('cry_e_glitched')
+                            card:juice_up(0.8, 0.5)
+                            return true end }))
+                        update_hand_text({ delay = 0 }, { chips = 'x' .. ((hellno and tostring(bad)) or gud), StatusText = true })
+                        update_hand_text({ delay = 0 }, { mult = 'x' .. ((hellno and tostring(bad)) or gud), StatusText = true })
+                        -- TODO the above doesn't work yet
                     end
                 end
                 delay(1.3)
