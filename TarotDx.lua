@@ -1454,13 +1454,13 @@ local function overrides()
                     end
                     -- Cryptid Astral Compat
                     if SMODS.Mods and SMODS.Mods['Cryptid'] and card.edition.cry_astral then
-                        G.GAME.hands[hand].mult = math.floor(math.max(G.GAME.hands[hand].mult ^ 1.1, 1))
+                        G.GAME.hands[hand].mult = math.floor(math.max(G.GAME.hands[hand].mult ^ G.P_CENTERS.e_cry_astral.config.pow_mult, 1))
                         if not instant then
                             G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0.3, func = function()
                                 play_sound('cry_^Mult')
                                 card:juice_up(0.8, 0.5)
                                 return true end }))
-                            update_hand_text({delay = 0}, {mult = '^1.1', StatusText = true})
+                            update_hand_text({delay = 0}, {mult = '^' .. tostring(G.P_CENTERS.e_cry_astral.config.pow_mult), StatusText = true})
                             delay(1.3)
                         end
                     end
@@ -2087,7 +2087,7 @@ local function overrides()
                             play_sound('cry_^Mult')
                             self:juice_up(0.8, 0.5)
                             return true end }))
-                        update_hand_text({delay = 0}, {mult = '^1.1', StatusText = true})
+                        update_hand_text({delay = 0}, {mult = '^' .. tostring(G.P_CENTERS.e_cry_astral.config.pow_mult), StatusText = true})
                     end
                     -- Cryptid Glitched compat
                     if SMODS.Mods and SMODS.Mods['Cryptid'] and self.edition.cry_glitched then
@@ -2525,7 +2525,7 @@ local function overrides()
                         play_sound('cry_^Mult')
                         self:juice_up(0.8, 0.5)
                         return true end }))
-                    update_hand_text({delay = 0}, {mult = '^1.1', StatusText = true})
+                    update_hand_text({delay = 0}, {mult = '^' .. tostring(G.P_CENTERS.e_cry_astral.config.pow_mult), StatusText = true})
                 end
                 -- Cryptid Glitched compat
                 if SMODS.Mods and SMODS.Mods['Cryptid'] and self.edition.cry_glitched then
