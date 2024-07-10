@@ -2057,43 +2057,43 @@ local function overrides()
                             update_hand_text({delay = 0}, {mult = 'x' .. tostring(G.P_CENTERS.e_polychrome.config.extra), StatusText = true})
                     end
                     -- Bunco Glitter compat
-                    if SMODS.Mods and SMODS.Mods['Bunco'] and card.edition.bunc_glitter then
+                    if SMODS.Mods and SMODS.Mods['Bunco'] and self.edition.bunc_glitter then
                         G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0.3, func = function()
                             play_sound('bunc_glitter')
-                            card:juice_up(0.8, 0.5)
+                            self:juice_up(0.8, 0.5)
                             return true end }))
                         update_hand_text({delay = 0}, {chips = 'x' .. tostring(G.P_CENTERS.e_bunc_glitter.config.Xchips), StatusText = true})
                     end
                     -- Cryptid Mosaic compat
-                    if SMODS.Mods and SMODS.Mods['Cryptid'] and card.edition.cry_mosaic then
+                    if SMODS.Mods and SMODS.Mods['Cryptid'] and self.edition.cry_mosaic then
                         G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0.3, func = function()
                             play_sound('cry_e_mosaic')
-                            card:juice_up(0.8, 0.5)
+                            self:juice_up(0.8, 0.5)
                             return true end }))
                         update_hand_text({delay = 0}, {chips = 'x' .. tostring(G.P_CENTERS.e_cry_mosaic.config.Xchips), StatusText = true})
                     end
                     -- Cryptid Oversaturated compat
-                    if SMODS.Mods and SMODS.Mods['Cryptid'] and card.edition.cry_oversat then
+                    if SMODS.Mods and SMODS.Mods['Cryptid'] and self.edition.cry_oversat then
                         G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0.3, func = function()
                             play_sound('cry_e_oversaturated')
-                            card:juice_up(0.8, 0.5)
+                            self:juice_up(0.8, 0.5)
                             return true end }))
                         update_hand_text({delay = 0}, {chips = 'x2', StatusText = true})
                         update_hand_text({delay = 0}, {mult = 'x2', StatusText = true})
                     end
                     -- Cryptid Astral Compat
-                    if SMODS.Mods and SMODS.Mods['Cryptid'] and card.edition.cry_astral then
+                    if SMODS.Mods and SMODS.Mods['Cryptid'] and self.edition.cry_astral then
                         G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0.3, func = function()
                             play_sound('cry_^Mult')
-                            card:juice_up(0.8, 0.5)
+                            self:juice_up(0.8, 0.5)
                             return true end }))
                         update_hand_text({delay = 0}, {mult = '^1.1', StatusText = true})
                     end
                     -- Cryptid Glitched compat
-                    if SMODS.Mods and SMODS.Mods['Cryptid'] and card.edition.cry_glitched then
+                    if SMODS.Mods and SMODS.Mods['Cryptid'] and self.edition.cry_glitched then
                         G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0.3, func = function()
                             play_sound('cry_e_glitched')
-                            card:juice_up(0.8, 0.5)
+                            self:juice_up(0.8, 0.5)
                             return true end }))
                         update_hand_text({ delay = 0 }, { chips = 'x' .. '...', StatusText = true })
                         update_hand_text({ delay = 0 }, { mult = 'x' .. '...', StatusText = true })
@@ -2495,43 +2495,43 @@ local function overrides()
                         update_hand_text({delay = 0}, {mult = 'x' .. tostring(G.P_CENTERS.e_polychrome.config.extra), StatusText = true})
                 end
                 -- Bunco Glitter compat
-                if SMODS.Mods and SMODS.Mods['Bunco'] and card.edition.bunc_glitter then
+                if SMODS.Mods and SMODS.Mods['Bunco'] and self.edition.bunc_glitter then
                     G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0.3, func = function()
                         play_sound('bunc_glitter')
-                        card:juice_up(0.8, 0.5)
+                        self:juice_up(0.8, 0.5)
                         return true end }))
                     update_hand_text({delay = 0}, {chips = 'x' .. tostring(G.P_CENTERS.e_bunc_glitter.config.Xchips), StatusText = true})
                 end
                 -- Cryptid Mosaic compat
-                if SMODS.Mods and SMODS.Mods['Cryptid'] and card.edition.cry_mosaic then
+                if SMODS.Mods and SMODS.Mods['Cryptid'] and self.edition.cry_mosaic then
                     G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0.3, func = function()
                         play_sound('cry_e_mosaic')
-                        card:juice_up(0.8, 0.5)
+                        self:juice_up(0.8, 0.5)
                         return true end }))
                     update_hand_text({delay = 0}, {chips = 'x' .. tostring(G.P_CENTERS.e_cry_mosaic.config.Xchips), StatusText = true})
                 end
                 -- Cryptid Oversaturated compat
-                if SMODS.Mods and SMODS.Mods['Cryptid'] and card.edition.cry_oversat then
+                if SMODS.Mods and SMODS.Mods['Cryptid'] and self.edition.cry_oversat then
                     G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0.3, func = function()
                         play_sound('cry_e_oversaturated')
-                        card:juice_up(0.8, 0.5)
+                        self:juice_up(0.8, 0.5)
                         return true end }))
                     update_hand_text({delay = 0}, {chips = 'x2', StatusText = true})
                     update_hand_text({delay = 0}, {mult = 'x2', StatusText = true})
                 end
                 -- Cryptid Astral Compat
-                if SMODS.Mods and SMODS.Mods['Cryptid'] and card.edition.cry_astral then
+                if SMODS.Mods and SMODS.Mods['Cryptid'] and self.edition.cry_astral then
                     G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0.3, func = function()
                         play_sound('cry_^Mult')
-                        card:juice_up(0.8, 0.5)
+                        self:juice_up(0.8, 0.5)
                         return true end }))
                     update_hand_text({delay = 0}, {mult = '^1.1', StatusText = true})
                 end
                 -- Cryptid Glitched compat
-                if SMODS.Mods and SMODS.Mods['Cryptid'] and card.edition.cry_glitched then
+                if SMODS.Mods and SMODS.Mods['Cryptid'] and self.edition.cry_glitched then
                     G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0.3, func = function()
                         play_sound('cry_e_glitched')
-                        card:juice_up(0.8, 0.5)
+                        self:juice_up(0.8, 0.5)
                         return true end }))
                     update_hand_text({ delay = 0 }, { chips = 'x' .. '...', StatusText = true })
                     update_hand_text({ delay = 0 }, { mult = 'x' .. '...', StatusText = true })
