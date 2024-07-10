@@ -779,7 +779,7 @@ function load_dx_alchemical_cards()
         text = {
         "{C:attention}Set{} your hands",
         "and your discards to the",
-        "higest value of the two"
+        "highest value of the two"
         }
     }
 
