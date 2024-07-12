@@ -363,8 +363,8 @@ local function setUpLocalizationCurses()
         cu_pillar = {
             name = "Lift condition",
             text = {
-                "Play {C:blue}#1#{} hands with",
-                "{C:attention}5 debuffed scoring cards{}",
+                "Play {C:blue}#1#{} hands containing",
+                "a {C:attention}debuffed scoring{} card",
                 "{C:inactive}(Progress: #2#/#1#){}"
             }
         },
