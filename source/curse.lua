@@ -766,7 +766,9 @@ local function override()
         local text, disp_text, poker_hands, scoring_hand, non_loc_disp_text = G.FUNCS.get_poker_hand_info(cards)
 
         if (G.GAME.curses) then
+            local update_debuffs = false -- curses that debuff cards might be lifted
             for k, v in pairs(G.GAME.curses) do
+                local already_lifted = v.lifts >= v.config.lift
                 if v.config.type == 'curse' and (v.lifts < v.config.lift) then
                     if v.name == 'The Psychic' and #cards < 5 and not check then
                         v.triggered = true
@@ -863,12 +865,24 @@ local function override()
                         end
                         v.lifts = v.lifts + (scoring and 1 or 0)
                     end
+                    if (
+                        v.name == 'The Goad' or v.name == 'The Head'
+                        or v.name == 'The Club' or v.name == 'The Window'
+                        or v.name == 'The Plant' or v.name == 'The Pillar'
+                    ) and not already_lifted and v.lifts >= v.config.lift then
+                        update_debuffs = true
+                    end
                     if v.name == 'The Flint' then
                         v.lifts = v.lifts + 1
                     end
                     if v.name == 'The Tooth' then
                         v.lifts = v.lifts + #cards
                     end
+                end
+            end
+            if update_debuffs then
+                for _, v in ipairs(G.playing_cards) do
+                    self:debuff_card(v)
                 end
             end
         end
