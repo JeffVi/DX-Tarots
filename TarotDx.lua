@@ -3515,14 +3515,12 @@ local function overrides()
         -- Check for suit buff
         if self.base and self.base.suit and G.GAME.used_cu_augments and ((self.base.suit == 'Diamonds' and G.GAME.used_cu_augments.c_star_cu) or (self.base.suit == 'Clubs' and G.GAME.used_cu_augments.c_moon_cu) or (self.base.suit == 'Hearts' and G.GAME.used_cu_augments.c_sun_cu) or (self.base.suit == 'Spades' and G.GAME.used_cu_augments.c_world_cu)) then   -- Overwrite
             self.debuff = false
-            self.params.debuff_by_curse = nil
-        -- Check if the debuff is from a curse
-        elseif not should_debuff and self.params.debuff_by_curse then
-            card_set_debuff_ref(self, self.params.debuff_by_curse)
-        -- Vanilla
-        else
-            card_set_debuff_ref(self, should_debuff)
+            self.ability.debuff_by_curse_rolls = {}
+            return
         end
+        -- OR with vanilla boolean
+        local custom_debuff = custom_debuff_card(self)
+        card_set_debuff_ref(self, should_debuff or custom_debuff)
     end
 
     -- Manage custom sprites
