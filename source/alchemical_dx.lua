@@ -1162,7 +1162,6 @@ function load_dx_alchemical_cards()
             for k, v in ipairs(G.hand.cards) do
                 delay(0.05)
                 v:juice_up(1, 0.5)
-                v.params.debuff_by_curse = nil
                 v:set_debuff(false)
                 v.config = v.config or {}
                 v.config.oil = true
@@ -1187,7 +1186,6 @@ function load_dx_alchemical_cards()
             for k, v in ipairs(G.hand.cards) do
                 delay(0.05)
                 v:juice_up(1, 0.5)
-                v.params.debuff_by_curse = nil
                 v:set_debuff(false)
                 v.ability.extra = v.ability.extra or {}
                 v.ability.extra.oil = true
