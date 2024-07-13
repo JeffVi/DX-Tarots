@@ -3532,6 +3532,12 @@ local function overrides()
             self.ability.debuff_by_curse_rolls = {}
             return
         end
+        -- Check for Oil, CodexArcanum stuff
+        if self.ability and self.ability.oil then    -- Overwrite
+            self.debuff = false
+            self.ability.debuff_by_curse_rolls = {}
+            return
+        end
         -- OR with vanilla boolean
         local custom_debuff = custom_debuff_card(self)
         card_set_debuff_ref(self, should_debuff or custom_debuff)

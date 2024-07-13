@@ -519,6 +519,19 @@ function G.FUNCS.select_alchemical(e, mute, nosave)
     end
 end
 
+-- Manage oil resets
+local blind_defeat_ref = Blind.defeat
+function Blind.defeat(self, silent)
+
+    for k, v in pairs(G.playing_cards) do
+        v.ability.oil = nil
+    end
+
+    blind_defeat_ref(self, silent)
+end
+
+-- load
+
 -- Load the DX alchemical cards
 function load_dx_alchemical_cards()
     
@@ -1163,8 +1176,8 @@ function load_dx_alchemical_cards()
                 delay(0.05)
                 v:juice_up(1, 0.5)
                 v:set_debuff(false)
-                v.config = v.config or {}
-                v.config.oil = true
+                v.ability = v.ability or {}
+                v.ability.oil = true
                 if v.facing == 'back' then
                     v:flip()
                 end
@@ -1187,8 +1200,8 @@ function load_dx_alchemical_cards()
                 delay(0.05)
                 v:juice_up(1, 0.5)
                 v:set_debuff(false)
-                v.ability.extra = v.ability.extra or {}
-                v.ability.extra.oil = true
+                v.ability = v.ability or {}
+                v.ability.oil = true
                 if v.facing == 'back' then
                     v:flip()
                 end
