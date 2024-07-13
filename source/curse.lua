@@ -363,8 +363,8 @@ local function setUpLocalizationCurses()
         cu_pillar = {
             name = "Lift condition",
             text = {
-                "Play {C:blue}#1#{} hands with",
-                "{C:attention}5 debuffed scoring cards{}",
+                "Play {C:blue}#1#{} hands containing",
+                "a {C:attention}debuffed scoring{} card",
                 "{C:inactive}(Progress: #2#/#1#){}"
             }
         },
@@ -650,40 +650,34 @@ local function override()
     ----- Curses effects -----
 
     -- Manage curses debuff
-    function custom_debuff_card(curse, card)
-
-        if card and curse then
-            if curse.name == 'The Goad' and card:is_suit('Spades', true) and is_curse_triggered(curse) then
-                card.params.debuff_by_curse = true
-                card:set_debuff(true)
-                return
-            end
-            if curse.name == 'The Plant' and card:is_face(true) and is_curse_triggered(curse) then
-                card.params.debuff_by_curse = true
-                card:set_debuff(true)
-                return
-            end
-            if curse.name == 'The Head' and card:is_suit('Hearts', true) and is_curse_triggered(curse) then
-                card.params.debuff_by_curse = true
-                card:set_debuff(true)
-                return
-            end
-            if curse.name == 'The Club' and card:is_suit('Clubs', true) and is_curse_triggered(curse) then
-                card.params.debuff_by_curse = true
-                card:set_debuff(true)
-                return
-            end
-            if curse.name == 'The Window' and card:is_suit('Diamonds', true) and is_curse_triggered(curse) then
-                card.params.debuff_by_curse = true
-                card:set_debuff(true)
-                return
-            end
-            if curse.name == 'The Pillar' and card.ability.played_this_ante and is_curse_triggered(curse) then
-                card.params.debuff_by_curse = true
-                card:set_debuff(true)
-                return
+    function custom_debuff_card(card)
+        card.ability.debuff_by_curse_rolls = card.ability.debuff_by_curse_rolls or {}
+        if G.GAME.curses then
+            for _, curse in ipairs(G.GAME.curses) do
+                if curse.config.type == 'curse' and (curse.lifts < curse.config.lift) then
+                    if curse.name == 'The Goad' and card:is_suit('Spades', true)
+                    or curse.name == 'The Plant' and card:is_face(true)
+                    or curse.name == 'The Head' and card:is_suit('Hearts', true)
+                    or curse.name == 'The Club' and card:is_suit('Clubs', true)
+                    or curse.name == 'The Window' and card:is_suit('Diamonds', true)
+                    or curse.name == 'The Pillar' and card.ability.played_this_ante then
+                        if card.ability.debuff_by_curse_rolls[curse.name] == nil then
+                            card.ability.debuff_by_curse_rolls[curse.name] = is_curse_triggered(curse)
+                        end
+                    else
+                        -- clear this roll, the card might have changed such that
+                        -- it isn't affected by the curse anymore
+                        -- (such as using a Tarot card)
+                        card.ability.debuff_by_curse_rolls[curse.name] = nil
+                    end
+                end
             end
         end
+        -- OR all rolls to obtain final value of debuff_by_curse
+        for k, v in pairs(card.ability.debuff_by_curse_rolls) do
+            if v then return true end
+        end
+        return false
     end
 
     ---------- state_events ----------
@@ -772,7 +766,9 @@ local function override()
         local text, disp_text, poker_hands, scoring_hand, non_loc_disp_text = G.FUNCS.get_poker_hand_info(cards)
 
         if (G.GAME.curses) then
+            local update_debuffs = false -- curses that debuff cards might be lifted
             for k, v in pairs(G.GAME.curses) do
+                local already_lifted = v.lifts >= v.config.lift
                 if v.config.type == 'curse' and (v.lifts < v.config.lift) then
                     if v.name == 'The Psychic' and #cards < 5 and not check then
                         v.triggered = true
@@ -869,12 +865,24 @@ local function override()
                         end
                         v.lifts = v.lifts + (scoring and 1 or 0)
                     end
+                    if (
+                        v.name == 'The Goad' or v.name == 'The Head'
+                        or v.name == 'The Club' or v.name == 'The Window'
+                        or v.name == 'The Plant' or v.name == 'The Pillar'
+                    ) and not already_lifted and v.lifts >= v.config.lift then
+                        update_debuffs = true
+                    end
                     if v.name == 'The Flint' then
                         v.lifts = v.lifts + 1
                     end
                     if v.name == 'The Tooth' then
                         v.lifts = v.lifts + #cards
                     end
+                end
+            end
+            if update_debuffs then
+                for _, v in ipairs(G.playing_cards) do
+                    self:debuff_card(v)
                 end
             end
         end
@@ -1019,21 +1027,18 @@ local function override()
                             }))
                         end
                     end
-                    if (v.name == 'The Goad' or v.name == 'The Plant' or v.name == 'The Head' or v.name == 'The Club' or v.name == 'The Window' or v.name == 'The Pillar') and not v.triggered then
-                        v.triggered = true
-                        G.E_MANAGER:add_event(Event({
-                            trigger = 'after',
-                            delay =  0.7,
-                            func = (function() 
-                                    for _, cv in ipairs(G.playing_cards) do
-                                        custom_debuff_card(v, cv)
-                                    end
-                                    v:juice_up(0.3, 0.2)
-                                    play_sound('tarot2', 0.76, 0.4)
-                                return true
-                            end)
-                        }))
-                    end
+                    -- if (v.name == 'The Goad' or v.name == 'The Plant' or v.name == 'The Head' or v.name == 'The Club' or v.name == 'The Window' or v.name == 'The Pillar') and not v.triggered then
+                    --     v.triggered = true
+                    --     G.E_MANAGER:add_event(Event({
+                    --         trigger = 'after',
+                    --         delay =  0.7,
+                    --         func = (function() 
+                    --                 v:juice_up(0.3, 0.2)
+                    --                 play_sound('tarot2', 0.76, 0.4)
+                    --             return true
+                    --         end)
+                    --     }))
+                    -- end
                 end
 
                 if v.config.type == 'final_curse' and (not reset) and (not silent) then
@@ -1125,9 +1130,7 @@ local function override()
     function Blind.defeat(self, silent)
         
         for k, v in pairs(G.playing_cards) do
-            if v.params.debuff_by_curse then
-                v.params.debuff_by_curse = nil
-            end
+            v.ability.debuff_by_curse_rolls = nil
         end
 
         blind_defeat_ref(self, silent)
