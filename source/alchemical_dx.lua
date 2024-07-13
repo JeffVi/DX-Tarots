@@ -1175,9 +1175,9 @@ function load_dx_alchemical_cards()
             for k, v in ipairs(G.hand.cards) do
                 delay(0.05)
                 v:juice_up(1, 0.5)
-                v:set_debuff(false)
                 v.ability = v.ability or {}
                 v.ability.oil = true
+                v:set_debuff(false)
                 if v.facing == 'back' then
                     v:flip()
                 end
@@ -1199,9 +1199,9 @@ function load_dx_alchemical_cards()
             for k, v in ipairs(G.hand.cards) do
                 delay(0.05)
                 v:juice_up(1, 0.5)
-                v:set_debuff(false)
                 v.ability = v.ability or {}
                 v.ability.oil = true
+                v:set_debuff(false)
                 if v.facing == 'back' then
                     v:flip()
                 end
