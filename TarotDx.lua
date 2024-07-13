@@ -1261,7 +1261,7 @@ local function overrides()
                         new_forced_key = 'c_black_hole_dx'
                     end
                 end
-                if (new_type == 'Alchemical_dx' or new_type == 'Spectral_dx') and
+                if SMODS.Mods and SMODS.Mods['CodexArcanum'] and (new_type == 'Alchemical_dx' or new_type == 'Spectral_dx') and
                 not (G.GAME.used_jokers['c_philosopher_stone_dx'] and not next(find_joker("Showman")))  then
                     if pseudorandom('soul_'.._type..G.GAME.round_resets.ante) > 0.997 then
                         new_forced_key = 'c_philosopher_stone_dx'
