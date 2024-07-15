@@ -3544,6 +3544,10 @@ local function overrides()
         -- OR with vanilla boolean
         local custom_debuff = custom_debuff_card(self)
         card_set_debuff_ref(self, should_debuff or custom_debuff)
+        if (should_debuff or custom_debuff) and not self.debuff then
+            -- Debuff prevented by another mod, remove curse rolls after the fact
+            self.ability.debuff_by_curse_rolls = {}
+        end
     end
 
     -- Manage custom sprites
