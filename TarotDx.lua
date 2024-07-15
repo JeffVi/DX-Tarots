@@ -1065,14 +1065,14 @@ local function overrides()
         if G.GAME.used_cu_augments and G.GAME.used_cu_augments.c_empress_cu then
             G.P_CENTERS.m_mult.config.mult = G.P_CENTERS.m_mult.config.mult + (G.P_CENTERS.c_empress_cu.config.extra * G.GAME.used_cu_augments.c_empress_cu)
             for k, v in pairs(G.playing_cards) do
-                if v.config.center_key == G.P_CENTERS.c_empress_cu.config.mod_conv then v:set_ability(G.P_CENTERS[G.P_CENTERS.c_empress_cu.config.mod_conv]) end
+                if v.config.center_key == G.P_CENTERS.c_empress_cu.config.mod_conv then v:set_ability(G.P_CENTERS[G.P_CENTERS.c_empress_cu.config.mod_conv], true) end
             end
         end
         
         if G.GAME.used_cu_augments and G.GAME.used_cu_augments.c_heirophant_cu then
             G.P_CENTERS.m_bonus.config.bonus = G.P_CENTERS.m_bonus.config.bonus + (G.P_CENTERS.c_heirophant_cu.config.extra * G.GAME.used_cu_augments.c_heirophant_cu)
             for k, v in pairs(G.playing_cards) do
-                if v.config.center_key == G.P_CENTERS.c_heirophant_cu.config.mod_conv then v:set_ability(G.P_CENTERS[G.P_CENTERS.c_heirophant_cu.config.mod_conv]) end
+                if v.config.center_key == G.P_CENTERS.c_heirophant_cu.config.mod_conv then v:set_ability(G.P_CENTERS[G.P_CENTERS.c_heirophant_cu.config.mod_conv], true) end
             end
         end
         
@@ -1083,28 +1083,28 @@ local function overrides()
         if G.GAME.used_cu_augments and G.GAME.used_cu_augments.c_chariot_cu then
             G.P_CENTERS.m_steel.config.h_x_mult = G.P_CENTERS.m_steel.config.h_x_mult + (G.P_CENTERS.c_chariot_cu.config.extra * G.GAME.used_cu_augments.c_chariot_cu)
             for k, v in pairs(G.playing_cards) do
-                if v.config.center_key == G.P_CENTERS.c_chariot_cu.config.mod_conv then v:set_ability(G.P_CENTERS[G.P_CENTERS.c_chariot_cu.config.mod_conv]) end
+                if v.config.center_key == G.P_CENTERS.c_chariot_cu.config.mod_conv then v:set_ability(G.P_CENTERS[G.P_CENTERS.c_chariot_cu.config.mod_conv], true) end
             end
         end
         
         if G.GAME.used_cu_augments and G.GAME.used_cu_augments.c_justice_cu then
             G.P_CENTERS.m_glass.config.Xmult = G.P_CENTERS.m_glass.config.Xmult + (G.P_CENTERS.c_justice_cu.config.extra * G.GAME.used_cu_augments.c_justice_cu)
             for k, v in pairs(G.playing_cards) do
-                if v.config.center_key == G.P_CENTERS.c_justice_cu.config.mod_conv then v:set_ability(G.P_CENTERS[G.P_CENTERS.c_justice_cu.config.mod_conv]) end
+                if v.config.center_key == G.P_CENTERS.c_justice_cu.config.mod_conv then v:set_ability(G.P_CENTERS[G.P_CENTERS.c_justice_cu.config.mod_conv], true) end
             end
         end
         
         if G.GAME.used_cu_augments and G.GAME.used_cu_augments.c_devil_cu then
             G.P_CENTERS.m_gold.config.h_dollars = G.P_CENTERS.m_gold.config.h_dollars + (G.P_CENTERS.c_devil_cu.config.extra * G.GAME.used_cu_augments.c_devil_cu)
             for k, v in pairs(G.playing_cards) do
-                if v.config.center_key == G.P_CENTERS.c_devil_cu.config.mod_conv then v:set_ability(G.P_CENTERS[G.P_CENTERS.c_devil_cu.config.mod_conv]) end
+                if v.config.center_key == G.P_CENTERS.c_devil_cu.config.mod_conv then v:set_ability(G.P_CENTERS[G.P_CENTERS.c_devil_cu.config.mod_conv], true) end
             end
         end
         
         if G.GAME.used_cu_augments and G.GAME.used_cu_augments.c_tower_cu then
             G.P_CENTERS.m_stone.config.bonus = G.P_CENTERS.m_stone.config.bonus + (G.P_CENTERS.c_tower_cu.config.extra * G.GAME.used_cu_augments.c_tower_cu)
             for k, v in pairs(G.playing_cards) do
-                if v.config.center_key == G.P_CENTERS.c_tower_cu.config.mod_conv then v:set_ability(G.P_CENTERS[G.P_CENTERS.c_tower_cu.config.mod_conv]) end
+                if v.config.center_key == G.P_CENTERS.c_tower_cu.config.mod_conv then v:set_ability(G.P_CENTERS[G.P_CENTERS.c_tower_cu.config.mod_conv], true) end
             end
         end
     end
