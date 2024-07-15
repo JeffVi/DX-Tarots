@@ -3357,6 +3357,7 @@ local function overrides()
         card_set_ability_ref(self, center, initial, delay_sprites)
         if old_curse_rolls then
             self.ability.debuff_by_curse_rolls = old_curse_rolls
+            if not initial then G.GAME.blind:debuff_card(self) end
         end
 
         if self.ability and self.ability.consumeable and self.ability.name and self.ability.set then 
