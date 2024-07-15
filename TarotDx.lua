@@ -3349,10 +3349,13 @@ local function overrides()
     end
 
     -- Prevents duplicates between normal and DX version
+    -- Saves old curse rolls
     local card_set_ability_ref = Card.set_ability
     function Card.set_ability(self, center, initial, delay_sprites)
 
+        local old_curse_rolls = self.ability.debuff_by_curse_rolls
         card_set_ability_ref(self, center, initial, delay_sprites)
+        self.ability.debuff_by_curse_rolls = old_curse_rolls
 
         if self.ability and self.ability.consumeable and self.ability.name and self.ability.set then 
             if self.ability.set == 'Tarot' or self.ability.set == 'Planet' or self.ability.set == 'Spectral' or self.ability.set == 'Booster' or self.ability.set == 'Alchemical' then
