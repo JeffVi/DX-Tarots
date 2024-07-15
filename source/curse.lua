@@ -651,6 +651,9 @@ local function override()
 
     -- Manage curses debuff
     function custom_debuff_card(card)
+        if not (G.GAME.blind and G.GAME.blind.name ~= '') then
+            return false
+        end
         card.ability.debuff_by_curse_rolls = card.ability.debuff_by_curse_rolls or {}
         if G.GAME.curses then
             for _, curse in ipairs(G.GAME.curses) do
