@@ -2611,7 +2611,9 @@ local function overrides()
                         end
                         G.P_CENTERS.m_mult.config.mult = G.P_CENTERS.m_mult.config.mult + self.ability.extra
                         for k, v in pairs(G.playing_cards) do
-                            if v.config.center_key == self.ability.consumeable.mod_conv then v:set_ability(G.P_CENTERS[self.ability.consumeable.mod_conv]) end
+                            if v.config.center_key == self.ability.consumeable.mod_conv then
+                                v.ability.mult = v.ability.mult + self.ability.extra
+                            end
                         end
                         used_tarot:juice_up(0.3, 0.5)
                     end
@@ -2643,7 +2645,9 @@ local function overrides()
                         end
                         G.P_CENTERS.m_bonus.config.bonus = G.P_CENTERS.m_bonus.config.bonus + self.ability.extra
                         for k, v in pairs(G.playing_cards) do
-                            if v.config.center_key == self.ability.consumeable.mod_conv then v:set_ability(G.P_CENTERS[self.ability.consumeable.mod_conv]) end
+                            if v.config.center_key == self.ability.consumeable.mod_conv then
+                                v.ability.bonus = v.ability.bonus + self.ability.extra
+                            end
                         end
                         used_tarot:juice_up(0.3, 0.5)
                     end
@@ -2676,7 +2680,9 @@ local function overrides()
                         end
                         G.P_CENTERS.m_steel.config.h_x_mult = G.P_CENTERS.m_steel.config.h_x_mult + self.ability.extra
                         for k, v in pairs(G.playing_cards) do
-                            if v.config.center_key == self.ability.consumeable.mod_conv then v:set_ability(G.P_CENTERS[self.ability.consumeable.mod_conv]) end
+                            if v.config.center_key == self.ability.consumeable.mod_conv then
+                                v.ability.h_x_mult = v.ability.h_x_mult + self.ability.extra
+                            end
                         end
                         used_tarot:juice_up(0.3, 0.5)
                     end
@@ -2694,7 +2700,9 @@ local function overrides()
                         end
                         G.P_CENTERS.m_glass.config.Xmult = G.P_CENTERS.m_glass.config.Xmult + self.ability.extra
                         for k, v in pairs(G.playing_cards) do
-                            if v.config.center_key == self.ability.consumeable.mod_conv then v:set_ability(G.P_CENTERS[self.ability.consumeable.mod_conv]) end
+                            if v.config.center_key == self.ability.consumeable.mod_conv then
+                                v.ability.Xmult = v.ability.Xmult + self.ability.extra
+                            end
                         end
                         used_tarot:juice_up(0.3, 0.5)
                     end
@@ -2885,7 +2893,9 @@ local function overrides()
                         end
                         G.P_CENTERS.m_gold.config.h_dollars = G.P_CENTERS.m_gold.config.h_dollars + self.ability.extra
                         for k, v in pairs(G.playing_cards) do
-                            if v.config.center_key == self.ability.consumeable.mod_conv then v:set_ability(G.P_CENTERS[self.ability.consumeable.mod_conv]) end
+                            if v.config.center_key == self.ability.consumeable.mod_conv then
+                                v.ability.h_dollars = v.ability.h_dollars + self.ability.extra
+                            end
                         end
                         used_tarot:juice_up(0.3, 0.5)
                     end
@@ -2903,7 +2913,9 @@ local function overrides()
                         end
                         G.P_CENTERS.m_stone.config.bonus = G.P_CENTERS.m_stone.config.bonus + self.ability.extra
                         for k, v in pairs(G.playing_cards) do
-                            if v.config.center_key == self.ability.consumeable.mod_conv then v:set_ability(G.P_CENTERS[self.ability.consumeable.mod_conv]) end
+                            if v.config.center_key == self.ability.consumeable.mod_conv then
+                                v.ability.bonus = v.ability.bonus + self.ability.extra
+                            end
                         end
                         used_tarot:juice_up(0.3, 0.5)
                     end
