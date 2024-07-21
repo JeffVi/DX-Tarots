@@ -485,19 +485,12 @@ local function override()
     local generate_card_ui_ref = generate_card_ui
     function generate_card_ui(_c, full_UI_table, specific_vars, card_type, badges, hide_desc, main_start, main_end)
         
-        local first_pass = nil
-        first_pass = not full_UI_table
+        local first_pass = not full_UI_table
         local info_queue = {}
-            
-
+        
         -- Add custom badges
         if first_pass and badges then
 
-            if _c.config.nb_curse then
-                -- Add the Cursed badge
-                badges[#badges + 1] = 'cursed'
-            end
-        
             if _c.set == 'Curse' then
                 -- Add the Curse badge
                 badges[#badges + 1] = 'curse'
@@ -577,19 +570,7 @@ local function override()
             return full_UI_table
         
         else    -- Do not overwrite
-            local ret = generate_card_ui_ref(_c, full_UI_table, specific_vars, card_type, badges, hide_desc, main_start, main_end)
-
-            -- Add extra badges info
-            if first_pass and badges then
-                for k, v in ipairs(badges) do
-                    if v == 'cursed' then info_queue[#info_queue+1] = {key = 'cursed', set = 'Other', vars = {_c.config.nb_curse or 1}} end
-                end
-                for _, v in ipairs(info_queue) do
-                    generate_card_ui(v, ret)
-                end
-            end
-
-            return ret
+            return generate_card_ui_ref(_c, full_UI_table, specific_vars, card_type, badges, hide_desc, main_start, main_end)
         end
     end
 
@@ -622,12 +603,12 @@ local function override()
         if self.config.center.config.nb_curse then
             for i = 1, self.config.center.config.nb_curse, 1
             do
-                G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0.4, func = function()
+                G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0.2, func = function()
                     play_sound('timpani')
                     self:juice_up(0.3, 0.5)
                     create_curse()
                     return true end }))
-                G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0.4, func = function()
+                G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0.8, func = function()
                     attention_text({
                         text = 'Cursed',
                         scale = 1.3, 

@@ -989,6 +989,77 @@ local function setUpLocalizationEnhanced()
     }
 end
 
+local function setUpDX()
+
+    -- Add consumables
+    setup_consumables()
+
+    -- Localizations
+    setUpLocalizationTarotDX()
+    setUpLocalizationTarotCU()
+    setUpLocalizationPlanetDX()
+    setUpLocalizationSpectralDX()
+    setUpLocalizationBoosterDX()
+    setUpLocalizationEnhanced()
+    G.localization.descriptions.Other.dx = {
+        name = "Deluxe Version",
+        text = {
+            "Enhanced effect",
+        }
+    }
+    G.localization.descriptions.Other.unique = {
+        name = "Unique",
+        text = {
+            "Cannot be pulled",
+            "again this run"
+        }
+    }
+    G.localization.misc.labels['tarot_dx'] = "Tarot DX"
+    G.localization.misc.labels['planet_dx'] = "Planet DX"
+    G.localization.misc.labels['spectral_dx'] = "Spectral DX"
+    G.localization.misc.labels['booster_dx'] = "Booster DX"
+    G.localization.misc.labels['dx'] = "DX Version"
+    G.localization.misc.labels['unique'] = "Unique"
+    G.localization.misc.labels['star_bu'] = "Diamonds Buff"
+    G.localization.misc.labels['moon_bu'] = "Clubs Buff"
+    G.localization.misc.labels['sun_bu'] = "Hearts Buff"
+    G.localization.misc.labels['world_bu'] = "Spades Buff"
+    G.localization.misc.dictionary['k_tarot_dx'] = "Tarot DX"
+    G.localization.misc.dictionary['k_tarot_cu'] = "Cursed Tarot"
+    G.localization.misc.dictionary['k_planet_dx'] = "Planet DX"
+    G.localization.misc.dictionary['k_spectral_dx'] = "Spectral DX"
+    G.localization.misc.dictionary['k_booster_dx'] = "Booster DX"
+
+    -- Manage loc_colour
+    loc_colour('red', nil)
+    G.ARGS.LOC_COLOURS['tarot_dx'] = G.C.SECONDARY_SET.Tarot
+    G.ARGS.LOC_COLOURS['tarot_cu'] = G.C.SECONDARY_SET.Tarot
+    G.ARGS.LOC_COLOURS['planet_dx'] = G.C.SECONDARY_SET.Planet
+    G.ARGS.LOC_COLOURS['spectral_dx'] = G.C.SECONDARY_SET.Spectral
+    G.ARGS.LOC_COLOURS['booster_dx'] = G.C.BOOSTER
+
+    -- Manage get_badge_colour
+    get_badge_colour(foil)
+    G.BADGE_COL['dx'] = G.C.DARK_EDITION
+    G.BADGE_COL['unique'] = G.C.ETERNAL
+    G.BADGE_COL['star_bu'] = G.C.SUITS.Diamonds
+    G.BADGE_COL['moon_bu'] = G.C.SUITS.Clubs
+    G.BADGE_COL['sun_bu'] = G.C.SUITS.Hearts
+    G.BADGE_COL['world_bu'] = G.C.SUITS.Spades
+
+    -- Manage C colors
+    G.C.SET['Tarot_dx'] = HEX('424e54')
+    G.C.SET['Tarot_cu'] = HEX('424e54')
+    G.C.SET['Planet_dx'] = HEX('424e54')
+    G.C.SET['Spectral_dx'] = HEX('424e54')
+    G.C.SET['Booster_dx'] = HEX('424e54')
+    G.C.SECONDARY_SET['Tarot_dx'] = HEX('a782d1')
+    G.C.SECONDARY_SET['Tarot_cu'] = HEX('a782d1')
+    G.C.SECONDARY_SET['Planet_dx'] = HEX('13afce')
+    G.C.SECONDARY_SET['Spectral_dx'] = HEX('4584fa')
+    G.C.SECONDARY_SET['Booster_dx'] = HEX('4584fa')
+end
+
 -- Should be called after everithing was overrided...
 local function loadCursesModule()
 
@@ -1019,6 +1090,21 @@ end
 local function overrides()
 
     ---------- game ----------
+
+    local Game_init_item_prototypes_ref = Game.init_item_prototypes
+    function Game.init_item_prototypes(self)
+
+        Game_init_item_prototypes_ref(self)
+        
+        setUpDX()
+        setup_curses()
+
+        if SMODS.findModByID("CodexArcanum") then
+            CodexArcanum.LoadDX()
+        end
+        
+        init_localization()
+    end
 
     -- Track cursed tarots usage
     local Game_init_game_object_ref = Game.init_game_object
@@ -1483,8 +1569,7 @@ local function overrides()
     local generate_card_ui_ref = generate_card_ui
     function generate_card_ui(_c, full_UI_table, specific_vars, card_type, badges, hide_desc, main_start, main_end)
         
-        local first_pass = nil
-        first_pass = not full_UI_table
+        local first_pass = not full_UI_table
         local info_queue = {}
 
         -- Add custom badges
@@ -1492,6 +1577,11 @@ local function overrides()
             if _c.config.type == '_dx' then
                 -- Add the DX badge
                 badges[#badges + 1] = 'dx'
+            end
+
+            if _c.config.nb_curse then
+                -- Add the Cursed badge
+                badges[#badges + 1] = 'cursed'
             end
 
             if _c.config.unique and unique_enabled then
@@ -1805,6 +1895,7 @@ local function overrides()
                     if v == 'holographic' then info_queue[#info_queue+1] = G.P_CENTERS['e_holo'] end
                     if v == 'polychrome' then info_queue[#info_queue+1] = G.P_CENTERS['e_polychrome'] end
                     if v == 'negative' then info_queue[#info_queue+1] = G.P_CENTERS['e_negative'] end
+                    if SMODS.Mods and SMODS.Mods['Bunco'] and v == 'bunc_glitter' then info_queue[#info_queue+1] = G.P_CENTERS['e_bunc_glitter'] end
                     if v == 'negative_consumable' then info_queue[#info_queue+1] = {key = 'e_negative_consumable', set = 'Edition', config = {extra = 1}} end
                     if v == 'gold_seal' then info_queue[#info_queue+1] = {key = 'gold_seal', set = 'Other'} end
                     if v == 'blue_seal' then info_queue[#info_queue+1] = {key = 'blue_seal', set = 'Other'} end
@@ -1814,9 +1905,10 @@ local function overrides()
                     if v == 'pinned_left' then info_queue[#info_queue+1] = {key = 'pinned_left', set = 'Other'} end
                     if v == 'dx' then info_queue[#info_queue+1] = {key = 'dx', set = 'Other'} end
                     if v == 'unique' then info_queue[#info_queue+1] = {key = 'unique', set = 'Other'} end
+                    if v == 'cursed' then info_queue[#info_queue+1] = {key = 'cursed', set = 'Other', vars = {_c.config.nb_curse or 1}} end
                 end
             end
-
+            
             for _, v in ipairs(info_queue) do
                 generate_card_ui(v, full_UI_table)
             end
@@ -1831,6 +1923,7 @@ local function overrides()
                 for k, v in ipairs(badges) do
                     if v == 'dx' then info_queue[#info_queue+1] = {key = 'dx', set = 'Other'} end
                     if v == 'unique' then info_queue[#info_queue+1] = {key = 'unique', set = 'Other'} end
+                    if v == 'cursed' then info_queue[#info_queue+1] = {key = 'cursed', set = 'Other', vars = {_c.config.nb_curse or 1}} end
                 end
                 for _, v in ipairs(info_queue) do
                     generate_card_ui(v, ret)
@@ -1941,7 +2034,23 @@ local function overrides()
             if not copier then set_consumeable_usage(self) end
             if self.debuff then return nil end
             local used_tarot = copier or self
-        
+            
+            if SMODS.Mods and SMODS.Mods['Bunco'] and used_tarot.edition then
+                if used_tarot.edition.foil then
+                    add_tag(Tag('tag_bunc_chips'))
+                    play_sound('generic1')
+                elseif used_tarot.edition.holo then
+                    add_tag(Tag('tag_bunc_mult'))
+                    play_sound('generic1')
+                elseif used_tarot.edition.polychrome then
+                    add_tag(Tag('tag_bunc_xmult'))
+                    play_sound('generic1')
+                elseif used_tarot.edition.bunc_glitter then
+                    add_tag(Tag('tag_bunc_xchips'))
+                    play_sound('generic1')
+                end
+            end
+
             if self.ability.consumeable.max_highlighted then
                 update_hand_text({immediate = true, nopulse = true, delay = 0}, {mult = 0, chips = 0, level = '', handname = ''})
             end
@@ -1968,6 +2077,32 @@ local function overrides()
                     end  
                 elseif self.ability.name == 'Strength DX' then
                     for i=1, #G.hand.highlighted do
+                        -- Steamodded stuff...
+                        G.E_MANAGER:add_event(Event({
+                            trigger = 'after',
+                            delay = 0.1,
+                            func = function()
+                                local _card = G.hand.highlighted[i]
+                                local suit_data = SMODS.Suits[_card.base.suit]
+                                local suit_prefix = suit_data.card_key
+                                local rank_data = SMODS.Ranks[_card.base.value]
+                                local behavior = rank_data.strength_effect or { fixed = 1, ignore = false, random = false }
+                                local rank_suffix = ''
+                                if behavior.ignore or not next(rank_data.next) then
+                                    return true
+                                elseif behavior.random then
+                                    -- TODO doesn't respect in_pool
+                                    local r = pseudorandom_element(rank_data.next, pseudoseed('strength'))
+                                    rank_suffix = SMODS.Ranks[r].card_key
+                                else
+                                    local ii = (behavior.fixed and rank_data.next[behavior.fixed]) and behavior.fixed or 1
+                                    rank_suffix = SMODS.Ranks[rank_data.next[ii]].card_key
+                                end
+                                _card:set_base(G.P_CARDS[suit_prefix .. '_' .. rank_suffix])
+                                return true
+                            end
+                        }))
+                        --[[
                         G.E_MANAGER:add_event(Event({trigger = 'after',delay = 0.1,func = function()
                             local card = G.hand.highlighted[i]
                             local suit_prefix = string.sub(card.base.suit, 1, 1)..'_'
@@ -1981,6 +2116,7 @@ local function overrides()
                             end
                             card:set_base(G.P_CARDS[suit_prefix..rank_suffix])
                         return true end }))
+                        ]]
                     end  
                 elseif self.ability.consumeable.suit_conv then
                     for i=1, #G.hand.highlighted do
@@ -2170,15 +2306,14 @@ local function overrides()
                     end
                 end
                 if self.ability.name == 'Ouija DX' then
-                    local _rank = G.hand.highlighted[1].base.id < 10 and tostring(G.hand.highlighted[1].base.id) or
-                                G.hand.highlighted[1].base.id == 10 and 'T' or G.hand.highlighted[1].base.id == 11 and 'J' or
-                                G.hand.highlighted[1].base.id == 12 and 'Q' or G.hand.highlighted[1].base.id == 13 and 'K' or
-                                G.hand.highlighted[1].base.id == 14 and 'A'
+                    local _card = G.hand.highlighted[1]
+                    local rank_data = SMODS.Ranks[_card.base.value]
+                    local rank_suffix = rank_data.card_key
                     for i=1, #G.hand.cards do
                         G.E_MANAGER:add_event(Event({func = function()
                             local card = G.hand.cards[i]
-                            local suit_prefix = string.sub(card.base.suit, 1, 1)..'_'
-                            local rank_suffix =_rank
+                            local suit_data = SMODS.Suits[card.base.suit]
+                            local suit_prefix = suit_data.card_key
                             card:set_base(G.P_CARDS[suit_prefix..rank_suffix])
                         return true end }))
                     end
@@ -2441,6 +2576,22 @@ local function overrides()
             if not copier then set_consumeable_usage(self) end
             if self.debuff then return nil end
             local used_tarot = copier or self
+            
+            if SMODS.Mods and SMODS.Mods['Bunco'] and used_tarot.edition then
+                if used_tarot.edition.foil then
+                    add_tag(Tag('tag_bunc_chips'))
+                    play_sound('generic1')
+                elseif used_tarot.edition.holo then
+                    add_tag(Tag('tag_bunc_mult'))
+                    play_sound('generic1')
+                elseif used_tarot.edition.polychrome then
+                    add_tag(Tag('tag_bunc_xmult'))
+                    play_sound('generic1')
+                elseif used_tarot.edition.bunc_glitter then
+                    add_tag(Tag('tag_bunc_xchips'))
+                    play_sound('generic1')
+                end
+            end
         
             if self.ability.consumeable.max_highlighted then
                 update_hand_text({immediate = true, nopulse = true, delay = 0}, {mult = 0, chips = 0, level = '', handname = ''})
@@ -2541,6 +2692,22 @@ local function overrides()
             if not copier then set_consumeable_usage(self) end
             if self.debuff then return nil end
             local used_tarot = copier or self
+            
+            if SMODS.Mods and SMODS.Mods['Bunco'] and used_tarot.edition then
+                if used_tarot.edition.foil then
+                    add_tag(Tag('tag_bunc_chips'))
+                    play_sound('generic1')
+                elseif used_tarot.edition.holo then
+                    add_tag(Tag('tag_bunc_mult'))
+                    play_sound('generic1')
+                elseif used_tarot.edition.polychrome then
+                    add_tag(Tag('tag_bunc_xmult'))
+                    play_sound('generic1')
+                elseif used_tarot.edition.bunc_glitter then
+                    add_tag(Tag('tag_bunc_xchips'))
+                    play_sound('generic1')
+                end
+            end
 
             G.GAME.used_cu_augments[self.config.center_key] = (G.GAME.used_cu_augments[self.config.center_key] or 0) + 1
         
@@ -2766,11 +2933,14 @@ local function overrides()
                 delay(0.2)
                 local selected_ranks = {}
                 local updated_cards_in_hand = {}
+                local l_card = nil
                 for i=1, #G.hand.highlighted do
-                    selected_ranks[G.hand.highlighted[i].base.id] = true
+                    l_card = G.hand.highlighted[i]
+                    selected_ranks[SMODS.Ranks[l_card.base.value]] = true
                 end 
                 for i=1, #G.hand.cards do
-                    if selected_ranks[G.hand.cards[i].base.id] then
+                    l_card = G.hand.cards[i]
+                    if selected_ranks[SMODS.Ranks[l_card.base.value]] then
                         updated_cards_in_hand[#updated_cards_in_hand + 1] = G.hand.cards[i]
                     end
                 end
@@ -2778,20 +2948,33 @@ local function overrides()
                     local percent = 1.15 - (i-0.999)/(#updated_cards_in_hand-0.998)*0.3
                     G.E_MANAGER:add_event(Event({trigger = 'after',delay = 0.15,func = function() updated_cards_in_hand[i]:flip();play_sound('card1', percent);updated_cards_in_hand[i]:juice_up(0.3, 0.3);return true end }))
                 end
-                for k, v in pairs(G.playing_cards) do
-                    if selected_ranks[v.base.id] then
-                        G.E_MANAGER:add_event(Event({trigger = 'after',delay = 0.1,func = function()
-                            local suit_prefix = string.sub(v.base.suit, 1, 1)..'_'
-                            local rank_suffix = v.base.id == 14 and 2 or math.min(v.base.id+1, 14)
-                            if rank_suffix < 10 then rank_suffix = tostring(rank_suffix)
-                            elseif rank_suffix == 10 then rank_suffix = 'T'
-                            elseif rank_suffix == 11 then rank_suffix = 'J'
-                            elseif rank_suffix == 12 then rank_suffix = 'Q'
-                            elseif rank_suffix == 13 then rank_suffix = 'K'
-                            elseif rank_suffix == 14 then rank_suffix = 'A'
+                for i=1, #G.playing_cards do
+                    l_card = G.playing_cards[i]
+                    if selected_ranks[SMODS.Ranks[l_card.base.value]] then
+                        G.E_MANAGER:add_event(Event({
+                            trigger = 'after',
+                            delay = 0.1,
+                            func = function()
+                                local _card = G.playing_cards[i]
+                                local rank_data = SMODS.Ranks[_card.base.value]
+                                local suit_data = SMODS.Suits[_card.base.suit]
+                                local suit_prefix = suit_data.card_key
+                                local behavior = rank_data.strength_effect or { fixed = 1, ignore = false, random = false }
+                                local rank_suffix = ''
+                                if behavior.ignore or not next(rank_data.next) then
+                                    return true
+                                elseif behavior.random then
+                                    -- TODO doesn't respect in_pool
+                                    local r = pseudorandom_element(rank_data.next, pseudoseed('strength'))
+                                    rank_suffix = SMODS.Ranks[r].card_key
+                                else
+                                    local ii = (behavior.fixed and rank_data.next[behavior.fixed]) and behavior.fixed or 1
+                                    rank_suffix = SMODS.Ranks[rank_data.next[ii]].card_key
+                                end
+                                _card:set_base(G.P_CARDS[suit_prefix .. '_' .. rank_suffix])
+                                return true
                             end
-                            v:set_base(G.P_CARDS[suit_prefix..rank_suffix])
-                        return true end }))
+                        }))
                     end
                 end
                 for i=1, #updated_cards_in_hand do
@@ -3617,73 +3800,7 @@ function SMODS.INIT.JeffDeluxeConsumablesPack()
     sprite_dx = SMODS.Sprite:new("Van_Booster_dx", js_mod.path, "booster_dx.png", 71, 95, "asset_atli")
     sprite_dx:register()
 
-    -- Add consumables
-    setup_consumables()
-
-    -- Localizations
-    setUpLocalizationTarotDX()
-    setUpLocalizationTarotCU()
-    setUpLocalizationPlanetDX()
-    setUpLocalizationSpectralDX()
-    setUpLocalizationBoosterDX()
-    setUpLocalizationEnhanced()
-    G.localization.descriptions.Other.dx = {
-        name = "Deluxe Version",
-        text = {
-            "Enhanced effect",
-        }
-    }
-    G.localization.descriptions.Other.unique = {
-        name = "Unique",
-        text = {
-            "Cannot be pulled",
-            "again this run"
-        }
-    }
-    G.localization.misc.labels['tarot_dx'] = "Tarot DX"
-    G.localization.misc.labels['planet_dx'] = "Planet DX"
-    G.localization.misc.labels['spectral_dx'] = "Spectral DX"
-    G.localization.misc.labels['booster_dx'] = "Booster DX"
-    G.localization.misc.labels['dx'] = "DX Version"
-    G.localization.misc.labels['unique'] = "Unique"
-    G.localization.misc.labels['star_bu'] = "Diamonds Buff"
-    G.localization.misc.labels['moon_bu'] = "Clubs Buff"
-    G.localization.misc.labels['sun_bu'] = "Hearts Buff"
-    G.localization.misc.labels['world_bu'] = "Spades Buff"
-    G.localization.misc.dictionary['k_tarot_dx'] = "Tarot DX"
-    G.localization.misc.dictionary['k_tarot_cu'] = "Cursed Tarot"
-    G.localization.misc.dictionary['k_planet_dx'] = "Planet DX"
-    G.localization.misc.dictionary['k_spectral_dx'] = "Spectral DX"
-    G.localization.misc.dictionary['k_booster_dx'] = "Booster DX"
-
-    -- Manage loc_colour
-    loc_colour('red', nil)
-    G.ARGS.LOC_COLOURS['tarot_dx'] = G.C.SECONDARY_SET.Tarot
-    G.ARGS.LOC_COLOURS['tarot_cu'] = G.C.SECONDARY_SET.Tarot
-    G.ARGS.LOC_COLOURS['planet_dx'] = G.C.SECONDARY_SET.Planet
-    G.ARGS.LOC_COLOURS['spectral_dx'] = G.C.SECONDARY_SET.Spectral
-    G.ARGS.LOC_COLOURS['booster_dx'] = G.C.BOOSTER
-
-    -- Manage get_badge_colour
-    get_badge_colour(foil)
-    G.BADGE_COL['dx'] = G.C.DARK_EDITION
-    G.BADGE_COL['unique'] = G.C.ETERNAL
-    G.BADGE_COL['star_bu'] = G.C.SUITS.Diamonds
-    G.BADGE_COL['moon_bu'] = G.C.SUITS.Clubs
-    G.BADGE_COL['sun_bu'] = G.C.SUITS.Hearts
-    G.BADGE_COL['world_bu'] = G.C.SUITS.Spades
-
-    -- Manage C colors
-    G.C.SET['Tarot_dx'] = HEX('424e54')
-    G.C.SET['Tarot_cu'] = HEX('424e54')
-    G.C.SET['Planet_dx'] = HEX('424e54')
-    G.C.SET['Spectral_dx'] = HEX('424e54')
-    G.C.SET['Booster_dx'] = HEX('424e54')
-    G.C.SECONDARY_SET['Tarot_dx'] = HEX('a782d1')
-    G.C.SECONDARY_SET['Tarot_cu'] = HEX('a782d1')
-    G.C.SECONDARY_SET['Planet_dx'] = HEX('13afce')
-    G.C.SECONDARY_SET['Spectral_dx'] = HEX('4584fa')
-    G.C.SECONDARY_SET['Booster_dx'] = HEX('4584fa')
+    setUpDX()
 
     -------------------------------
     ---------- OVERRIDES ----------
