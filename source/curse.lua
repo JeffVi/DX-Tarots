@@ -635,6 +635,10 @@ local function override()
         if not (G.GAME.blind and G.GAME.blind.name ~= '') then
             return false
         end
+        -- We only debuff playing cards
+        if (card.area == G.consumeables or card.area == G.jokers) then
+            return false
+        end
         card.ability.debuff_by_curse_rolls = card.ability.debuff_by_curse_rolls or {}
         if G.GAME.curses then
             for _, curse in ipairs(G.GAME.curses) do
