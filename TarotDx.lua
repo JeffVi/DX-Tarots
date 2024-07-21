@@ -1066,7 +1066,7 @@ local function loadCursesModule()
     local js_mod = SMODS.findModByID("JeffDeluxeConsumablesPack")
 
     -- Load modules
-    assert(load(love.filesystem.read(js_mod.path .. "source/curse.lua")))()
+    assert(load(NFS.load(js_mod.path .. "source/curse.lua")))()
     
     -- Add curses
     setup_curses()
@@ -1082,6 +1082,19 @@ local function loadCodexArcanumModule()
         
         -- Add new dx stuff
         CodexArcanum.LoadDX()
+    end
+end
+
+local function loadBuncoModule()
+
+    if SMODS.findModByID("Bunco") then
+        local js_mod = SMODS.findModByID("JeffDeluxeConsumablesPack")
+
+        -- Load modules
+        assert(load(NFS.load(js_mod.path .. "source/bunco_dx.lua")))()
+        
+        -- Add new dx stuff
+        LoadBuncoDX()
     end
 end
 
@@ -1250,6 +1263,9 @@ local function overrides()
                         end
                         if v.name == 'Black Hole DX' or v.name == 'The Soul DX' or v.name == "Philosopher's Stone DX" then
                             add = false
+                        end
+                        if SMODS.Mods and SMODS.Mods['Bunco'] and (v.name == 'The Sky DX' or v.name == 'The Abyss DX' or v.name == 'The Cursed Sky' or v.name == 'The Cursed Abyss') then
+                            add = exotic_in_pool
                         end
                     end
                 end
@@ -1599,7 +1615,15 @@ local function overrides()
                 elseif specific_vars.suit == 'Spades' and G.GAME.used_cu_augments and G.GAME.used_cu_augments.c_world_cu then
                     badges[#badges + 1] = 'world_bu'
                 end
+                if SMODS.Mods and SMODS.Mods['Bunco'] then
+                    if specific_vars.suit == 'bunc_Fleurons' and G.GAME.used_cu_augments and G.GAME.used_cu_augments.c_bunc_sky_cu then
+                        badges[#badges + 1] = 'sky_bu'
+                    elseif specific_vars.suit == 'bunc_Halberds' and G.GAME.used_cu_augments and G.GAME.used_cu_augments.c_bunc_abyss_cu then
+                        badges[#badges + 1] = 'abyss_bu'
+                    end
+                end
             end
+
         end
 
         if _c.config and (_c.config.type == '_dx' or _c.config.type == '_cu') and (_c.atlas == 'Van_dx' or _c.atlas == 'Van_cu' or _c.atlas == 'Van_Booster_dx') then    -- Overwrite
@@ -1736,15 +1760,15 @@ local function overrides()
                 elseif _c.name == "The Hanged Man DX" then loc_vars = {_c.config.max_highlighted}
                 elseif _c.name == "Death DX" then loc_vars = {_c.config.max_highlighted}
                 elseif _c.name == "Temperance DX" then
-                local _money = 0
-                if G.jokers then
-                    for i = 1, #G.jokers.cards do
-                        if G.jokers.cards[i].ability.set == 'Joker' then
-                            _money = _money + G.jokers.cards[i].sell_cost * 2
+                    local _money = 0
+                    if G.jokers then
+                        for i = 1, #G.jokers.cards do
+                            if G.jokers.cards[i].ability.set == 'Joker' then
+                                _money = _money + G.jokers.cards[i].sell_cost * 2
+                            end
                         end
                     end
-                end
-                loc_vars = {_c.config.extra, math.min(_c.config.extra, _money)}
+                    loc_vars = {_c.config.extra, math.min(_c.config.extra, _money)}
                 elseif _c.name == "The Devil DX" then loc_vars = {_c.config.max_highlighted, localize{type = 'name_text', set = 'Enhanced', key = _c.config.mod_conv}}; info_queue[#info_queue+1] = G.P_CENTERS[_c.config.mod_conv]
                 elseif _c.name == "The Tower DX" then loc_vars = {_c.config.max_highlighted, localize{type = 'name_text', set = 'Enhanced', key = _c.config.mod_conv}}; info_queue[#info_queue+1] = G.P_CENTERS[_c.config.mod_conv]
                 elseif _c.name == "The Star DX" then loc_vars = {_c.config.max_highlighted,  localize(_c.config.suit_conv, 'suits_plural'), colours = {G.C.SUITS[_c.config.suit_conv]}}
@@ -1752,7 +1776,6 @@ local function overrides()
                 elseif _c.name == "The Sun DX" then loc_vars = {_c.config.max_highlighted, localize(_c.config.suit_conv, 'suits_plural'), colours = {G.C.SUITS[_c.config.suit_conv]}}
                 elseif _c.name == "Judgement DX" then
                 elseif _c.name == "The World DX" then loc_vars = {_c.config.max_highlighted, localize(_c.config.suit_conv, 'suits_plural'), colours = {G.C.SUITS[_c.config.suit_conv]}}
-
                 elseif _c.name == "The Cursed Fool" then
                     local fool_c = G.P_CENTERS["c_fool_dx"] or nil
                     local created_card = fool_c and localize{type = 'name_text', key = fool_c.key, set = fool_c.set..fool_c.config.type} or localize('k_none')
@@ -1763,17 +1786,17 @@ local function overrides()
                 elseif _c.name == "The Cursed Magician" then
                     local fool_c = G.P_CENTERS["c_magician_dx"] or nil
                     local created_card = fool_c and localize{type = 'name_text', key = fool_c.key, set = fool_c.set..fool_c.config.type} or localize('k_none')
-                loc_vars = {created_card}
-                if fool_c then
-                        info_queue[#info_queue+1] = fool_c
-                end
+                    loc_vars = {created_card}
+                    if fool_c then
+                            info_queue[#info_queue+1] = fool_c
+                    end
                 elseif _c.name == "The Cursed High Priestess" then loc_vars = {_c.config.prob_mult * ((G.GAME.used_cu_augments.c_high_priestess_cu or 0) + 1)}; info_queue[#info_queue+1] = G.P_CENTERS.e_foil; info_queue[#info_queue+1] = G.P_CENTERS.e_holo; info_queue[#info_queue+1] = G.P_CENTERS.e_polychrome; 
                 elseif _c.name == "The Cursed Empress" then
                     local fool_c = G.P_CENTERS["c_empress_dx"] or nil
                     local created_card = fool_c and localize{type = 'name_text', key = fool_c.key, set = fool_c.set..fool_c.config.type} or localize('k_none')
-                if fool_c then
-                        info_queue[#info_queue+1] = fool_c
-                end
+                    if fool_c then
+                            info_queue[#info_queue+1] = fool_c
+                    end
                     loc_vars = {G.P_CENTERS.m_mult.config.mult + _c.config.extra, localize{type = 'name_text', set = 'Enhanced', key = _c.config.mod_conv, created_card}};
                 elseif _c.name == "The Cursed Emperor" then
                     info_queue[#info_queue+1] = {key = 'e_negative_consumable', set = 'Edition', config = {extra = 1}}
@@ -1781,31 +1804,31 @@ local function overrides()
                 elseif _c.name == "The Cursed Hierophant" then
                     local fool_c = G.P_CENTERS["c_heirophant_dx"] or nil
                     local created_card = fool_c and localize{type = 'name_text', key = fool_c.key, set = fool_c.set..fool_c.config.type} or localize('k_none')
-                if fool_c then
-                        info_queue[#info_queue+1] = fool_c
-                end
-                    loc_vars = {G.P_CENTERS.m_bonus.config.bonus + _c.config.extra, localize{type = 'name_text', set = 'Enhanced', key = _c.config.mod_conv}}
+                    if fool_c then
+                            info_queue[#info_queue+1] = fool_c
+                    end
+                        loc_vars = {G.P_CENTERS.m_bonus.config.bonus + _c.config.extra, localize{type = 'name_text', set = 'Enhanced', key = _c.config.mod_conv}}
                 elseif _c.name == "The Cursed Lovers" then
                     local fool_c = G.P_CENTERS["c_lovers_dx"] or nil
                     local created_card = fool_c and localize{type = 'name_text', key = fool_c.key, set = fool_c.set..fool_c.config.type} or localize('k_none')
-                if fool_c then
-                        info_queue[#info_queue+1] = fool_c
-                end
-                loc_vars = {localize{type = 'name_text', set = 'Enhanced', key = _c.config.mod_conv}}
+                    if fool_c then
+                            info_queue[#info_queue+1] = fool_c
+                    end
+                    loc_vars = {localize{type = 'name_text', set = 'Enhanced', key = _c.config.mod_conv}}
                 elseif _c.name == "The Cursed Chariot" then
                     local fool_c = G.P_CENTERS["c_chariot_dx"] or nil
                     local created_card = fool_c and localize{type = 'name_text', key = fool_c.key, set = fool_c.set..fool_c.config.type} or localize('k_none')
-                if fool_c then
-                        info_queue[#info_queue+1] = fool_c
-                end
-                loc_vars = {G.P_CENTERS.m_steel.config.h_x_mult + _c.config.extra, localize{type = 'name_text', set = 'Enhanced', key = _c.config.mod_conv}}
+                    if fool_c then
+                            info_queue[#info_queue+1] = fool_c
+                    end
+                    loc_vars = {G.P_CENTERS.m_steel.config.h_x_mult + _c.config.extra, localize{type = 'name_text', set = 'Enhanced', key = _c.config.mod_conv}}
                 elseif _c.name == "Cursed Justice" then
                     local fool_c = G.P_CENTERS["c_justice_dx"] or nil
                     local created_card = fool_c and localize{type = 'name_text', key = fool_c.key, set = fool_c.set..fool_c.config.type} or localize('k_none')
-                if fool_c then
-                        info_queue[#info_queue+1] = fool_c
-                end
-                loc_vars = {G.P_CENTERS.m_glass.config.Xmult + _c.config.extra, localize{type = 'name_text', set = 'Enhanced', key = _c.config.mod_conv}}
+                    if fool_c then
+                            info_queue[#info_queue+1] = fool_c
+                    end
+                    loc_vars = {G.P_CENTERS.m_glass.config.Xmult + _c.config.extra, localize{type = 'name_text', set = 'Enhanced', key = _c.config.mod_conv}}
                 elseif _c.name == "The Cursed Hermit" then loc_vars = {_c.config.extra}
                 elseif _c.name == "The Cursed Wheel of Fortune" then loc_vars = {G.GAME.probabilities.normal, _c.config.extra}; info_queue[#info_queue+1] = G.P_CENTERS.e_foil; info_queue[#info_queue+1] = G.P_CENTERS.e_holo; info_queue[#info_queue+1] = G.P_CENTERS.e_polychrome; 
                 elseif _c.name == "Cursed Strength" then loc_vars = {_c.config.max_highlighted}
@@ -1813,64 +1836,64 @@ local function overrides()
                 elseif _c.name == "Cursed Death" then
                     local fool_c = G.P_CENTERS["c_death_dx"] or nil
                     local created_card = fool_c and localize{type = 'name_text', key = fool_c.key, set = fool_c.set..fool_c.config.type} or localize('k_none')
-                if fool_c then
-                        info_queue[#info_queue+1] = fool_c
-                end
-                loc_vars = {_c.config.max_highlighted}
+                    if fool_c then
+                            info_queue[#info_queue+1] = fool_c
+                    end
+                    loc_vars = {_c.config.max_highlighted}
                 elseif _c.name == "Cursed Temperance" then
-                local _money = 0
-                if G.jokers then
-                    for i = 1, #G.jokers.cards do
-                        if G.jokers.cards[i].ability.set == 'Joker' then
-                            _money = _money + 10
+                    local _money = 0
+                    if G.jokers then
+                        for i = 1, #G.jokers.cards do
+                            if G.jokers.cards[i].ability.set == 'Joker' then
+                                _money = _money + 10
+                            end
                         end
                     end
-                end
-                loc_vars = {_c.config.extra, math.min(_c.config.extra, _money)}
+                    loc_vars = {_c.config.extra, math.min(_c.config.extra, _money)}
                 elseif _c.name == "The Cursed Devil" then
                     local fool_c = G.P_CENTERS["c_devil_dx"] or nil
                     local created_card = fool_c and localize{type = 'name_text', key = fool_c.key, set = fool_c.set..fool_c.config.type} or localize('k_none')
-                if fool_c then
-                        info_queue[#info_queue+1] = fool_c
-                end
-                loc_vars = {G.P_CENTERS.m_gold.config.h_dollars + _c.config.extra, localize{type = 'name_text', set = 'Enhanced', key = _c.config.mod_conv}}
+                    if fool_c then
+                            info_queue[#info_queue+1] = fool_c
+                    end
+                    loc_vars = {G.P_CENTERS.m_gold.config.h_dollars + _c.config.extra, localize{type = 'name_text', set = 'Enhanced', key = _c.config.mod_conv}}
                 elseif _c.name == "The Cursed Tower" then
                     local fool_c = G.P_CENTERS["c_tower_dx"] or nil
                     local created_card = fool_c and localize{type = 'name_text', key = fool_c.key, set = fool_c.set..fool_c.config.type} or localize('k_none')
-                if fool_c then
-                        info_queue[#info_queue+1] = fool_c
-                end
-                loc_vars = {G.P_CENTERS.m_stone.config.bonus + _c.config.extra, localize{type = 'name_text', set = 'Enhanced', key = _c.config.mod_conv}}
+                    if fool_c then
+                            info_queue[#info_queue+1] = fool_c
+                    end
+                    loc_vars = {G.P_CENTERS.m_stone.config.bonus + _c.config.extra, localize{type = 'name_text', set = 'Enhanced', key = _c.config.mod_conv}}
                 elseif _c.name == "The Cursed Star" then
                     local fool_c = G.P_CENTERS["c_star_dx"] or nil
                     local created_card = fool_c and localize{type = 'name_text', key = fool_c.key, set = fool_c.set..fool_c.config.type} or localize('k_none')
-                if fool_c then
-                        info_queue[#info_queue+1] = fool_c
-                end
-                loc_vars = {localize(_c.config.suit_conv, 'suits_plural'), colours = {G.C.SUITS[_c.config.suit_conv]}}
+                    if fool_c then
+                            info_queue[#info_queue+1] = fool_c
+                    end
+                    loc_vars = {localize(_c.config.suit_conv, 'suits_plural'), colours = {G.C.SUITS[_c.config.suit_conv]}}
                 elseif _c.name == "The Cursed Moon" then
                     local fool_c = G.P_CENTERS["c_moon_dx"] or nil
                     local created_card = fool_c and localize{type = 'name_text', key = fool_c.key, set = fool_c.set..fool_c.config.type} or localize('k_none')
-                if fool_c then
-                        info_queue[#info_queue+1] = fool_c
-                end
-                loc_vars = {localize(_c.config.suit_conv, 'suits_plural'), colours = {G.C.SUITS[_c.config.suit_conv]}}
+                    if fool_c then
+                            info_queue[#info_queue+1] = fool_c
+                    end
+                    loc_vars = {localize(_c.config.suit_conv, 'suits_plural'), colours = {G.C.SUITS[_c.config.suit_conv]}}
                 elseif _c.name == "The Cursed Sun" then
                     local fool_c = G.P_CENTERS["c_sun_dx"] or nil
                     local created_card = fool_c and localize{type = 'name_text', key = fool_c.key, set = fool_c.set..fool_c.config.type} or localize('k_none')
-                if fool_c then
-                        info_queue[#info_queue+1] = fool_c
-                end
-                loc_vars = {localize(_c.config.suit_conv, 'suits_plural'), colours = {G.C.SUITS[_c.config.suit_conv]}}
+                    if fool_c then
+                            info_queue[#info_queue+1] = fool_c
+                    end
+                    loc_vars = {localize(_c.config.suit_conv, 'suits_plural'), colours = {G.C.SUITS[_c.config.suit_conv]}}
                 elseif _c.name == "Cursed Judgement" then
                     info_queue[#info_queue+1] = G.P_CENTERS.e_foil; info_queue[#info_queue+1] = G.P_CENTERS.e_holo; info_queue[#info_queue+1] = G.P_CENTERS.e_polychrome;
                 elseif _c.name == "The Cursed World" then
                     local fool_c = G.P_CENTERS["c_world_dx"] or nil
                     local created_card = fool_c and localize{type = 'name_text', key = fool_c.key, set = fool_c.set..fool_c.config.type} or localize('k_none')
-                if fool_c then
-                        info_queue[#info_queue+1] = fool_c
-                end
-                loc_vars = {localize(_c.config.suit_conv, 'suits_plural'), colours = {G.C.SUITS[_c.config.suit_conv]}}
+                    if fool_c then
+                            info_queue[#info_queue+1] = fool_c
+                    end
+                    loc_vars = {localize(_c.config.suit_conv, 'suits_plural'), colours = {G.C.SUITS[_c.config.suit_conv]}}
                 end
                 localize{type = 'descriptions', key = _c.key, set = _c.set.._c.config.type, nodes = desc_nodes, vars = loc_vars}
             end
@@ -1896,6 +1919,7 @@ local function overrides()
                     if v == 'polychrome' then info_queue[#info_queue+1] = G.P_CENTERS['e_polychrome'] end
                     if v == 'negative' then info_queue[#info_queue+1] = G.P_CENTERS['e_negative'] end
                     if SMODS.Mods and SMODS.Mods['Bunco'] and v == 'bunc_glitter' then info_queue[#info_queue+1] = G.P_CENTERS['e_bunc_glitter'] end
+                    if SMODS.Mods and SMODS.Mods['Bunco'] and v == 'bunc_fluorescent' then info_queue[#info_queue+1] = G.P_CENTERS['e_bunc_fluorescent'] end
                     if v == 'negative_consumable' then info_queue[#info_queue+1] = {key = 'e_negative_consumable', set = 'Edition', config = {extra = 1}} end
                     if v == 'gold_seal' then info_queue[#info_queue+1] = {key = 'gold_seal', set = 'Other'} end
                     if v == 'blue_seal' then info_queue[#info_queue+1] = {key = 'blue_seal', set = 'Other'} end
@@ -1968,7 +1992,10 @@ local function overrides()
     local G_UIDEF_card_h_popup_ref = G.UIDEF.card_h_popup
     function G.UIDEF.card_h_popup(card)
 
-        if card.ability_UIBox_table and card.ability and (card.ability.name == 'Pluto DX' or card.ability.name == 'Ceres DX' or card.ability.name == 'Eris DX' or card.ability.name == 'Planet X DX') then
+        if card.ability_UIBox_table and card.ability and (
+            (card.ability.name == 'Pluto DX' or card.ability.name == 'Ceres DX' or card.ability.name == 'Eris DX' or card.ability.name == 'Planet X DX') or -- Vanilla
+            (card.ability.name == 'The Sky DX' or card.ability.name == 'The Abyss DX' or card.ability.name == 'Quaoar DX' or card.ability.name == 'Haumea DX' or card.ability.name == 'Sedna DX' or card.ability.name == 'Makemake DX')) -- Bunco
+            then
             local AUT = card.ability_UIBox_table
             local debuffed = card.debuff
             local card_type_colour = get_type_colour(card.config.center or card.config, card)
@@ -2008,6 +2035,14 @@ local function overrides()
                 }}
                 end
             end
+
+            if SMODS.Mods and SMODS.Mods['Bunco'] and AUT.badges and (card.ability.name == 'The Sky DX' or card.ability.name == 'The Abyss DX') then
+                badges[1] = create_badge('Tarot?', card_type_colour, nil, 1.2)
+            end
+            if SMODS.Mods and SMODS.Mods['Bunco'] and AUT.badges and (card.ability.name == 'Quaoar DX' or card.ability.name == 'Haumea DX'or card.ability.name == 'Sedna DX'or card.ability.name == 'Makemake DX') then
+                badges[1] = create_badge(localize('k_planet_q') or card_type, card_type_colour, nil, 1.2)
+            end
+
             return {n=G.UIT.ROOT, config = {align = 'cm', colour = G.C.CLEAR}, nodes={
                 {n=G.UIT.C, config={align = "cm", func = 'show_infotip',object = Moveable(),ref_table = next(info_boxes) and info_boxes or nil}, nodes={
                     {n=G.UIT.R, config={padding = outer_padding, r = 0.12, colour = lighten(G.C.JOKER_GREY, 0.5), emboss = 0.07}, nodes={
@@ -2029,6 +2064,7 @@ local function overrides()
     -- Manage usage of DX consumables
     local card_use_consumeable_ref = Card.use_consumeable
     function Card.use_consumeable(self, area, copier)
+
         if self.ability.type == '_dx' and self.config.center and self.config.center.atlas == 'Van_dx' then  -- Manage DX
             stop_use()
             if not copier then set_consumeable_usage(self) end
@@ -3224,13 +3260,6 @@ local function overrides()
                         return false
                     end
                 end
-                if G.STATE == G.STATES.SELECTING_HAND or G.STATE == G.STATES.TAROT_PACK or G.STATE == G.STATES.SPECTRAL_PACK or G.STATE == G.STATES.PLANET_PACK then
-                    if self.ability.consumeable.max_highlighted then
-                        if self.ability.consumeable.mod_num >= #G.hand.highlighted and #G.hand.highlighted >= (self.ability.consumeable.min_highlighted or 1) then
-                            return true
-                        end
-                    end
-                end
 
                 if self.ability.name == 'The Cursed Hermit' or self.ability.name == 'Cursed Temperance' then
                     return true
@@ -3716,6 +3745,12 @@ local function overrides()
             self.ability.debuff_by_curse_rolls = {}
             return
         end
+        -- Check for bunco suit buff
+        if SMODS.Mods and SMODS.Mods['Bunco'] and self.base and self.base.suit and G.GAME.used_cu_augments and ((self.base.suit == 'bunc_Fleurons' and G.GAME.used_cu_augments.c_bunc_sky_cu) or (self.base.suit == 'bunc_Halberds' and G.GAME.used_cu_augments.c_bunc_abyss_cu)) then   -- Overwrite
+            self.debuff = false
+            self.ability.debuff_by_curse_rolls = {}
+            return
+        end
         -- Check for Oil, CodexArcanum stuff
         if self.ability and self.ability.oil then    -- Overwrite
             self.debuff = false
@@ -3808,6 +3843,7 @@ function SMODS.INIT.JeffDeluxeConsumablesPack()
 
     -- ORDER IS IMPORTANT !!!
     loadCodexArcanumModule()
+    loadBuncoModule()
 
     overrides()
 
