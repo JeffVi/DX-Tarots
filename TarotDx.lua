@@ -1064,16 +1064,10 @@ local function overrides()
         
         if G.GAME.used_cu_augments and G.GAME.used_cu_augments.c_empress_cu then
             G.P_CENTERS.m_mult.config.mult = G.P_CENTERS.m_mult.config.mult + (G.P_CENTERS.c_empress_cu.config.extra * G.GAME.used_cu_augments.c_empress_cu)
-            for k, v in pairs(G.playing_cards) do
-                if v.config.center_key == G.P_CENTERS.c_empress_cu.config.mod_conv then v:set_ability(G.P_CENTERS[G.P_CENTERS.c_empress_cu.config.mod_conv]) end
-            end
         end
         
         if G.GAME.used_cu_augments and G.GAME.used_cu_augments.c_heirophant_cu then
             G.P_CENTERS.m_bonus.config.bonus = G.P_CENTERS.m_bonus.config.bonus + (G.P_CENTERS.c_heirophant_cu.config.extra * G.GAME.used_cu_augments.c_heirophant_cu)
-            for k, v in pairs(G.playing_cards) do
-                if v.config.center_key == G.P_CENTERS.c_heirophant_cu.config.mod_conv then v:set_ability(G.P_CENTERS[G.P_CENTERS.c_heirophant_cu.config.mod_conv]) end
-            end
         end
         
         if G.GAME.used_cu_augments and G.GAME.used_cu_augments.c_lovers_cu then
@@ -1082,30 +1076,18 @@ local function overrides()
         
         if G.GAME.used_cu_augments and G.GAME.used_cu_augments.c_chariot_cu then
             G.P_CENTERS.m_steel.config.h_x_mult = G.P_CENTERS.m_steel.config.h_x_mult + (G.P_CENTERS.c_chariot_cu.config.extra * G.GAME.used_cu_augments.c_chariot_cu)
-            for k, v in pairs(G.playing_cards) do
-                if v.config.center_key == G.P_CENTERS.c_chariot_cu.config.mod_conv then v:set_ability(G.P_CENTERS[G.P_CENTERS.c_chariot_cu.config.mod_conv]) end
-            end
         end
         
         if G.GAME.used_cu_augments and G.GAME.used_cu_augments.c_justice_cu then
             G.P_CENTERS.m_glass.config.Xmult = G.P_CENTERS.m_glass.config.Xmult + (G.P_CENTERS.c_justice_cu.config.extra * G.GAME.used_cu_augments.c_justice_cu)
-            for k, v in pairs(G.playing_cards) do
-                if v.config.center_key == G.P_CENTERS.c_justice_cu.config.mod_conv then v:set_ability(G.P_CENTERS[G.P_CENTERS.c_justice_cu.config.mod_conv]) end
-            end
         end
         
         if G.GAME.used_cu_augments and G.GAME.used_cu_augments.c_devil_cu then
             G.P_CENTERS.m_gold.config.h_dollars = G.P_CENTERS.m_gold.config.h_dollars + (G.P_CENTERS.c_devil_cu.config.extra * G.GAME.used_cu_augments.c_devil_cu)
-            for k, v in pairs(G.playing_cards) do
-                if v.config.center_key == G.P_CENTERS.c_devil_cu.config.mod_conv then v:set_ability(G.P_CENTERS[G.P_CENTERS.c_devil_cu.config.mod_conv]) end
-            end
         end
         
         if G.GAME.used_cu_augments and G.GAME.used_cu_augments.c_tower_cu then
             G.P_CENTERS.m_stone.config.bonus = G.P_CENTERS.m_stone.config.bonus + (G.P_CENTERS.c_tower_cu.config.extra * G.GAME.used_cu_augments.c_tower_cu)
-            for k, v in pairs(G.playing_cards) do
-                if v.config.center_key == G.P_CENTERS.c_tower_cu.config.mod_conv then v:set_ability(G.P_CENTERS[G.P_CENTERS.c_tower_cu.config.mod_conv]) end
-            end
         end
     end
         
@@ -1352,11 +1334,12 @@ local function overrides()
                     G.TAROT_INTERRUPT_PULSE = nil
                     return true end }))
                 update_hand_text({sound = 'button', volume = 0.7, pitch = 0.9, delay = 0}, {level=G.GAME.hands[hand].level})
-                
-                if card and card.ability and card.ability.set and card.ability.type == '_dx' then
-                    G.GAME.hands[hand].level = math.max(0, G.GAME.hands[hand].level + amount)
-                    G.GAME.hands[hand].mult = math.max(G.GAME.hands[hand].mult + G.GAME.hands[hand].l_mult*(amount), 1)
-                    G.GAME.hands[hand].chips = math.max(G.GAME.hands[hand].chips + G.GAME.hands[hand].l_chips*(amount), 0)
+            end
+            if card and card.ability and card.ability.set and card.ability.type == '_dx' then
+                G.GAME.hands[hand].level = math.max(0, G.GAME.hands[hand].level + amount)
+                G.GAME.hands[hand].mult = math.max(G.GAME.hands[hand].mult + G.GAME.hands[hand].l_mult*(amount), 1)
+                G.GAME.hands[hand].chips = math.max(G.GAME.hands[hand].chips + G.GAME.hands[hand].l_chips*(amount), 0)
+                if not instant then
                     G.E_MANAGER:add_event(Event({trigger = 'after', delay = 1.3, func = function()
                         play_sound('tarot1')
                         if card then card:juice_up(0.8, 0.5) end
@@ -1375,8 +1358,8 @@ local function overrides()
                         return true end }))
                     update_hand_text({sound = 'button', volume = 0.7, pitch = 0.9, delay = 0}, {level=G.GAME.hands[hand].level})
                 end
-                delay(1.3)
             end
+            delay(1.3)
                 
             -- Manage Editions
             if card and card.ability and card.ability.consumeable then
@@ -2628,7 +2611,9 @@ local function overrides()
                         end
                         G.P_CENTERS.m_mult.config.mult = G.P_CENTERS.m_mult.config.mult + self.ability.extra
                         for k, v in pairs(G.playing_cards) do
-                            if v.config.center_key == self.ability.consumeable.mod_conv then v:set_ability(G.P_CENTERS[self.ability.consumeable.mod_conv]) end
+                            if v.config.center_key == self.ability.consumeable.mod_conv then
+                                v.ability.mult = v.ability.mult + self.ability.extra
+                            end
                         end
                         used_tarot:juice_up(0.3, 0.5)
                     end
@@ -2660,7 +2645,9 @@ local function overrides()
                         end
                         G.P_CENTERS.m_bonus.config.bonus = G.P_CENTERS.m_bonus.config.bonus + self.ability.extra
                         for k, v in pairs(G.playing_cards) do
-                            if v.config.center_key == self.ability.consumeable.mod_conv then v:set_ability(G.P_CENTERS[self.ability.consumeable.mod_conv]) end
+                            if v.config.center_key == self.ability.consumeable.mod_conv then
+                                v.ability.bonus = v.ability.bonus + self.ability.extra
+                            end
                         end
                         used_tarot:juice_up(0.3, 0.5)
                     end
@@ -2693,7 +2680,9 @@ local function overrides()
                         end
                         G.P_CENTERS.m_steel.config.h_x_mult = G.P_CENTERS.m_steel.config.h_x_mult + self.ability.extra
                         for k, v in pairs(G.playing_cards) do
-                            if v.config.center_key == self.ability.consumeable.mod_conv then v:set_ability(G.P_CENTERS[self.ability.consumeable.mod_conv]) end
+                            if v.config.center_key == self.ability.consumeable.mod_conv then
+                                v.ability.h_x_mult = v.ability.h_x_mult + self.ability.extra
+                            end
                         end
                         used_tarot:juice_up(0.3, 0.5)
                     end
@@ -2711,7 +2700,9 @@ local function overrides()
                         end
                         G.P_CENTERS.m_glass.config.Xmult = G.P_CENTERS.m_glass.config.Xmult + self.ability.extra
                         for k, v in pairs(G.playing_cards) do
-                            if v.config.center_key == self.ability.consumeable.mod_conv then v:set_ability(G.P_CENTERS[self.ability.consumeable.mod_conv]) end
+                            if v.config.center_key == self.ability.consumeable.mod_conv then
+                                v.ability.Xmult = v.ability.Xmult + self.ability.extra
+                            end
                         end
                         used_tarot:juice_up(0.3, 0.5)
                     end
@@ -2902,7 +2893,9 @@ local function overrides()
                         end
                         G.P_CENTERS.m_gold.config.h_dollars = G.P_CENTERS.m_gold.config.h_dollars + self.ability.extra
                         for k, v in pairs(G.playing_cards) do
-                            if v.config.center_key == self.ability.consumeable.mod_conv then v:set_ability(G.P_CENTERS[self.ability.consumeable.mod_conv]) end
+                            if v.config.center_key == self.ability.consumeable.mod_conv then
+                                v.ability.h_dollars = v.ability.h_dollars + self.ability.extra
+                            end
                         end
                         used_tarot:juice_up(0.3, 0.5)
                     end
@@ -2920,7 +2913,9 @@ local function overrides()
                         end
                         G.P_CENTERS.m_stone.config.bonus = G.P_CENTERS.m_stone.config.bonus + self.ability.extra
                         for k, v in pairs(G.playing_cards) do
-                            if v.config.center_key == self.ability.consumeable.mod_conv then v:set_ability(G.P_CENTERS[self.ability.consumeable.mod_conv]) end
+                            if v.config.center_key == self.ability.consumeable.mod_conv then
+                                v.ability.bonus = v.ability.bonus + self.ability.extra
+                            end
                         end
                         used_tarot:juice_up(0.3, 0.5)
                     end
@@ -3349,10 +3344,16 @@ local function overrides()
     end
 
     -- Prevents duplicates between normal and DX version
+    -- Saves old curse rolls
     local card_set_ability_ref = Card.set_ability
     function Card.set_ability(self, center, initial, delay_sprites)
 
+        local old_curse_rolls = self.ability and self.ability.debuff_by_curse_rolls
         card_set_ability_ref(self, center, initial, delay_sprites)
+        if old_curse_rolls then
+            self.ability.debuff_by_curse_rolls = old_curse_rolls
+            if not initial then G.GAME.blind:debuff_card(self) end
+        end
 
         if self.ability and self.ability.consumeable and self.ability.name and self.ability.set then 
             if self.ability.set == 'Tarot' or self.ability.set == 'Planet' or self.ability.set == 'Spectral' or self.ability.set == 'Booster' or self.ability.set == 'Alchemical' then
@@ -3541,6 +3542,10 @@ local function overrides()
         -- OR with vanilla boolean
         local custom_debuff = custom_debuff_card(self)
         card_set_debuff_ref(self, should_debuff or custom_debuff)
+        if (should_debuff or custom_debuff) and not self.debuff then
+            -- Debuff prevented by another mod, remove curse rolls after the fact
+            self.ability.debuff_by_curse_rolls = {}
+        end
     end
 
     -- Manage custom sprites
