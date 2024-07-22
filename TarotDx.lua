@@ -1513,13 +1513,13 @@ local function overrides()
                     end
                     -- Cryptid Mosaic compat
                     if SMODS.Mods and SMODS.Mods['Cryptid'] and card.edition.cry_mosaic then
-                        G.GAME.hands[hand].chips = math.floor(math.max(G.GAME.hands[hand].chips * G.P_CENTERS.e_cry_mosaic.config.Xchips, 0))
+                        G.GAME.hands[hand].chips = math.floor(math.max(G.GAME.hands[hand].chips * G.P_CENTERS.e_cry_mosaic.config.x_chips, 0))
                         if not instant then
                             G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0.3, func = function()
                                 play_sound('cry_e_mosaic')
                                 card:juice_up(0.8, 0.5)
                                 return true end }))
-                            update_hand_text({delay = 0}, {chips = 'x' .. tostring(G.P_CENTERS.e_cry_mosaic.config.Xchips), StatusText = true})
+                            update_hand_text({delay = 0}, {chips = 'x' .. tostring(G.P_CENTERS.e_cry_mosaic.config.x_chips), StatusText = true})
                             delay(1.3)
                         end
                     end
@@ -1539,13 +1539,13 @@ local function overrides()
                     end
                     -- Cryptid Astral Compat
                     if SMODS.Mods and SMODS.Mods['Cryptid'] and card.edition.cry_astral then
-                        G.GAME.hands[hand].mult = math.floor(math.max(G.GAME.hands[hand].mult ^ G.P_CENTERS.e_cry_astral.config.pow_mult, 1))
+                        G.GAME.hands[hand].mult = math.floor(math.max(G.GAME.hands[hand].mult ^ G.P_CENTERS.e_cry_astral.config.e_mult, 1))
                         if not instant then
                             G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0.3, func = function()
-                                play_sound('cry_^Mult')
+                                play_sound('talisman_emult')
                                 card:juice_up(0.8, 0.5)
                                 return true end }))
-                            update_hand_text({delay = 0}, {mult = '^' .. tostring(G.P_CENTERS.e_cry_astral.config.pow_mult), StatusText = true})
+                            update_hand_text({delay = 0}, {mult = '^' .. tostring(G.P_CENTERS.e_cry_astral.config.e_mult), StatusText = true})
                             delay(1.3)
                         end
                     end
@@ -2225,7 +2225,7 @@ local function overrides()
                             play_sound('cry_e_mosaic')
                             self:juice_up(0.8, 0.5)
                             return true end }))
-                        update_hand_text({delay = 0}, {chips = 'x' .. tostring(G.P_CENTERS.e_cry_mosaic.config.Xchips), StatusText = true})
+                        update_hand_text({delay = 0}, {chips = 'x' .. tostring(G.P_CENTERS.e_cry_mosaic.config.x_chips), StatusText = true})
                     end
                     -- Cryptid Oversaturated compat
                     if SMODS.Mods and SMODS.Mods['Cryptid'] and self.edition.cry_oversat then
@@ -2239,10 +2239,10 @@ local function overrides()
                     -- Cryptid Astral Compat
                     if SMODS.Mods and SMODS.Mods['Cryptid'] and self.edition.cry_astral then
                         G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0.3, func = function()
-                            play_sound('cry_^Mult')
+                            play_sound('talisman_emult')
                             self:juice_up(0.8, 0.5)
                             return true end }))
-                        update_hand_text({delay = 0}, {mult = '^' .. tostring(G.P_CENTERS.e_cry_astral.config.pow_mult), StatusText = true})
+                        update_hand_text({delay = 0}, {mult = '^' .. tostring(G.P_CENTERS.e_cry_astral.config.e_mult), StatusText = true})
                     end
                     -- Cryptid Glitched compat
                     if SMODS.Mods and SMODS.Mods['Cryptid'] and self.edition.cry_glitched then
@@ -2687,7 +2687,7 @@ local function overrides()
                         play_sound('cry_e_mosaic')
                         self:juice_up(0.8, 0.5)
                         return true end }))
-                    update_hand_text({delay = 0}, {chips = 'x' .. tostring(G.P_CENTERS.e_cry_mosaic.config.Xchips), StatusText = true})
+                    update_hand_text({delay = 0}, {chips = 'x' .. tostring(G.P_CENTERS.e_cry_mosaic.config.x_chips), StatusText = true})
                 end
                 -- Cryptid Oversaturated compat
                 if SMODS.Mods and SMODS.Mods['Cryptid'] and self.edition.cry_oversat then
@@ -2701,10 +2701,10 @@ local function overrides()
                 -- Cryptid Astral Compat
                 if SMODS.Mods and SMODS.Mods['Cryptid'] and self.edition.cry_astral then
                     G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0.3, func = function()
-                        play_sound('cry_^Mult')
+                        play_sound('talisman_emult')
                         self:juice_up(0.8, 0.5)
                         return true end }))
-                    update_hand_text({delay = 0}, {mult = '^' .. tostring(G.P_CENTERS.e_cry_astral.config.pow_mult), StatusText = true})
+                    update_hand_text({delay = 0}, {mult = '^' .. tostring(G.P_CENTERS.e_cry_astral.config.e_mult), StatusText = true})
                 end
                 -- Cryptid Glitched compat
                 if SMODS.Mods and SMODS.Mods['Cryptid'] and self.edition.cry_glitched then
