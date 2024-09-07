@@ -16,7 +16,7 @@ local planet_dx_rate = 0.12             -- (from 0 (0%) to 1 (100%))
 local spectral_dx_rate = 0.15           -- (from 0 (0%) to 1 (100%))
 local alchemical_dx_rate = 0.1          -- (from 0 (0%) to 1 (100%))
 local booster_dx_rate = 0.1             -- (from 0 (0%) to 1 (100%))
-local (planet_edition_enabled and not (SMODS.Mods['aurinko'] or {}).can_load) = true     -- Enable/Disable the possibility of planet cards edition (may not be compatible with other mods that overwrite the level_up_hand function)
+local planet_edition_enabled = true     -- Enable/Disable the possibility of planet cards edition (may not be compatible with other mods that overwrite the level_up_hand function)
 local spectral_on_blank = true          -- Enable/Disable spectral rate on blank voucher
 local unique_enabled = true             -- Enable/Disable the unique badge management.
 
