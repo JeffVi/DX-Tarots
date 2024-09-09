@@ -1264,7 +1264,7 @@ local function overrides()
                         if v.name == 'Black Hole DX' or v.name == 'The Soul DX' or v.name == "Philosopher's Stone DX" then
                             add = false
                         end
-                        if SMODS.Mods and SMODS.Mods['Bunco'] and (v.name == 'The Sky DX' or v.name == 'The Abyss DX' or v.name == 'The Cursed Sky' or v.name == 'The Cursed Abyss') then
+                        if SMODS.Mods and (SMODS.Mods['Bunco'] or {}).can_load and (v.name == 'The Sky DX' or v.name == 'The Abyss DX' or v.name == 'The Cursed Sky' or v.name == 'The Cursed Abyss') then
                             add = exotic_in_pool
                         end
                     end
@@ -1362,7 +1362,7 @@ local function overrides()
         end
 
         -- poll planet edition if it is enabled
-        if planet_edition_enabled then
+        if (planet_edition_enabled and not (SMODS.Mods['aurinko'] or {}).can_load) then
             if (_type == 'Planet' or _type == 'Planet_dx') and created_card.ability.consumeable and created_card.ability.consumeable.hand_type then
                 local mod = math.max(1, 1 + (0.07 * math.min(7, G.GAME.hands[created_card.ability.consumeable.hand_type].level))) or 1
                 if G.GAME.used_cu_augments and G.GAME.used_cu_augments.c_high_priestess_cu then mod = mod * G.P_CENTERS.c_high_priestess_cu.config.prob_mult * G.GAME.used_cu_augments.c_high_priestess_cu end
@@ -1413,7 +1413,7 @@ local function overrides()
     local level_up_hand_ref = level_up_hand
     function level_up_hand(card, hand, instant, amount)
 
-        if planet_edition_enabled then  -- Overwrite
+        if (planet_edition_enabled and not (SMODS.Mods['aurinko'] or {}).can_load) then  -- Overwrite
             amount = amount or 1
             G.GAME.hands[hand].level = math.max(0, G.GAME.hands[hand].level + amount)
             G.GAME.hands[hand].mult = math.max(G.GAME.hands[hand].mult + G.GAME.hands[hand].l_mult*(amount), 1)
@@ -1500,7 +1500,7 @@ local function overrides()
                         end
                     end
                     -- Bunco Glitter compat
-                    if SMODS.Mods and SMODS.Mods['Bunco'] and card.edition.bunc_glitter then
+                    if SMODS.Mods and (SMODS.Mods['Bunco'] or {}).can_load and card.edition.bunc_glitter then
                         G.GAME.hands[hand].chips = math.floor(math.max(G.GAME.hands[hand].chips * G.P_CENTERS.e_bunc_glitter.config.Xchips, 0))
                         if not instant then
                             G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0.3, func = function()
@@ -1512,7 +1512,7 @@ local function overrides()
                         end
                     end
                     -- Cryptid Mosaic compat
-                    if SMODS.Mods and SMODS.Mods['Cryptid'] and card.edition.cry_mosaic then
+                    if SMODS.Mods and (SMODS.Mods['Cryptid'] or {}).can_load and card.edition.cry_mosaic then
                         G.GAME.hands[hand].chips = math.floor(math.max(G.GAME.hands[hand].chips * G.P_CENTERS.e_cry_mosaic.config.x_chips, 0))
                         if not instant then
                             G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0.3, func = function()
@@ -1524,7 +1524,7 @@ local function overrides()
                         end
                     end
                     -- Cryptid Oversaturated compat
-                    if SMODS.Mods and SMODS.Mods['Cryptid'] and card.edition.cry_oversat then
+                    if SMODS.Mods and (SMODS.Mods['Cryptid'] or {}).can_load and card.edition.cry_oversat then
                         G.GAME.hands[hand].chips = math.floor(math.max(G.GAME.hands[hand].chips * 2, 0))
                         G.GAME.hands[hand].mult = math.floor(math.max(G.GAME.hands[hand].mult * 2, 1))
                         if not instant then
@@ -1538,7 +1538,7 @@ local function overrides()
                         end
                     end
                     -- Cryptid Astral Compat
-                    if SMODS.Mods and SMODS.Mods['Cryptid'] and card.edition.cry_astral then
+                    if SMODS.Mods and (SMODS.Mods['Cryptid'] or {}).can_load and card.edition.cry_astral then
                         G.GAME.hands[hand].mult = math.floor(math.max(G.GAME.hands[hand].mult ^ G.P_CENTERS.e_cry_astral.config.e_mult, 1))
                         if not instant then
                             G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0.3, func = function()
@@ -1550,7 +1550,7 @@ local function overrides()
                         end
                     end
                     -- Cryptid Glitched compat
-                    if SMODS.Mods and SMODS.Mods['Cryptid'] and card.edition.cry_glitched then
+                    if SMODS.Mods and (SMODS.Mods['Cryptid'] or {}).can_load and card.edition.cry_glitched then
 
                         local bad = (love.math.random(1, 10) / 10)
                         local gud = (love.math.random(11, 100) / 10)
@@ -1615,7 +1615,7 @@ local function overrides()
                 elseif specific_vars.suit == 'Spades' and G.GAME.used_cu_augments and G.GAME.used_cu_augments.c_world_cu then
                     badges[#badges + 1] = 'world_bu'
                 end
-                if SMODS.Mods and SMODS.Mods['Bunco'] then
+                if SMODS.Mods and (SMODS.Mods['Bunco'] or {}).can_load then
                     if specific_vars.suit == 'bunc_Fleurons' and G.GAME.used_cu_augments and G.GAME.used_cu_augments.c_bunc_sky_cu then
                         badges[#badges + 1] = 'sky_bu'
                     elseif specific_vars.suit == 'bunc_Halberds' and G.GAME.used_cu_augments and G.GAME.used_cu_augments.c_bunc_abyss_cu then
@@ -1918,8 +1918,8 @@ local function overrides()
                     if v == 'holographic' then info_queue[#info_queue+1] = G.P_CENTERS['e_holo'] end
                     if v == 'polychrome' then info_queue[#info_queue+1] = G.P_CENTERS['e_polychrome'] end
                     if v == 'negative' then info_queue[#info_queue+1] = G.P_CENTERS['e_negative'] end
-                    if SMODS.Mods and SMODS.Mods['Bunco'] and v == 'bunc_glitter' then info_queue[#info_queue+1] = G.P_CENTERS['e_bunc_glitter'] end
-                    if SMODS.Mods and SMODS.Mods['Bunco'] and v == 'bunc_fluorescent' then info_queue[#info_queue+1] = G.P_CENTERS['e_bunc_fluorescent'] end
+                    if SMODS.Mods and (SMODS.Mods['Bunco'] or {}).can_load and v == 'bunc_glitter' then info_queue[#info_queue+1] = G.P_CENTERS['e_bunc_glitter'] end
+                    if SMODS.Mods and (SMODS.Mods['Bunco'] or {}).can_load and v == 'bunc_fluorescent' then info_queue[#info_queue+1] = G.P_CENTERS['e_bunc_fluorescent'] end
                     if v == 'negative_consumable' then info_queue[#info_queue+1] = {key = 'e_negative_consumable', set = 'Edition', config = {extra = 1}} end
                     if v == 'gold_seal' then info_queue[#info_queue+1] = {key = 'gold_seal', set = 'Other'} end
                     if v == 'blue_seal' then info_queue[#info_queue+1] = {key = 'blue_seal', set = 'Other'} end
@@ -2036,10 +2036,10 @@ local function overrides()
                 end
             end
 
-            if SMODS.Mods and SMODS.Mods['Bunco'] and AUT.badges and (card.ability.name == 'The Sky DX' or card.ability.name == 'The Abyss DX') then
+            if SMODS.Mods and (SMODS.Mods['Bunco'] or {}).can_load and AUT.badges and (card.ability.name == 'The Sky DX' or card.ability.name == 'The Abyss DX') then
                 badges[1] = create_badge('Tarot?', card_type_colour, nil, 1.2)
             end
-            if SMODS.Mods and SMODS.Mods['Bunco'] and AUT.badges and (card.ability.name == 'Quaoar DX' or card.ability.name == 'Haumea DX'or card.ability.name == 'Sedna DX'or card.ability.name == 'Makemake DX') then
+            if SMODS.Mods and (SMODS.Mods['Bunco'] or {}).can_load and AUT.badges and (card.ability.name == 'Quaoar DX' or card.ability.name == 'Haumea DX'or card.ability.name == 'Sedna DX'or card.ability.name == 'Makemake DX') then
                 badges[1] = create_badge(localize('k_planet_q') or card_type, card_type_colour, nil, 1.2)
             end
 
@@ -2071,7 +2071,7 @@ local function overrides()
             if self.debuff then return nil end
             local used_tarot = copier or self
             
-            if SMODS.Mods and SMODS.Mods['Bunco'] and used_tarot.edition then
+            if SMODS.Mods and (SMODS.Mods['Bunco'] or {}).can_load and used_tarot.edition then
                 if used_tarot.edition.foil then
                     add_tag(Tag('tag_bunc_chips'))
                     play_sound('generic1')
@@ -2189,7 +2189,7 @@ local function overrides()
                     G.TAROT_INTERRUPT_PULSE = nil
                     return true end }))
                 update_hand_text({sound = 'button', volume = 0.7, pitch = 0.9, delay = 0}, {level='+3'})
-                if planet_edition_enabled and self.edition then
+                if (planet_edition_enabled and not (SMODS.Mods['aurinko'] or {}).can_load) and self.edition then
                     if self.edition.holo then
                         G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0.9, func = function()
                             play_sound('holo1')
@@ -2212,7 +2212,7 @@ local function overrides()
                             update_hand_text({delay = 0}, {mult = 'x' .. tostring(G.P_CENTERS.e_polychrome.config.extra), StatusText = true})
                     end
                     -- Bunco Glitter compat
-                    if SMODS.Mods and SMODS.Mods['Bunco'] and self.edition.bunc_glitter then
+                    if SMODS.Mods and (SMODS.Mods['Bunco'] or {}).can_load and self.edition.bunc_glitter then
                         G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0.3, func = function()
                             play_sound('bunc_glitter')
                             self:juice_up(0.8, 0.5)
@@ -2220,7 +2220,7 @@ local function overrides()
                         update_hand_text({delay = 0}, {chips = 'x' .. tostring(G.P_CENTERS.e_bunc_glitter.config.Xchips), StatusText = true})
                     end
                     -- Cryptid Mosaic compat
-                    if SMODS.Mods and SMODS.Mods['Cryptid'] and self.edition.cry_mosaic then
+                    if SMODS.Mods and (SMODS.Mods['Cryptid'] or {}).can_load and self.edition.cry_mosaic then
                         G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0.3, func = function()
                             play_sound('cry_e_mosaic')
                             self:juice_up(0.8, 0.5)
@@ -2228,7 +2228,7 @@ local function overrides()
                         update_hand_text({delay = 0}, {chips = 'x' .. tostring(G.P_CENTERS.e_cry_mosaic.config.x_chips), StatusText = true})
                     end
                     -- Cryptid Oversaturated compat
-                    if SMODS.Mods and SMODS.Mods['Cryptid'] and self.edition.cry_oversat then
+                    if SMODS.Mods and (SMODS.Mods['Cryptid'] or {}).can_load and self.edition.cry_oversat then
                         G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0.3, func = function()
                             play_sound('cry_e_oversaturated')
                             self:juice_up(0.8, 0.5)
@@ -2237,7 +2237,7 @@ local function overrides()
                         update_hand_text({delay = 0}, {mult = 'x2', StatusText = true})
                     end
                     -- Cryptid Astral Compat
-                    if SMODS.Mods and SMODS.Mods['Cryptid'] and self.edition.cry_astral then
+                    if SMODS.Mods and (SMODS.Mods['Cryptid'] or {}).can_load and self.edition.cry_astral then
                         G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0.3, func = function()
                             play_sound('talisman_emult')
                             self:juice_up(0.8, 0.5)
@@ -2245,7 +2245,7 @@ local function overrides()
                         update_hand_text({delay = 0}, {mult = '^' .. tostring(G.P_CENTERS.e_cry_astral.config.e_mult), StatusText = true})
                     end
                     -- Cryptid Glitched compat
-                    if SMODS.Mods and SMODS.Mods['Cryptid'] and self.edition.cry_glitched then
+                    if SMODS.Mods and (SMODS.Mods['Cryptid'] or {}).can_load and self.edition.cry_glitched then
                         G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0.3, func = function()
                             play_sound('cry_e_glitched')
                             self:juice_up(0.8, 0.5)
@@ -2607,13 +2607,13 @@ local function overrides()
                 end
                 delay(0.6)
             end
-        elseif self.ability.name == 'Black Hole' and planet_edition_enabled then    -- Manage Black Hole if planet editions is enabled
+        elseif self.ability.name == 'Black Hole' and (planet_edition_enabled and not (SMODS.Mods['aurinko'] or {}).can_load) then    -- Manage Black Hole if planet editions is enabled
             stop_use()
             if not copier then set_consumeable_usage(self) end
             if self.debuff then return nil end
             local used_tarot = copier or self
             
-            if SMODS.Mods and SMODS.Mods['Bunco'] and used_tarot.edition then
+            if SMODS.Mods and (SMODS.Mods['Bunco'] or {}).can_load and used_tarot.edition then
                 if used_tarot.edition.foil then
                     add_tag(Tag('tag_bunc_chips'))
                     play_sound('generic1')
@@ -2674,7 +2674,7 @@ local function overrides()
                         update_hand_text({delay = 0}, {mult = 'x' .. tostring(G.P_CENTERS.e_polychrome.config.extra), StatusText = true})
                 end
                 -- Bunco Glitter compat
-                if SMODS.Mods and SMODS.Mods['Bunco'] and self.edition.bunc_glitter then
+                if SMODS.Mods and (SMODS.Mods['Bunco'] or {}).can_load and self.edition.bunc_glitter then
                     G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0.3, func = function()
                         play_sound('bunc_glitter')
                         self:juice_up(0.8, 0.5)
@@ -2682,7 +2682,7 @@ local function overrides()
                     update_hand_text({delay = 0}, {chips = 'x' .. tostring(G.P_CENTERS.e_bunc_glitter.config.Xchips), StatusText = true})
                 end
                 -- Cryptid Mosaic compat
-                if SMODS.Mods and SMODS.Mods['Cryptid'] and self.edition.cry_mosaic then
+                if SMODS.Mods and (SMODS.Mods['Cryptid'] or {}).can_load and self.edition.cry_mosaic then
                     G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0.3, func = function()
                         play_sound('cry_e_mosaic')
                         self:juice_up(0.8, 0.5)
@@ -2690,7 +2690,7 @@ local function overrides()
                     update_hand_text({delay = 0}, {chips = 'x' .. tostring(G.P_CENTERS.e_cry_mosaic.config.x_chips), StatusText = true})
                 end
                 -- Cryptid Oversaturated compat
-                if SMODS.Mods and SMODS.Mods['Cryptid'] and self.edition.cry_oversat then
+                if SMODS.Mods and (SMODS.Mods['Cryptid'] or {}).can_load and self.edition.cry_oversat then
                     G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0.3, func = function()
                         play_sound('cry_e_oversaturated')
                         self:juice_up(0.8, 0.5)
@@ -2699,7 +2699,7 @@ local function overrides()
                     update_hand_text({delay = 0}, {mult = 'x2', StatusText = true})
                 end
                 -- Cryptid Astral Compat
-                if SMODS.Mods and SMODS.Mods['Cryptid'] and self.edition.cry_astral then
+                if SMODS.Mods and (SMODS.Mods['Cryptid'] or {}).can_load and self.edition.cry_astral then
                     G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0.3, func = function()
                         play_sound('talisman_emult')
                         self:juice_up(0.8, 0.5)
@@ -2707,7 +2707,7 @@ local function overrides()
                     update_hand_text({delay = 0}, {mult = '^' .. tostring(G.P_CENTERS.e_cry_astral.config.e_mult), StatusText = true})
                 end
                 -- Cryptid Glitched compat
-                if SMODS.Mods and SMODS.Mods['Cryptid'] and self.edition.cry_glitched then
+                if SMODS.Mods and (SMODS.Mods['Cryptid'] or {}).can_load and self.edition.cry_glitched then
                     G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0.3, func = function()
                         play_sound('cry_e_glitched')
                         self:juice_up(0.8, 0.5)
@@ -2729,7 +2729,7 @@ local function overrides()
             if self.debuff then return nil end
             local used_tarot = copier or self
             
-            if SMODS.Mods and SMODS.Mods['Bunco'] and used_tarot.edition then
+            if SMODS.Mods and (SMODS.Mods['Bunco'] or {}).can_load and used_tarot.edition then
                 if used_tarot.edition.foil then
                     add_tag(Tag('tag_bunc_chips'))
                     play_sound('generic1')
@@ -3746,7 +3746,7 @@ local function overrides()
             return
         end
         -- Check for bunco suit buff
-        if SMODS.Mods and SMODS.Mods['Bunco'] and self.base and self.base.suit and G.GAME.used_cu_augments and ((self.base.suit == 'bunc_Fleurons' and G.GAME.used_cu_augments.c_bunc_sky_cu) or (self.base.suit == 'bunc_Halberds' and G.GAME.used_cu_augments.c_bunc_abyss_cu)) then   -- Overwrite
+        if SMODS.Mods and (SMODS.Mods['Bunco'] or {}).can_load and self.base and self.base.suit and G.GAME.used_cu_augments and ((self.base.suit == 'bunc_Fleurons' and G.GAME.used_cu_augments.c_bunc_sky_cu) or (self.base.suit == 'bunc_Halberds' and G.GAME.used_cu_augments.c_bunc_abyss_cu)) then   -- Overwrite
             self.debuff = false
             self.ability.debuff_by_curse_rolls = {}
             return
