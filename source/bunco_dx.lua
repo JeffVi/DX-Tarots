@@ -422,11 +422,11 @@ function LoadBuncoDX()
     sendDebugMessage("Bunco DX Loaded")
     
     local js_mod = SMODS.findModByID("JeffDeluxeConsumablesPack")
-    SMODS.Sprite:new("bunco_tarots_dx", js_mod.path, "Bunco_Tarots_dx.png", 71, 95, "asset_atli"):register();
-	SMODS.Sprite:new("bunco_planets_dx", js_mod.path, "Bunco_Planets_dx.png", 71, 95, "asset_atli"):register();
-	SMODS.Sprite:new("bunco_spectrals_dx", js_mod.path, "Bunco_Spectrals_dx.png", 71, 95, "asset_atli"):register();
-	SMODS.Sprite:new("bunco_tarots_cu", js_mod.path, "Bunco_Tarots_cu.png", 71, 95, "asset_atli"):register();
-
+    SMODS.Atlas({key = 'bunco_tarots_dx', path = 'Bunco_Tarots_dx.png', px = 71, py = 95})
+    SMODS.Atlas({key = 'bunco_planets_dx', path = 'Bunco_Planets_dx.png', px = 71, py = 95})
+    SMODS.Atlas({key = 'bunco_spectrals_dx', path = 'Bunco_Spectrals_dx.png', px = 71, py = 95})
+    SMODS.Atlas({key = 'bunco_tarots_cu', path = 'Bunco_Tarots_cu.png', px = 71, py = 95})
+    
     G.localization.misc.labels['sky_bu'] = "Fleurons Buff"
     G.localization.misc.labels['abyss_bu'] = "Halberds Buff"
     G.BADGE_COL['sky_bu'] = HEX('d6901a')
