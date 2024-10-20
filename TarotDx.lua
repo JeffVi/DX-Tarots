@@ -1,5 +1,5 @@
 --- STEAMODDED HEADER
---- MOD_NAME: Deluxe Consumables Cards
+--- MOD_NAME: Deluxe Consumables
 --- MOD_ID: JeffDeluxeConsumablesPack
 --- MOD_AUTHOR: [JeffVi]
 --- MOD_DESCRIPTION: Add Deluxe versions of consumables
@@ -8,68 +8,57 @@
 ----------------------------------------------
 ------------MOD CODE -------------------------
 
--- SET CUSTOM CONFIG HERE
-
-local tarot_dx_rate = 0.1               -- (from 0 (0%) to 1 (100%))
-local tarot_cu_rate = 0.07              -- (from 0 (0%) to 1 (100%))
-local planet_dx_rate = 0.12             -- (from 0 (0%) to 1 (100%))
-local spectral_dx_rate = 0.15           -- (from 0 (0%) to 1 (100%))
-local alchemical_dx_rate = 0.1          -- (from 0 (0%) to 1 (100%))
-local booster_dx_rate = 0.1             -- (from 0 (0%) to 1 (100%))
-local planet_edition_enabled = true     -- Enable/Disable the possibility of planet cards edition (may not be compatible with other mods that overwrite the level_up_hand function)
-local spectral_on_blank = true          -- Enable/Disable spectral rate on blank voucher
-local unique_enabled = true             -- Enable/Disable the unique badge management.
-
--- END CUSTOM CONFIGS
-
 ---------- local functions & variables ----------
 
 local enhanced_prototype_centers = {}
 local enhanced_prototype_descriptions = {}
+local js_mod = SMODS.current_mod
+local js_config = js_mod.config
+js_mod.prefix_config = {key = false, atlas = false, shader = false, card_key = false}
 
 local function setup_consumables()
     
     -- Vanilla DX Tarots
-    G.P_CENTERS.c_fool_dx=             {order = 1,     discovered = true, cost = 5, consumeable = true, name = "The Fool DX", pos = {x=0,y=0}, set = "Tarot", effect = "Disable Blind Effect", cost_mult = 1.0, config = {type = '_dx'}, atlas = 'Van_dx'}
-    G.P_CENTERS.c_magician_dx=         {order = 2,     discovered = true, cost = 5, consumeable = true, name = "The Magician DX", pos = {x=1,y=0}, set = "Tarot", effect = "Enhance", cost_mult = 1.0, config = {type = '_dx', mod_conv = 'm_lucky', max_highlighted = 4}, atlas = 'Van_dx'}
-    G.P_CENTERS.c_high_priestess_dx=   {order = 3,     discovered = true, cost = 5, consumeable = true, name = "The High Priestess DX", pos = {x=2,y=0}, set = "Tarot", effect = "Round Bonus", cost_mult = 1.0, config = {type = '_dx', planets = 2}, atlas = 'Van_dx'}
-    G.P_CENTERS.c_empress_dx=          {order = 4,     discovered = true, cost = 5, consumeable = true, name = "The Empress DX", pos = {x=3,y=0}, set = "Tarot", effect = "Enhance", cost_mult = 1.0, config = {type = '_dx', mod_conv = 'm_mult', max_highlighted = 4}, atlas = 'Van_dx'}
-    G.P_CENTERS.c_emperor_dx=          {order = 5,     discovered = true, cost = 5, consumeable = true, name = "The Emperor DX", pos = {x=4,y=0}, set = "Tarot", effect = "Round Bonus", cost_mult = 1.0, config = {type = '_dx', tarots = 2}, atlas = 'Van_dx'}
-    G.P_CENTERS.c_heirophant_dx=       {order = 6,     discovered = true, cost = 5, consumeable = true, name = "The Hierophant DX", pos = {x=5,y=0}, set = "Tarot", effect = "Enhance", cost_mult = 1.0, config = {type = '_dx', mod_conv = 'm_bonus', max_highlighted = 4}, atlas = 'Van_dx'}
-    G.P_CENTERS.c_lovers_dx=           {order = 7,     discovered = true, cost = 5, consumeable = true, name = "The Lovers DX", pos = {x=6,y=0}, set = "Tarot", effect = "Enhance", cost_mult = 1.0, config = {type = '_dx', mod_conv = 'm_wild', max_highlighted = 2}, atlas = 'Van_dx'}
-    G.P_CENTERS.c_chariot_dx=          {order = 8,     discovered = true, cost = 5, consumeable = true, name = "The Chariot DX", pos = {x=7,y=0}, set = "Tarot", effect = "Enhance", cost_mult = 1.0, config = {type = '_dx', mod_conv = 'm_steel', max_highlighted = 2}, atlas = 'Van_dx'}
-    G.P_CENTERS.c_justice_dx=          {order = 9,     discovered = true, cost = 5, consumeable = true, name = "Justice DX", pos = {x=8,y=0}, set = "Tarot", effect = "Enhance", cost_mult = 1.0, config = {type = '_dx', mod_conv = 'm_glass', max_highlighted = 2}, atlas = 'Van_dx'}
-    G.P_CENTERS.c_hermit_dx=           {order = 10,    discovered = true, cost = 5, consumeable = true, name = "The Hermit DX", pos = {x=9,y=0}, set = "Tarot", effect = "Dollar Doubler", cost_mult = 1.0, config = {type = '_dx', extra = 30}, atlas = 'Van_dx'}
-    G.P_CENTERS.c_wheel_of_fortune_dx= {order = 11,    discovered = true, cost = 5, consumeable = true, name = "The Wheel of Fortune DX", pos = {x=0,y=1}, set = "Tarot", effect = "Round Bonus", cost_mult = 1.0, config = {type = '_dx', extra = 2}, atlas = 'Van_dx'}
-    G.P_CENTERS.c_strength_dx=         {order = 12,    discovered = true, cost = 5, consumeable = true, name = "Strength DX", pos = {x=1,y=1}, set = "Tarot", effect = "Round Bonus", cost_mult = 1.0, config = {type = '_dx', mod_conv = 'up_rank', max_highlighted = 4}, atlas = 'Van_dx'}
-    G.P_CENTERS.c_hanged_man_dx=       {order = 13,    discovered = true, cost = 5, consumeable = true, name = "The Hanged Man DX", pos = {x=2,y=1}, set = "Tarot", effect = "Card Removal", cost_mult = 1.0, config = {type = '_dx', remove_card = true, max_highlighted = 4}, atlas = 'Van_dx'}
-    G.P_CENTERS.c_death_dx=            {order = 14,    discovered = true, cost = 5, consumeable = true, name = "Death DX", pos = {x=3,y=1}, set = "Tarot", effect = "Card Conversion", cost_mult = 1.0, config = {type = '_dx', mod_conv = 'card', max_highlighted = 3, min_highlighted = 2}, atlas = 'Van_dx'}
-    G.P_CENTERS.c_temperance_dx=       {order = 15,    discovered = true, cost = 5, consumeable = true, name = "Temperance DX", pos = {x=4,y=1}, set = "Tarot", effect = "Joker Payout", cost_mult = 1.0, config = {type = '_dx', extra = 60}, atlas = 'Van_dx'}
-    G.P_CENTERS.c_devil_dx=            {order = 16,    discovered = true, cost = 5, consumeable = true, name = "The Devil DX", pos = {x=5,y=1}, set = "Tarot", effect = "Enhance", cost_mult = 1.0, config = {type = '_dx', mod_conv = 'm_gold', max_highlighted = 2}, atlas = 'Van_dx'}
-    G.P_CENTERS.c_tower_dx=            {order = 17,    discovered = true, cost = 5, consumeable = true, name = "The Tower DX", pos = {x=6,y=1}, set = "Tarot", effect = "Enhance", cost_mult = 1.0, config = {type = '_dx', mod_conv = 'm_stone', max_highlighted = 2}, atlas = 'Van_dx'}
-    G.P_CENTERS.c_star_dx=             {order = 18,    discovered = true, cost = 5, consumeable = true, name = "The Star DX", pos = {x=7,y=1}, set = "Tarot", effect = "Suit Conversion", cost_mult = 1.0, config = {type = '_dx', suit_conv = 'Diamonds', max_highlighted = 5}, atlas = 'Van_dx'}
-    G.P_CENTERS.c_moon_dx=             {order = 19,    discovered = true, cost = 5, consumeable = true, name = "The Moon DX", pos = {x=8,y=1}, set = "Tarot", effect = "Suit Conversion", cost_mult = 1.0, config = {type = '_dx', suit_conv = 'Clubs', max_highlighted = 5}, atlas = 'Van_dx'}
-    G.P_CENTERS.c_sun_dx=              {order = 20,    discovered = true, cost = 5, consumeable = true, name = "The Sun DX", pos = {x=9,y=1}, set = "Tarot", effect = "Suit Conversion", cost_mult = 1.0, config = {type = '_dx', suit_conv = 'Hearts', max_highlighted = 5}, atlas = 'Van_dx'}
-    G.P_CENTERS.c_judgement_dx=        {order = 21,    discovered = true, cost = 5, consumeable = true, name = "Judgement DX", pos = {x=0,y=2}, set = "Tarot", effect = "Random Joker", cost_mult = 1.0, config = {type = '_dx', }, atlas = 'Van_dx'}
-    G.P_CENTERS.c_world_dx=            {order = 22,    discovered = true, cost = 5, consumeable = true, name = "The World DX", pos = {x=1,y=2}, set = "Tarot", effect = "Suit Conversion", cost_mult = 1.0, config = {type = '_dx', suit_conv = 'Spades', max_highlighted = 5}, atlas = 'Van_dx'}
+    --G.P_CENTERS.c_fool_dx=             {order = 1,     discovered = true, cost = 5, consumeable = true, name = "The Fool DX", pos = {x=0,y=0}, set = "Tarot", effect = "Disable Blind Effect", cost_mult = 1.0, config = {type = '_dx'}, atlas = 'Van_dx'}
+    --G.P_CENTERS.c_magician_dx=         {order = 2,     discovered = true, cost = 5, consumeable = true, name = "The Magician DX", pos = {x=1,y=0}, set = "Tarot", effect = "Enhance", cost_mult = 1.0, config = {type = '_dx', mod_conv = 'm_lucky', max_highlighted = 4}, atlas = 'Van_dx'}
+    --G.P_CENTERS.c_high_priestess_dx=   {order = 3,     discovered = true, cost = 5, consumeable = true, name = "The High Priestess DX", pos = {x=2,y=0}, set = "Tarot", effect = "Round Bonus", cost_mult = 1.0, config = {type = '_dx', planets = 2}, atlas = 'Van_dx'}
+    --G.P_CENTERS.c_empress_dx=          {order = 4,     discovered = true, cost = 5, consumeable = true, name = "The Empress DX", pos = {x=3,y=0}, set = "Tarot", effect = "Enhance", cost_mult = 1.0, config = {type = '_dx', mod_conv = 'm_mult', max_highlighted = 4}, atlas = 'Van_dx'}
+    --G.P_CENTERS.c_emperor_dx=          {order = 5,     discovered = true, cost = 5, consumeable = true, name = "The Emperor DX", pos = {x=4,y=0}, set = "Tarot", effect = "Round Bonus", cost_mult = 1.0, config = {type = '_dx', tarots = 2}, atlas = 'Van_dx'}
+    --G.P_CENTERS.c_heirophant_dx=       {order = 6,     discovered = true, cost = 5, consumeable = true, name = "The Hierophant DX", pos = {x=5,y=0}, set = "Tarot", effect = "Enhance", cost_mult = 1.0, config = {type = '_dx', mod_conv = 'm_bonus', max_highlighted = 4}, atlas = 'Van_dx'}
+    --G.P_CENTERS.c_lovers_dx=           {order = 7,     discovered = true, cost = 5, consumeable = true, name = "The Lovers DX", pos = {x=6,y=0}, set = "Tarot", effect = "Enhance", cost_mult = 1.0, config = {type = '_dx', mod_conv = 'm_wild', max_highlighted = 2}, atlas = 'Van_dx'}
+    --G.P_CENTERS.c_chariot_dx=          {order = 8,     discovered = true, cost = 5, consumeable = true, name = "The Chariot DX", pos = {x=7,y=0}, set = "Tarot", effect = "Enhance", cost_mult = 1.0, config = {type = '_dx', mod_conv = 'm_steel', max_highlighted = 2}, atlas = 'Van_dx'}
+    --G.P_CENTERS.c_justice_dx=          {order = 9,     discovered = true, cost = 5, consumeable = true, name = "Justice DX", pos = {x=8,y=0}, set = "Tarot", effect = "Enhance", cost_mult = 1.0, config = {type = '_dx', mod_conv = 'm_glass', max_highlighted = 2}, atlas = 'Van_dx'}
+    --G.P_CENTERS.c_hermit_dx=           {order = 10,    discovered = true, cost = 5, consumeable = true, name = "The Hermit DX", pos = {x=9,y=0}, set = "Tarot", effect = "Dollar Doubler", cost_mult = 1.0, config = {type = '_dx', extra = 30}, atlas = 'Van_dx'}
+    --G.P_CENTERS.c_wheel_of_fortune_dx= {order = 11,    discovered = true, cost = 5, consumeable = true, name = "The Wheel of Fortune DX", pos = {x=0,y=1}, set = "Tarot", effect = "Round Bonus", cost_mult = 1.0, config = {type = '_dx', extra = 2}, atlas = 'Van_dx'}
+    --G.P_CENTERS.c_strength_dx=         {order = 12,    discovered = true, cost = 5, consumeable = true, name = "Strength DX", pos = {x=1,y=1}, set = "Tarot", effect = "Round Bonus", cost_mult = 1.0, config = {type = '_dx', mod_conv = 'up_rank', max_highlighted = 4}, atlas = 'Van_dx'}
+    --G.P_CENTERS.c_hanged_man_dx=       {order = 13,    discovered = true, cost = 5, consumeable = true, name = "The Hanged Man DX", pos = {x=2,y=1}, set = "Tarot", effect = "Card Removal", cost_mult = 1.0, config = {type = '_dx', remove_card = true, max_highlighted = 4}, atlas = 'Van_dx'}
+    --G.P_CENTERS.c_death_dx=            {order = 14,    discovered = true, cost = 5, consumeable = true, name = "Death DX", pos = {x=3,y=1}, set = "Tarot", effect = "Card Conversion", cost_mult = 1.0, config = {type = '_dx', mod_conv = 'card', max_highlighted = 3, min_highlighted = 2}, atlas = 'Van_dx'}
+    --G.P_CENTERS.c_temperance_dx=       {order = 15,    discovered = true, cost = 5, consumeable = true, name = "Temperance DX", pos = {x=4,y=1}, set = "Tarot", effect = "Joker Payout", cost_mult = 1.0, config = {type = '_dx', extra = 60}, atlas = 'Van_dx'}
+    --G.P_CENTERS.c_devil_dx=            {order = 16,    discovered = true, cost = 5, consumeable = true, name = "The Devil DX", pos = {x=5,y=1}, set = "Tarot", effect = "Enhance", cost_mult = 1.0, config = {type = '_dx', mod_conv = 'm_gold', max_highlighted = 2}, atlas = 'Van_dx'}
+    --G.P_CENTERS.c_tower_dx=            {order = 17,    discovered = true, cost = 5, consumeable = true, name = "The Tower DX", pos = {x=6,y=1}, set = "Tarot", effect = "Enhance", cost_mult = 1.0, config = {type = '_dx', mod_conv = 'm_stone', max_highlighted = 2}, atlas = 'Van_dx'}
+    --G.P_CENTERS.c_star_dx=             {order = 18,    discovered = true, cost = 5, consumeable = true, name = "The Star DX", pos = {x=7,y=1}, set = "Tarot", effect = "Suit Conversion", cost_mult = 1.0, config = {type = '_dx', suit_conv = 'Diamonds', max_highlighted = 5}, atlas = 'Van_dx'}
+    --G.P_CENTERS.c_moon_dx=             {order = 19,    discovered = true, cost = 5, consumeable = true, name = "The Moon DX", pos = {x=8,y=1}, set = "Tarot", effect = "Suit Conversion", cost_mult = 1.0, config = {type = '_dx', suit_conv = 'Clubs', max_highlighted = 5}, atlas = 'Van_dx'}
+    --G.P_CENTERS.c_sun_dx=              {order = 20,    discovered = true, cost = 5, consumeable = true, name = "The Sun DX", pos = {x=9,y=1}, set = "Tarot", effect = "Suit Conversion", cost_mult = 1.0, config = {type = '_dx', suit_conv = 'Hearts', max_highlighted = 5}, atlas = 'Van_dx'}
+    --G.P_CENTERS.c_judgement_dx=        {order = 21,    discovered = true, cost = 5, consumeable = true, name = "Judgement DX", pos = {x=0,y=2}, set = "Tarot", effect = "Random Joker", cost_mult = 1.0, config = {type = '_dx', }, atlas = 'Van_dx'}
+    --G.P_CENTERS.c_world_dx=            {order = 22,    discovered = true, cost = 5, consumeable = true, name = "The World DX", pos = {x=1,y=2}, set = "Tarot", effect = "Suit Conversion", cost_mult = 1.0, config = {type = '_dx', suit_conv = 'Spades', max_highlighted = 5}, atlas = 'Van_dx'}
 
     -- Vanilla Cursed Tarots
-    G.P_CENTERS.c_fool_cu=             {order = 1,     discovered = true, cost = 5, consumeable = true, name = "The Cursed Fool", pos = {x=0,y=0}, set = "Tarot", effect = "Disable Blind Effect", cost_mult = 1.0, config = {type = '_cu', unique = true, nb_curse = 1}, atlas = 'Van_cu'}
-    G.P_CENTERS.c_magician_cu=         {order = 2,     discovered = true, cost = 5, consumeable = true, name = "The Cursed Magician", pos = {x=1,y=0}, set = "Tarot", effect = "Round Bonus", cost_mult = 1.0, config = {type = '_cu', unique = true, nb_curse = 2}, atlas = 'Van_cu'}
-    G.P_CENTERS.c_high_priestess_cu=   {order = 3,     discovered = true, cost = 5, consumeable = true, name = "The Cursed High Priestess", pos = {x=2,y=0}, set = "Tarot", effect = "Round Bonus", cost_mult = 1.0, config = {type = '_cu', planets = 2, prob_mult = 2, unique = true, nb_curse = 1}, atlas = 'Van_cu'}
-    G.P_CENTERS.c_empress_cu=          {order = 4,     discovered = true, cost = 5, consumeable = true, name = "The Cursed Empress", pos = {x=3,y=0}, set = "Tarot", effect = "Round Bonus", cost_mult = 1.0, config = {type = '_cu', mod_conv = 'm_mult', extra = 8, unique = true, nb_curse = 1}, atlas = 'Van_cu'}
-    G.P_CENTERS.c_emperor_cu=          {order = 5,     discovered = true, cost = 5, consumeable = true, name = "The Cursed Emperor", pos = {x=4,y=0}, set = "Tarot", effect = "Round Bonus", cost_mult = 1.0, config = {type = '_cu', tarots = 6, unique = true, nb_curse = 1}, atlas = 'Van_cu'}
-    G.P_CENTERS.c_heirophant_cu=       {order = 6,     discovered = true, cost = 5, consumeable = true, name = "The Cursed Hierophant", pos = {x=5,y=0}, set = "Tarot", effect = "Round Bonus", cost_mult = 1.0, config = {type = '_cu', mod_conv = 'm_bonus', extra = 60, max_highlighted = 4, unique = true, nb_curse = 1}, atlas = 'Van_cu'}
-    G.P_CENTERS.c_lovers_cu=           {order = 7,     discovered = true, cost = 5, consumeable = true, name = "The Cursed Lovers", pos = {x=6,y=0}, set = "Tarot", effect = "Round Bonus", cost_mult = 1.0, config = {type = '_cu', mod_conv = 'm_wild', unique = true, nb_curse = 1}, atlas = 'Van_cu'}
-    G.P_CENTERS.c_chariot_cu=          {order = 8,     discovered = true, cost = 5, consumeable = true, name = "The Cursed Chariot", pos = {x=7,y=0}, set = "Tarot", effect = "Round Bonus", cost_mult = 1.0, config = {type = '_cu', mod_conv = 'm_steel', extra = 1, unique = true, nb_curse = 2}, atlas = 'Van_cu'}
-    G.P_CENTERS.c_justice_cu=          {order = 9,     discovered = true, cost = 5, consumeable = true, name = "Cursed Justice", pos = {x=8,y=0}, set = "Tarot", effect = "Round Bonus", cost_mult = 1.0, config = {type = '_cu', mod_conv = 'm_glass', extra = 1.5, unique = true, nb_curse = 2}, atlas = 'Van_cu'}
-    G.P_CENTERS.c_hermit_cu=           {order = 10,    discovered = true, cost = 5, consumeable = true, name = "The Cursed Hermit", pos = {x=9,y=0}, set = "Tarot", effect = "Dollar Doubler", cost_mult = 1.0, config = {type = '_cu', extra = 50, unique = true, nb_curse = 2}, atlas = 'Van_cu'}
-    G.P_CENTERS.c_wheel_of_fortune_cu= {order = 11,    discovered = true, cost = 5, consumeable = true, name = "The Cursed Wheel of Fortune", pos = {x=0,y=1}, set = "Tarot", effect = "Round Bonus", cost_mult = 1.0, config = {type = '_cu', unique = true, nb_curse = 1, extra = 2}, atlas = 'Van_cu'}
-    G.P_CENTERS.c_strength_cu=         {order = 12,    discovered = true, cost = 5, consumeable = true, name = "Cursed Strength", pos = {x=1,y=1}, set = "Tarot", effect = "Round Bonus", cost_mult = 1.0, config = {type = '_cu', mod_conv = 'up_rank', max_highlighted = 5, min_highlighted = 1, unique = true, nb_curse = 2}, atlas = 'Van_cu'}
-    G.P_CENTERS.c_hanged_man_cu=       {order = 13,    discovered = true, cost = 5, consumeable = true, name = "The Cursed Hanged Man", pos = {x=2,y=1}, set = "Tarot", effect = "Card Removal", cost_mult = 1.0, config = {type = '_cu', remove_card = true, max_highlighted = 4, min_highlighted = 1, unique = true, nb_curse = 2}, atlas = 'Van_cu'}
-    G.P_CENTERS.c_death_cu=            {order = 14,    discovered = true, cost = 5, consumeable = true, name = "Cursed Death", pos = {x=3,y=1}, set = "Tarot", effect = "Card Conversion", cost_mult = 1.0, config = {type = '_cu', mod_conv = 'card', max_highlighted = 5, min_highlighted = 2, unique = true, nb_curse = 2}, atlas = 'Van_cu'}
-    G.P_CENTERS.c_temperance_cu=       {order = 15,    discovered = true, cost = 5, consumeable = true, name = "Cursed Temperance", pos = {x=4,y=1}, set = "Tarot", effect = "Joker Payout", cost_mult = 1.0, config = {type = '_cu', extra = 60, unique = true, nb_curse = 1}, atlas = 'Van_cu'}
-    G.P_CENTERS.c_devil_cu=            {order = 16,    discovered = true, cost = 5, consumeable = true, name = "The Cursed Devil", pos = {x=5,y=1}, set = "Tarot", effect = "Enhance", cost_mult = 1.0, config = {type = '_cu', mod_conv = 'm_gold', extra = 5, unique = true, nb_curse = 2}, atlas = 'Van_cu'}
+    --G.P_CENTERS.c_fool_cu=             {order = 1,     discovered = true, cost = 5, consumeable = true, name = "The Cursed Fool", pos = {x=0,y=0}, set = "Tarot", effect = "Disable Blind Effect", cost_mult = 1.0, config = {type = '_cu', unique = true, nb_curse = 1}, atlas = 'Van_cu'}
+    --G.P_CENTERS.c_magician_cu=         {order = 2,     discovered = true, cost = 5, consumeable = true, name = "The Cursed Magician", pos = {x=1,y=0}, set = "Tarot", effect = "Round Bonus", cost_mult = 1.0, config = {type = '_cu', unique = true, nb_curse = 2}, atlas = 'Van_cu'}
+    --G.P_CENTERS.c_high_priestess_cu=   {order = 3,     discovered = true, cost = 5, consumeable = true, name = "The Cursed High Priestess", pos = {x=2,y=0}, set = "Tarot", effect = "Round Bonus", cost_mult = 1.0, config = {type = '_cu', planets = 2, prob_mult = 2, unique = true, nb_curse = 1}, atlas = 'Van_cu'}
+    --G.P_CENTERS.c_empress_cu=          {order = 4,     discovered = true, cost = 5, consumeable = true, name = "The Cursed Empress", pos = {x=3,y=0}, set = "Tarot", effect = "Round Bonus", cost_mult = 1.0, config = {type = '_cu', mod_conv = 'm_mult', extra = 8, unique = true, nb_curse = 1}, atlas = 'Van_cu'}
+    --G.P_CENTERS.c_emperor_cu=          {order = 5,     discovered = true, cost = 5, consumeable = true, name = "The Cursed Emperor", pos = {x=4,y=0}, set = "Tarot", effect = "Round Bonus", cost_mult = 1.0, config = {type = '_cu', tarots = 6, unique = true, nb_curse = 1}, atlas = 'Van_cu'}
+    --G.P_CENTERS.c_heirophant_cu=       {order = 6,     discovered = true, cost = 5, consumeable = true, name = "The Cursed Hierophant", pos = {x=5,y=0}, set = "Tarot", effect = "Round Bonus", cost_mult = 1.0, config = {type = '_cu', mod_conv = 'm_bonus', extra = 60, max_highlighted = 4, unique = true, nb_curse = 1}, atlas = 'Van_cu'}
+    --G.P_CENTERS.c_lovers_cu=           {order = 7,     discovered = true, cost = 5, consumeable = true, name = "The Cursed Lovers", pos = {x=6,y=0}, set = "Tarot", effect = "Round Bonus", cost_mult = 1.0, config = {type = '_cu', mod_conv = 'm_wild', unique = true, nb_curse = 1}, atlas = 'Van_cu'}
+    --G.P_CENTERS.c_chariot_cu=          {order = 8,     discovered = true, cost = 5, consumeable = true, name = "The Cursed Chariot", pos = {x=7,y=0}, set = "Tarot", effect = "Round Bonus", cost_mult = 1.0, config = {type = '_cu', mod_conv = 'm_steel', extra = 1, unique = true, nb_curse = 2}, atlas = 'Van_cu'}
+    --G.P_CENTERS.c_justice_cu=          {order = 9,     discovered = true, cost = 5, consumeable = true, name = "Cursed Justice", pos = {x=8,y=0}, set = "Tarot", effect = "Round Bonus", cost_mult = 1.0, config = {type = '_cu', mod_conv = 'm_glass', extra = 1.5, unique = true, nb_curse = 2}, atlas = 'Van_cu'}
+    --G.P_CENTERS.c_hermit_cu=           {order = 10,    discovered = true, cost = 5, consumeable = true, name = "The Cursed Hermit", pos = {x=9,y=0}, set = "Tarot", effect = "Dollar Doubler", cost_mult = 1.0, config = {type = '_cu', extra = 50, unique = true, nb_curse = 2}, atlas = 'Van_cu'}
+    --G.P_CENTERS.c_wheel_of_fortune_cu= {order = 11,    discovered = true, cost = 5, consumeable = true, name = "The Cursed Wheel of Fortune", pos = {x=0,y=1}, set = "Tarot", effect = "Round Bonus", cost_mult = 1.0, config = {type = '_cu', unique = true, nb_curse = 1, extra = 2}, atlas = 'Van_cu'}
+    --G.P_CENTERS.c_strength_cu=         {order = 12,    discovered = true, cost = 5, consumeable = true, name = "Cursed Strength", pos = {x=1,y=1}, set = "Tarot", effect = "Round Bonus", cost_mult = 1.0, config = {type = '_cu', mod_conv = 'up_rank', max_highlighted = 5, min_highlighted = 1, unique = true, nb_curse = 2}, atlas = 'Van_cu'}
+    --G.P_CENTERS.c_hanged_man_cu=       {order = 13,    discovered = true, cost = 5, consumeable = true, name = "The Cursed Hanged Man", pos = {x=2,y=1}, set = "Tarot", effect = "Card Removal", cost_mult = 1.0, config = {type = '_cu', remove_card = true, max_highlighted = 4, min_highlighted = 1, unique = true, nb_curse = 2}, atlas = 'Van_cu'}
+    --G.P_CENTERS.c_death_cu=            {order = 14,    discovered = true, cost = 5, consumeable = true, name = "Cursed Death", pos = {x=3,y=1}, set = "Tarot", effect = "Card Conversion", cost_mult = 1.0, config = {type = '_cu', mod_conv = 'card', max_highlighted = 5, min_highlighted = 2, unique = true, nb_curse = 2}, atlas = 'Van_cu'}
+    --G.P_CENTERS.c_temperance_cu=       {order = 15,    discovered = true, cost = 5, consumeable = true, name = "Cursed Temperance", pos = {x=4,y=1}, set = "Tarot", effect = "Joker Payout", cost_mult = 1.0, config = {type = '_cu', extra = 60, unique = true, nb_curse = 1}, atlas = 'Van_cu'}
+    --G.P_CENTERS.c_devil_cu=            {order = 16,    discovered = true, cost = 5, consumeable = true, name = "The Cursed Devil", pos = {x=5,y=1}, set = "Tarot", effect = "Enhance", cost_mult = 1.0, config = {type = '_cu', mod_conv = 'm_gold', extra = 5, unique = true, nb_curse = 2}, atlas = 'Van_cu'}
     G.P_CENTERS.c_tower_cu=            {order = 17,    discovered = true, cost = 5, consumeable = true, name = "The Cursed Tower", pos = {x=6,y=1}, set = "Tarot", effect = "Enhance", cost_mult = 1.0, config = {type = '_cu', mod_conv = 'm_stone', extra = 200, unique = true, nb_curse = 1}, atlas = 'Van_cu'}
     G.P_CENTERS.c_star_cu=             {order = 18,    discovered = true, cost = 5, consumeable = true, name = "The Cursed Star", pos = {x=7,y=1}, set = "Tarot", effect = "Suit Conversion", cost_mult = 1.0, config = {type = '_cu', suit_conv = 'Diamonds', unique = true, nb_curse = 2}, atlas = 'Van_cu'}
     G.P_CENTERS.c_moon_cu=             {order = 19,    discovered = true, cost = 5, consumeable = true, name = "The Cursed Moon", pos = {x=8,y=1}, set = "Tarot", effect = "Suit Conversion", cost_mult = 1.0, config = {type = '_cu', suit_conv = 'Clubs', unique = true, nb_curse = 2}, atlas = 'Van_cu'}
@@ -183,342 +172,10 @@ local function setup_consumables()
 
 end
 
-local function setUpLocalizationTarotDX()
-    
-    G.localization.descriptions.Tarot_dx = {}
-
-    G.localization.descriptions.Tarot_dx.c_fool_dx = {
-        name = "The Fool DX",
-        text = {
-            "Creates up to {C:attention}2{} copies of",
-            "the last {C:tarot}Tarot{} or {C:planet}Planet{}",
-            "card used during this run",
-            "{s:0.8,C:tarot}The Fool{s:0.8} excluded"
-        }
-    }
-    G.localization.descriptions.Tarot_dx.c_magician_dx = {
-        name = "The Magician DX",
-        text = {
-            "Enhances {C:attention}#1#{}",
-            "selected cards to",
-            "{C:attention}#2#s"
-        }
-    }
-    G.localization.descriptions.Tarot_dx.c_high_priestess_dx = {
-        name = "The High Priestess DX",
-        text = {
-            "Creates up to {C:attention}#1#",
-            "random {C:planet}Planet{} {C:dark_edition}DX{} cards",
-            "{C:inactive}(Must have room)"
-        }
-    }
-    G.localization.descriptions.Tarot_dx.c_empress_dx = {
-        name = "The Empress DX",
-        text = {
-            "Enhances {C:attention}#1#",
-            "selected cards to",
-            "{C:attention}#2#s"
-        }
-    }
-    G.localization.descriptions.Tarot_dx.c_emperor_dx = {
-        name = "The Emperor DX",
-        text = {
-            "Creates up to {C:attention}#1#",
-            "random {C:tarot}Tarot{} {C:dark_edition}DX{} cards",
-            "{C:inactive}(Must have room)"
-        }
-    }
-    G.localization.descriptions.Tarot_dx.c_heirophant_dx = {
-        name = "The Hierophant DX",
-        text = {
-            "Enhances up to {C:attention}#1#",
-            "selected cards to",
-            "{C:attention}#2#s"
-        }
-    }
-    G.localization.descriptions.Tarot_dx.c_lovers_dx = {
-        name = "The Lovers DX",
-        text = {
-            "Enhances {C:attention}#1#{} selected",
-            "card into",
-            "{C:attention}#2#s"
-        }
-    }
-    G.localization.descriptions.Tarot_dx.c_chariot_dx = {
-        name = "The Chariot DX",
-        text = {
-            "Enhances {C:attention}#1#{} selected",
-            "card into",
-            "{C:attention}#2#s"
-        }
-    }
-    G.localization.descriptions.Tarot_dx.c_justice_dx = {
-        name = "Justice DX",
-        text = {
-            "Enhances {C:attention}#1#{} selected",
-            "card into",
-            "{C:attention}#2#s"
-        }
-    }
-    G.localization.descriptions.Tarot_dx.c_hermit_dx = {
-        name = "The Hermit DX",
-        text = {
-            "Triples money",
-            "{C:inactive}(Max of {C:money}$#1#{C:inactive})"
-        }
-    }
-    G.localization.descriptions.Tarot_dx.c_wheel_of_fortune_dx = {
-        name = "The Wheel of Fortune DX",
-        text = {
-            "{C:green}#1# in #2#{} chance to add",
-            "{C:dark_edition}Foil{}, {C:dark_edition}Holographic{}, or",
-            "{C:dark_edition}Polychrome{} edition",
-            "to a random {C:attention}Joker"
-        }
-    }
-    G.localization.descriptions.Tarot_dx.c_strength_dx = {
-        name = "Strength DX",
-        text = {
-            "Increases rank of",
-            "up to {C:attention}#1#{} selected",
-            "cards by {C:attention}1"
-        }
-    }
-    G.localization.descriptions.Tarot_dx.c_hanged_man_dx = {
-        name = "The Hanged Man DX",
-        text = {
-            "Destroys up to",
-            "{C:attention}#1#{} selected cards"
-        }
-    }
-    G.localization.descriptions.Tarot_dx.c_death_dx = {
-        name = "Death DX",
-        text = {
-            "Select {C:attention}#1#{} cards,",
-            "convert the {C:attention}left{} cards",
-            "into the {C:attention}right{} card",
-            "{C:inactive}(Drag to rearrange)"
-        }
-    }
-    G.localization.descriptions.Tarot_dx.c_temperance_dx = {
-        name = "Temperance DX",
-        text = {
-            "Gives double the total sell",
-            "value of all current",
-            "Jokers {C:inactive}(Max of {C:money}$#1#{C:inactive})",
-            "{C:inactive}(Currently {C:money}$#2#{C:inactive})"
-        }
-    }
-    G.localization.descriptions.Tarot_dx.c_devil_dx = {
-        name = "The Devil DX",
-        text = {
-            "Enhances {C:attention}#1#{} selected",
-            "card into",
-            "{C:attention}#2#s"
-        }
-    }
-    G.localization.descriptions.Tarot_dx.c_tower_dx = {
-        name = "The Tower DX",
-        text = {
-            "Enhances {C:attention}#1#{} selected",
-            "card into",
-            "{C:attention}#2#s"
-        }
-    }
-    G.localization.descriptions.Tarot_dx.c_star_dx = {
-        name = "The Star DX",
-        text = {
-            "Converts up to",
-            "{C:attention}#1#{} selected cards",
-            "to {V:1}#2#{}"
-        }
-    }
-    G.localization.descriptions.Tarot_dx.c_moon_dx = {
-        name = "The Moon DX",
-        text = {
-            "Converts up to",
-            "{C:attention}#1#{} selected cards",
-            "to {V:1}#2#{}"
-        }
-    }
-    G.localization.descriptions.Tarot_dx.c_sun_dx = {
-        name = "The Sun DX",
-        text = {
-            "Converts up to",
-            "{C:attention}#1#{} selected cards",
-            "to {V:1}#2#{}"
-        }
-    }
-    G.localization.descriptions.Tarot_dx.c_judgement_dx = {
-        name = "Judgement DX",
-        text = {
-            "Creates a random",
-            "{C:green}uncommon{} {C:attention}Joker{} card",
-            "{C:inactive}(Must have room)"
-        }
-    }
-    G.localization.descriptions.Tarot_dx.c_world_dx = {
-        name = "The World DX",
-        text = {
-            "Converts up to",
-            "{C:attention}#1#{} selected cards",
-            "to {V:1}#2#{}"
-        }
-    }
-end
-
 local function setUpLocalizationTarotCU()
     
     G.localization.descriptions.Tarot_cu = {}
 
-    G.localization.descriptions.Tarot_cu.c_fool_cu = {
-        name = "The Cursed Fool",
-        text = {
-            "{C:dark_edition}+1{} consumable slot.",
-            "Creates 2 copies of",
-            "{C:tarot}The Fool{} {C:dark_edition}DX{}",
-            "{C:inactive}(Must have room)"
-        }
-    }
-    G.localization.descriptions.Tarot_cu.c_magician_cu = {
-        name = "The Cursed Magician",
-        text = {
-            "Permanently doubles all listed",
-            "{C:green}probabilities{}. Creates a",
-            "copy of {C:tarot}The Magician{} {C:dark_edition}DX{}",
-            "{C:inactive}(Must have room)"
-        }
-    }
-    G.localization.descriptions.Tarot_cu.c_high_priestess_cu = {
-        name = "The Cursed High Priestess",
-        text = {
-            "{C:planet}Planet{} cards are {C:attention}#1# times{}",
-            "more likely to be {C:dark_edition}Foil{},",
-            "{C:dark_edition}Holographic{}, or {C:dark_edition}Polychrome{}.",
-            "Creates up to two {C:planet}Planet{} {C:dark_edition}DX{}",
-            "{C:inactive}(Must have room)"
-        }
-    }
-    G.localization.descriptions.Tarot_cu.c_empress_cu = {
-        name = "The Empress DX",
-        text = {
-            "Permanently increases",
-            "{C:attention}#2#{} bonus to",
-            "{C:red}+#1#{} Mult. Creates a",
-            "copy of {C:tarot}The Empress{} {C:dark_edition}DX{}",
-            "{C:inactive}(Must have room)"
-        }
-    }
-    G.localization.descriptions.Tarot_cu.c_emperor_cu = {
-        name = "The Cursed Emperor",
-        text = {
-            "Creates {C:attention}#1#{} random",
-            "{C:dark_edition}negative DX{} {C:tarot}Tarot{} cards"
-        }
-    }
-    G.localization.descriptions.Tarot_cu.c_heirophant_cu = {
-        name = "The Cursed Hierophant",
-        text = {
-            "Permanently increases",
-            "{C:attention}#2#{} bonus to",
-            "{C:blue}+#1#{} extra chips. Creates a",
-            "copy of {C:tarot}The Hierophant{} {C:dark_edition}DX{}",
-            "{C:inactive}(Must have room)"
-        }
-    }
-    G.localization.descriptions.Tarot_cu.c_lovers_cu = {
-        name = "The Cursed Lovers",
-        text = {
-            "{C:attention}#1#s{} now copy the",
-            "rank of the card to their {C:attention}left{}",
-            "{C:inactive}(Drag to rearrange)",
-            "Creates a copy of",
-            "{C:tarot}The Lovers{} {C:dark_edition}DX{}",
-            "{C:inactive}(Must have room)"
-        }
-    }
-    G.localization.descriptions.Tarot_cu.c_chariot_cu = {
-        name = "The Cursed Chariot",
-        text = {
-            "Permanently increases",
-            "{C:attention}#2#{} bonus to",
-            "{X:red,C:white} X#1# {} Mult. Creates a",
-            "copy of {C:tarot}The Chariot{} {C:dark_edition}DX{}",
-            "{C:inactive}(Must have room)"
-        }
-    }
-    G.localization.descriptions.Tarot_cu.c_justice_cu = {
-        name = "Cursed Justice",
-        text = {
-            "Permanently increases",
-            "{C:attention}#2#{} bonus to",
-            "{X:red,C:white} X#1# {} Mult. Creates a",
-            "copy of {C:tarot}Justice {C:dark_edition}DX{}",
-            "{C:inactive}(Must have room)"
-        }
-    }
-    G.localization.descriptions.Tarot_cu.c_hermit_cu = {
-        name = "The Cursed Hermit",
-        text = {
-            "Gives {C:money}$#1#{}"
-        }
-    }
-    G.localization.descriptions.Tarot_cu.c_wheel_of_fortune_cu = {
-        name = "The Cursed Wheel of Fortune",
-        text = {
-            "Add {C:dark_edition}Foil{}, {C:dark_edition}Holographic{}, or",
-            "{C:dark_edition}Polychrome{} edition",
-            "to a random {C:attention}Jokers{}",
-            "{C:green}#1# in #2#{} chance to repeat once"
-        }
-    }
-    G.localization.descriptions.Tarot_cu.c_strength_cu = {
-        name = "Cursed Strength",
-        text = {
-            "Select up to {C:attention}#1#{} cards,",
-            "rank up {C:attention}all cards{} matching",
-            "{C:attention}selected ranks{}"
-        }
-    }
-    G.localization.descriptions.Tarot_cu.c_hanged_man_cu = {
-        name = "The Cursed Hanged Man",
-        text = {
-            "Select up to {C:attention}#1#{} cards,",
-            "destroys {C:attention}all cards{} matching",
-            "{C:attention}selected ranks{}"
-        }
-    }
-    G.localization.descriptions.Tarot_cu.c_death_cu = {
-        name = "Cursed Death",
-        text = {
-            "Select {C:attention}#1#{} cards,",
-            "convert the {C:attention}left{} cards",
-            "into the {C:attention}right{} card",
-            "{C:inactive}(Drag to rearrange)",
-            "Creates two copies",
-            "of {C:tarot}Death{} {C:dark_edition}DX{}",
-            "{C:inactive}(Must have room)"
-        }
-    }
-    G.localization.descriptions.Tarot_cu.c_temperance_cu = {
-        name = "Cursed Temperance",
-        text = {
-            "Gives {C:money}$10{} per",
-            "current Joker",
-            "{C:inactive}(Max of {C:money}$#1#{C:inactive})",
-            "{C:inactive}(Currently {C:money}$#2#{C:inactive})"
-        }
-    }
-    G.localization.descriptions.Tarot_cu.c_devil_cu = {
-        name = "The Cursed Devil",
-        text = {
-            "Permanently increases",
-            "{C:attention}#2#{} gold gain to",
-            "{C:money}$#1#{}. Creates a",
-            "copy of {C:tarot}The Devil{} {C:dark_edition}DX{}",
-            "{C:inactive}(Must have room)"
-        }
-    }
     G.localization.descriptions.Tarot_cu.c_tower_cu = {
         name = "The Cursed Tower",
         text = {
@@ -995,25 +652,30 @@ local function setUpDX()
     setup_consumables()
 
     -- Localizations
-    setUpLocalizationTarotDX()
     setUpLocalizationTarotCU()
     setUpLocalizationPlanetDX()
     setUpLocalizationSpectralDX()
     setUpLocalizationBoosterDX()
     setUpLocalizationEnhanced()
-    G.localization.descriptions.Other.dx = {
-        name = "Deluxe Version",
-        text = {
-            "Enhanced effect",
+    --G.localization.descriptions.Other.dx = {
+    --    name = "Deluxe Version",
+    --    text = {
+    --        "Enhanced effect",
+    --    }
+    --}
+    
+    unique_info =  {
+        label = "Unique",
+        description = {
+            name = "Unique",
+            text = {
+                "Cannot be pulled",
+                "again this run"
+            }
         }
     }
-    G.localization.descriptions.Other.unique = {
-        name = "Unique",
-        text = {
-            "Cannot be pulled",
-            "again this run"
-        }
-    }
+    SMODS.process_loc_text(G.localization.descriptions.Other, 'unique', unique_info.description)
+
     G.localization.misc.labels['tarot_dx'] = "Tarot DX"
     G.localization.misc.labels['planet_dx'] = "Planet DX"
     G.localization.misc.labels['spectral_dx'] = "Spectral DX"
@@ -1061,9 +723,16 @@ local function setUpDX()
 end
 
 -- Should be called after everithing was overrided...
-local function loadCursesModule()
+local function loadDXCUModule()
 
-    local js_mod = SMODS.findModByID("JeffDeluxeConsumablesPack")
+    -- Load modules
+    assert(load(NFS.load(js_mod.path .. "source/DX_CU_API.lua")))()
+    assert(load(NFS.load(js_mod.path .. "source/vanilla_dx.lua")))()
+    assert(load(NFS.load(js_mod.path .. "source/vanilla_cu.lua")))()
+
+end
+
+local function loadCursesModule()
 
     -- Load modules
     assert(load(NFS.load(js_mod.path .. "source/curse.lua")))()
@@ -1074,9 +743,8 @@ end
 
 local function loadCodexArcanumModule()
 
-    if SMODS.findModByID("CodexArcanum") then
-        local js_mod = SMODS.findModByID("JeffDeluxeConsumablesPack")
-
+    if SMODS.Mods and SMODS.Mods['CodexArcanum'] then
+        
         -- Load modules
         assert(load(love.filesystem.read(js_mod.path .. "source/alchemical_dx.lua")))()
         
@@ -1087,9 +755,8 @@ end
 
 local function loadBuncoModule()
 
-    if SMODS.findModByID("Bunco") then
-        local js_mod = SMODS.findModByID("JeffDeluxeConsumablesPack")
-
+    if SMODS.Mods and SMODS.Mods['Bunco'] then
+        
         -- Load modules
         assert(load(NFS.load(js_mod.path .. "source/bunco_dx.lua")))()
         
@@ -1103,30 +770,6 @@ end
 local function overrides()
 
     ---------- game ----------
-
-    local Game_init_item_prototypes_ref = Game.init_item_prototypes
-    function Game.init_item_prototypes(self)
-
-        Game_init_item_prototypes_ref(self)
-        
-        setUpDX()
-        setup_curses()
-
-        if SMODS.findModByID("CodexArcanum") then
-            CodexArcanum.LoadDX()
-        end
-        
-        init_localization()
-    end
-
-    -- Track cursed tarots usage
-    local Game_init_game_object_ref = Game.init_game_object
-    function Game.init_game_object(self)
-
-        local ret = Game_init_game_object_ref(self)
-        ret.used_cu_augments = {}
-        return ret
-    end
 
     -- Restore vanilla enhancements
     local Game_delete_run_ref = Game.delete_run
@@ -1189,32 +832,6 @@ local function overrides()
             G.P_CENTERS.m_stone.config.bonus = G.P_CENTERS.m_stone.config.bonus + (G.P_CENTERS.c_tower_cu.config.extra * G.GAME.used_cu_augments.c_tower_cu)
         end
     end
-        
-    ---------- misc_functions ----------
-
-    -- Manage consumable usage
-    local set_consumeable_usage_ref = set_consumeable_usage
-    function set_consumeable_usage(card)
-
-        set_consumeable_usage_ref(card)
-
-        -- Last consumable used, set it to vanilla version
-        if card.config.center_key and card.ability.consumeable and (card.config.center.set == 'Tarot' or card.config.center.set == 'Planet') and (card.ability.type == '_dx' or card.ability.type == '_cu') then 
-            G.E_MANAGER:add_event(Event({
-                trigger = 'immediate',
-                func = function()
-                G.E_MANAGER:add_event(Event({
-                    trigger = 'immediate',
-                    func = function()
-                    G.GAME.last_tarot_planet = string.sub(card.config.center_key, 1, -4)
-                        return true
-                    end
-                }))
-                    return true
-                end
-            }))
-        end
-    end
 
     ---------- button_callbacks ----------
 
@@ -1264,7 +881,7 @@ local function overrides()
                         if v.name == 'Black Hole DX' or v.name == 'The Soul DX' or v.name == "Philosopher's Stone DX" then
                             add = false
                         end
-                        if SMODS.Mods and (SMODS.Mods['Bunco'] or {}).can_load and (v.name == 'The Sky DX' or v.name == 'The Abyss DX' or v.name == 'The Cursed Sky' or v.name == 'The Cursed Abyss') then
+                        if SMODS.Mods and SMODS.Mods['Bunco'] and (v.name == 'The Sky DX' or v.name == 'The Abyss DX' or v.name == 'The Cursed Sky' or v.name == 'The Cursed Abyss') then
                             add = exotic_in_pool
                         end
                     end
@@ -1309,7 +926,7 @@ local function overrides()
         local new_forced_key = forced_key
 
         -- Give a chance to the forced planet to be DX
-        if forced_key and _type == 'Planet' and G.GAME.used_vouchers.v_telescope and G.STATE == G.STATES.PLANET_PACK and (pseudorandom('upgrade_card'..G.GAME.round_resets.ante) > math.min(1, math.max(0, 1 - planet_dx_rate))) then
+        if forced_key and _type == 'Planet' and G.GAME.used_vouchers.v_telescope and G.STATE == G.STATES.PLANET_PACK and (pseudorandom('upgrade_card'..G.GAME.round_resets.ante) > math.min(1, math.max(0, 1 - js_config.planet_dx_rate))) then
             -- Check if the DX version exists (needed for mods compatibility)
             local dx_ver = forced_key..'_dx'
             for k, v in pairs(G.P_CENTER_POOLS.Planet_dx) do
@@ -1322,13 +939,13 @@ local function overrides()
 
         if not forced_key then
             -- Change type pseudorandom
-            if new_type == 'Tarot' and (pseudorandom('upgrade_card'..G.GAME.round_resets.ante) > math.min(1, math.max(0, 1 - tarot_dx_rate))) then new_type = "Tarot_dx" end
-            if ((new_type == 'Tarot') or (new_type == 'Tarot_dx')) and (pseudorandom('upgrade_card'..G.GAME.round_resets.ante) > math.min(1, math.max(0, 1 - tarot_cu_rate))) then new_type = "Tarot_cu" end
-            if new_type == 'Planet' and (pseudorandom('upgrade_card'..G.GAME.round_resets.ante) > math.min(1, math.max(0, 1 - planet_dx_rate))) then new_type = "Planet_dx" end
-            if new_type == 'Spectral' and (pseudorandom('upgrade_card'..G.GAME.round_resets.ante) > math.min(1, math.max(0, 1 - spectral_dx_rate))) then new_type = "Spectral_dx" end
+            if new_type == 'Tarot' and (pseudorandom('upgrade_card'..G.GAME.round_resets.ante) > math.min(1, math.max(0, 1 - js_config.tarot_dx_rate))) then new_type = "Tarot_dx" end
+            if ((new_type == 'Tarot') or (new_type == 'Tarot_dx')) and (pseudorandom('upgrade_card'..G.GAME.round_resets.ante) > math.min(1, math.max(0, 1 - js_config.tarot_cu_rate))) then new_type = "Tarot_cu" end
+            if new_type == 'Planet' and (pseudorandom('upgrade_card'..G.GAME.round_resets.ante) > math.min(1, math.max(0, 1 - js_config.planet_dx_rate))) then new_type = "Planet_dx" end
+            if new_type == 'Spectral' and (pseudorandom('upgrade_card'..G.GAME.round_resets.ante) > math.min(1, math.max(0, 1 - js_config.spectral_dx_rate))) then new_type = "Spectral_dx" end
             
-            local alc_mod = alchemical_dx_rate
-            if G.GAME.used_cu_augments and G.GAME.used_cu_augments.c_seeker_cu then alc_mod = alchemical_dx_rate * G.P_CENTERS.c_seeker_cu.config.prob_mult * G.GAME.used_cu_augments.c_seeker_cu end
+            local alc_mod = js_config.alchemical_dx_rate
+            if G.GAME.used_cu_augments and G.GAME.used_cu_augments.c_seeker_cu then alc_mod = js_config.alchemical_dx_rate * G.P_CENTERS.c_seeker_cu.config.prob_mult * G.GAME.used_cu_augments.c_seeker_cu end
             if new_type == 'Alchemical' and (pseudorandom('upgrade_card'..G.GAME.round_resets.ante) > math.min(1, math.max(0, 1 - (alc_mod)))) then new_type = "Alchemical_dx" end
 
             -- If type is set to DX, need to manage soulable option
@@ -1357,12 +974,12 @@ local function overrides()
         local created_card = create_card_ref(new_type, area, legendary, _rarity, skip_materialize, soulable, new_forced_key, key_append)
 
         -- manage unique cards
-        if unique_enabled and created_card.config and created_card.config.center and created_card.config.center.config and created_card.config.center.config.unique and created_card.config.center_key then
-            G.GAME.banned_keys[created_card.config.center_key] = true
+        if js_config.unique_enabled and created_card.config and created_card.config.center and created_card.config.center.unique and created_card.config.center.key then
+            G.GAME.banned_keys[created_card.config.center.key] = true
         end
 
         -- poll planet edition if it is enabled
-        if (planet_edition_enabled and not (SMODS.Mods['aurinko'] or {}).can_load) then
+        if js_config.planet_edition_enabled then
             if (_type == 'Planet' or _type == 'Planet_dx') and created_card.ability.consumeable and created_card.ability.consumeable.hand_type then
                 local mod = math.max(1, 1 + (0.07 * math.min(7, G.GAME.hands[created_card.ability.consumeable.hand_type].level))) or 1
                 if G.GAME.used_cu_augments and G.GAME.used_cu_augments.c_high_priestess_cu then mod = mod * G.P_CENTERS.c_high_priestess_cu.config.prob_mult * G.GAME.used_cu_augments.c_high_priestess_cu end
@@ -1386,7 +1003,7 @@ local function overrides()
     local get_pack_ref = get_pack
     function get_pack(_key, _type)
 
-        if (pseudorandom('dx_booster'..G.GAME.round_resets.ante) > math.min(1, math.max(0, 1 - booster_dx_rate))) then
+        if (pseudorandom('dx_booster'..G.GAME.round_resets.ante) > math.min(1, math.max(0, 1 - js_config.booster_dx_rate))) then
             local cume, it, center = 0, 0, nil
             for k, v in ipairs(G.P_CENTER_POOLS['Booster_dx']) do
                 if (not _type or _type == v.kind) and not G.GAME.banned_keys[v.key] then cume = cume + (v.weight or 1 ) end
@@ -1413,7 +1030,7 @@ local function overrides()
     local level_up_hand_ref = level_up_hand
     function level_up_hand(card, hand, instant, amount)
 
-        if (planet_edition_enabled and not (SMODS.Mods['aurinko'] or {}).can_load) then  -- Overwrite
+        if js_config.planet_edition_enabled then  -- Overwrite
             amount = amount or 1
             G.GAME.hands[hand].level = math.max(0, G.GAME.hands[hand].level + amount)
             G.GAME.hands[hand].mult = math.max(G.GAME.hands[hand].mult + G.GAME.hands[hand].l_mult*(amount), 1)
@@ -1500,7 +1117,7 @@ local function overrides()
                         end
                     end
                     -- Bunco Glitter compat
-                    if SMODS.Mods and (SMODS.Mods['Bunco'] or {}).can_load and card.edition.bunc_glitter then
+                    if SMODS.Mods and SMODS.Mods['Bunco'] and card.edition.bunc_glitter then
                         G.GAME.hands[hand].chips = math.floor(math.max(G.GAME.hands[hand].chips * G.P_CENTERS.e_bunc_glitter.config.Xchips, 0))
                         if not instant then
                             G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0.3, func = function()
@@ -1512,19 +1129,19 @@ local function overrides()
                         end
                     end
                     -- Cryptid Mosaic compat
-                    if SMODS.Mods and (SMODS.Mods['Cryptid'] or {}).can_load and card.edition.cry_mosaic then
-                        G.GAME.hands[hand].chips = math.floor(math.max(G.GAME.hands[hand].chips * G.P_CENTERS.e_cry_mosaic.config.x_chips, 0))
+                    if SMODS.Mods and SMODS.Mods['Cryptid'] and card.edition.cry_mosaic then
+                        G.GAME.hands[hand].chips = math.floor(math.max(G.GAME.hands[hand].chips * G.P_CENTERS.e_cry_mosaic.config.Xchips, 0))
                         if not instant then
                             G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0.3, func = function()
                                 play_sound('cry_e_mosaic')
                                 card:juice_up(0.8, 0.5)
                                 return true end }))
-                            update_hand_text({delay = 0}, {chips = 'x' .. tostring(G.P_CENTERS.e_cry_mosaic.config.x_chips), StatusText = true})
+                            update_hand_text({delay = 0}, {chips = 'x' .. tostring(G.P_CENTERS.e_cry_mosaic.config.Xchips), StatusText = true})
                             delay(1.3)
                         end
                     end
                     -- Cryptid Oversaturated compat
-                    if SMODS.Mods and (SMODS.Mods['Cryptid'] or {}).can_load and card.edition.cry_oversat then
+                    if SMODS.Mods and SMODS.Mods['Cryptid'] and card.edition.cry_oversat then
                         G.GAME.hands[hand].chips = math.floor(math.max(G.GAME.hands[hand].chips * 2, 0))
                         G.GAME.hands[hand].mult = math.floor(math.max(G.GAME.hands[hand].mult * 2, 1))
                         if not instant then
@@ -1538,19 +1155,19 @@ local function overrides()
                         end
                     end
                     -- Cryptid Astral Compat
-                    if SMODS.Mods and (SMODS.Mods['Cryptid'] or {}).can_load and card.edition.cry_astral then
-                        G.GAME.hands[hand].mult = math.floor(math.max(G.GAME.hands[hand].mult ^ G.P_CENTERS.e_cry_astral.config.e_mult, 1))
+                    if SMODS.Mods and SMODS.Mods['Cryptid'] and card.edition.cry_astral then
+                        G.GAME.hands[hand].mult = math.floor(math.max(G.GAME.hands[hand].mult ^ G.P_CENTERS.e_cry_astral.config.pow_mult, 1))
                         if not instant then
                             G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0.3, func = function()
-                                play_sound('talisman_emult')
+                                play_sound('cry_^Mult')
                                 card:juice_up(0.8, 0.5)
                                 return true end }))
-                            update_hand_text({delay = 0}, {mult = '^' .. tostring(G.P_CENTERS.e_cry_astral.config.e_mult), StatusText = true})
+                            update_hand_text({delay = 0}, {mult = '^' .. tostring(G.P_CENTERS.e_cry_astral.config.pow_mult), StatusText = true})
                             delay(1.3)
                         end
                     end
                     -- Cryptid Glitched compat
-                    if SMODS.Mods and (SMODS.Mods['Cryptid'] or {}).can_load and card.edition.cry_glitched then
+                    if SMODS.Mods and SMODS.Mods['Cryptid'] and card.edition.cry_glitched then
 
                         local bad = (love.math.random(1, 10) / 10)
                         local gud = (love.math.random(11, 100) / 10)
@@ -1581,9 +1198,61 @@ local function overrides()
         end
     end
 
-    -- Manage card UI if DX
+    
+    -- Manage custom badges (unique)
     local generate_card_ui_ref = generate_card_ui
     function generate_card_ui(_c, full_UI_table, specific_vars, card_type, badges, hide_desc, main_start, main_end)
+        
+        local first_pass = not full_UI_table
+        local info_queue = {}
+    
+        -- Add custom badges
+        if first_pass and badges then
+    
+            if _c.unique and js_config.unique_enabled then
+                -- Add the Unique badge
+                badges[#badges + 1] = 'unique'
+            end
+    
+            -- suit buffs
+            if card_type == 'Enhanced' or card_type == 'Default' then
+                if specific_vars.suit == 'Diamonds' and G.GAME.used_cu_augments and G.GAME.used_cu_augments.c_star_cu then
+                    badges[#badges + 1] = 'star_bu'
+                elseif specific_vars.suit == 'Clubs' and G.GAME.used_cu_augments and G.GAME.used_cu_augments.c_moon_cu then
+                    badges[#badges + 1] = 'moon_bu'
+                elseif specific_vars.suit == 'Hearts' and G.GAME.used_cu_augments and G.GAME.used_cu_augments.c_sun_cu then
+                    badges[#badges + 1] = 'sun_bu'
+                elseif specific_vars.suit == 'Spades' and G.GAME.used_cu_augments and G.GAME.used_cu_augments.c_world_cu then
+                    badges[#badges + 1] = 'world_bu'
+                end
+                if SMODS.Mods and SMODS.Mods['Bunco'] then
+                    if specific_vars.suit == 'bunc_Fleurons' and G.GAME.used_cu_augments and G.GAME.used_cu_augments.c_bunc_sky_cu then
+                        badges[#badges + 1] = 'sky_bu'
+                    elseif specific_vars.suit == 'bunc_Halberds' and G.GAME.used_cu_augments and G.GAME.used_cu_augments.c_bunc_abyss_cu then
+                        badges[#badges + 1] = 'abyss_bu'
+                    end
+                end
+            end
+        end
+    
+        local ret = generate_card_ui_ref(_c, full_UI_table, specific_vars, card_type, badges, hide_desc, main_start, main_end)
+    
+        -- Add custom badges info
+        if first_pass and badges then
+            for k, v in ipairs(badges) do
+                if v == 'unique' then info_queue[#info_queue+1] = {key = 'unique', set = 'Other'} end
+            end
+            for _, v in ipairs(info_queue) do
+                generate_card_ui(v, ret)
+            end
+        end
+    
+        return ret
+    end
+
+    -- Manage card UI if DX
+    --local generate_card_ui_ref = generate_card_ui
+    function OLD_generate_card_ui(_c, full_UI_table, specific_vars, card_type, badges, hide_desc, main_start, main_end)
         
         local first_pass = not full_UI_table
         local info_queue = {}
@@ -1600,7 +1269,7 @@ local function overrides()
                 badges[#badges + 1] = 'cursed'
             end
 
-            if _c.config.unique and unique_enabled then
+            if _c.config.unique and js_config.unique_enabled then
                 -- Add the Unique badge
                 badges[#badges + 1] = 'unique'
             end
@@ -1615,7 +1284,7 @@ local function overrides()
                 elseif specific_vars.suit == 'Spades' and G.GAME.used_cu_augments and G.GAME.used_cu_augments.c_world_cu then
                     badges[#badges + 1] = 'world_bu'
                 end
-                if SMODS.Mods and (SMODS.Mods['Bunco'] or {}).can_load then
+                if SMODS.Mods and SMODS.Mods['Bunco'] then
                     if specific_vars.suit == 'bunc_Fleurons' and G.GAME.used_cu_augments and G.GAME.used_cu_augments.c_bunc_sky_cu then
                         badges[#badges + 1] = 'sky_bu'
                     elseif specific_vars.suit == 'bunc_Halberds' and G.GAME.used_cu_augments and G.GAME.used_cu_augments.c_bunc_abyss_cu then
@@ -1731,133 +1400,7 @@ local function overrides()
                 }
                 localize{type = 'descriptions', key = _c.key, set = _c.set.._c.config.type, nodes = desc_nodes, vars = loc_vars}
             elseif _c.set == 'Tarot' then
-                if _c.name == "The Fool DX" then
-                    local fool_c = G.GAME.last_tarot_planet and G.P_CENTERS[G.GAME.last_tarot_planet] or nil
-                    local last_tarot_planet = fool_c and localize{type = 'name_text', key = fool_c.key, set = fool_c.set} or localize('k_none')
-                    local colour = (not fool_c or fool_c.name == 'The Fool') and G.C.RED or G.C.GREEN
-                    main_end = {
-                        {n=G.UIT.C, config={align = "bm", padding = 0.02}, nodes={
-                            {n=G.UIT.C, config={align = "m", colour = colour, r = 0.05, padding = 0.05}, nodes={
-                                {n=G.UIT.T, config={text = ' '..last_tarot_planet..' ', colour = G.C.UI.TEXT_LIGHT, scale = 0.3, shadow = true}},
-                            }}
-                        }}
-                    }
-                    loc_vars = {last_tarot_planet}
-                    if not (not fool_c or fool_c.name == 'The Fool') then
-                        info_queue[#info_queue+1] = fool_c
-                    end
-                elseif _c.name == "The Magician DX" then loc_vars = {_c.config.max_highlighted, localize{type = 'name_text', set = 'Enhanced', key = _c.config.mod_conv}}; info_queue[#info_queue+1] = G.P_CENTERS[_c.config.mod_conv]
-                elseif _c.name == "The High Priestess DX" then loc_vars = {_c.config.planets}
-                elseif _c.name == "The Empress DX" then loc_vars = {_c.config.max_highlighted, localize{type = 'name_text', set = 'Enhanced', key = _c.config.mod_conv}}; info_queue[#info_queue+1] = G.P_CENTERS[_c.config.mod_conv]
-                elseif _c.name == "The Emperor DX" then loc_vars = {_c.config.tarots}
-                elseif _c.name == "The Hierophant DX" then loc_vars = {_c.config.max_highlighted, localize{type = 'name_text', set = 'Enhanced', key = _c.config.mod_conv}}; info_queue[#info_queue+1] = G.P_CENTERS[_c.config.mod_conv]
-                elseif _c.name == "The Lovers DX" then loc_vars = {_c.config.max_highlighted, localize{type = 'name_text', set = 'Enhanced', key = _c.config.mod_conv}}; info_queue[#info_queue+1] = G.P_CENTERS[_c.config.mod_conv]
-                elseif _c.name == "The Chariot DX" then loc_vars = {_c.config.max_highlighted, localize{type = 'name_text', set = 'Enhanced', key = _c.config.mod_conv}}; info_queue[#info_queue+1] = G.P_CENTERS[_c.config.mod_conv]
-                elseif _c.name == "Justice DX" then loc_vars = {_c.config.max_highlighted, localize{type = 'name_text', set = 'Enhanced', key = _c.config.mod_conv}}; info_queue[#info_queue+1] = G.P_CENTERS[_c.config.mod_conv]
-                elseif _c.name == "The Hermit DX" then loc_vars = {_c.config.extra}
-                elseif _c.name == "The Wheel of Fortune DX" then loc_vars = {G.GAME.probabilities.normal, _c.config.extra};  info_queue[#info_queue+1] = G.P_CENTERS.e_foil; info_queue[#info_queue+1] = G.P_CENTERS.e_holo; info_queue[#info_queue+1] = G.P_CENTERS.e_polychrome; 
-                elseif _c.name == "Strength DX" then loc_vars = {_c.config.max_highlighted}
-                elseif _c.name == "The Hanged Man DX" then loc_vars = {_c.config.max_highlighted}
-                elseif _c.name == "Death DX" then loc_vars = {_c.config.max_highlighted}
-                elseif _c.name == "Temperance DX" then
-                    local _money = 0
-                    if G.jokers then
-                        for i = 1, #G.jokers.cards do
-                            if G.jokers.cards[i].ability.set == 'Joker' then
-                                _money = _money + G.jokers.cards[i].sell_cost * 2
-                            end
-                        end
-                    end
-                    loc_vars = {_c.config.extra, math.min(_c.config.extra, _money)}
-                elseif _c.name == "The Devil DX" then loc_vars = {_c.config.max_highlighted, localize{type = 'name_text', set = 'Enhanced', key = _c.config.mod_conv}}; info_queue[#info_queue+1] = G.P_CENTERS[_c.config.mod_conv]
-                elseif _c.name == "The Tower DX" then loc_vars = {_c.config.max_highlighted, localize{type = 'name_text', set = 'Enhanced', key = _c.config.mod_conv}}; info_queue[#info_queue+1] = G.P_CENTERS[_c.config.mod_conv]
-                elseif _c.name == "The Star DX" then loc_vars = {_c.config.max_highlighted,  localize(_c.config.suit_conv, 'suits_plural'), colours = {G.C.SUITS[_c.config.suit_conv]}}
-                elseif _c.name == "The Moon DX" then loc_vars = {_c.config.max_highlighted, localize(_c.config.suit_conv, 'suits_plural'), colours = {G.C.SUITS[_c.config.suit_conv]}}
-                elseif _c.name == "The Sun DX" then loc_vars = {_c.config.max_highlighted, localize(_c.config.suit_conv, 'suits_plural'), colours = {G.C.SUITS[_c.config.suit_conv]}}
-                elseif _c.name == "Judgement DX" then
-                elseif _c.name == "The World DX" then loc_vars = {_c.config.max_highlighted, localize(_c.config.suit_conv, 'suits_plural'), colours = {G.C.SUITS[_c.config.suit_conv]}}
-                elseif _c.name == "The Cursed Fool" then
-                    local fool_c = G.P_CENTERS["c_fool_dx"] or nil
-                    local created_card = fool_c and localize{type = 'name_text', key = fool_c.key, set = fool_c.set..fool_c.config.type} or localize('k_none')
-                    loc_vars = {created_card}
-                    if fool_c then
-                        info_queue[#info_queue+1] = fool_c
-                    end
-                elseif _c.name == "The Cursed Magician" then
-                    local fool_c = G.P_CENTERS["c_magician_dx"] or nil
-                    local created_card = fool_c and localize{type = 'name_text', key = fool_c.key, set = fool_c.set..fool_c.config.type} or localize('k_none')
-                    loc_vars = {created_card}
-                    if fool_c then
-                            info_queue[#info_queue+1] = fool_c
-                    end
-                elseif _c.name == "The Cursed High Priestess" then loc_vars = {_c.config.prob_mult * ((G.GAME.used_cu_augments.c_high_priestess_cu or 0) + 1)}; info_queue[#info_queue+1] = G.P_CENTERS.e_foil; info_queue[#info_queue+1] = G.P_CENTERS.e_holo; info_queue[#info_queue+1] = G.P_CENTERS.e_polychrome; 
-                elseif _c.name == "The Cursed Empress" then
-                    local fool_c = G.P_CENTERS["c_empress_dx"] or nil
-                    local created_card = fool_c and localize{type = 'name_text', key = fool_c.key, set = fool_c.set..fool_c.config.type} or localize('k_none')
-                    if fool_c then
-                            info_queue[#info_queue+1] = fool_c
-                    end
-                    loc_vars = {G.P_CENTERS.m_mult.config.mult + _c.config.extra, localize{type = 'name_text', set = 'Enhanced', key = _c.config.mod_conv, created_card}};
-                elseif _c.name == "The Cursed Emperor" then
-                    info_queue[#info_queue+1] = {key = 'e_negative_consumable', set = 'Edition', config = {extra = 1}}
-                    loc_vars = {_c.config.tarots}
-                elseif _c.name == "The Cursed Hierophant" then
-                    local fool_c = G.P_CENTERS["c_heirophant_dx"] or nil
-                    local created_card = fool_c and localize{type = 'name_text', key = fool_c.key, set = fool_c.set..fool_c.config.type} or localize('k_none')
-                    if fool_c then
-                            info_queue[#info_queue+1] = fool_c
-                    end
-                        loc_vars = {G.P_CENTERS.m_bonus.config.bonus + _c.config.extra, localize{type = 'name_text', set = 'Enhanced', key = _c.config.mod_conv}}
-                elseif _c.name == "The Cursed Lovers" then
-                    local fool_c = G.P_CENTERS["c_lovers_dx"] or nil
-                    local created_card = fool_c and localize{type = 'name_text', key = fool_c.key, set = fool_c.set..fool_c.config.type} or localize('k_none')
-                    if fool_c then
-                            info_queue[#info_queue+1] = fool_c
-                    end
-                    loc_vars = {localize{type = 'name_text', set = 'Enhanced', key = _c.config.mod_conv}}
-                elseif _c.name == "The Cursed Chariot" then
-                    local fool_c = G.P_CENTERS["c_chariot_dx"] or nil
-                    local created_card = fool_c and localize{type = 'name_text', key = fool_c.key, set = fool_c.set..fool_c.config.type} or localize('k_none')
-                    if fool_c then
-                            info_queue[#info_queue+1] = fool_c
-                    end
-                    loc_vars = {G.P_CENTERS.m_steel.config.h_x_mult + _c.config.extra, localize{type = 'name_text', set = 'Enhanced', key = _c.config.mod_conv}}
-                elseif _c.name == "Cursed Justice" then
-                    local fool_c = G.P_CENTERS["c_justice_dx"] or nil
-                    local created_card = fool_c and localize{type = 'name_text', key = fool_c.key, set = fool_c.set..fool_c.config.type} or localize('k_none')
-                    if fool_c then
-                            info_queue[#info_queue+1] = fool_c
-                    end
-                    loc_vars = {G.P_CENTERS.m_glass.config.Xmult + _c.config.extra, localize{type = 'name_text', set = 'Enhanced', key = _c.config.mod_conv}}
-                elseif _c.name == "The Cursed Hermit" then loc_vars = {_c.config.extra}
-                elseif _c.name == "The Cursed Wheel of Fortune" then loc_vars = {G.GAME.probabilities.normal, _c.config.extra}; info_queue[#info_queue+1] = G.P_CENTERS.e_foil; info_queue[#info_queue+1] = G.P_CENTERS.e_holo; info_queue[#info_queue+1] = G.P_CENTERS.e_polychrome; 
-                elseif _c.name == "Cursed Strength" then loc_vars = {_c.config.max_highlighted}
-                elseif _c.name == "The Cursed Hanged Man" then loc_vars = {_c.config.max_highlighted}
-                elseif _c.name == "Cursed Death" then
-                    local fool_c = G.P_CENTERS["c_death_dx"] or nil
-                    local created_card = fool_c and localize{type = 'name_text', key = fool_c.key, set = fool_c.set..fool_c.config.type} or localize('k_none')
-                    if fool_c then
-                            info_queue[#info_queue+1] = fool_c
-                    end
-                    loc_vars = {_c.config.max_highlighted}
-                elseif _c.name == "Cursed Temperance" then
-                    local _money = 0
-                    if G.jokers then
-                        for i = 1, #G.jokers.cards do
-                            if G.jokers.cards[i].ability.set == 'Joker' then
-                                _money = _money + 10
-                            end
-                        end
-                    end
-                    loc_vars = {_c.config.extra, math.min(_c.config.extra, _money)}
-                elseif _c.name == "The Cursed Devil" then
-                    local fool_c = G.P_CENTERS["c_devil_dx"] or nil
-                    local created_card = fool_c and localize{type = 'name_text', key = fool_c.key, set = fool_c.set..fool_c.config.type} or localize('k_none')
-                    if fool_c then
-                            info_queue[#info_queue+1] = fool_c
-                    end
-                    loc_vars = {G.P_CENTERS.m_gold.config.h_dollars + _c.config.extra, localize{type = 'name_text', set = 'Enhanced', key = _c.config.mod_conv}}
-                elseif _c.name == "The Cursed Tower" then
+                if _c.name == "The Cursed Tower" then
                     local fool_c = G.P_CENTERS["c_tower_dx"] or nil
                     local created_card = fool_c and localize{type = 'name_text', key = fool_c.key, set = fool_c.set..fool_c.config.type} or localize('k_none')
                     if fool_c then
@@ -1918,8 +1461,8 @@ local function overrides()
                     if v == 'holographic' then info_queue[#info_queue+1] = G.P_CENTERS['e_holo'] end
                     if v == 'polychrome' then info_queue[#info_queue+1] = G.P_CENTERS['e_polychrome'] end
                     if v == 'negative' then info_queue[#info_queue+1] = G.P_CENTERS['e_negative'] end
-                    if SMODS.Mods and (SMODS.Mods['Bunco'] or {}).can_load and v == 'bunc_glitter' then info_queue[#info_queue+1] = G.P_CENTERS['e_bunc_glitter'] end
-                    if SMODS.Mods and (SMODS.Mods['Bunco'] or {}).can_load and v == 'bunc_fluorescent' then info_queue[#info_queue+1] = G.P_CENTERS['e_bunc_fluorescent'] end
+                    if SMODS.Mods and SMODS.Mods['Bunco'] and v == 'bunc_glitter' then info_queue[#info_queue+1] = G.P_CENTERS['e_bunc_glitter'] end
+                    if SMODS.Mods and SMODS.Mods['Bunco'] and v == 'bunc_fluorescent' then info_queue[#info_queue+1] = G.P_CENTERS['e_bunc_fluorescent'] end
                     if v == 'negative_consumable' then info_queue[#info_queue+1] = {key = 'e_negative_consumable', set = 'Edition', config = {extra = 1}} end
                     if v == 'gold_seal' then info_queue[#info_queue+1] = {key = 'gold_seal', set = 'Other'} end
                     if v == 'blue_seal' then info_queue[#info_queue+1] = {key = 'blue_seal', set = 'Other'} end
@@ -1958,7 +1501,7 @@ local function overrides()
         end
     end
 
-    -- Manage Standard Pack UI if DX
+    -- Manage Standard Pack UI if pack size is too high
     local create_UIBox_standard_pack_ref = create_UIBox_standard_pack
     function create_UIBox_standard_pack()
         
@@ -1972,7 +1515,7 @@ local function overrides()
         return ret
     end
 
-    -- Manage Celestial Pack UI if DX
+    -- Manage Celestial Pack UI if pack size is too high
     local create_UIBox_celestial_pack_ref = create_UIBox_celestial_pack
     function create_UIBox_celestial_pack()
         
@@ -2036,10 +1579,10 @@ local function overrides()
                 end
             end
 
-            if SMODS.Mods and (SMODS.Mods['Bunco'] or {}).can_load and AUT.badges and (card.ability.name == 'The Sky DX' or card.ability.name == 'The Abyss DX') then
+            if SMODS.Mods and SMODS.Mods['Bunco'] and AUT.badges and (card.ability.name == 'The Sky DX' or card.ability.name == 'The Abyss DX') then
                 badges[1] = create_badge('Tarot?', card_type_colour, nil, 1.2)
             end
-            if SMODS.Mods and (SMODS.Mods['Bunco'] or {}).can_load and AUT.badges and (card.ability.name == 'Quaoar DX' or card.ability.name == 'Haumea DX'or card.ability.name == 'Sedna DX'or card.ability.name == 'Makemake DX') then
+            if SMODS.Mods and SMODS.Mods['Bunco'] and AUT.badges and (card.ability.name == 'Quaoar DX' or card.ability.name == 'Haumea DX'or card.ability.name == 'Sedna DX'or card.ability.name == 'Makemake DX') then
                 badges[1] = create_badge(localize('k_planet_q') or card_type, card_type_colour, nil, 1.2)
             end
 
@@ -2062,8 +1605,7 @@ local function overrides()
     ---------- Card ----------
 
     -- Manage usage of DX consumables
-    local card_use_consumeable_ref = Card.use_consumeable
-    function Card.use_consumeable(self, area, copier)
+    function OLD_use_consumeable(self, area, copier)
 
         if self.ability.type == '_dx' and self.config.center and self.config.center.atlas == 'Van_dx' then  -- Manage DX
             stop_use()
@@ -2071,7 +1613,7 @@ local function overrides()
             if self.debuff then return nil end
             local used_tarot = copier or self
             
-            if SMODS.Mods and (SMODS.Mods['Bunco'] or {}).can_load and used_tarot.edition then
+            if SMODS.Mods and SMODS.Mods['Bunco'] and used_tarot.edition then
                 if used_tarot.edition.foil then
                     add_tag(Tag('tag_bunc_chips'))
                     play_sound('generic1')
@@ -2101,60 +1643,7 @@ local function overrides()
                     G.E_MANAGER:add_event(Event({trigger = 'after',delay = 0.15,func = function() G.hand.highlighted[i]:flip();play_sound('card1', percent);G.hand.highlighted[i]:juice_up(0.3, 0.3);return true end }))
                 end
                 delay(0.2)
-                if self.ability.name == 'Death DX' then
-                    local rightmost = G.hand.highlighted[1]
-                    for i=1, #G.hand.highlighted do if G.hand.highlighted[i].T.x > rightmost.T.x then rightmost = G.hand.highlighted[i] end end
-                    for i=1, #G.hand.highlighted do
-                        G.E_MANAGER:add_event(Event({trigger = 'after',delay = 0.1,func = function()
-                            if G.hand.highlighted[i] ~= rightmost then
-                                copy_card(rightmost, G.hand.highlighted[i])
-                            end
-                            return true end }))
-                    end  
-                elseif self.ability.name == 'Strength DX' then
-                    for i=1, #G.hand.highlighted do
-                        -- Steamodded stuff...
-                        G.E_MANAGER:add_event(Event({
-                            trigger = 'after',
-                            delay = 0.1,
-                            func = function()
-                                local _card = G.hand.highlighted[i]
-                                local suit_data = SMODS.Suits[_card.base.suit]
-                                local suit_prefix = suit_data.card_key
-                                local rank_data = SMODS.Ranks[_card.base.value]
-                                local behavior = rank_data.strength_effect or { fixed = 1, ignore = false, random = false }
-                                local rank_suffix = ''
-                                if behavior.ignore or not next(rank_data.next) then
-                                    return true
-                                elseif behavior.random then
-                                    -- TODO doesn't respect in_pool
-                                    local r = pseudorandom_element(rank_data.next, pseudoseed('strength'))
-                                    rank_suffix = SMODS.Ranks[r].card_key
-                                else
-                                    local ii = (behavior.fixed and rank_data.next[behavior.fixed]) and behavior.fixed or 1
-                                    rank_suffix = SMODS.Ranks[rank_data.next[ii]].card_key
-                                end
-                                _card:set_base(G.P_CARDS[suit_prefix .. '_' .. rank_suffix])
-                                return true
-                            end
-                        }))
-                        --[[
-                        G.E_MANAGER:add_event(Event({trigger = 'after',delay = 0.1,func = function()
-                            local card = G.hand.highlighted[i]
-                            local suit_prefix = string.sub(card.base.suit, 1, 1)..'_'
-                            local rank_suffix = card.base.id == 14 and 2 or math.min(card.base.id+1, 14)
-                            if rank_suffix < 10 then rank_suffix = tostring(rank_suffix)
-                            elseif rank_suffix == 10 then rank_suffix = 'T'
-                            elseif rank_suffix == 11 then rank_suffix = 'J'
-                            elseif rank_suffix == 12 then rank_suffix = 'Q'
-                            elseif rank_suffix == 13 then rank_suffix = 'K'
-                            elseif rank_suffix == 14 then rank_suffix = 'A'
-                            end
-                            card:set_base(G.P_CARDS[suit_prefix..rank_suffix])
-                        return true end }))
-                        ]]
-                    end  
-                elseif self.ability.consumeable.suit_conv then
+                if self.ability.consumeable.suit_conv then
                     for i=1, #G.hand.highlighted do
                         G.E_MANAGER:add_event(Event({trigger = 'after',delay = 0.1,func = function() G.hand.highlighted[i]:change_suit(self.ability.consumeable.suit_conv);return true end }))
                     end    
@@ -2189,7 +1678,7 @@ local function overrides()
                     G.TAROT_INTERRUPT_PULSE = nil
                     return true end }))
                 update_hand_text({sound = 'button', volume = 0.7, pitch = 0.9, delay = 0}, {level='+3'})
-                if (planet_edition_enabled and not (SMODS.Mods['aurinko'] or {}).can_load) and self.edition then
+                if js_config.planet_edition_enabled and self.edition then
                     if self.edition.holo then
                         G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0.9, func = function()
                             play_sound('holo1')
@@ -2212,7 +1701,7 @@ local function overrides()
                             update_hand_text({delay = 0}, {mult = 'x' .. tostring(G.P_CENTERS.e_polychrome.config.extra), StatusText = true})
                     end
                     -- Bunco Glitter compat
-                    if SMODS.Mods and (SMODS.Mods['Bunco'] or {}).can_load and self.edition.bunc_glitter then
+                    if SMODS.Mods and SMODS.Mods['Bunco'] and self.edition.bunc_glitter then
                         G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0.3, func = function()
                             play_sound('bunc_glitter')
                             self:juice_up(0.8, 0.5)
@@ -2220,15 +1709,15 @@ local function overrides()
                         update_hand_text({delay = 0}, {chips = 'x' .. tostring(G.P_CENTERS.e_bunc_glitter.config.Xchips), StatusText = true})
                     end
                     -- Cryptid Mosaic compat
-                    if SMODS.Mods and (SMODS.Mods['Cryptid'] or {}).can_load and self.edition.cry_mosaic then
+                    if SMODS.Mods and SMODS.Mods['Cryptid'] and self.edition.cry_mosaic then
                         G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0.3, func = function()
                             play_sound('cry_e_mosaic')
                             self:juice_up(0.8, 0.5)
                             return true end }))
-                        update_hand_text({delay = 0}, {chips = 'x' .. tostring(G.P_CENTERS.e_cry_mosaic.config.x_chips), StatusText = true})
+                        update_hand_text({delay = 0}, {chips = 'x' .. tostring(G.P_CENTERS.e_cry_mosaic.config.Xchips), StatusText = true})
                     end
                     -- Cryptid Oversaturated compat
-                    if SMODS.Mods and (SMODS.Mods['Cryptid'] or {}).can_load and self.edition.cry_oversat then
+                    if SMODS.Mods and SMODS.Mods['Cryptid'] and self.edition.cry_oversat then
                         G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0.3, func = function()
                             play_sound('cry_e_oversaturated')
                             self:juice_up(0.8, 0.5)
@@ -2237,15 +1726,15 @@ local function overrides()
                         update_hand_text({delay = 0}, {mult = 'x2', StatusText = true})
                     end
                     -- Cryptid Astral Compat
-                    if SMODS.Mods and (SMODS.Mods['Cryptid'] or {}).can_load and self.edition.cry_astral then
+                    if SMODS.Mods and SMODS.Mods['Cryptid'] and self.edition.cry_astral then
                         G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0.3, func = function()
-                            play_sound('talisman_emult')
+                            play_sound('cry_^Mult')
                             self:juice_up(0.8, 0.5)
                             return true end }))
-                        update_hand_text({delay = 0}, {mult = '^' .. tostring(G.P_CENTERS.e_cry_astral.config.e_mult), StatusText = true})
+                        update_hand_text({delay = 0}, {mult = '^' .. tostring(G.P_CENTERS.e_cry_astral.config.pow_mult), StatusText = true})
                     end
                     -- Cryptid Glitched compat
-                    if SMODS.Mods and (SMODS.Mods['Cryptid'] or {}).can_load and self.edition.cry_glitched then
+                    if SMODS.Mods and SMODS.Mods['Cryptid'] and self.edition.cry_glitched then
                         G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0.3, func = function()
                             play_sound('cry_e_glitched')
                             self:juice_up(0.8, 0.5)
@@ -2367,28 +1856,7 @@ local function overrides()
             end
             if self.ability.consumeable.remove_card then
                 local destroyed_cards = {}
-                if self.ability.name == 'The Hanged Man DX' then
-                    for i=#G.hand.highlighted, 1, -1 do
-                        destroyed_cards[#destroyed_cards+1] = G.hand.highlighted[i]
-                    end
-                    G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0.4, func = function()
-                        play_sound('tarot1')
-                        used_tarot:juice_up(0.3, 0.5)
-                        return true end }))
-                    G.E_MANAGER:add_event(Event({
-                        trigger = 'after',
-                        delay = 0.2,
-                        func = function() 
-                            for i=#G.hand.highlighted, 1, -1 do
-                                local card = G.hand.highlighted[i]
-                                if card.ability.name == 'Glass Card' then 
-                                    card:shatter()
-                                else
-                                    card:start_dissolve(nil, i == #G.hand.highlighted)
-                                end
-                            end
-                            return true end }))
-                elseif self.ability.name == 'Familiar DX' or self.ability.name == 'Grim DX' or self.ability.name == 'Incantation DX' then
+                if self.ability.name == 'Familiar DX' or self.ability.name == 'Grim DX' or self.ability.name == 'Incantation DX' then
                     for i=#G.hand.highlighted, 1, -1 do
                         destroyed_cards[#destroyed_cards+1] = G.hand.highlighted[i]
                     end
@@ -2468,63 +1936,6 @@ local function overrides()
                     G.jokers.cards[i]:calculate_joker({remove_playing_cards = true, removed = destroyed_cards})
                 end
             end
-            if self.ability.name == 'The Fool DX' then
-                G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0.4, func = function()
-                    if G.consumeables.config.card_limit > #G.consumeables.cards then
-                        play_sound('timpani')
-                        local card = create_card('Tarot_Planet', G.consumeables, nil, nil, nil, nil, G.GAME.last_tarot_planet, 'fool')
-                        card:add_to_deck()
-                        G.consumeables:emplace(card)
-                        if G.consumeables.config.card_limit > #G.consumeables.cards then 
-                            card = create_card('Tarot_Planet', G.consumeables, nil, nil, nil, nil, G.GAME.last_tarot_planet, 'fool')
-                            card:add_to_deck()
-                            G.consumeables:emplace(card)
-                        end
-                        used_tarot:juice_up(0.3, 0.5)
-                    end
-                    return true end }))
-            end
-            if self.ability.name == 'The Hermit DX' then
-                G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0.4, func = function()
-                    play_sound('timpani')
-                    used_tarot:juice_up(0.3, 0.5)
-                    ease_dollars(math.max(0,math.min(G.GAME.dollars * 2, self.ability.extra)), true)
-                    return true end }))
-                delay(0.6)
-            end
-            if self.ability.name == 'Temperance DX' then
-                G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0.4, func = function()
-                    play_sound('timpani')
-                    used_tarot:juice_up(0.3, 0.5)
-                    ease_dollars(self.ability.money, true)
-                    return true end }))
-                delay(0.6)
-            end
-            if self.ability.name == 'The Emperor DX' or self.ability.name == 'The High Priestess DX' then
-                for i = 1, math.min((self.ability.consumeable.tarots or self.ability.consumeable.planets), G.consumeables.config.card_limit - #G.consumeables.cards) do
-                    G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0.4, func = function()
-                        if G.consumeables.config.card_limit > #G.consumeables.cards then
-                            play_sound('timpani')
-                            local card = create_card((self.ability.name == 'The Emperor DX' and 'Tarot_dx') or (self.ability.name == 'The High Priestess DX' and 'Planet_dx'), G.consumeables, nil, nil, nil, nil, nil, (self.ability.name == 'The Emperor DX' and 'emp') or (self.ability.name == 'The High Priestess DX' and 'pri'))
-                            card:add_to_deck()
-                            G.consumeables:emplace(card)
-                            used_tarot:juice_up(0.3, 0.5)
-                        end
-                        return true end }))
-                end
-                delay(0.6)
-            end
-            if self.ability.name == 'Judgement DX' then
-                G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0.4, func = function()
-                    play_sound('timpani')
-                    local rarity = 0.8
-                    local card = create_card('Joker', G.jokers, false, rarity, nil, nil, nil, 'jud')
-                    card:add_to_deck()
-                    G.jokers:emplace(card)
-                    used_tarot:juice_up(0.3, 0.5)
-                    return true end }))
-                delay(0.6)
-            end
             if self.ability.name == 'The Soul DX' then
                 G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0.4, func = function()
                     play_sound('timpani')
@@ -2560,7 +1971,7 @@ local function overrides()
                     return true end }))
                 delay(0.6)
             end
-            if self.ability.name == 'The Wheel of Fortune DX' or self.ability.name == 'Ectoplasm DX' or self.ability.name == 'Hex DX' then
+            if self.ability.name == 'Ectoplasm DX' or self.ability.name == 'Hex DX' then
                 local temp_pool = (self.ability.name == 'The Wheel of Fortune DX' and self.eligible_strength_jokers) or 
                                     ((self.ability.name == 'Ectoplasm DX' or self.ability.name == 'Hex DX') and self.eligible_editionless_jokers) or {}
                 if self.ability.name == 'Ectoplasm DX' or self.ability.name == 'Hex DX' or pseudorandom('wheel_of_fortune') < G.GAME.probabilities.normal/self.ability.extra then 
@@ -2607,13 +2018,13 @@ local function overrides()
                 end
                 delay(0.6)
             end
-        elseif self.ability.name == 'Black Hole' and (planet_edition_enabled and not (SMODS.Mods['aurinko'] or {}).can_load) then    -- Manage Black Hole if planet editions is enabled
+        elseif self.ability.name == 'Black Hole' and js_config.planet_edition_enabled then    -- Manage Black Hole if planet editions is enabled
             stop_use()
             if not copier then set_consumeable_usage(self) end
             if self.debuff then return nil end
             local used_tarot = copier or self
             
-            if SMODS.Mods and (SMODS.Mods['Bunco'] or {}).can_load and used_tarot.edition then
+            if SMODS.Mods and SMODS.Mods['Bunco'] and used_tarot.edition then
                 if used_tarot.edition.foil then
                     add_tag(Tag('tag_bunc_chips'))
                     play_sound('generic1')
@@ -2674,7 +2085,7 @@ local function overrides()
                         update_hand_text({delay = 0}, {mult = 'x' .. tostring(G.P_CENTERS.e_polychrome.config.extra), StatusText = true})
                 end
                 -- Bunco Glitter compat
-                if SMODS.Mods and (SMODS.Mods['Bunco'] or {}).can_load and self.edition.bunc_glitter then
+                if SMODS.Mods and SMODS.Mods['Bunco'] and self.edition.bunc_glitter then
                     G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0.3, func = function()
                         play_sound('bunc_glitter')
                         self:juice_up(0.8, 0.5)
@@ -2682,15 +2093,15 @@ local function overrides()
                     update_hand_text({delay = 0}, {chips = 'x' .. tostring(G.P_CENTERS.e_bunc_glitter.config.Xchips), StatusText = true})
                 end
                 -- Cryptid Mosaic compat
-                if SMODS.Mods and (SMODS.Mods['Cryptid'] or {}).can_load and self.edition.cry_mosaic then
+                if SMODS.Mods and SMODS.Mods['Cryptid'] and self.edition.cry_mosaic then
                     G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0.3, func = function()
                         play_sound('cry_e_mosaic')
                         self:juice_up(0.8, 0.5)
                         return true end }))
-                    update_hand_text({delay = 0}, {chips = 'x' .. tostring(G.P_CENTERS.e_cry_mosaic.config.x_chips), StatusText = true})
+                    update_hand_text({delay = 0}, {chips = 'x' .. tostring(G.P_CENTERS.e_cry_mosaic.config.Xchips), StatusText = true})
                 end
                 -- Cryptid Oversaturated compat
-                if SMODS.Mods and (SMODS.Mods['Cryptid'] or {}).can_load and self.edition.cry_oversat then
+                if SMODS.Mods and SMODS.Mods['Cryptid'] and self.edition.cry_oversat then
                     G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0.3, func = function()
                         play_sound('cry_e_oversaturated')
                         self:juice_up(0.8, 0.5)
@@ -2699,15 +2110,15 @@ local function overrides()
                     update_hand_text({delay = 0}, {mult = 'x2', StatusText = true})
                 end
                 -- Cryptid Astral Compat
-                if SMODS.Mods and (SMODS.Mods['Cryptid'] or {}).can_load and self.edition.cry_astral then
+                if SMODS.Mods and SMODS.Mods['Cryptid'] and self.edition.cry_astral then
                     G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0.3, func = function()
-                        play_sound('talisman_emult')
+                        play_sound('cry_^Mult')
                         self:juice_up(0.8, 0.5)
                         return true end }))
-                    update_hand_text({delay = 0}, {mult = '^' .. tostring(G.P_CENTERS.e_cry_astral.config.e_mult), StatusText = true})
+                    update_hand_text({delay = 0}, {mult = '^' .. tostring(G.P_CENTERS.e_cry_astral.config.pow_mult), StatusText = true})
                 end
                 -- Cryptid Glitched compat
-                if SMODS.Mods and (SMODS.Mods['Cryptid'] or {}).can_load and self.edition.cry_glitched then
+                if SMODS.Mods and SMODS.Mods['Cryptid'] and self.edition.cry_glitched then
                     G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0.3, func = function()
                         play_sound('cry_e_glitched')
                         self:juice_up(0.8, 0.5)
@@ -2729,7 +2140,7 @@ local function overrides()
             if self.debuff then return nil end
             local used_tarot = copier or self
             
-            if SMODS.Mods and (SMODS.Mods['Bunco'] or {}).can_load and used_tarot.edition then
+            if SMODS.Mods and SMODS.Mods['Bunco'] and used_tarot.edition then
                 if used_tarot.edition.foil then
                     add_tag(Tag('tag_bunc_chips'))
                     play_sound('generic1')
@@ -2749,376 +2160,6 @@ local function overrides()
         
             if self.ability.consumeable.max_highlighted then
                 update_hand_text({immediate = true, nopulse = true, delay = 0}, {mult = 0, chips = 0, level = '', handname = ''})
-            end
-
-            if self.ability.name == 'The Cursed Fool' then
-                G.E_MANAGER:add_event(Event({func = function()
-                    G.consumeables.config.card_limit = G.consumeables.config.card_limit + 1
-                    return true end }))
-                G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0.4, func = function()
-                    if G.consumeables.config.card_limit > #G.consumeables.cards then
-                        play_sound('timpani')
-                        local card = create_card('Tarot_dx', G.consumeables, nil, nil, nil, nil, 'c_fool_dx', 'fool')
-                        card:add_to_deck()
-                        G.consumeables:emplace(card)
-                        if G.consumeables.config.card_limit > #G.consumeables.cards then 
-                            local card = create_card('Tarot_dx', G.consumeables, nil, nil, nil, nil, 'c_fool_dx', 'fool')
-                            card:add_to_deck()
-                            G.consumeables:emplace(card)
-                        end
-                        used_tarot:juice_up(0.3, 0.5)
-                    end
-                    return true end }))
-            end
-
-            if self.ability.name == 'The Cursed Magician' then
-                G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0.4, func = function()
-                    if G.consumeables.config.card_limit > #G.consumeables.cards then
-                        play_sound('timpani')
-                        if G.consumeables.config.card_limit > #G.consumeables.cards then 
-                            local card = create_card('Tarot_dx', G.consumeables, nil, nil, nil, nil, 'c_magician_dx', 'magician')
-                            card:add_to_deck()
-                            G.consumeables:emplace(card)
-                        end
-                    end
-                    for k, v in pairs(G.GAME.probabilities) do 
-                        G.GAME.probabilities[k] = v*2
-                    end
-                    used_tarot:juice_up(0.3, 0.5)
-                    return true end }))
-            end
-
-            if self.ability.name == 'The Cursed High Priestess' then
-                for i = 1, math.min(self.ability.consumeable.planets, G.consumeables.config.card_limit - #G.consumeables.cards) do
-                    G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0.4, func = function()
-                        if G.consumeables.config.card_limit > #G.consumeables.cards then
-                            play_sound('timpani')
-                            local card = create_card('Planet_dx', G.consumeables, nil, nil, nil, nil, nil, 'pri')
-                            card:add_to_deck()
-                            G.consumeables:emplace(card)
-                            used_tarot:juice_up(0.3, 0.5)
-                        end
-                    return true end }))
-                end
-                delay(0.6)
-            end
-
-            if self.ability.name == 'The Cursed Empress' then
-                G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0.4, func = function()
-                    if G.consumeables.config.card_limit > #G.consumeables.cards then
-                        play_sound('timpani')
-                        if G.consumeables.config.card_limit > #G.consumeables.cards then 
-                            local card = create_card('Tarot_dx', G.consumeables, nil, nil, nil, nil, 'c_empress_dx', 'empress')
-                            card:add_to_deck()
-                            G.consumeables:emplace(card)
-                        end
-                        G.P_CENTERS.m_mult.config.mult = G.P_CENTERS.m_mult.config.mult + self.ability.extra
-                        for k, v in pairs(G.playing_cards) do
-                            if v.config.center_key == self.ability.consumeable.mod_conv then
-                                v.ability.mult = v.ability.mult + self.ability.extra
-                            end
-                        end
-                        used_tarot:juice_up(0.3, 0.5)
-                    end
-                return true end }))
-            end
-
-            if self.ability.name == 'The Cursed Emperor' then
-                for i = 1, self.ability.consumeable.tarots do
-                    G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0.4, func = function()
-                        play_sound('timpani')
-                        local card = create_card('Tarot_dx', G.consumeables, nil, nil, nil, nil, nil, 'emp')
-                        card:set_edition({negative = true}, true)
-                        card:add_to_deck()
-                        G.consumeables:emplace(card)
-                        used_tarot:juice_up(0.3, 0.5)
-                    return true end }))
-                end
-                delay(0.6)
-            end
-
-            if self.ability.name == 'The Cursed Hierophant' then
-                G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0.4, func = function()
-                    if G.consumeables.config.card_limit > #G.consumeables.cards then
-                        play_sound('timpani')
-                        if G.consumeables.config.card_limit > #G.consumeables.cards then 
-                            local card = create_card('Tarot_dx', G.consumeables, nil, nil, nil, nil, 'c_heirophant_dx', 'heirophant')
-                            card:add_to_deck()
-                            G.consumeables:emplace(card)
-                        end
-                        G.P_CENTERS.m_bonus.config.bonus = G.P_CENTERS.m_bonus.config.bonus + self.ability.extra
-                        for k, v in pairs(G.playing_cards) do
-                            if v.config.center_key == self.ability.consumeable.mod_conv then
-                                v.ability.bonus = v.ability.bonus + self.ability.extra
-                            end
-                        end
-                        used_tarot:juice_up(0.3, 0.5)
-                    end
-                return true end }))
-            end
-
-            if self.ability.name == 'The Cursed Lovers' then
-                G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0.4, func = function()
-                    if G.consumeables.config.card_limit > #G.consumeables.cards then
-                        play_sound('timpani')
-                        if G.consumeables.config.card_limit > #G.consumeables.cards then 
-                            local card = create_card('Tarot_dx', G.consumeables, nil, nil, nil, nil, 'c_lovers_dx', 'lovers')
-                            card:add_to_deck()
-                            G.consumeables:emplace(card)
-                        end
-                        G.localization.descriptions.Enhanced.m_wild = G.localization.descriptions.Enhanced.m_wild_cu
-                        used_tarot:juice_up(0.3, 0.5)
-                    end
-                return true end }))
-            end
-
-            if self.ability.name == 'The Cursed Chariot' then
-                G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0.4, func = function()
-                    if G.consumeables.config.card_limit > #G.consumeables.cards then
-                        play_sound('timpani')
-                        if G.consumeables.config.card_limit > #G.consumeables.cards then 
-                            local card = create_card('Tarot_dx', G.consumeables, nil, nil, nil, nil, 'c_chariot_dx', 'chariot')
-                            card:add_to_deck()
-                            G.consumeables:emplace(card)
-                        end
-                        G.P_CENTERS.m_steel.config.h_x_mult = G.P_CENTERS.m_steel.config.h_x_mult + self.ability.extra
-                        for k, v in pairs(G.playing_cards) do
-                            if v.config.center_key == self.ability.consumeable.mod_conv then
-                                v.ability.h_x_mult = v.ability.h_x_mult + self.ability.extra
-                            end
-                        end
-                        used_tarot:juice_up(0.3, 0.5)
-                    end
-                return true end }))
-            end
-
-            if self.ability.name == 'Cursed Justice' then
-                G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0.4, func = function()
-                    if G.consumeables.config.card_limit > #G.consumeables.cards then
-                        play_sound('timpani')
-                        if G.consumeables.config.card_limit > #G.consumeables.cards then 
-                            local card = create_card('Tarot_dx', G.consumeables, nil, nil, nil, nil, 'c_justice_dx', 'justice')
-                            card:add_to_deck()
-                            G.consumeables:emplace(card)
-                        end
-                        G.P_CENTERS.m_glass.config.Xmult = G.P_CENTERS.m_glass.config.Xmult + self.ability.extra
-                        for k, v in pairs(G.playing_cards) do
-                            if v.config.center_key == self.ability.consumeable.mod_conv then
-                                v.ability.Xmult = v.ability.Xmult + self.ability.extra
-                            end
-                        end
-                        used_tarot:juice_up(0.3, 0.5)
-                    end
-                return true end }))
-            end
-
-            if self.ability.name == 'The Cursed Hermit' then
-                G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0.4, func = function()
-                    play_sound('timpani')
-                    used_tarot:juice_up(0.3, 0.5)
-                    ease_dollars(self.ability.extra, true)
-                    return true end }))
-                delay(0.6)
-            end
-            
-            if self.ability.name == 'The Cursed Wheel of Fortune' then
-                local temp_pool = self.eligible_strength_jokers or {}
-                local temp_pool_count = #temp_pool
-                G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0.4, func = function()
-                    local eligible_card, key = pseudorandom_element(temp_pool, pseudoseed('wheel_of_fortune'))
-                    local edition = poll_edition('wheel_of_fortune', nil, true, true)
-                    eligible_card:set_edition(edition, true)
-                    check_for_unlock({type = 'have_edition'})
-                    used_tarot:juice_up(0.3, 0.5)
-                    temp_pool[key] = nil
-                return true end }))
-                if pseudorandom('wheel_of_fortune') < G.GAME.probabilities.normal/self.ability.extra and temp_pool_count > 1 then 
-                    G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0.4, func = function()
-                        local eligible_card = pseudorandom_element(temp_pool, pseudoseed('wheel_of_fortune'))
-                        local edition = poll_edition('wheel_of_fortune', nil, true, true)
-                        eligible_card:set_edition(edition, true)
-                        check_for_unlock({type = 'have_edition'})
-                        used_tarot:juice_up(0.3, 0.5)
-                    return true end }))
-                else
-                    G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0.4, func = function()
-                        attention_text({
-                            text = localize('k_nope_ex'),
-                            scale = 1.3, 
-                            hold = 1.4,
-                            major = used_tarot,
-                            backdrop_colour = G.C.SECONDARY_SET.Tarot,
-                            align = (G.STATE == G.STATES.TAROT_PACK or G.STATE == G.STATES.SPECTRAL_PACK) and 'tm' or 'cm',
-                            offset = {x = 0, y = (G.STATE == G.STATES.TAROT_PACK or G.STATE == G.STATES.SPECTRAL_PACK) and -0.2 or 0},
-                            silent = true
-                            })
-                            G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0.06*G.SETTINGS.GAMESPEED, blockable = false, blocking = false, func = function()
-                                play_sound('tarot2', 0.76, 0.4);return true end}))
-                            play_sound('tarot2', 1, 0.4)
-                            used_tarot:juice_up(0.3, 0.5)
-                    return true end }))
-                end
-                delay(0.6)
-            end
-
-            if self.ability.name == 'Cursed Strength' then
-                G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0.4, func = function()
-                    play_sound('tarot1')
-                    used_tarot:juice_up(0.3, 0.5)
-                    return true end }))
-                delay(0.2)
-                local selected_ranks = {}
-                local updated_cards_in_hand = {}
-                local l_card = nil
-                for i=1, #G.hand.highlighted do
-                    l_card = G.hand.highlighted[i]
-                    selected_ranks[SMODS.Ranks[l_card.base.value]] = true
-                end 
-                for i=1, #G.hand.cards do
-                    l_card = G.hand.cards[i]
-                    if selected_ranks[SMODS.Ranks[l_card.base.value]] then
-                        updated_cards_in_hand[#updated_cards_in_hand + 1] = G.hand.cards[i]
-                    end
-                end
-                for i=1, #updated_cards_in_hand do
-                    local percent = 1.15 - (i-0.999)/(#updated_cards_in_hand-0.998)*0.3
-                    G.E_MANAGER:add_event(Event({trigger = 'after',delay = 0.15,func = function() updated_cards_in_hand[i]:flip();play_sound('card1', percent);updated_cards_in_hand[i]:juice_up(0.3, 0.3);return true end }))
-                end
-                for i=1, #G.playing_cards do
-                    l_card = G.playing_cards[i]
-                    if selected_ranks[SMODS.Ranks[l_card.base.value]] then
-                        G.E_MANAGER:add_event(Event({
-                            trigger = 'after',
-                            delay = 0.1,
-                            func = function()
-                                local _card = G.playing_cards[i]
-                                local rank_data = SMODS.Ranks[_card.base.value]
-                                local suit_data = SMODS.Suits[_card.base.suit]
-                                local suit_prefix = suit_data.card_key
-                                local behavior = rank_data.strength_effect or { fixed = 1, ignore = false, random = false }
-                                local rank_suffix = ''
-                                if behavior.ignore or not next(rank_data.next) then
-                                    return true
-                                elseif behavior.random then
-                                    -- TODO doesn't respect in_pool
-                                    local r = pseudorandom_element(rank_data.next, pseudoseed('strength'))
-                                    rank_suffix = SMODS.Ranks[r].card_key
-                                else
-                                    local ii = (behavior.fixed and rank_data.next[behavior.fixed]) and behavior.fixed or 1
-                                    rank_suffix = SMODS.Ranks[rank_data.next[ii]].card_key
-                                end
-                                _card:set_base(G.P_CARDS[suit_prefix .. '_' .. rank_suffix])
-                                return true
-                            end
-                        }))
-                    end
-                end
-                for i=1, #updated_cards_in_hand do
-                    local percent = 0.85 + (i-0.999)/(#updated_cards_in_hand-0.998)*0.3
-                    G.E_MANAGER:add_event(Event({trigger = 'after',delay = 0.15,func = function() updated_cards_in_hand[i]:flip();play_sound('tarot2', percent, 0.6);updated_cards_in_hand[i]:juice_up(0.3, 0.3);return true end }))
-                end
-                G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0.2,func = function() G.hand:unhighlight_all(); return true end }))
-                delay(0.5)
-            end
-            
-            if self.ability.name == 'The Cursed Hanged Man' then
-                local selected_ranks = {}
-                local destroyed_cards = {}
-                for i=1, #G.hand.highlighted do
-                    selected_ranks[G.hand.highlighted[i].base.id] = true
-                end 
-                G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0.4, func = function()
-                    play_sound('tarot1')
-                    used_tarot:juice_up(0.3, 0.5)
-                return true end }))
-                G.E_MANAGER:add_event(Event({
-                    trigger = 'after',
-                    delay = 0.2,
-                    func = function() 
-                        for k, v in pairs(G.playing_cards) do
-                            if selected_ranks[v.base.id] then
-                                destroyed_cards[#destroyed_cards+1] = v
-                                if v.ability.name == 'Glass Card' and v.area == G.hand then 
-                                    v:shatter()
-                                else
-                                    v:start_dissolve()
-                                end
-                            end
-                        end
-                        for i = 1, #G.jokers.cards do
-                            G.jokers.cards[i]:calculate_joker({remove_playing_cards = true, removed = destroyed_cards})
-                        end
-                return true end }))
-                delay(0.3)
-            end
-
-            if self.ability.name == 'Cursed Death' then
-                G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0.4, func = function()
-                    play_sound('tarot1')
-                    used_tarot:juice_up(0.3, 0.5)
-                return true end }))
-                for i=1, #G.hand.highlighted do
-                    local percent = 1.15 - (i-0.999)/(#G.hand.highlighted-0.998)*0.3
-                    G.E_MANAGER:add_event(Event({trigger = 'after',delay = 0.15,func = function() G.hand.highlighted[i]:flip();play_sound('card1', percent);G.hand.highlighted[i]:juice_up(0.3, 0.3);return true end }))
-                end
-                delay(0.2)
-                local rightmost = G.hand.highlighted[1]
-                for i=1, #G.hand.highlighted do if G.hand.highlighted[i].T.x > rightmost.T.x then rightmost = G.hand.highlighted[i] end end
-                for i=1, #G.hand.highlighted do
-                    G.E_MANAGER:add_event(Event({trigger = 'after',delay = 0.1,func = function()
-                        if G.hand.highlighted[i] ~= rightmost then
-                            copy_card(rightmost, G.hand.highlighted[i])
-                        end
-                    return true end }))
-                end
-                for i=1, #G.hand.highlighted do
-                    local percent = 0.85 + (i-0.999)/(#G.hand.highlighted-0.998)*0.3
-                    G.E_MANAGER:add_event(Event({trigger = 'after',delay = 0.15,func = function() G.hand.highlighted[i]:flip();play_sound('tarot2', percent, 0.6);G.hand.highlighted[i]:juice_up(0.3, 0.3);return true end }))
-                end
-                for i=1, 2, 1 do
-                    G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0.4, func = function()
-                        if G.consumeables.config.card_limit > #G.consumeables.cards then
-                            play_sound('timpani')
-                            if G.consumeables.config.card_limit > #G.consumeables.cards then 
-                                local card = create_card('Tarot_dx', G.consumeables, nil, nil, nil, nil, 'c_death_dx', 'death')
-                                card:add_to_deck()
-                                G.consumeables:emplace(card)
-                            end
-                            used_tarot:juice_up(0.3, 0.5)
-                        end
-                    return true end }))
-                end
-                G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0.2,func = function() G.hand:unhighlight_all(); return true end }))
-                delay(0.5)
-            end
-            
-            if self.ability.name == 'Cursed Temperance' then
-                G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0.4, func = function()
-                    play_sound('timpani')
-                    used_tarot:juice_up(0.3, 0.5)
-                    ease_dollars(self.ability.money, true)
-                    return true end }))
-                delay(0.6)
-            end
-
-            if self.ability.name == 'The Cursed Devil' then
-                G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0.4, func = function()
-                    if G.consumeables.config.card_limit > #G.consumeables.cards then
-                        play_sound('timpani')
-                        if G.consumeables.config.card_limit > #G.consumeables.cards then 
-                            local card = create_card('Tarot_dx', G.consumeables, nil, nil, nil, nil, 'c_devil_dx', 'devil')
-                            card:add_to_deck()
-                            G.consumeables:emplace(card)
-                        end
-                        G.P_CENTERS.m_gold.config.h_dollars = G.P_CENTERS.m_gold.config.h_dollars + self.ability.extra
-                        for k, v in pairs(G.playing_cards) do
-                            if v.config.center_key == self.ability.consumeable.mod_conv then
-                                v.ability.h_dollars = v.ability.h_dollars + self.ability.extra
-                            end
-                        end
-                        used_tarot:juice_up(0.3, 0.5)
-                    end
-                return true end }))
             end
 
             if self.ability.name == 'The Cursed Tower' then
@@ -3217,8 +2258,8 @@ local function overrides()
     end
 
     -- Check if DX card can be used
-    local card_can_use_consumeable_ref = Card.can_use_consumeable
-    function Card.can_use_consumeable(self, any_state, skip_check)
+    --local card_can_use_consumeable_ref = Card.can_use_consumeable
+    function OLD_can_use_consumeable(self, any_state, skip_check)
 
         if (self.ability.type == '_dx' or self.ability.type == '_cu') and (self.config.center and (self.config.center.atlas == 'Van_dx' or self.config.center.atlas == 'Van_cu')) then
 
@@ -3229,11 +2270,8 @@ local function overrides()
 
             if G.STATE ~= G.STATES.HAND_PLAYED and G.STATE ~= G.STATES.DRAW_TO_HAND and G.STATE ~= G.STATES.PLAY_TAROT or any_state then
 
-                if self.ability.name == 'The Hermit DX' or self.ability.consumeable.hand_type or self.ability.name == 'Temperance DX' or self.ability.name == 'Black Hole DX' or self.ability.name == 'The Soul DX' then
+                if self.ability.consumeable.hand_type or self.ability.name == 'Black Hole DX' or self.ability.name == 'The Soul DX' then
                     return true
-                end
-                if self.ability.name == 'The Wheel of Fortune DX' then 
-                    if next(self.eligible_strength_jokers) then return true end
                 end
                 if self.ability.name == 'Ankh DX' then
                     --if there is at least one joker
@@ -3246,29 +2284,12 @@ local function overrides()
                 if self.ability.name == 'Ectoplasm DX' or self.ability.name == 'Hex DX' then 
                     if next(self.eligible_editionless_jokers) then return true end
                 end
-                if self.ability.name == 'The Emperor DX' or self.ability.name == 'The High Priestess DX'  then 
-                    return true
-                end
-                if self.ability.name == 'The Fool DX' then
-                    if (#G.consumeables.cards < G.consumeables.config.card_limit or self.area == G.consumeables) 
-                        and G.GAME.last_tarot_planet and G.GAME.last_tarot_planet ~= 'c_fool' then return true end
-                end
-                if self.ability.name == 'Judgement DX' or self.ability.name == 'Wraith DX' then
+                if self.ability.name == 'Wraith DX' then
                     if #G.jokers.cards < G.jokers.config.card_limit or self.area == G.jokers then
                         return true
                     else
                         return false
                     end
-                end
-
-                if self.ability.name == 'The Cursed Hermit' or self.ability.name == 'Cursed Temperance' then
-                    return true
-                end
-                if self.ability.name == 'The Cursed Wheel of Fortune' then 
-                    if next(self.eligible_strength_jokers) then return true end
-                end
-                if self.ability.name == 'The Cursed Emperor' or self.ability.name == 'The Cursed High Priestess' then 
-                    return true
                 end
                 if self.ability.name == 'Cursed Judgement' then
                     if #G.jokers.cards < G.jokers.config.card_limit or self.area == G.jokers then
@@ -3276,9 +2297,6 @@ local function overrides()
                     else
                         return false
                     end
-                end
-                if self.ability.name == 'The Cursed Magician' or self.ability.name == 'The Cursed Empress' or self.ability.name == 'The Cursed Hierophant' or self.ability.name == 'The Cursed Lovers' or self.ability.name == 'The Cursed Chariot' or self.ability.name == 'Cursed Justice' or self.ability.name == 'The Cursed Devil' or self.ability.name == 'The Cursed Tower' or self.ability.name == 'The Cursed Moon' or self.ability.name == 'The Cursed Star' or self.ability.name == 'The Cursed Sun' or self.ability.name == 'The Cursed World' or self.ability.name == 'The Cursed Fool' then 
-                    return true
                 end
                 if G.STATE == G.STATES.SELECTING_HAND or G.STATE == G.STATES.TAROT_PACK or G.STATE == G.STATES.SPECTRAL_PACK or G.STATE == G.STATES.PLANET_PACK then
                     if self.ability.consumeable.max_highlighted then
@@ -3456,10 +2474,11 @@ local function overrides()
     function Card.calculate_joker(self, context)
 
         if self.ability.set == "Joker" and not self.debuff then
-            if context.using_consumeable then
-                if self.ability.name == 'Glass Joker' and not context.blueprint and (context.consumeable.ability.name == 'The Hanged Man DX' or context.consumeable.ability.name == 'The Cursed Hanged Man')  then
+            if context.remove_playing_cards then
+                if self.ability.name == 'Glass Joker' and not context.blueprint and (context.name == 'The Hanged Man DX' or context.name == 'The Cursed Hanged Man')  then
                     local shattered_glass = 0
-                    for k, val in ipairs(G.hand.highlighted) do
+                    local destroyed_cards = context.removed or {}
+                    for k, val in ipairs(destroyed_cards) do
                         if val.ability.name == 'Glass Card' then shattered_glass = shattered_glass + 1 end
                     end
                     if shattered_glass > 0 then
@@ -3480,7 +2499,7 @@ local function overrides()
     local card_apply_to_run_ref = Card.apply_to_run
     function Card.apply_to_run(self, center)
 
-        if spectral_on_blank then
+        if js_config.spectral_on_blank then
             local center_table = {
                 name = center and center.name or self and self.ability.name,
                 extra = center and center.config.extra or self and self.ability.extra
@@ -3502,48 +2521,6 @@ local function overrides()
         card_update_ref(self, dt)
 
         if G.STAGE and G.STAGE == G.STAGES.RUN then
-            if self.ability.name == 'Temperance DX' then
-                if G.STAGE == G.STAGES.RUN then
-                    self.ability.money = 0
-                    for i = 1, #G.jokers.cards do
-                        if G.jokers.cards[i].ability.set == 'Joker' then
-                            self.ability.money = self.ability.money + (G.jokers.cards[i].sell_cost * 2)
-                        end
-                    end
-                    self.ability.money = math.min(self.ability.money, self.ability.extra)
-                else
-                    self.ability.money = 0
-                end
-            end
-            if self.ability.name == 'Cursed Temperance' then
-                if G.STAGE == G.STAGES.RUN then
-                    self.ability.money = 0
-                    for i = 1, #G.jokers.cards do
-                        if G.jokers.cards[i].ability.set == 'Joker' then
-                            self.ability.money = self.ability.money + 10
-                        end
-                    end
-                    self.ability.money = math.min(self.ability.money, self.ability.extra)
-                else
-                    self.ability.money = 0
-                end
-            end
-            if self.ability.name == 'The Wheel of Fortune DX' then
-                self.eligible_strength_jokers = EMPTY(self.eligible_strength_jokers)
-                for k, v in pairs(G.jokers.cards) do
-                    if v.ability.set == 'Joker' and (not v.edition) then
-                        table.insert(self.eligible_strength_jokers, v)
-                    end
-                end
-            end
-            if self.ability.name == 'The Cursed Wheel of Fortune' then
-                self.eligible_strength_jokers = EMPTY(self.eligible_strength_jokers)
-                for k, v in pairs(G.jokers.cards) do
-                    if v.ability.set == 'Joker' and (not v.edition) then
-                        table.insert(self.eligible_strength_jokers, v)
-                    end
-                end
-            end
             if self.ability.name == 'Ectoplasm DX' or self.ability.name == 'Hex DX' then
                 self.eligible_editionless_jokers = EMPTY(self.eligible_editionless_jokers)
                 for k, v in pairs(G.jokers.cards) do
@@ -3555,7 +2532,6 @@ local function overrides()
         end
     end
 
-    -- Prevents duplicates between normal and DX version
     -- Saves old curse rolls
     local card_set_ability_ref = Card.set_ability
     function Card.set_ability(self, center, initial, delay_sprites)
@@ -3566,69 +2542,6 @@ local function overrides()
             self.ability.debuff_by_curse_rolls = old_curse_rolls
             if not initial then G.GAME.blind:debuff_card(self) end
         end
-
-        if self.ability and self.ability.consumeable and self.ability.name and self.ability.set then 
-            if self.ability.set == 'Tarot' or self.ability.set == 'Planet' or self.ability.set == 'Spectral' or self.ability.set == 'Booster' or self.ability.set == 'Alchemical' then
-                if not G.OVERLAY_MENU then 
-                    for k, v in pairs(G.P_CENTERS) do
-                        if v.name == self.ability.name then
-                            local normal_k = k
-                            if self.ability.type == '_dx' then
-                                normal_k = string.sub(normal_k, 1, -4)
-                            end
-                            if self.ability.type == '_cu' then
-                                normal_k = string.sub(normal_k, 1, -4)
-                            end
-                            -- Add normal/DX/CU version
-                            G.GAME.used_jokers[normal_k] = true
-                            G.GAME.used_jokers[normal_k..'_dx'] = true
-                            G.GAME.used_jokers[normal_k..'_cu'] = true
-                        end
-                    end
-                end
-            end
-        end
-    end
-
-    -- Prevents duplicates between normal and DX version
-    local card_remove_ref = Card.remove
-    function Card.remove(self)
-
-        if self.ability and self.ability.consumeable and self.ability.name and self.ability.set then 
-            if self.ability.set == 'Tarot' or self.ability.set == 'Planet' or self.ability.set == 'Spectral' or self.ability.set == 'Booster' or self.ability.set == 'Alchemical' then
-                if not G.OVERLAY_MENU then 
-                    for k, v in pairs(G.P_CENTERS) do
-                        if v.name == self.ability.name then
-                            local normal_k = k
-                            if self.ability.type == '_dx' then
-                                normal_k = string.sub(normal_k, 1, -4)
-                            end
-                            if self.ability.type == '_cu' then
-                                normal_k = string.sub(normal_k, 1, -4)
-                            end
-                            local consumeable_exists
-                            for k, v in pairs(G.consumeables.cards) do
-                                if v and type(v) == 'table' and (
-                                    v.config.center.key == normal_k 
-                                    or v.config.center.key == normal_k..'_dx'
-                                    or v.config.center.key == normal_k..'_cu'
-                                ) then
-                                    consumeable_exists = true
-                                end
-                            end
-                            if not consumeable_exists then 
-                                -- Remove normal/DX/CU version
-                                G.GAME.used_jokers[normal_k] = nil
-                                G.GAME.used_jokers[normal_k..'_dx'] = nil
-                                G.GAME.used_jokers[normal_k..'_cu'] = nil
-                            end
-                        end
-                    end
-                end
-            end
-        end
-
-        card_remove_ref(self)
     end
 
     -- Manage Ankh DX
@@ -3671,13 +2584,13 @@ local function overrides()
         if self.area and self.area.config and self.area.config.collection then
             local version = 'van'
             -- Check if this is a DX card
-            if self.ability.type == '_dx' then version = 'dx' end
+            if self.config.center.extra_type == '_dx' then version = 'dx' end
             -- Check if this is a Cursed card
-            if self.ability.type == '_cu' then version = 'cu' end
+            if self.config.center.extra_type == '_cu' then version = 'cu' end
 
             -- Check if a DX version exists
             if version == 'van' and G.P_CENTER_POOLS[self.ability.set..'_dx'] then
-                local dx_ver = self.config.center_key..'_dx'
+                local dx_ver = self.config.center_key..'_dx' --'c_jeff_fool_dx' -- self.config.center_key..'_dx'
                 for k, v in pairs(G.P_CENTER_POOLS[self.ability.set..'_dx']) do
                     if v.key == dx_ver then
                         self:set_ability(G.P_CENTER_POOLS[self.ability.set..'_dx'][k], true)
@@ -3746,7 +2659,7 @@ local function overrides()
             return
         end
         -- Check for bunco suit buff
-        if SMODS.Mods and (SMODS.Mods['Bunco'] or {}).can_load and self.base and self.base.suit and G.GAME.used_cu_augments and ((self.base.suit == 'bunc_Fleurons' and G.GAME.used_cu_augments.c_bunc_sky_cu) or (self.base.suit == 'bunc_Halberds' and G.GAME.used_cu_augments.c_bunc_abyss_cu)) then   -- Overwrite
+        if SMODS.Mods and SMODS.Mods['Bunco'] and self.base and self.base.suit and G.GAME.used_cu_augments and ((self.base.suit == 'bunc_Fleurons' and G.GAME.used_cu_augments.c_bunc_sky_cu) or (self.base.suit == 'bunc_Halberds' and G.GAME.used_cu_augments.c_bunc_abyss_cu)) then   -- Overwrite
             self.debuff = false
             self.ability.debuff_by_curse_rolls = {}
             return
@@ -3767,11 +2680,11 @@ local function overrides()
     end
 
     -- Manage custom sprites
-    local card_set_sprites_ref = Card.set_sprites
-    function Card.set_sprites(self, _center, _front)
+    --local card_set_sprites_ref = Card.set_sprites
+    function OLD_set_sprites(self, _center, _front)
         
         -- Override if DX/CU
-        if _center and _center.set and _center.consumeable and _center.config and (_center.config.type == '_dx' or _center.config.type == '_cu') then 
+        if _center and _center.set and _center.consumeable and _center.extra_type and (_center.extra_type == '_dx' or _center.extra_type == '_cu') then 
             
             if self.children.center then
                 self.children.center.atlas = G.ASSET_ATLAS[_center.atlas or 'centers']
@@ -3822,33 +2735,29 @@ local function overrides()
     end
 end
 
-function SMODS.INIT.JeffDeluxeConsumablesPack()
-    sendDebugMessage("Deluxe Consumables Cards Loaded")
+sendInfoMessage("Deluxe Consumables Cards Loaded", 'DX')
 
-    -- DX/Curses Sprites
+-- DX/Curses Sprites
 
-    local js_mod = SMODS.findModByID("JeffDeluxeConsumablesPack")
-    local sprite_dx = SMODS.Sprite:new("Van_dx", js_mod.path, "Tarots_dx.png", 71, 95, "asset_atli")
-    sprite_dx:register()
-    sprite_dx = SMODS.Sprite:new("Van_cu", js_mod.path, "Tarots_cu.png", 71, 95, "asset_atli")
-    sprite_dx:register()
-    sprite_dx = SMODS.Sprite:new("Van_Booster_dx", js_mod.path, "booster_dx.png", 71, 95, "asset_atli")
-    sprite_dx:register()
+SMODS.Atlas({key = 'Van_dx', path = 'Tarots_dx.png', px = 71, py = 95})
+SMODS.Atlas({key = 'Van_cu', path = 'Tarots_cu.png', px = 71, py = 95})
+SMODS.Atlas({key = 'Van_Booster_dx', path = 'booster_dx.png', px = 71, py = 95})
 
-    setUpDX()
+setUpDX()
 
-    -------------------------------
-    ---------- OVERRIDES ----------
-    -------------------------------
+-------------------------------
+---------- OVERRIDES ----------
+-------------------------------
 
-    -- ORDER IS IMPORTANT !!!
-    loadCodexArcanumModule()
-    loadBuncoModule()
+-- ORDER IS IMPORTANT !!!
+loadCodexArcanumModule()
+loadBuncoModule()
 
-    overrides()
+overrides()
 
-    loadCursesModule()
-end
+loadDXCUModule()
+
+loadCursesModule()
 
 ----------------------------------------------
 ------------MOD CODE END----------------------

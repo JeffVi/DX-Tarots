@@ -598,10 +598,10 @@ local function override()
     function Card.use_consumeable(self, area, copier)
         
         card_use_consumeable_ref(self, area, copier)
-
+        
         -- Create curse if needed
-        if self.config.center.config.nb_curse then
-            for i = 1, self.config.center.config.nb_curse, 1
+        if self.config.center.nb_curse then
+            for i = 1, self.config.center.nb_curse, 1
             do
                 G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0.2, func = function()
                     play_sound('timpani')
