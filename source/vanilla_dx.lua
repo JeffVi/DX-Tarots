@@ -2223,7 +2223,7 @@ SMODS.ConsumableDX{
         }
     },
     pos = {x=2,y=2},
-    --soul_pos = {x=?,y=?}, Need a custom atlas TODO
+    soul_pos = {x=6,y=5},
     config = {},
     cost = 6,
     hidden = true,
