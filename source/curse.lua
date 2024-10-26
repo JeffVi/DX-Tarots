@@ -772,7 +772,7 @@ local function override()
                         if v.ability.hand and v.ability.hand ~= handname and not check then
                             v.triggered = true
                         end
-                        if (not check) and v.ability.hand ~= nil then v.ability.hand = handname end
+                        if (not check) and v.ability.hand == nil then v.ability.hand = handname end
                     end
                     if v.name == 'The Arm' then
                         if G.GAME.hands[handname].level > 1 then
