@@ -44,7 +44,6 @@ SMODS.ConsumableDX = SMODS.Center:extend {
         'key',
     },
     inject = function(self)
-        sendInfoMessage("Injecting "..self.key, 'DX')
         G.P_CENTERS[self.key] = self
         G.P_CENTER_POOLS[self.set..self.extra_type] = G.P_CENTER_POOLS[self.set..self.extra_type] or {}
         SMODS.insert_pool(G.P_CENTER_POOLS[self.set..self.extra_type], self)
@@ -78,7 +77,7 @@ SMODS.ConsumableDX = SMODS.Center:extend {
         return {}
     end,
     set_card_type_badge = function(self, card, badges)
-        badges[#badges+1] = create_badge(dx_locs.dx.label, G.C.DARK_EDITION, nil, 1.2)
+        badges[#badges+1] = create_badge(dx_locs.dx.label, G.C.DARK_EDITION, nil, 1.0)
     end
 }
 
@@ -87,7 +86,6 @@ SMODS.ConsumableCU = SMODS.Center:extend {
     unlocked = true,
     discovered = false,
     consumeable = true,
-    unique = true,
     pos = { x = 0, y = 0 },
     atlas = 'Tarot',
     extra_type = '_cu',
@@ -101,7 +99,6 @@ SMODS.ConsumableCU = SMODS.Center:extend {
         'key',
     },
     inject = function(self)
-        sendInfoMessage("Injecting "..self.key, 'DX')
         G.P_CENTERS[self.key] = self
         G.P_CENTER_POOLS[self.set..self.extra_type] = G.P_CENTER_POOLS[self.set..self.extra_type] or {}
         SMODS.insert_pool(G.P_CENTER_POOLS[self.set..self.extra_type], self)
@@ -135,8 +132,38 @@ SMODS.ConsumableCU = SMODS.Center:extend {
         return {}
     end,
     set_card_type_badge = function(self, card, badges)
-        badges[#badges+1] = create_badge(dx_locs.cursed.label, G.C.BLACK, nil, 1.2)
+        badges[#badges+1] = create_badge(dx_locs.cursed.label, G.C.BLACK, nil, 1.0)
     end
+}
+
+-- DX Boosters
+SMODS.BoosterDX = SMODS.Booster:extend {
+    update_pack = SMODS.Booster.update_pack,
+    --extra_type = '_dx',
+
+    --[[
+    inject = function(self)
+        G.P_CENTER_POOLS['Booster'..self.extra_type] = G.P_CENTER_POOLS['Booster'..self.extra_type] or {}
+        SMODS.insert_pool(G.P_CENTER_POOLS['Booster'..self.extra_type], self)
+        SMODS.Booster.inject(self)
+    end,
+
+    delete = function(self)
+        if self.type and self.type.delete_card and type(self.type.delete_card) == 'function' then
+            SMODS.remove_pool(G.P_CENTER_POOLS['Booster'..self.extra_type], self.key)
+        end
+        SMODS.Booster.delete(self)
+    end,
+    ]]
+
+    set_card_type_badge = function(self, card, badges)
+        badges[1] = create_badge(localize('k_booster'), get_type_colour(self or card.config, card), nil, 1.2)
+        badges[#badges+1] = create_badge("DX Version", G.C.DARK_EDITION, nil, 1.0)
+    end,
+
+    loc_vars = function(self, info_queue, card)
+        return { vars = {self.config.choose, self.config.extra} }
+    end,
 }
 
 
