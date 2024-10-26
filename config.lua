@@ -9,7 +9,6 @@ return {
     booster_dx_rate = 0.1;--0.1             -- (from 0 (0%) to whatever, 1 is similar to vanilla rate)
     planet_edition_enabled = true;     -- Enable/Disable the possibility of planet cards edition (may not be compatible with other mods that overwrite the level_up_hand function)
     spectral_on_blank = true;          -- Enable/Disable spectral rate on blank voucher
-    --unique_enabled = true;             -- Enable/Disable the unique badge management.
 
     -- END CUSTOM CONFIGS
 }

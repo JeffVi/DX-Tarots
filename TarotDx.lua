@@ -970,7 +970,7 @@ local function overrides()
 
         card_click_ref(self)
         -- Check if we are in the collection
-        if self.area and self.area.config and self.area.config.collection then
+        if self.area and self.area.config and self.area.config.collection and self.config.center.discovered then
             local version = 'van'
             -- Check if this is a DX card
             if self.config.center.extra_type == '_dx' then version = 'dx' end
@@ -981,7 +981,7 @@ local function overrides()
             if version == 'van' and G.P_CENTER_POOLS[self.ability.set..'_dx'] then
                 local dx_ver = self.config.center_key..'_dx'
                 for k, v in pairs(G.P_CENTER_POOLS[self.ability.set..'_dx']) do
-                    if v.key == dx_ver then
+                    if v.key == dx_ver and v.discovered then
                         self:set_ability(G.P_CENTER_POOLS[self.ability.set..'_dx'][k], true)
                         version = nil
                         break
@@ -993,7 +993,7 @@ local function overrides()
             if version == 'van' and G.P_CENTER_POOLS[self.ability.set..'_cu'] then
                 local cu_ver = self.config.center_key..'_cu'
                 for k, v in pairs(G.P_CENTER_POOLS[self.ability.set..'_cu']) do
-                    if v.key == cu_ver then
+                    if v.key == cu_ver and v.discovered then
                         self:set_ability(G.P_CENTER_POOLS[self.ability.set..'_cu'][k], true)
                         version = nil
                         break
@@ -1002,7 +1002,7 @@ local function overrides()
             elseif version == 'dx' and G.P_CENTER_POOLS[self.ability.set..'_cu'] then 
                 local cu_ver = string.sub(self.config.center_key, 1, -4)..'_cu'
                 for k, v in pairs(G.P_CENTER_POOLS[self.ability.set..'_cu']) do
-                    if v.key == cu_ver then
+                    if v.key == cu_ver and v.discovered then
                         self:set_ability(G.P_CENTER_POOLS[self.ability.set..'_cu'][k], true)
                         version = nil
                         break
@@ -1014,7 +1014,7 @@ local function overrides()
             if version == 'dx' or version == 'cu' then
                 local van_ver = string.sub(self.config.center_key, 1, -4)
                 for k, v in pairs(G.P_CENTER_POOLS[self.ability.set]) do
-                    if v.key == van_ver then
+                    if v.key == van_ver and v.discovered then
                         self:set_ability(G.P_CENTER_POOLS[self.ability.set][k], true)
                         break
                     end
