@@ -212,11 +212,11 @@ local function overrides()
                         else
                             add = true
                         end
-                        if v.name == 'Black Hole DX' or v.name == 'The Soul DX' or v.name == "Philosopher's Stone DX" then
+                        if v.name == 'c_black_hole_dx' or v.name == 'c_soul_dx' or v.name == "c_philosopher_stone_dx" then
                             add = false
                         end
-                        if SMODS.Mods and (SMODS.Mods['Bunco'] or {}).can_load  and (v.name == 'The Sky DX' or v.name == 'The Abyss DX' or v.name == 'The Cursed Sky' or v.name == 'The Cursed Abyss') then
-                            add = exotic_in_pool
+                        if SMODS.Mods and (SMODS.Mods['Bunco'] or {}).can_load  and (v.name == 'c_bunc_sky_dx' or v.name == 'c_bunc_abyss_dx' or v.name == 'c_bunc_sky_cu' or v.name == 'c_bunc_abyss_cu') then
+                            add = G.GAME and G.GAME.Exotic
                         end
                     end
                 end
