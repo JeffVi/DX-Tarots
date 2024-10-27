@@ -245,7 +245,7 @@ SMODS.ConsumableDX{
         }
     },
     pos = {x=6,y=0},
-    config = {mod_conv = 'm_wild', max_highlighted = 2},
+    config = {mod_conv = 'm_wild', max_highlighted = 4},
 
     set_card_type_badge = function(self, card, badges)
         badges[1] = create_badge(localize('k_tarot'), get_type_colour(self or card.config, card), nil, 1.2)
