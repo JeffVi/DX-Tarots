@@ -481,99 +481,6 @@ local function override()
         end
     end
 
-    -- Manage card UI if Curse/Cursed
-    local generate_card_ui_ref = generate_card_ui
-    function generate_card_ui(_c, full_UI_table, specific_vars, card_type, badges, hide_desc, main_start, main_end)
-        
-        local first_pass = not full_UI_table
-        local info_queue = {}
-        
-        -- Add custom badges
-        if first_pass and badges then
-
-            if _c.set == 'Curse' then
-                -- Add the Curse badge
-                badges[#badges + 1] = 'curse'
-            end
-        end
-
-        if _c.set == 'Curse' then    -- Overwrite
-            -- Just copy-paste for now... TODO
-            if first_pass then 
-                full_UI_table = {
-                    main = {},
-                    info = {},
-                    type = {},
-                    name = nil,
-                    badges = badges or {}
-                }
-            end
-            
-            local desc_nodes = (not full_UI_table.name and full_UI_table.main) or full_UI_table.info
-            local name_override = nil
-
-            if full_UI_table.name then
-                full_UI_table.info[#full_UI_table.info+1] = {}
-                desc_nodes = full_UI_table.info[#full_UI_table.info]
-            end
-
-            if not full_UI_table.name then
-                full_UI_table.name = localize{type = 'name', set = _c.set, key = _c.key, nodes = full_UI_table.name}
-                full_UI_table.card_type = card_type or _c.set
-            end 
-
-            local loc_vars = {}
-            if main_start then 
-                desc_nodes[#desc_nodes+1] = main_start 
-            end
-            
-            localize{type = 'descriptions', key = _c.key, set = 'Curse', nodes = desc_nodes, vars = specific_vars or {}}
-
-            if main_end then 
-                desc_nodes[#desc_nodes+1] = main_end 
-            end
-
-            -- Manage lift condition
-            if _c.config.type == 'curse' then
-                local lifts_c = 0
-                for k, v in ipairs(G.GAME.curses or {}) do
-                    if v.config.type == 'curse' then 
-                        if v.key == _c.key then
-                            lifts_c = v.lifts
-                            break
-                        end
-                    end
-                end
-                if lifts_c < _c.config.lift then info_queue[#info_queue+1] = {key = _c.key, set = 'CurseLiftCondition', vars = {_c.config.lift, lifts_c}}
-                else info_queue[#info_queue+1] = {key = 'liftedCurse', set = 'Other', vars = {_c.config.lift, lifts_c}}
-                end
-            end
-
-            for _, v in ipairs(info_queue) do
-                generate_card_ui(v, full_UI_table)
-            end
-        
-            return full_UI_table
-
-        elseif _c.set == 'CurseLiftCondition' then
-
-            local desc_nodes = (not full_UI_table.name and full_UI_table.main) or full_UI_table.info
-
-            if full_UI_table.name then
-                full_UI_table.info[#full_UI_table.info+1] = {}
-                desc_nodes = full_UI_table.info[#full_UI_table.info]
-            end
-
-            desc_nodes.name = localize{type = 'name_text', key = _c.key, set = 'CurseLiftCondition'}
-            localize{type = 'descriptions', key = _c.key, set = 'CurseLiftCondition', nodes = desc_nodes, vars = _c.vars or {}}
-        
-            return full_UI_table
-        
-        else    -- Do not overwrite
-            return generate_card_ui_ref(_c, full_UI_table, specific_vars, card_type, badges, hide_desc, main_start, main_end)
-        end
-    end
-
     -- Save curses
     local save_run_ref = save_run
     function save_run()
@@ -598,10 +505,10 @@ local function override()
     function Card.use_consumeable(self, area, copier)
         
         card_use_consumeable_ref(self, area, copier)
-
+        
         -- Create curse if needed
-        if self.config.center.config.nb_curse then
-            for i = 1, self.config.center.config.nb_curse, 1
+        if self.config.center.nb_curse then
+            for i = 1, self.config.center.nb_curse, 1
             do
                 G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0.2, func = function()
                     play_sound('timpani')
@@ -772,7 +679,7 @@ local function override()
                         if v.ability.hand and v.ability.hand ~= handname and not check then
                             v.triggered = true
                         end
-                        if (not check) and v.ability.hand ~= nil then v.ability.hand = handname end
+                        if (not check) and v.ability.hand == nil then v.ability.hand = handname end
                     end
                     if v.name == 'The Arm' then
                         if G.GAME.hands[handname].level > 1 then
@@ -1382,7 +1289,7 @@ function Curse:generate_UI(_size)
 
                 self:get_uibox_table(curse_sprite)
                 _self.config.h_popup =  G.UIDEF.card_h_popup(_self)
-                _self.config.h_popup_config ={align = 'cl', offset = {x=-0.1,y=0},parent = _self}
+                _self.config.h_popup_config ={align = 'cl', offset = {x=-0.1,y=0}, parent = _self}
                 Node.hover(_self)
                 if _self.children.alert then 
                     _self.children.alert:remove()
@@ -1560,7 +1467,7 @@ end
 -- Display in collection
 local function create_UIBox_your_collection_curses()
   local curse_matrix = {
-    {},{},{},{},
+    {},{},{},{},{},{},
   }
   local curse_tab = {}
   for k, v in pairs(G.P_CURSES) do
@@ -1572,19 +1479,21 @@ local function create_UIBox_your_collection_curses()
   for k, v in ipairs(curse_tab) do
     local temp_curse = Curse(v.key)
     local temp_curse_ui, temp_curse_sprite = temp_curse:generate_UI()
-    curse_matrix[math.ceil((k-1)/6+0.001)][1+((k-1)%6)] = {n=G.UIT.C, config={align = "cm", padding = 0.1}, nodes={
+    curse_matrix[math.ceil((k-1)/4+0.001)][1+((k-1)%4)] = {n=G.UIT.C, config={align = "cm", padding = 0.2}, nodes={
       temp_curse_ui,
     }}
   end
 
   local t = create_UIBox_generic_options({ back_func = 'your_collection', contents = {
-    {n=G.UIT.C, config={align = "cm", r = 0.1, colour = G.C.BLACK, padding = 0.1, emboss = 0.05}, nodes={
+    {n=G.UIT.C, config={align = "cm", r = 0.2, colour = G.C.BLACK, padding = 0.2, emboss = 0.05}, nodes={
       {n=G.UIT.C, config={align = "cm"}, nodes={
         {n=G.UIT.R, config={align = "cm"}, nodes={
           {n=G.UIT.R, config={align = "cm"}, nodes=curse_matrix[1]},
           {n=G.UIT.R, config={align = "cm"}, nodes=curse_matrix[2]},
           {n=G.UIT.R, config={align = "cm"}, nodes=curse_matrix[3]},
           {n=G.UIT.R, config={align = "cm"}, nodes=curse_matrix[4]},
+          {n=G.UIT.R, config={align = "cm"}, nodes=curse_matrix[5]},
+          {n=G.UIT.R, config={align = "cm"}, nodes=curse_matrix[6]},
         }}
       }} 
     }}  

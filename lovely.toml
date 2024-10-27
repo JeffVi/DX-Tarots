@@ -1,0 +1,77 @@
+[manifest]
+version = "1.0.0"
+dump_lua = true
+priority = 0
+
+### Manage custom badges
+
+# generate_card_ui()
+[[patches]]
+[patches.pattern]
+target = "functions/common_events.lua"
+pattern = "local info_queue = {}"
+match_indent = true
+position = "after"
+payload = '''
+-- Add custom badges
+if first_pass and badges then
+
+    if _c.unique then
+        -- Add the Unique badge
+        badges[#badges + 1] = 'unique'
+        info_queue[#info_queue+1] = {key = 'unique', set = 'Other'}
+    end
+
+    -- suit buffs
+    if card_type == 'Enhanced' or card_type == 'Default' then
+        if specific_vars.suit == 'Diamonds' and G.GAME.used_cu_augments and G.GAME.used_cu_augments.c_star_cu then
+            badges[#badges + 1] = 'star_bu'
+        elseif specific_vars.suit == 'Clubs' and G.GAME.used_cu_augments and G.GAME.used_cu_augments.c_moon_cu then
+            badges[#badges + 1] = 'moon_bu'
+        elseif specific_vars.suit == 'Hearts' and G.GAME.used_cu_augments and G.GAME.used_cu_augments.c_sun_cu then
+            badges[#badges + 1] = 'sun_bu'
+        elseif specific_vars.suit == 'Spades' and G.GAME.used_cu_augments and G.GAME.used_cu_augments.c_world_cu then
+            badges[#badges + 1] = 'world_bu'
+        end
+        if SMODS.Mods and (SMODS.Mods['Bunco'] or {}).can_load then
+            if specific_vars.suit == 'bunc_Fleurons' and G.GAME.used_cu_augments and G.GAME.used_cu_augments.c_bunc_sky_cu then
+                badges[#badges + 1] = 'sky_bu'
+            elseif specific_vars.suit == 'bunc_Halberds' and G.GAME.used_cu_augments and G.GAME.used_cu_augments.c_bunc_abyss_cu then
+                badges[#badges + 1] = 'abyss_bu'
+            end
+        end
+    end
+end'''
+
+
+[[patches]]
+[patches.pattern]
+target = "functions/common_events.lua"
+pattern = "elseif _c.set == 'Tag' then"
+match_indent = true
+position = "before"
+payload = '''
+elseif _c.set == 'Curse' then
+    -- Add the Curse badge
+    badges[#badges + 1] = 'curse'
+    -- Manage lift condition
+    cfg = cfg or _c.config
+    if _c.config.type == 'curse' then
+        local lifts_c = 0
+        for k, v in ipairs(G.GAME.curses or {}) do
+            if v.config.type == 'curse' then 
+                if v.key == _c.key then
+                    lifts_c = v.lifts
+                    break
+                end
+            end
+        end
+        if lifts_c < cfg.lift then info_queue[#info_queue+1] = {key = _c.key, set = 'CurseLiftCondition', vars = {cfg.lift, lifts_c}}
+        else info_queue[#info_queue+1] = {key = 'liftedCurse', set = 'Other', vars = {cfg.lift, lifts_c}}
+        end
+    end
+    localize{type = 'descriptions', key = _c.key, set = 'Curse', nodes = desc_nodes, vars = specific_vars or {}}
+elseif _c.set == 'CurseLiftCondition' then
+    desc_nodes.name = localize{type = 'name_text', key = _c.key, set = 'CurseLiftCondition'}
+    localize{type = 'descriptions', key = _c.key, set = 'CurseLiftCondition', nodes = desc_nodes, vars = _c.vars or {}}
+'''
