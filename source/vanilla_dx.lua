@@ -1,5 +1,6 @@
 local js_mod = SMODS.current_mod
 local js_config = js_mod.config
+
 ----------
 --TAROTS--
 ----------
