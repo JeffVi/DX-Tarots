@@ -13,7 +13,7 @@ Refer to the [Steamodded readme](https://github.com/Steamopollys/Steamodded?tab=
 
 ## Features
 
-You can edit, enable or disable features by editing variables under `CUSTOM CONFIG` (top of the TarotDx lua file).  
+You can edit, enable or disable features by editing variables in `config.lua`.  
 See the [CHANGELOG.md](./CHANGELOG.md) for a list of all changes.
 
 ### New Tarot cards

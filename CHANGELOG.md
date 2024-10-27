@@ -22,7 +22,7 @@ DX version of Tarot cards were added. They have a 10% *(can be edited)* chance o
 
 - **The Hierophant DX**: Enhances up to ***4** selected cards.
 
-- **The Lovers DX**: Enhances up to **2** selected cards.
+- **The Lovers DX**: Enhances up to **4** selected cards.
 
 - **The Chariot DX**: Enhances up to **2** selected cards.
 
@@ -54,6 +54,10 @@ DX version of Tarot cards were added. They have a 10% *(can be edited)* chance o
 
 - **The World DX**: Converts up to **5** selected cards.
 
+- **The Sky DX**: Converts up to **5** selected cards. *Requires Bunco.*
+
+- **The Abyss DX**: Converts up to **5** selected cards. *Requires Bunco.*
+
 - **The Seeker DX**: Creates up to 2 random **DX** Alchemical cards. *Requires Codex Arcanum.*
 
 ### Planets
@@ -64,7 +68,7 @@ Planet cards (vanilla or DX) may be pulled with a random edition (foil, poly, ho
 
 ### Spectrals
 
-DX version of Spectral cards were added. They have a 15% *(can be edited)* chance of being pulled instead of a vanilla spectral. They each cost **$6**. They are **Unique**.
+DX version of Spectral cards were added. They have a 15% *(can be edited)* chance of being pulled instead of a vanilla spectral. They each cost **$6**.
 
 - **Familiar DX**: Destroy **2 selected** cards in your hand. Add **5** random Enhanced face cards to your hand.
 
@@ -101,6 +105,8 @@ DX version of Spectral cards were added. They have a 15% *(can be edited)* chanc
 - **The Soul DX**: Creates a **negative** copy of a random Legendary Joker.
 
 - **Black Hole DX**: Upgrade every poker hand by **3** levels.
+
+- **Cleanse DX**: Apply to **all** cards in hand. *Requires Bunco.*
 
 - **Philosopher's Stone DX**: Retrigger all played cards for **three** blinds. *Requires Codex Arcanum.*
 
@@ -178,7 +184,7 @@ A new badge was created for **Cursed** consumables. They are greatly enhanced ve
 
 ### Cursed Tarots
 
-Cursed version of Tarot cards were added. They have a 8% *(can be edited)* chance of being pulled instead of a vanilla tarot. They each cost **$5**. They are **Unique**.
+Cursed version of Tarot cards were added. They have a 8% *(can be edited)* chance of being pulled instead of a vanilla tarot. They each cost **$5**. Some are **Unique**.
 
 - **The Cursed Fool**: **+1 consumable slot**. Creates **2 copies** of **The Fool DX**.
 
@@ -223,6 +229,10 @@ Cursed version of Tarot cards were added. They have a 8% *(can be edited)* chanc
 - **Cursed Judgement**: Creates a random **rare** joker with a **random edition**.
 
 - **The Cursed World**: Spade cards **cannot get debuffed**. Creates a copy of **The World DX**.
+
+- **The Cursed Sky**: Fleuron cards **cannot get debuffed**. Creates a copy of **The Sky DX**. *Requires Bunco.*
+
+- **The Cursed Abyss**: Halberd cards **cannot get debuffed**. Creates a copy of **The Abyss DX**. *Requires Bunco.*
 
 - **The Cursed Seeker**: Alchemical packs and cards are **free**. Alchemical cards are **2 times** more likely to be **DX**. *Requires Codex Arcanum.*
 
@@ -280,7 +290,7 @@ Cursed version of Tarot cards were added. They have a 8% *(can be edited)* chanc
 
 ## Unique Cards
 
-A new badge was created for **Unique** cards. Once pulled, they can no longer be pulled during the run. You can disable this feature.
+A new badge was created for **Unique** cards. Once pulled, they can no longer be pulled during the run.
 
 ## Vouchers
 
