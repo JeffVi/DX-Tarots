@@ -548,7 +548,7 @@ local function overrides()
 
         card_click_ref(self)
         -- Check if we are in the collection
-        if self.area and self.area.config and self.area.config.collection and self.config.center.discovered then
+        if self.area and self.area.config and self.area.config.collection then
             local version = 'van'
             -- Check if this is a DX card
             if self.config.center.extra_type == '_dx' then version = 'dx' end
@@ -559,8 +559,14 @@ local function overrides()
             if version == 'van' and G.P_CENTER_POOLS[self.ability.set..'_dx'] then
                 local dx_ver = self.config.center_key..'_dx'
                 for k, v in pairs(G.P_CENTER_POOLS[self.ability.set..'_dx']) do
-                    if v.key == dx_ver and v.discovered then
-                        self:set_ability(G.P_CENTER_POOLS[self.ability.set..'_dx'][k], true)
+                    if v.key == dx_ver then
+                        if not v.discovered then
+                            self.children.center = nil
+                            self.bypass_discovery_center = false
+                            self.params.discover = false
+                            self.params.bypass_discovery_center = false
+                        end
+                        self:set_ability(v, true)
                         version = nil
                         break
                     end
@@ -571,8 +577,14 @@ local function overrides()
             if version == 'van' and G.P_CENTER_POOLS[self.ability.set..'_cu'] then
                 local cu_ver = self.config.center_key..'_cu'
                 for k, v in pairs(G.P_CENTER_POOLS[self.ability.set..'_cu']) do
-                    if v.key == cu_ver and v.discovered then
-                        self:set_ability(G.P_CENTER_POOLS[self.ability.set..'_cu'][k], true)
+                    if v.key == cu_ver then
+                        if not v.discovered then
+                            self.children.center = nil
+                            self.bypass_discovery_center = false
+                            self.params.discover = false
+                            self.params.bypass_discovery_center = false
+                        end
+                        self:set_ability(v, true)
                         version = nil
                         break
                     end
@@ -580,8 +592,14 @@ local function overrides()
             elseif version == 'dx' and G.P_CENTER_POOLS[self.ability.set..'_cu'] then 
                 local cu_ver = string.sub(self.config.center_key, 1, -4)..'_cu'
                 for k, v in pairs(G.P_CENTER_POOLS[self.ability.set..'_cu']) do
-                    if v.key == cu_ver and v.discovered then
-                        self:set_ability(G.P_CENTER_POOLS[self.ability.set..'_cu'][k], true)
+                    if v.key == cu_ver then
+                        if not v.discovered then
+                            self.children.center = nil
+                            self.bypass_discovery_center = false
+                            self.params.discover = false
+                            self.params.bypass_discovery_center = false
+                        end
+                        self:set_ability(v, true)
                         version = nil
                         break
                     end
@@ -592,8 +610,14 @@ local function overrides()
             if version == 'dx' or version == 'cu' then
                 local van_ver = string.sub(self.config.center_key, 1, -4)
                 for k, v in pairs(G.P_CENTER_POOLS[self.ability.set]) do
-                    if v.key == van_ver and v.discovered then
-                        self:set_ability(G.P_CENTER_POOLS[self.ability.set][k], true)
+                    if v.key == van_ver then
+                        if not v.discovered then
+                            self.children.center = nil
+                            self.bypass_discovery_center = false
+                            self.params.discover = false
+                            self.params.bypass_discovery_center = false
+                        end
+                        self:set_ability(v, true)
                         break
                     end
                 end
@@ -764,6 +788,11 @@ sendInfoMessage("Deluxe Consumables Cards Loaded", 'DX')
 SMODS.Atlas({key = 'Van_dx', path = 'Tarots_dx.png', px = 71, py = 95})
 SMODS.Atlas({key = 'Van_cu', path = 'Tarots_cu.png', px = 71, py = 95})
 SMODS.Atlas({key = 'Van_Booster_dx', path = 'booster_dx.png', px = 71, py = 95})
+
+SMODS.UndiscoveredSprite { key = 'Tarot_dx', atlas = 'Van_dx', pos = G.t_undiscovered.pos }
+SMODS.UndiscoveredSprite { key = 'Tarot_cu', atlas = 'Van_cu', pos = G.t_undiscovered.pos }
+SMODS.UndiscoveredSprite { key = 'Planet_dx', atlas = 'Van_dx', pos = G.p_undiscovered.pos }
+SMODS.UndiscoveredSprite { key = 'Spectral_dx', atlas = 'Van_dx', pos = G.s_undiscovered.pos }
 
 setUpDX()
 

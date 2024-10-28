@@ -75,3 +75,18 @@ elseif _c.set == 'CurseLiftCondition' then
     desc_nodes.name = localize{type = 'name_text', key = _c.key, set = 'CurseLiftCondition'}
     localize{type = 'descriptions', key = _c.key, set = 'CurseLiftCondition', nodes = desc_nodes, vars = _c.vars or {}}
 '''
+
+
+### Manage custom undiscovered sprite
+
+# Card:set_sprites(_center, _front)
+[[patches]]
+[patches.pattern]
+target = "card.lua"
+pattern = "elseif self.config.center.consumeable and self.config.center.demo then"
+match_indent = true
+position = "before"
+payload = '''
+elseif not self.params.bypass_discovery_center and _center.consumeable and _center.extra_type and SMODS.UndiscoveredSprites[_center.set.._center.extra_type] and not _center.discovered then 
+    self.children.center = Sprite(self.T.x, self.T.y, self.T.w, self.T.h, G.ASSET_ATLAS[SMODS.UndiscoveredSprites[_center.set.._center.extra_type].atlas], SMODS.UndiscoveredSprites[_center.set.._center.extra_type].pos)
+'''
