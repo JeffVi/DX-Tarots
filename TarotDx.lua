@@ -4,7 +4,7 @@
 --- MOD_AUTHOR: [JeffVi]
 --- MOD_DESCRIPTION: Add Deluxe versions of consumables
 --- PRIORITY: 1000
---- VERSION: 1.0.0
+--- VERSION: 1.0.1
 --- LOADER_VERSION_GEQ: 1.0.0
 
 ----------------------------------------------
