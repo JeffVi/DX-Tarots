@@ -15,7 +15,7 @@
 local enhanced_prototype_centers = {}
 local enhanced_prototype_descriptions = {}
 local js_mod = SMODS.current_mod
-local js_config = js_mod.config
+local js_config = assert(NFS.load(js_mod.path..'config.lua')())--js_mod.config
 js_mod.prefix_config = {key = false, atlas = false, shader = false, card_key = false}
 
 local function setUpDX()

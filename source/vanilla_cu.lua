@@ -1,5 +1,5 @@
 local js_mod = SMODS.current_mod
-local js_config = js_mod.config
+local js_config = assert(NFS.load(js_mod.path..'config.lua')())--js_mod.config
 
 -- The Cursed Fool
 SMODS.ConsumableCU{
