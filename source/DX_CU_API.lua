@@ -245,7 +245,7 @@ end
 local card_remove_ref = Card.remove
 function Card.remove(self)
 
-    if self.ability and self.ability.consumeable and self.ability.name and self.ability.set then 
+    if self.ability and self.ability.consumeable and self.ability.name and self.ability.set and G.consumeables then 
         if self.ability.set == 'Tarot' or self.ability.set == 'Planet' or self.ability.set == 'Spectral' or self.ability.set == 'Booster' or self.ability.set == 'Alchemical' then
             if not G.OVERLAY_MENU then 
                 for k, v in pairs(G.P_CENTERS) do
