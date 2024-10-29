@@ -35,7 +35,6 @@ SMODS.ConsumableDX = SMODS.Center:extend {
     pos = { x = 0, y = 0 },
     atlas = 'Tarot',
     extra_type = '_dx',
-    legendaries = {},
     cost = 5,
     config = {},
     class_prefix = 'c',
@@ -52,7 +51,7 @@ SMODS.ConsumableDX = SMODS.Center:extend {
         if self.hidden then
             self.soul_set = self.soul_set or 'Spectral'
             self.soul_rate = self.soul_rate or 0.003
-            table.insert(self.legendaries, self)
+            table.insert(SMODS.Consumable.legendaries, self)
         end
         if self.type and self.type.inject_card and type(self.type.inject_card) == 'function' then
             self.type:inject_card(self)
@@ -90,7 +89,6 @@ SMODS.ConsumableCU = SMODS.Center:extend {
     atlas = 'Tarot',
     extra_type = '_cu',
     nb_curse = 1,
-    legendaries = {},
     cost = 5,
     config = {},
     class_prefix = 'c',
@@ -107,7 +105,7 @@ SMODS.ConsumableCU = SMODS.Center:extend {
         if self.hidden then
             self.soul_set = self.soul_set or 'Spectral'
             self.soul_rate = self.soul_rate or 0.003
-            table.insert(self.legendaries, self)
+            table.insert(SMODS.Consumable.legendaries, self)
         end
         if self.type and self.type.inject_card and type(self.type.inject_card) == 'function' then
             self.type:inject_card(self)

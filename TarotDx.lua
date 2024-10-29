@@ -189,71 +189,6 @@ local function overrides()
 
     ---------- common_events ----------
 
-    -- Manage pool if DX pool
-    local get_current_pool_ref  = get_current_pool
-    function get_current_pool(_type, _rarity, _legendary, _append)
-
-        if _type == 'Tarot_dx' or _type == 'Tarot_cu' or _type == 'Planet_dx' or _type == 'Spectral_dx' then
-            --create the pool
-            G.ARGS.TEMP_POOL = EMPTY(G.ARGS.TEMP_POOL)
-            local _pool, _starting_pool, _pool_key, _pool_size = G.ARGS.TEMP_POOL, nil, '', 0
-        
-            _starting_pool, _pool_key = G.P_CENTER_POOLS[_type], _type..(_append or '')
-        
-            --cull the pool
-            for k, v in ipairs(_starting_pool) do
-                local add = nil
-                if _type == 'Tarot_dx' or _type == 'Tarot_cu' or _type == 'Planet_dx' or _type == 'Spectral_dx' then
-                    if not (G.GAME.used_jokers[v.key] and not next(find_joker("Showman"))) and
-                        (v.unlocked ~= false or v.rarity == 4) then
-                        if v.set == 'Planet' then
-                            -- Check if hand is unlocked
-                            if (not v.config.softlock or G.GAME.hands[v.config.hand_type].played > 0) then
-                                add = true
-                            end
-                        else
-                            add = true
-                        end
-                        if v.name == 'c_black_hole_dx' or v.name == 'c_soul_dx' or v.name == "c_philosopher_stone_dx" then
-                            add = false
-                        end
-                        if SMODS.Mods and (SMODS.Mods['Bunco'] or {}).can_load  and (v.name == 'c_bunc_sky_dx' or v.name == 'c_bunc_abyss_dx' or v.name == 'c_bunc_sky_cu' or v.name == 'c_bunc_abyss_cu') then
-                            add = G.GAME and G.GAME.Exotic
-                        end
-                    end
-                end
-        
-                if v.no_pool_flag and G.GAME.pool_flags[v.no_pool_flag] then add = nil end
-                if v.yes_pool_flag and not G.GAME.pool_flags[v.yes_pool_flag] then add = nil end
-                
-                if add and not G.GAME.banned_keys[v.key] then 
-                    _pool[#_pool + 1] = v.key
-                    _pool_size = _pool_size + 1
-                else
-                    _pool[#_pool + 1] = 'UNAVAILABLE'
-                end
-            end
-        
-            --if pool is empty, return normal pool
-            if _pool_size == 0 then
-                _pool = EMPTY(G.ARGS.TEMP_POOL)
-                if _type == 'Tarot_dx' then return get_current_pool("Tarot", _rarity, _legendary, _append)
-                elseif _type == 'Tarot_cu' then return get_current_pool("Tarot_dx", _rarity, _legendary, _append)
-                elseif _type == 'Planet_dx' then return get_current_pool("Planet", _rarity, _legendary, _append)
-                elseif _type == 'Spectral_dx' then return get_current_pool("Spectral", _rarity, _legendary, _append)
-                else _pool[#_pool + 1] = "c_fool_dx"    -- Should never happen...
-                end
-            end
-        
-            return _pool, _pool_key..G.GAME.round_resets.ante
-
-        else
-            -- Use normal pool
-            local _pool, _pool_key = get_current_pool_ref(_type, _rarity, _legendary, _append)
-            return _pool, _pool_key
-        end
-    end
-
     -- Set a chance to change pool from normal to DX/Cursed
     local create_card_ref = create_card
     function create_card(_type, area, legendary, _rarity, skip_materialize, soulable, forced_key, key_append)
@@ -283,28 +218,6 @@ local function overrides()
             local alc_mod = js_config.alchemical_dx_rate
             if G.GAME.used_cu_augments and G.GAME.used_cu_augments.c_seeker_cu then alc_mod = js_config.alchemical_dx_rate * G.P_CENTERS.c_seeker_cu.config.prob_mult * G.GAME.used_cu_augments.c_seeker_cu end
             if new_type == 'Alchemical' and (pseudorandom('upgrade_card'..G.GAME.round_resets.ante) > math.min(1, math.max(0, 1 - (alc_mod)))) then new_type = "Alchemical_dx" end
-
-            -- If type is set to DX, need to manage soulable option
-            if soulable and (not G.GAME.banned_keys['c_soul']) then
-                if (new_type == 'Tarot_dx' or new_type == 'Spectral_dx') and
-                not (G.GAME.used_jokers['c_soul_dx'] and not next(find_joker("Showman")))  then
-                    if pseudorandom('soul_'.._type..G.GAME.round_resets.ante) > 0.997 then
-                        new_forced_key = 'c_soul_dx'
-                    end
-                end
-                if (new_type == 'Planet_dx' or new_type == 'Spectral_dx') and
-                not (G.GAME.used_jokers['c_black_hole_dx'] and not next(find_joker("Showman")))  then 
-                    if pseudorandom('soul_'.._type..G.GAME.round_resets.ante) > 0.997 then
-                        new_forced_key = 'c_black_hole_dx'
-                    end
-                end
-                if SMODS.Mods and (SMODS.Mods['CodexArcanum'] or {}).can_load  and (new_type == 'Alchemical_dx' or new_type == 'Spectral_dx') and
-                not (G.GAME.used_jokers['c_philosopher_stone_dx'] and not next(find_joker("Showman")))  then
-                    if pseudorandom('soul_'.._type..G.GAME.round_resets.ante) > 0.997 then
-                        new_forced_key = 'c_philosopher_stone_dx'
-                    end
-                end
-            end
         end
 
         local created_card = create_card_ref(new_type, area, legendary, _rarity, skip_materialize, soulable, new_forced_key, key_append)

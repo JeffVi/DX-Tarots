@@ -57,6 +57,10 @@ SMODS.ConsumableDX{
         return true end }))
         delay(0.5)
     end,
+
+    in_pool = function()
+        return G.GAME and G.GAME.Exotic
+    end,
 }
 
 -- The Abyss DX
@@ -108,6 +112,10 @@ SMODS.ConsumableDX{
             G.hand:unhighlight_all();
         return true end }))
         delay(0.5)
+    end,
+
+    in_pool = function()
+        return G.GAME and G.GAME.Exotic
     end,
 }
 
@@ -161,6 +169,10 @@ SMODS.ConsumableCU{
     can_use = function(self)
         return true
     end,
+
+    in_pool = function()
+        return G.GAME and G.GAME.Exotic
+    end,
 }
 
 -- The Cursed Abyss
@@ -212,6 +224,10 @@ SMODS.ConsumableCU{
 
     can_use = function(self)
         return true
+    end,
+
+    in_pool = function()
+        return G.GAME and G.GAME.Exotic
     end,
 }
 

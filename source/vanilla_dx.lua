@@ -2224,10 +2224,11 @@ SMODS.ConsumableDX{
         }
     },
     pos = {x=2,y=2},
-    soul_pos = {x=6,y=5},
+    soul_pos = {x=0,y=1},
     config = {},
     cost = 6,
     hidden = true,
+    soul_set = 'Spectral_dx',
 
     set_card_type_badge = function(self, card, badges)
         badges[1] = create_badge(localize('k_spectral'), get_type_colour(self or card.config, card), nil, 1.2)
@@ -2257,6 +2258,13 @@ SMODS.ConsumableDX{
     can_use = function(self)
         return true
     end,
+
+    set_sprites = function(self, _card, _front)
+        _card.children.floating_sprite = Sprite(_card.T.x, _card.T.y, _card.T.w, _card.T.h, G.ASSET_ATLAS['centers'], _card.config.center.soul_pos)
+        _card.children.floating_sprite.role.draw_major = _card
+        _card.children.floating_sprite.states.hover.can = false
+        _card.children.floating_sprite.states.click.can = false
+    end,
 }
 
 -- Black Hole DX
@@ -2274,6 +2282,7 @@ SMODS.ConsumableDX{
     config = {},
     cost = 6,
     hidden = true,
+    soul_set = 'Planet_dx',
 
     set_card_type_badge = function(self, card, badges)
         badges[1] = create_badge(localize('k_spectral'), get_type_colour(self or card.config, card), nil, 1.2)

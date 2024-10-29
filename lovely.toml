@@ -77,6 +77,23 @@ elseif _c.set == 'CurseLiftCondition' then
 '''
 
 
+### Manage DX pools
+
+# get_current_pool(_type, _rarity, _legendary, _append)
+[[patches]]
+[patches.pattern]
+target = "functions/common_events.lua"
+pattern = 'else _pool[#_pool + 1] = "j_joker"'
+match_indent = true
+position = "before"
+payload = '''
+elseif _type == 'Tarot_dx' then return get_current_pool("Tarot", _rarity, _legendary, _append)
+elseif _type == 'Tarot_cu' then return get_current_pool("Tarot_dx", _rarity, _legendary, _append)
+elseif _type == 'Planet_dx' then return get_current_pool("Planet", _rarity, _legendary, _append)
+elseif _type == 'Spectral_dx' then return get_current_pool("Spectral", _rarity, _legendary, _append)
+'''
+
+
 ### Manage custom undiscovered sprite
 
 # Card:set_sprites(_center, _front)
