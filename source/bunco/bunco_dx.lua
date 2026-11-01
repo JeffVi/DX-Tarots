@@ -1,7 +1,8 @@
-local js_mod = SMODS.current_mod
-local js_config = assert(NFS.load(js_mod.path..'config.lua')())--js_mod.config
-
 local bunco = SMODS.Mods['Bunco']
+
+local function bunco_planet_badge(self)
+    return bunco.config.fixed_badges and localize('k_planet_q') or localize('k_dwarf_planet')
+end
 
 ----------
 --TAROTS--
@@ -10,21 +11,10 @@ local bunco = SMODS.Mods['Bunco']
 -- The Sky DX
 SMODS.ConsumableDX{
 	set = 'Tarot', atlas = 'bunco_tarots_dx', key = 'c_bunc_sky_dx',
-	loc_txt = {
-        name = "The Sky DX",
-        text = {
-            "Converts up to",
-            "{C:attention}#1#{} selected cards",
-            "to {V:1}#2#{}"
-        }
-    },
     pos = {x=0,y=0},
     config = {suit_conv = 'bunc_Fleurons', max_highlighted = 5},
 
-    set_card_type_badge = function(self, card, badges)
-        badges[1] = create_badge('Tarot?', get_type_colour(self or card.config, card), nil, 1.2)
-        SMODS.ConsumableDX.set_card_type_badge(self, card, badges)
-    end,
+    type_badge = function(self) return 'Tarot?' end,
 
     loc_vars = function(self, info_queue, center)
         SMODS.ConsumableDX.loc_vars(self, info_queue, center)
@@ -66,21 +56,10 @@ SMODS.ConsumableDX{
 -- The Abyss DX
 SMODS.ConsumableDX{
 	set = 'Tarot', atlas = 'bunco_tarots_dx', key = 'c_bunc_abyss_dx',
-	loc_txt = {
-        name = "The Abyss DX",
-        text = {
-            "Converts up to",
-            "{C:attention}#1#{} selected cards",
-            "to {V:1}#2#{}"
-        }
-    },
     pos = {x=1,y=0},
     config = {suit_conv = 'bunc_Halberds', max_highlighted = 5},
 
-    set_card_type_badge = function(self, card, badges)
-        badges[1] = create_badge('Tarot?', get_type_colour(self or card.config, card), nil, 1.2)
-        SMODS.ConsumableDX.set_card_type_badge(self, card, badges)
-    end,
+    type_badge = function(self) return 'Tarot?' end,
 
     loc_vars = function(self, info_queue, center)
         SMODS.ConsumableDX.loc_vars(self, info_queue, center)
@@ -122,29 +101,17 @@ SMODS.ConsumableDX{
 -- The Cursed Sky
 SMODS.ConsumableCU{
 	set = 'Tarot', atlas = 'bunco_tarots_cu', key = 'c_bunc_sky_cu',
-	loc_txt = {
-        name = "The Cursed Sky",
-        text = {
-            "{V:1}#1#{} cannot",
-            "get {C:attention}debuffed{}. Creates a",
-            "copy of {C:tarot}The Sky{} {C:dark_edition}DX{}",
-            "{C:inactive}(Must have room)"
-        }
-    },
     pos = {x=0,y=0},
     nb_curse = 2,
     config = {suit_conv = 'bunc_Fleurons'},
     unique = true,
 
-    set_card_type_badge = function(self, card, badges)
-        badges[1] = create_badge('Tarot?', get_type_colour(self or card.config, card), nil, 1.2)
-        SMODS.ConsumableCU.set_card_type_badge(self, card, badges)
-    end,
+    type_badge = function(self) return 'Tarot?' end,
 
     loc_vars = function(self, info_queue, center)
         SMODS.ConsumableCU.loc_vars(self, info_queue, center)
         local fool_c = G.P_CENTERS["c_bunc_sky_dx"] or nil
-        local created_card = fool_c and localize{type = 'name_text', key = fool_c.key, set = fool_c.set..fool_c.extra_type} or localize('k_none')
+        local created_card = fool_c and localize{type = 'name_text', key = fool_c.key, set = fool_c.set} or localize('k_none')
         if fool_c then
             info_queue[#info_queue+1] = fool_c
         end
@@ -178,29 +145,17 @@ SMODS.ConsumableCU{
 -- The Cursed Abyss
 SMODS.ConsumableCU{
 	set = 'Tarot', atlas = 'bunco_tarots_cu', key = 'c_bunc_abyss_cu',
-	loc_txt = {
-        name = "The Cursed Sky",
-        text = {
-            "{V:1}#1#{} cannot",
-            "get {C:attention}debuffed{}. Creates a",
-            "copy of {C:tarot}The Abyss{} {C:dark_edition}DX{}",
-            "{C:inactive}(Must have room)"
-        }
-    },
     pos = {x=1,y=0},
     nb_curse = 2,
     config = {suit_conv = 'bunc_Halberds'},
     unique = true,
 
-    set_card_type_badge = function(self, card, badges)
-        badges[1] = create_badge('Tarot?', get_type_colour(self or card.config, card), nil, 1.2)
-        SMODS.ConsumableCU.set_card_type_badge(self, card, badges)
-    end,
+    type_badge = function(self) return 'Tarot?' end,
 
     loc_vars = function(self, info_queue, center)
         SMODS.ConsumableCU.loc_vars(self, info_queue, center)
         local fool_c = G.P_CENTERS["c_bunc_abyss_dx"] or nil
-        local created_card = fool_c and localize{type = 'name_text', key = fool_c.key, set = fool_c.set..fool_c.extra_type} or localize('k_none')
+        local created_card = fool_c and localize{type = 'name_text', key = fool_c.key, set = fool_c.set} or localize('k_none')
         if fool_c then
             info_queue[#info_queue+1] = fool_c
         end
@@ -236,152 +191,16 @@ SMODS.ConsumableCU{
 -----------
 
 -- Quaoar DX
-SMODS.ConsumableDX{
-	set = 'Planet', atlas = 'bunco_planets_dx', key = 'c_bunc_Quaoar_dx',
-	loc_txt = {
-        name = "Quaoar DX",
-        text = {
-            "{s:0.8}({s:0.8,V:1}lvl.#1#{s:0.8}){} Level up {C:dark_edition}x2{}",
-            "{C:attention}#2#",
-            "{C:mult}+#3#{} Mult and",
-            "{C:chips}+#4#{} chips"
-        }
-    },
-    pos = {x=0,y=0},
-    config = {hand_type = 'bunc_Spectrum', softlock = true},
-
-    loc_vars = function(self, info_queue, center)
-        SMODS.ConsumableDX.loc_vars(self, info_queue, center)
-        local loc_vars = {
-            G.GAME.hands[self.config.hand_type].level, localize(self.config.hand_type, 'poker_hands'), G.GAME.hands[self.config.hand_type].l_mult * 2, G.GAME.hands[self.config.hand_type].l_chips * 2,
-            colours = {(G.GAME.hands[self.config.hand_type].level==1 and G.C.UI.TEXT_DARK or G.C.HAND_LEVELS[math.min(7, G.GAME.hands[self.config.hand_type].level)])}
-        }
-        return {vars = loc_vars}
-    end,
-
-    set_card_type_badge = function(self, card, badges)
-        badges[1] = create_badge(bunco.config.fixed_badges and localize('k_planet_q') or localize('k_dwarf_planet'), get_type_colour(self or card.config, card), nil, 1.2)
-        SMODS.ConsumableDX.set_card_type_badge(self, card, badges)
-    end,
-
-    use = function(self, card, area, copier)
-        local used_tarot = copier or card
-        update_hand_text({sound = 'button', volume = 0.7, pitch = 0.8, delay = 0.3}, {handname=localize(self.config.hand_type, 'poker_hands'),chips = G.GAME.hands[self.config.hand_type].chips, mult = G.GAME.hands[self.config.hand_type].mult, level=G.GAME.hands[self.config.hand_type].level})
-        level_up_hand(used_tarot, self.config.hand_type, false, 2)
-        update_hand_text({sound = 'button', volume = 0.7, pitch = 1.1, delay = 0}, {mult = 0, chips = 0, handname = '', level = ''})
-    end,
-}
+SMODS.PlanetDX{atlas = 'bunco_planets_dx', key = 'c_bunc_quaoar_dx', pos = {x=0,y=0}, config = {hand_type = 'bunc_Spectrum', softlock = true}, type_badge = bunco_planet_badge}
 
 -- Haumea DX
-SMODS.ConsumableDX{
-	set = 'Planet', atlas = 'bunco_planets_dx', key = 'c_bunc_Haumea_dx',
-	loc_txt = {
-        name = "Haumea DX",
-        text = {
-            "{s:0.8}({s:0.8,V:1}lvl.#1#{s:0.8}){} Level up {C:dark_edition}x2{}",
-            "{C:attention}#2#",
-            "{C:mult}+#3#{} Mult and",
-            "{C:chips}+#4#{} chips"
-        }
-    },
-    pos = {x=1,y=0},
-    config = {hand_type = 'bunc_Straight Spectrum', softlock = true},
-
-    loc_vars = function(self, info_queue, center)
-        SMODS.ConsumableDX.loc_vars(self, info_queue, center)
-        local loc_vars = {
-            G.GAME.hands[self.config.hand_type].level, localize(self.config.hand_type, 'poker_hands'), G.GAME.hands[self.config.hand_type].l_mult * 2, G.GAME.hands[self.config.hand_type].l_chips * 2,
-            colours = {(G.GAME.hands[self.config.hand_type].level==1 and G.C.UI.TEXT_DARK or G.C.HAND_LEVELS[math.min(7, G.GAME.hands[self.config.hand_type].level)])}
-        }
-        return {vars = loc_vars}
-    end,
-
-    set_card_type_badge = function(self, card, badges)
-        badges[1] = create_badge(bunco.config.fixed_badges and localize('k_planet_q') or localize('k_dwarf_planet'), get_type_colour(self or card.config, card), nil, 1.2)
-        SMODS.ConsumableDX.set_card_type_badge(self, card, badges)
-    end,
-
-    use = function(self, card, area, copier)
-        local used_tarot = copier or card
-        update_hand_text({sound = 'button', volume = 0.7, pitch = 0.8, delay = 0.3}, {handname=localize(self.config.hand_type, 'poker_hands'),chips = G.GAME.hands[self.config.hand_type].chips, mult = G.GAME.hands[self.config.hand_type].mult, level=G.GAME.hands[self.config.hand_type].level})
-        level_up_hand(used_tarot, self.config.hand_type, false, 2)
-        update_hand_text({sound = 'button', volume = 0.7, pitch = 1.1, delay = 0}, {mult = 0, chips = 0, handname = '', level = ''})
-    end,
-}
+SMODS.PlanetDX{atlas = 'bunco_planets_dx', key = 'c_bunc_haumea_dx', pos = {x=1,y=0}, config = {hand_type = 'bunc_Straight Spectrum', softlock = true}, type_badge = bunco_planet_badge}
 
 -- Sedna DX
-SMODS.ConsumableDX{
-	set = 'Planet', atlas = 'bunco_planets_dx', key = 'c_bunc_Sedna_dx',
-	loc_txt = {
-        name = "Sedna DX",
-        text = {
-            "{s:0.8}({s:0.8,V:1}lvl.#1#{s:0.8}){} Level up {C:dark_edition}x2{}",
-            "{C:attention}#2#",
-            "{C:mult}+#3#{} Mult and",
-            "{C:chips}+#4#{} chips"
-        }
-    },
-    pos = {x=2,y=0},
-    config = {hand_type = 'bunc_Spectrum House', softlock = true},
-
-    loc_vars = function(self, info_queue, center)
-        SMODS.ConsumableDX.loc_vars(self, info_queue, center)
-        local loc_vars = {
-            G.GAME.hands[self.config.hand_type].level, localize(self.config.hand_type, 'poker_hands'), G.GAME.hands[self.config.hand_type].l_mult * 2, G.GAME.hands[self.config.hand_type].l_chips * 2,
-            colours = {(G.GAME.hands[self.config.hand_type].level==1 and G.C.UI.TEXT_DARK or G.C.HAND_LEVELS[math.min(7, G.GAME.hands[self.config.hand_type].level)])}
-        }
-        return {vars = loc_vars}
-    end,
-
-    set_card_type_badge = function(self, card, badges)
-        badges[1] = create_badge(bunco.config.fixed_badges and localize('k_planet_q') or localize('k_dwarf_planet'), get_type_colour(self or card.config, card), nil, 1.2)
-        SMODS.ConsumableDX.set_card_type_badge(self, card, badges)
-    end,
-
-    use = function(self, card, area, copier)
-        local used_tarot = copier or card
-        update_hand_text({sound = 'button', volume = 0.7, pitch = 0.8, delay = 0.3}, {handname=localize(self.config.hand_type, 'poker_hands'),chips = G.GAME.hands[self.config.hand_type].chips, mult = G.GAME.hands[self.config.hand_type].mult, level=G.GAME.hands[self.config.hand_type].level})
-        level_up_hand(used_tarot, self.config.hand_type, false, 2)
-        update_hand_text({sound = 'button', volume = 0.7, pitch = 1.1, delay = 0}, {mult = 0, chips = 0, handname = '', level = ''})
-    end,
-}
+SMODS.PlanetDX{atlas = 'bunco_planets_dx', key = 'c_bunc_sedna_dx', pos = {x=2,y=0}, config = {hand_type = 'bunc_Spectrum House', softlock = true}, type_badge = bunco_planet_badge}
 
 -- Makemake DX
-SMODS.ConsumableDX{
-	set = 'Planet', atlas = 'bunco_planets_dx', key = 'c_bunc_Makemake_dx',
-	loc_txt = {
-        name = "Makemake DX",
-        text = {
-            "{s:0.8}({s:0.8,V:1}lvl.#1#{s:0.8}){} Level up {C:dark_edition}x2{}",
-            "{C:attention}#2#",
-            "{C:mult}+#3#{} Mult and",
-            "{C:chips}+#4#{} chips"
-        }
-    },
-    pos = {x=3,y=0},
-    config = {hand_type = 'bunc_Spectrum Five', softlock = true},
-
-    loc_vars = function(self, info_queue, center)
-        SMODS.ConsumableDX.loc_vars(self, info_queue, center)
-        local loc_vars = {
-            G.GAME.hands[self.config.hand_type].level, localize(self.config.hand_type, 'poker_hands'), G.GAME.hands[self.config.hand_type].l_mult * 2, G.GAME.hands[self.config.hand_type].l_chips * 2,
-            colours = {(G.GAME.hands[self.config.hand_type].level==1 and G.C.UI.TEXT_DARK or G.C.HAND_LEVELS[math.min(7, G.GAME.hands[self.config.hand_type].level)])}
-        }
-        return {vars = loc_vars}
-    end,
-
-    set_card_type_badge = function(self, card, badges)
-        badges[1] = create_badge(bunco.config.fixed_badges and localize('k_planet_q') or localize('k_dwarf_planet'), get_type_colour(self or card.config, card), nil, 1.2)
-        SMODS.ConsumableDX.set_card_type_badge(self, card, badges)
-    end,
-
-    use = function(self, card, area, copier)
-        local used_tarot = copier or card
-        update_hand_text({sound = 'button', volume = 0.7, pitch = 0.8, delay = 0.3}, {handname=localize(self.config.hand_type, 'poker_hands'),chips = G.GAME.hands[self.config.hand_type].chips, mult = G.GAME.hands[self.config.hand_type].mult, level=G.GAME.hands[self.config.hand_type].level})
-        level_up_hand(used_tarot, self.config.hand_type, false, 2)
-        update_hand_text({sound = 'button', volume = 0.7, pitch = 1.1, delay = 0}, {mult = 0, chips = 0, handname = '', level = ''})
-    end,
-}
+SMODS.PlanetDX{atlas = 'bunco_planets_dx', key = 'c_bunc_makemake_dx', pos = {x=3,y=0}, config = {hand_type = 'bunc_Spectrum Five', softlock = true}, type_badge = bunco_planet_badge}
 
 -------------
 --SPECTRALS--
@@ -390,22 +209,9 @@ SMODS.ConsumableDX{
 -- Cleanse DX
 SMODS.ConsumableDX{
 	set = 'Spectral', atlas = 'bunco_spectrals_dx', key = 'c_bunc_cleanse_dx',
-	loc_txt = {
-        name = "Cleanse DX",
-        text = {
-            "Add {C:dark_edition}Fluorescent{} to",
-            "{C:attention}all{} cards in hand",
-            "{C:inactive}(If they have no edition)"
-        }
-    },
     pos = {x=0,y=0},
     config = {},
     cost = 6,
-
-    set_card_type_badge = function(self, card, badges)
-        badges[1] = create_badge(localize('k_spectral'), get_type_colour(self or card.config, card), nil, 1.2)
-        SMODS.ConsumableDX.set_card_type_badge(self, card, badges)
-    end,
 
     loc_vars = function(self, info_queue, center)
         SMODS.ConsumableDX.loc_vars(self, info_queue, center)
@@ -432,8 +238,7 @@ SMODS.ConsumableDX{
     end,
 }
 
-
-function LoadBuncoDX()
+function DXT.load_bunco_dx()
     sendInfoMessage("Bunco Loaded", 'DX')
     
     SMODS.Atlas({key = 'bunco_tarots_dx', path = 'Bunco_Tarots_dx.png', px = 71, py = 95})
@@ -441,8 +246,6 @@ function LoadBuncoDX()
     SMODS.Atlas({key = 'bunco_spectrals_dx', path = 'Bunco_Spectrals_dx.png', px = 71, py = 95})
     SMODS.Atlas({key = 'bunco_tarots_cu', path = 'Bunco_Tarots_cu.png', px = 71, py = 95})
     
-    G.localization.misc.labels['sky_bu'] = "Fleurons Buff"
-    G.localization.misc.labels['abyss_bu'] = "Halberds Buff"
     G.BADGE_COL['sky_bu'] = HEX('d6901a')
     G.BADGE_COL['abyss_bu'] = HEX('6e3c63')
 end

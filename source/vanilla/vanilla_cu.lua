@@ -1,30 +1,13 @@
-local js_mod = SMODS.current_mod
-local js_config = assert(NFS.load(js_mod.path..'config.lua')())--js_mod.config
-
 -- The Cursed Fool
 SMODS.ConsumableCU{
 	set = 'Tarot', atlas = 'Van_cu', key = 'c_fool_cu',
-	loc_txt = {
-        name = "The Cursed Fool",
-        text = {
-            "{C:dark_edition}+1{} consumable slot.",
-            "Creates 2 copies of",
-            "{C:tarot}The Fool{} {C:dark_edition}DX{}",
-            "{C:inactive}(Must have room)"
-        }
-    },
     pos = {x=0,y=0},
     nb_curse = 1,
-
-    set_card_type_badge = function(self, card, badges)
-        badges[1] = create_badge(localize('k_tarot'), get_type_colour(self or card.config, card), nil, 1.2)
-        SMODS.ConsumableCU.set_card_type_badge(self, card, badges)
-    end,
 
     loc_vars = function(self, info_queue, center)
         SMODS.ConsumableCU.loc_vars(self, info_queue, center)
         local fool_c = G.P_CENTERS["c_fool_dx"] or nil
-        local created_card = fool_c and localize{type = 'name_text', key = fool_c.key, set = fool_c.set..fool_c.extra_type} or localize('k_none')
+        local created_card = fool_c and localize{type = 'name_text', key = fool_c.key, set = fool_c.set} or localize('k_none')
         if fool_c then
             info_queue[#info_queue+1] = fool_c
         end
@@ -60,27 +43,13 @@ SMODS.ConsumableCU{
 -- The Cursed Magician
 SMODS.ConsumableCU{
 	set = 'Tarot', atlas = 'Van_cu', key = 'c_magician_cu',
-	loc_txt = {
-        name = "The Cursed Magician",
-        text = {
-            "Permanently doubles all listed",
-            "{C:green}probabilities{}. Creates a",
-            "copy of {C:tarot}The Magician{} {C:dark_edition}DX{}",
-            "{C:inactive}(Must have room)"
-        }
-    },
     pos = {x=1,y=0},
     nb_curse = 2,
-
-    set_card_type_badge = function(self, card, badges)
-        badges[1] = create_badge(localize('k_tarot'), get_type_colour(self or card.config, card), nil, 1.2)
-        SMODS.ConsumableCU.set_card_type_badge(self, card, badges)
-    end,
 
     loc_vars = function(self, info_queue, center)
         SMODS.ConsumableCU.loc_vars(self, info_queue, center)
         local fool_c = G.P_CENTERS["c_magician_dx"] or nil
-        local created_card = fool_c and localize{type = 'name_text', key = fool_c.key, set = fool_c.set..fool_c.extra_type} or localize('k_none')
+        local created_card = fool_c and localize{type = 'name_text', key = fool_c.key, set = fool_c.set} or localize('k_none')
         if fool_c then
             info_queue[#info_queue+1] = fool_c
         end
@@ -113,24 +82,9 @@ SMODS.ConsumableCU{
 -- The Cursed High Priestess
 SMODS.ConsumableCU{
 	set = 'Tarot', atlas = 'Van_cu', key = 'c_high_priestess_cu',
-	loc_txt = {
-        name = "The Cursed High Priestess",
-        text = {
-            "{C:planet}Planet{} cards are {C:attention}#1# times{}",
-            "more likely to be {C:dark_edition}Foil{},",
-            "{C:dark_edition}Holographic{}, or {C:dark_edition}Polychrome{}.",
-            "Creates up to two {C:planet}Planet{} {C:dark_edition}DX{}",
-            "{C:inactive}(Must have room)"
-        }
-    },
     pos = {x=2,y=0},
     nb_curse = 1,
     config = {planets = 2, prob_mult = 2},
-
-    set_card_type_badge = function(self, card, badges)
-        badges[1] = create_badge(localize('k_tarot'), get_type_colour(self or card.config, card), nil, 1.2)
-        SMODS.ConsumableCU.set_card_type_badge(self, card, badges)
-    end,
 
     loc_vars = function(self, info_queue, center)
         SMODS.ConsumableCU.loc_vars(self, info_queue, center)
@@ -164,29 +118,14 @@ SMODS.ConsumableCU{
 -- The Cursed Empress
 SMODS.ConsumableCU{
 	set = 'Tarot', atlas = 'Van_cu', key = 'c_empress_cu',
-	loc_txt = {
-        name = "The Cursed Empress",
-        text = {
-            "Permanently increases",
-            "{C:attention}#2#{} bonus to",
-            "{C:red}+#1#{} Mult. Creates a",
-            "copy of {C:tarot}The Empress{} {C:dark_edition}DX{}",
-            "{C:inactive}(Must have room)"
-        }
-    },
     pos = {x=3,y=0},
     nb_curse = 1,
     config = {mod_conv = 'm_mult', extra = 8},
 
-    set_card_type_badge = function(self, card, badges)
-        badges[1] = create_badge(localize('k_tarot'), get_type_colour(self or card.config, card), nil, 1.2)
-        SMODS.ConsumableCU.set_card_type_badge(self, card, badges)
-    end,
-
     loc_vars = function(self, info_queue, center)
         SMODS.ConsumableCU.loc_vars(self, info_queue, center)
         local fool_c = G.P_CENTERS["c_empress_dx"] or nil
-        local created_card = fool_c and localize{type = 'name_text', key = fool_c.key, set = fool_c.set..fool_c.extra_type} or localize('k_none')
+        local created_card = fool_c and localize{type = 'name_text', key = fool_c.key, set = fool_c.set} or localize('k_none')
         if fool_c then
             info_queue[#info_queue+1] = fool_c
         end
@@ -198,19 +137,13 @@ SMODS.ConsumableCU{
         G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0.4, func = function()
             if G.consumeables.config.card_limit > #G.consumeables.cards then
                 play_sound('timpani')
-                if G.consumeables.config.card_limit > #G.consumeables.cards then 
-                    local card = create_card('Tarot_dx', G.consumeables, nil, nil, nil, nil, 'c_empress_dx', 'empress')
-                    card:add_to_deck()
-                    G.consumeables:emplace(card)
-                end
-                G.P_CENTERS.m_mult.config.mult = G.P_CENTERS.m_mult.config.mult + self.config.extra
-                for k, v in pairs(G.playing_cards) do
-                    if v.config.center_key == self.config.mod_conv then
-                        v.ability.mult = v.ability.mult + self.config.extra
-                    end
-                end
-                used_tarot:juice_up(0.3, 0.5)
+                local card = create_card('Tarot_dx', G.consumeables, nil, nil, nil, nil, 'c_empress_dx', 'empress')
+                card:add_to_deck()
+                G.consumeables:emplace(card)
             end
+            DXT.update_cu_buffs()
+            DXT.buff_enhanced_cards(self.key)
+            used_tarot:juice_up(0.3, 0.5)
         return true end }))
     end,
 
@@ -222,21 +155,9 @@ SMODS.ConsumableCU{
 -- The Cursed Emperor
 SMODS.ConsumableCU{
 	set = 'Tarot', atlas = 'Van_cu', key = 'c_emperor_cu',
-	loc_txt = {
-        name = "The Cursed Emperor",
-        text = {
-            "Creates {C:attention}#1#{} random",
-            "{C:dark_edition}negative DX{} {C:tarot}Tarot{} cards"
-        }
-    },
     pos = {x=4,y=0},
     nb_curse = 1,
     config = {tarots = 6},
-
-    set_card_type_badge = function(self, card, badges)
-        badges[1] = create_badge(localize('k_tarot'), get_type_colour(self or card.config, card), nil, 1.2)
-        SMODS.ConsumableCU.set_card_type_badge(self, card, badges)
-    end,
 
     loc_vars = function(self, info_queue, center)
         SMODS.ConsumableCU.loc_vars(self, info_queue, center)
@@ -267,29 +188,14 @@ SMODS.ConsumableCU{
 -- The Cursed Hierophant
 SMODS.ConsumableCU{
 	set = 'Tarot', atlas = 'Van_cu', key = 'c_heirophant_cu',
-	loc_txt = {
-        name = "The Cursed Hierophant",
-        text = {
-            "Permanently increases",
-            "{C:attention}#2#{} bonus to",
-            "{C:blue}+#1#{} extra chips. Creates a",
-            "copy of {C:tarot}The Hierophant{} {C:dark_edition}DX{}",
-            "{C:inactive}(Must have room)"
-        }
-    },
     pos = {x=5,y=0},
     nb_curse = 1,
     config = {mod_conv = 'm_bonus', extra = 60},
 
-    set_card_type_badge = function(self, card, badges)
-        badges[1] = create_badge(localize('k_tarot'), get_type_colour(self or card.config, card), nil, 1.2)
-        SMODS.ConsumableCU.set_card_type_badge(self, card, badges)
-    end,
-
     loc_vars = function(self, info_queue, center)
         SMODS.ConsumableCU.loc_vars(self, info_queue, center)
         local fool_c = G.P_CENTERS["c_heirophant_dx"] or nil
-        local created_card = fool_c and localize{type = 'name_text', key = fool_c.key, set = fool_c.set..fool_c.extra_type} or localize('k_none')
+        local created_card = fool_c and localize{type = 'name_text', key = fool_c.key, set = fool_c.set} or localize('k_none')
         if fool_c then
             info_queue[#info_queue+1] = fool_c
         end
@@ -301,19 +207,13 @@ SMODS.ConsumableCU{
         G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0.4, func = function()
             if G.consumeables.config.card_limit > #G.consumeables.cards then
                 play_sound('timpani')
-                if G.consumeables.config.card_limit > #G.consumeables.cards then 
-                    local card = create_card('Tarot_dx', G.consumeables, nil, nil, nil, nil, 'c_heirophant_dx', 'heirophant')
-                    card:add_to_deck()
-                    G.consumeables:emplace(card)
-                end
-                G.P_CENTERS.m_bonus.config.bonus = G.P_CENTERS.m_bonus.config.bonus + self.config.extra
-                for k, v in pairs(G.playing_cards) do
-                    if v.config.center_key == self.config.mod_conv then
-                        v.ability.bonus = v.ability.bonus + self.config.extra
-                    end
-                end
-                used_tarot:juice_up(0.3, 0.5)
+                local card = create_card('Tarot_dx', G.consumeables, nil, nil, nil, nil, 'c_heirophant_dx', 'heirophant')
+                card:add_to_deck()
+                G.consumeables:emplace(card)
             end
+            DXT.update_cu_buffs()
+            DXT.buff_enhanced_cards(self.key)
+            used_tarot:juice_up(0.3, 0.5)
         return true end }))
     end,
 
@@ -325,31 +225,15 @@ SMODS.ConsumableCU{
 -- The Cursed Lovers
 SMODS.ConsumableCU{
 	set = 'Tarot', atlas = 'Van_cu', key = 'c_lovers_cu',
-	loc_txt = {
-        name = "The Cursed Lovers",
-        text = {
-            "{C:attention}#1#s{} now copy the",
-            "rank of the card to their {C:attention}left{}",
-            "{C:inactive}(Drag to rearrange)",
-            "Creates a copy of",
-            "{C:tarot}The Lovers{} {C:dark_edition}DX{}",
-            "{C:inactive}(Must have room)"
-        }
-    },
     pos = {x=6,y=0},
     nb_curse = 1,
     config = {mod_conv = 'm_wild'},
     unique = true,
 
-    set_card_type_badge = function(self, card, badges)
-        badges[1] = create_badge(localize('k_tarot'), get_type_colour(self or card.config, card), nil, 1.2)
-        SMODS.ConsumableCU.set_card_type_badge(self, card, badges)
-    end,
-
     loc_vars = function(self, info_queue, center)
         SMODS.ConsumableCU.loc_vars(self, info_queue, center)
         local fool_c = G.P_CENTERS["c_lovers_dx"] or nil
-        local created_card = fool_c and localize{type = 'name_text', key = fool_c.key, set = fool_c.set..fool_c.extra_type} or localize('k_none')
+        local created_card = fool_c and localize{type = 'name_text', key = fool_c.key, set = fool_c.set} or localize('k_none')
         if fool_c then
             info_queue[#info_queue+1] = fool_c
         end
@@ -361,14 +245,11 @@ SMODS.ConsumableCU{
         G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0.4, func = function()
             if G.consumeables.config.card_limit > #G.consumeables.cards then
                 play_sound('timpani')
-                if G.consumeables.config.card_limit > #G.consumeables.cards then 
-                    local card = create_card('Tarot_dx', G.consumeables, nil, nil, nil, nil, 'c_lovers_dx', 'lovers')
-                    card:add_to_deck()
-                    G.consumeables:emplace(card)
-                end
-                G.localization.descriptions.Enhanced.m_wild = G.localization.descriptions.Enhanced.m_wild_cu
-                used_tarot:juice_up(0.3, 0.5)
+                local card = create_card('Tarot_dx', G.consumeables, nil, nil, nil, nil, 'c_lovers_dx', 'lovers')
+                card:add_to_deck()
+                G.consumeables:emplace(card)
             end
+            used_tarot:juice_up(0.3, 0.5)
         return true end }))
     end,
 
@@ -380,29 +261,14 @@ SMODS.ConsumableCU{
 -- The Cursed Chariot
 SMODS.ConsumableCU{
 	set = 'Tarot', atlas = 'Van_cu', key = 'c_chariot_cu',
-	loc_txt = {
-        name = "The Cursed Chariot",
-        text = {
-            "Permanently increases",
-            "{C:attention}#2#{} bonus to",
-            "{X:red,C:white} X#1# {} Mult. Creates a",
-            "copy of {C:tarot}The Chariot{} {C:dark_edition}DX{}",
-            "{C:inactive}(Must have room)"
-        }
-    },
     pos = {x=7,y=0},
     nb_curse = 2,
     config = {mod_conv = 'm_steel', extra = 1},
 
-    set_card_type_badge = function(self, card, badges)
-        badges[1] = create_badge(localize('k_tarot'), get_type_colour(self or card.config, card), nil, 1.2)
-        SMODS.ConsumableCU.set_card_type_badge(self, card, badges)
-    end,
-
     loc_vars = function(self, info_queue, center)
         SMODS.ConsumableCU.loc_vars(self, info_queue, center)
         local fool_c = G.P_CENTERS["c_chariot_dx"] or nil
-        local created_card = fool_c and localize{type = 'name_text', key = fool_c.key, set = fool_c.set..fool_c.extra_type} or localize('k_none')
+        local created_card = fool_c and localize{type = 'name_text', key = fool_c.key, set = fool_c.set} or localize('k_none')
         if fool_c then
             info_queue[#info_queue+1] = fool_c
         end
@@ -414,19 +280,13 @@ SMODS.ConsumableCU{
         G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0.4, func = function()
             if G.consumeables.config.card_limit > #G.consumeables.cards then
                 play_sound('timpani')
-                if G.consumeables.config.card_limit > #G.consumeables.cards then 
-                    local card = create_card('Tarot_dx', G.consumeables, nil, nil, nil, nil, 'c_chariot_dx', 'chariot')
-                    card:add_to_deck()
-                    G.consumeables:emplace(card)
-                end
-                G.P_CENTERS.m_steel.config.h_x_mult = G.P_CENTERS.m_steel.config.h_x_mult + self.config.extra
-                for k, v in pairs(G.playing_cards) do
-                    if v.config.center_key == self.config.mod_conv then
-                        v.ability.h_x_mult = v.ability.h_x_mult + self.config.extra
-                    end
-                end
-                used_tarot:juice_up(0.3, 0.5)
+                local card = create_card('Tarot_dx', G.consumeables, nil, nil, nil, nil, 'c_chariot_dx', 'chariot')
+                card:add_to_deck()
+                G.consumeables:emplace(card)
             end
+            DXT.update_cu_buffs()
+            DXT.buff_enhanced_cards(self.key)
+            used_tarot:juice_up(0.3, 0.5)
         return true end }))
     end,
 
@@ -438,29 +298,14 @@ SMODS.ConsumableCU{
 -- Cursed Justice
 SMODS.ConsumableCU{
 	set = 'Tarot', atlas = 'Van_cu', key = 'c_justice_cu',
-	loc_txt = {
-        name = "Cursed Justice",
-        text = {
-            "Permanently increases",
-            "{C:attention}#2#{} bonus to",
-            "{X:red,C:white} X#1# {} Mult. Creates a",
-            "copy of {C:tarot}Justice {C:dark_edition}DX{}",
-            "{C:inactive}(Must have room)"
-        }
-    },
     pos = {x=8,y=0},
     nb_curse = 2,
     config = {mod_conv = 'm_glass', extra = 1.5},
 
-    set_card_type_badge = function(self, card, badges)
-        badges[1] = create_badge(localize('k_tarot'), get_type_colour(self or card.config, card), nil, 1.2)
-        SMODS.ConsumableCU.set_card_type_badge(self, card, badges)
-    end,
-
     loc_vars = function(self, info_queue, center)
         SMODS.ConsumableCU.loc_vars(self, info_queue, center)
         local fool_c = G.P_CENTERS["c_justice_dx"] or nil
-        local created_card = fool_c and localize{type = 'name_text', key = fool_c.key, set = fool_c.set..fool_c.extra_type} or localize('k_none')
+        local created_card = fool_c and localize{type = 'name_text', key = fool_c.key, set = fool_c.set} or localize('k_none')
         if fool_c then
             info_queue[#info_queue+1] = fool_c
         end
@@ -472,19 +317,13 @@ SMODS.ConsumableCU{
         G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0.4, func = function()
             if G.consumeables.config.card_limit > #G.consumeables.cards then
                 play_sound('timpani')
-                if G.consumeables.config.card_limit > #G.consumeables.cards then 
-                    local card = create_card('Tarot_dx', G.consumeables, nil, nil, nil, nil, 'c_justice_dx', 'justice')
-                    card:add_to_deck()
-                    G.consumeables:emplace(card)
-                end
-                G.P_CENTERS.m_glass.config.Xmult = G.P_CENTERS.m_glass.config.Xmult + self.config.extra
-                for k, v in pairs(G.playing_cards) do
-                    if v.config.center_key == self.config.mod_conv then
-                        v.ability.Xmult = v.ability.Xmult + self.config.extra
-                    end
-                end
-                used_tarot:juice_up(0.3, 0.5)
+                local card = create_card('Tarot_dx', G.consumeables, nil, nil, nil, nil, 'c_justice_dx', 'justice')
+                card:add_to_deck()
+                G.consumeables:emplace(card)
             end
+            DXT.update_cu_buffs()
+            DXT.buff_enhanced_cards(self.key)
+            used_tarot:juice_up(0.3, 0.5)
         return true end }))
     end,
 
@@ -496,20 +335,9 @@ SMODS.ConsumableCU{
 -- The Cursed Hermit
 SMODS.ConsumableCU{
 	set = 'Tarot', atlas = 'Van_cu', key = 'c_hermit_cu',
-	loc_txt = {
-        name = "The Cursed Hermit",
-        text = {
-            "Gives {C:money}$#1#{}"
-        }
-    },
     pos = {x=9,y=0},
     nb_curse = 2,
     config = {extra = 50},
-
-    set_card_type_badge = function(self, card, badges)
-        badges[1] = create_badge(localize('k_tarot'), get_type_colour(self or card.config, card), nil, 1.2)
-        SMODS.ConsumableCU.set_card_type_badge(self, card, badges)
-    end,
 
     loc_vars = function(self, info_queue, center)
         SMODS.ConsumableCU.loc_vars(self, info_queue, center)
@@ -534,30 +362,16 @@ SMODS.ConsumableCU{
 -- The Cursed Wheel of Fortune
 SMODS.ConsumableCU{
 	set = 'Tarot', atlas = 'Van_cu', key = 'c_wheel_of_fortune_cu',
-	loc_txt = {
-        name = "The Cursed Wheel of Fortune",
-        text = {
-            "Add {C:dark_edition}Foil{}, {C:dark_edition}Holographic{}, or",
-            "{C:dark_edition}Polychrome{} edition",
-            "to a random {C:attention}Jokers{}",
-            "{C:green}#1# in #2#{} chance to repeat once"
-        }
-    },
     pos = {x=0,y=1},
     nb_curse = 1,
     config = {extra = 2},
-
-    set_card_type_badge = function(self, card, badges)
-        badges[1] = create_badge(localize('k_tarot'), get_type_colour(self or card.config, card), nil, 1.2)
-        SMODS.ConsumableCU.set_card_type_badge(self, card, badges)
-    end,
 
     loc_vars = function(self, info_queue, center)
         SMODS.ConsumableCU.loc_vars(self, info_queue, center)
         info_queue[#info_queue+1] = G.P_CENTERS.e_foil
         info_queue[#info_queue+1] = G.P_CENTERS.e_holo
         info_queue[#info_queue+1] = G.P_CENTERS.e_polychrome
-        return {vars = {G.GAME.probabilities.normal, self.config.extra}}
+        return {vars = {SMODS.get_probability_vars(center, 1, self.config.extra, 'wheel_of_fortune')}}
     end,
 
     use = function(self, card, area, copier)
@@ -572,7 +386,7 @@ SMODS.ConsumableCU{
             used_tarot:juice_up(0.3, 0.5)
             temp_pool[key] = nil
         return true end }))
-        if pseudorandom('wheel_of_fortune') < G.GAME.probabilities.normal/self.config.extra and temp_pool_count > 1 then 
+        if SMODS.pseudorandom_probability(used_tarot, 'wheel_of_fortune', 1, self.config.extra, 'wheel_of_fortune') and temp_pool_count > 1 then 
             G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0.4, func = function()
                 local eligible_card = pseudorandom_element(temp_pool, pseudoseed('wheel_of_fortune'))
                 local edition = poll_edition('wheel_of_fortune', nil, true, true)
@@ -620,22 +434,9 @@ SMODS.ConsumableCU{
 -- Cursed Strength
 SMODS.ConsumableCU{
 	set = 'Tarot', atlas = 'Van_cu', key = 'c_strength_cu',
-	loc_txt = {
-        name = "Cursed Strength",
-        text = {
-            "Select up to {C:attention}#1#{} cards,",
-            "rank up {C:attention}all cards{} matching",
-            "{C:attention}selected ranks{}"
-        }
-    },
     pos = {x=1,y=1},
     nb_curse = 2,
     config = {mod_conv = 'up_rank', max_highlighted = 5, min_highlighted = 1},
-
-    set_card_type_badge = function(self, card, badges)
-        badges[1] = create_badge(localize('k_tarot'), get_type_colour(self or card.config, card), nil, 1.2)
-        SMODS.ConsumableCU.set_card_type_badge(self, card, badges)
-    end,
 
     loc_vars = function(self, info_queue, center)
         SMODS.ConsumableCU.loc_vars(self, info_queue, center)
@@ -732,22 +533,9 @@ SMODS.ConsumableCU{
 -- The Cursed Hanged Man
 SMODS.ConsumableCU{
 	set = 'Tarot', atlas = 'Van_cu', key = 'c_hanged_man_cu',
-	loc_txt = {
-        name = "The Cursed Hanged Man",
-        text = {
-            "Select up to {C:attention}#1#{} cards,",
-            "destroys {C:attention}all cards{} matching",
-            "{C:attention}selected ranks{}"
-        }
-    },
     pos = {x=2,y=1},
     nb_curse = 2,
     config = {remove_card = true, max_highlighted = 4, min_highlighted = 1},
-
-    set_card_type_badge = function(self, card, badges)
-        badges[1] = create_badge(localize('k_tarot'), get_type_colour(self or card.config, card), nil, 1.2)
-        SMODS.ConsumableCU.set_card_type_badge(self, card, badges)
-    end,
 
     loc_vars = function(self, info_queue, center)
         SMODS.ConsumableCU.loc_vars(self, info_queue, center)
@@ -772,16 +560,9 @@ SMODS.ConsumableCU{
                 for k, v in pairs(G.playing_cards) do
                     if selected_ranks[v.base.id] then
                         destroyed_cards[#destroyed_cards+1] = v
-                        if v.ability.name == 'Glass Card' and v.area == G.hand then 
-                            v:shatter()
-                        else
-                            v:start_dissolve()
-                        end
                     end
                 end
-                for i = 1, #G.jokers.cards do
-                    G.jokers.cards[i]:calculate_joker({remove_playing_cards = true, removed = destroyed_cards, name = 'The Cursed Hanged Man'})
-                end
+                SMODS.destroy_cards(destroyed_cards)
         return true end }))
         delay(0.3)
     end
@@ -790,31 +571,14 @@ SMODS.ConsumableCU{
 -- Cursed Death
 SMODS.ConsumableCU{
 	set = 'Tarot', atlas = 'Van_cu', key = 'c_death_cu',
-	loc_txt = {
-        name = "Cursed Death",
-        text = {
-            "Select {C:attention}#1#{} cards,",
-            "convert the {C:attention}left{} cards",
-            "into the {C:attention}right{} card",
-            "{C:inactive}(Drag to rearrange)",
-            "Creates two copies",
-            "of {C:tarot}Death{} {C:dark_edition}DX{}",
-            "{C:inactive}(Must have room)"
-        }
-    },
     pos = {x=3,y=1},
     nb_curse = 2,
     config = {mod_conv = 'card', max_highlighted = 5, min_highlighted = 2},
 
-    set_card_type_badge = function(self, card, badges)
-        badges[1] = create_badge(localize('k_tarot'), get_type_colour(self or card.config, card), nil, 1.2)
-        SMODS.ConsumableCU.set_card_type_badge(self, card, badges)
-    end,
-
     loc_vars = function(self, info_queue, center)
         SMODS.ConsumableCU.loc_vars(self, info_queue, center)
         local fool_c = G.P_CENTERS["c_death_dx"] or nil
-        local created_card = fool_c and localize{type = 'name_text', key = fool_c.key, set = fool_c.set..fool_c.extra_type} or localize('k_none')
+        local created_card = fool_c and localize{type = 'name_text', key = fool_c.key, set = fool_c.set} or localize('k_none')
         if fool_c then
             info_queue[#info_queue+1] = fool_c
         end
@@ -866,23 +630,9 @@ SMODS.ConsumableCU{
 -- The Cursed Temperance
 SMODS.ConsumableCU{
 	set = 'Tarot', atlas = 'Van_cu', key = 'c_temperance_cu',
-	loc_txt = {
-        name = "The Cursed Temperance",
-        text = {
-            "Gives {C:money}$10{} per",
-            "current Joker",
-            "{C:inactive}(Max of {C:money}$#1#{C:inactive})",
-            "{C:inactive}(Currently {C:money}$#2#{C:inactive})"
-        }
-    },
     pos = {x=4,y=1},
     nb_curse = 1,
     config = {extra = 60},
-
-    set_card_type_badge = function(self, card, badges)
-        badges[1] = create_badge(localize('k_tarot'), get_type_colour(self or card.config, card), nil, 1.2)
-        SMODS.ConsumableCU.set_card_type_badge(self, card, badges)
-    end,
 
     loc_vars = function(self, info_queue, center)
         SMODS.ConsumableCU.loc_vars(self, info_queue, center)
@@ -929,29 +679,14 @@ SMODS.ConsumableCU{
 -- The Cursed Devil
 SMODS.ConsumableCU{
 	set = 'Tarot', atlas = 'Van_cu', key = 'c_devil_cu',
-	loc_txt = {
-        name = "The Cursed Devil",
-        text = {
-            "Permanently increases",
-            "{C:attention}#2#{} gold gain to",
-            "{C:money}$#1#{}. Creates a",
-            "copy of {C:tarot}The Devil{} {C:dark_edition}DX{}",
-            "{C:inactive}(Must have room)"
-        }
-    },
     pos = {x=5,y=1},
     nb_curse = 2,
     config = {mod_conv = 'm_gold', extra = 5},
 
-    set_card_type_badge = function(self, card, badges)
-        badges[1] = create_badge(localize('k_tarot'), get_type_colour(self or card.config, card), nil, 1.2)
-        SMODS.ConsumableCU.set_card_type_badge(self, card, badges)
-    end,
-
     loc_vars = function(self, info_queue, center)
         SMODS.ConsumableCU.loc_vars(self, info_queue, center)
         local fool_c = G.P_CENTERS["c_devil_dx"] or nil
-        local created_card = fool_c and localize{type = 'name_text', key = fool_c.key, set = fool_c.set..fool_c.extra_type} or localize('k_none')
+        local created_card = fool_c and localize{type = 'name_text', key = fool_c.key, set = fool_c.set} or localize('k_none')
         if fool_c then
             info_queue[#info_queue+1] = fool_c
         end
@@ -963,19 +698,13 @@ SMODS.ConsumableCU{
         G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0.4, func = function()
             if G.consumeables.config.card_limit > #G.consumeables.cards then
                 play_sound('timpani')
-                if G.consumeables.config.card_limit > #G.consumeables.cards then 
-                    local card = create_card('Tarot_dx', G.consumeables, nil, nil, nil, nil, 'c_devil_dx', 'devil')
-                    card:add_to_deck()
-                    G.consumeables:emplace(card)
-                end
-                G.P_CENTERS.m_gold.config.h_dollars = G.P_CENTERS.m_gold.config.h_dollars + self.config.extra
-                for k, v in pairs(G.playing_cards) do
-                    if v.config.center_key == self.config.mod_conv then
-                        v.ability.h_dollars = v.ability.h_dollars + self.config.extra
-                    end
-                end
-                used_tarot:juice_up(0.3, 0.5)
+                local card = create_card('Tarot_dx', G.consumeables, nil, nil, nil, nil, 'c_devil_dx', 'devil')
+                card:add_to_deck()
+                G.consumeables:emplace(card)
             end
+            DXT.update_cu_buffs()
+            DXT.buff_enhanced_cards(self.key)
+            used_tarot:juice_up(0.3, 0.5)
         return true end }))
     end,
 
@@ -987,29 +716,14 @@ SMODS.ConsumableCU{
 -- The Cursed Tower
 SMODS.ConsumableCU{
 	set = 'Tarot', atlas = 'Van_cu', key = 'c_tower_cu',
-	loc_txt = {
-        name = "The Cursed Tower",
-        text = {
-            "Permanently increases",
-            "{C:attention}#2#{} bonus to",
-            "{C:blue}+#1#{} Chips. Creates a",
-            "copy of {C:tarot}The Tower{} {C:dark_edition}DX{}",
-            "{C:inactive}(Must have room)"
-        }
-    },
     pos = {x=6,y=1},
     nb_curse = 1,
     config = {mod_conv = 'm_stone', extra = 200},
 
-    set_card_type_badge = function(self, card, badges)
-        badges[1] = create_badge(localize('k_tarot'), get_type_colour(self or card.config, card), nil, 1.2)
-        SMODS.ConsumableCU.set_card_type_badge(self, card, badges)
-    end,
-
     loc_vars = function(self, info_queue, center)
         SMODS.ConsumableCU.loc_vars(self, info_queue, center)
         local fool_c = G.P_CENTERS["c_tower_dx"] or nil
-        local created_card = fool_c and localize{type = 'name_text', key = fool_c.key, set = fool_c.set..fool_c.extra_type} or localize('k_none')
+        local created_card = fool_c and localize{type = 'name_text', key = fool_c.key, set = fool_c.set} or localize('k_none')
         if fool_c then
             info_queue[#info_queue+1] = fool_c
         end
@@ -1021,19 +735,13 @@ SMODS.ConsumableCU{
         G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0.4, func = function()
             if G.consumeables.config.card_limit > #G.consumeables.cards then
                 play_sound('timpani')
-                if G.consumeables.config.card_limit > #G.consumeables.cards then 
-                    local card = create_card('Tarot_dx', G.consumeables, nil, nil, nil, nil, 'c_tower_dx', 'tower')
-                    card:add_to_deck()
-                    G.consumeables:emplace(card)
-                end
-                 G.P_CENTERS.m_stone.config.bonus = G.P_CENTERS.m_stone.config.bonus + self.config.extra
-                for k, v in pairs(G.playing_cards) do
-                    if v.config.center_key == self.config.mod_conv then
-                        v.ability.bonus = v.ability.bonus + self.config.extra
-                    end
-                end
-                used_tarot:juice_up(0.3, 0.5)
+                local card = create_card('Tarot_dx', G.consumeables, nil, nil, nil, nil, 'c_tower_dx', 'tower')
+                card:add_to_deck()
+                G.consumeables:emplace(card)
             end
+            DXT.update_cu_buffs()
+            DXT.buff_enhanced_cards(self.key)
+            used_tarot:juice_up(0.3, 0.5)
         return true end }))
     end,
 
@@ -1045,29 +753,15 @@ SMODS.ConsumableCU{
 -- The Cursed Star
 SMODS.ConsumableCU{
 	set = 'Tarot', atlas = 'Van_cu', key = 'c_star_cu',
-	loc_txt = {
-        name = "The Cursed Star",
-        text = {
-            "{V:1}#1#{} cannot",
-            "get {C:attention}debuffed{}. Creates a",
-            "copy of {C:tarot}The Star{} {C:dark_edition}DX{}",
-            "{C:inactive}(Must have room)"
-        }
-    },
     pos = {x=7,y=1},
     nb_curse = 2,
     config = {suit_conv = 'Diamonds'},
     unique = true,
 
-    set_card_type_badge = function(self, card, badges)
-        badges[1] = create_badge(localize('k_tarot'), get_type_colour(self or card.config, card), nil, 1.2)
-        SMODS.ConsumableCU.set_card_type_badge(self, card, badges)
-    end,
-
     loc_vars = function(self, info_queue, center)
         SMODS.ConsumableCU.loc_vars(self, info_queue, center)
         local fool_c = G.P_CENTERS["c_star_dx"] or nil
-        local created_card = fool_c and localize{type = 'name_text', key = fool_c.key, set = fool_c.set..fool_c.extra_type} or localize('k_none')
+        local created_card = fool_c and localize{type = 'name_text', key = fool_c.key, set = fool_c.set} or localize('k_none')
         if fool_c then
             info_queue[#info_queue+1] = fool_c
         end
@@ -1097,29 +791,15 @@ SMODS.ConsumableCU{
 -- The Cursed Moon
 SMODS.ConsumableCU{
 	set = 'Tarot', atlas = 'Van_cu', key = 'c_moon_cu',
-	loc_txt = {
-        name = "The Cursed Moon",
-        text = {
-            "{V:1}#1#{} cannot",
-            "get {C:attention}debuffed{}. Creates a",
-            "copy of {C:tarot}The Star{} {C:dark_edition}DX{}",
-            "{C:inactive}(Must have room)"
-        }
-    },
     pos = {x=8,y=1},
     nb_curse = 2,
     config = {suit_conv = 'Clubs'},
     unique = true,
 
-    set_card_type_badge = function(self, card, badges)
-        badges[1] = create_badge(localize('k_tarot'), get_type_colour(self or card.config, card), nil, 1.2)
-        SMODS.ConsumableCU.set_card_type_badge(self, card, badges)
-    end,
-
     loc_vars = function(self, info_queue, center)
         SMODS.ConsumableCU.loc_vars(self, info_queue, center)
         local fool_c = G.P_CENTERS["c_moon_dx"] or nil
-        local created_card = fool_c and localize{type = 'name_text', key = fool_c.key, set = fool_c.set..fool_c.extra_type} or localize('k_none')
+        local created_card = fool_c and localize{type = 'name_text', key = fool_c.key, set = fool_c.set} or localize('k_none')
         if fool_c then
             info_queue[#info_queue+1] = fool_c
         end
@@ -1149,29 +829,15 @@ SMODS.ConsumableCU{
 -- The Cursed Sun
 SMODS.ConsumableCU{
 	set = 'Tarot', atlas = 'Van_cu', key = 'c_sun_cu',
-	loc_txt = {
-        name = "The Cursed Sun",
-        text = {
-            "{V:1}#1#{} cannot",
-            "get {C:attention}debuffed{}. Creates a",
-            "copy of {C:tarot}The Star{} {C:dark_edition}DX{}",
-            "{C:inactive}(Must have room)"
-        }
-    },
     pos = {x=9,y=1},
     nb_curse = 2,
     config = {suit_conv = 'Hearts'},
     unique = true,
 
-    set_card_type_badge = function(self, card, badges)
-        badges[1] = create_badge(localize('k_tarot'), get_type_colour(self or card.config, card), nil, 1.2)
-        SMODS.ConsumableCU.set_card_type_badge(self, card, badges)
-    end,
-
     loc_vars = function(self, info_queue, center)
         SMODS.ConsumableCU.loc_vars(self, info_queue, center)
         local fool_c = G.P_CENTERS["c_sun_dx"] or nil
-        local created_card = fool_c and localize{type = 'name_text', key = fool_c.key, set = fool_c.set..fool_c.extra_type} or localize('k_none')
+        local created_card = fool_c and localize{type = 'name_text', key = fool_c.key, set = fool_c.set} or localize('k_none')
         if fool_c then
             info_queue[#info_queue+1] = fool_c
         end
@@ -1201,22 +867,8 @@ SMODS.ConsumableCU{
 -- Cursed Judgement
 SMODS.ConsumableCU{
 	set = 'Tarot', atlas = 'Van_cu', key = 'c_judgement_cu',
-	loc_txt = {
-        name = "Cursed Judgement",
-        text = {
-            "Creates a random",
-            "{C:red}rare{} {C:attention}Joker{} card",
-            "with a random {C:dark_edition}edition{}",
-            "{C:inactive}(Must have room)"
-        }
-    },
     pos = {x=0,y=2},
     nb_curse = 1,
-
-    set_card_type_badge = function(self, card, badges)
-        badges[1] = create_badge(localize('k_tarot'), get_type_colour(self or card.config, card), nil, 1.2)
-        SMODS.ConsumableCU.set_card_type_badge(self, card, badges)
-    end,
 
     loc_vars = function(self, info_queue, center)
         SMODS.ConsumableCU.loc_vars(self, info_queue, center)
@@ -1249,29 +901,15 @@ SMODS.ConsumableCU{
 -- The Cursed World
 SMODS.ConsumableCU{
 	set = 'Tarot', atlas = 'Van_cu', key = 'c_world_cu',
-	loc_txt = {
-        name = "The Cursed World",
-        text = {
-            "{V:1}#1#{} cannot",
-            "get {C:attention}debuffed{}. Creates a",
-            "copy of {C:tarot}The Star{} {C:dark_edition}DX{}",
-            "{C:inactive}(Must have room)"
-        }
-    },
     pos = {x=1,y=2},
     nb_curse = 2,
     config = {suit_conv = 'Spades'},
     unique = true,
 
-    set_card_type_badge = function(self, card, badges)
-        badges[1] = create_badge(localize('k_tarot'), get_type_colour(self or card.config, card), nil, 1.2)
-        SMODS.ConsumableCU.set_card_type_badge(self, card, badges)
-    end,
-
     loc_vars = function(self, info_queue, center)
         SMODS.ConsumableCU.loc_vars(self, info_queue, center)
         local fool_c = G.P_CENTERS["c_world_dx"] or nil
-        local created_card = fool_c and localize{type = 'name_text', key = fool_c.key, set = fool_c.set..fool_c.extra_type} or localize('k_none')
+        local created_card = fool_c and localize{type = 'name_text', key = fool_c.key, set = fool_c.set} or localize('k_none')
         if fool_c then
             info_queue[#info_queue+1] = fool_c
         end

@@ -1,22 +1,65 @@
---- STEAMODDED HEADER
---- MOD_NAME: Deluxe Consumables
---- MOD_ID: JeffDeluxeConsumablesPack
---- MOD_AUTHOR: [JeffVi]
---- MOD_DESCRIPTION: Add Deluxe versions of consumables
---- PRIORITY: 1000
---- VERSION: 1.0.1
---- LOADER_VERSION_GEQ: 1.0.0
+-- Mod metadata is defined in DX-Tarots.json
 
 ----------------------------------------------
 ------------MOD CODE -------------------------
 
 ---------- local functions & variables ----------
 
+DXT = DXT or {}
+
+-- Plain Lua number of a value that may be a Talisman big number (hand levels, chips, dollars...)
+function DXT.to_number(value)
+    if type(value) == 'table' and to_number then return to_number(value) end
+    return value
+end
+
 local enhanced_prototype_centers = {}
-local enhanced_prototype_descriptions = {}
 local js_mod = SMODS.current_mod
-local js_config = assert(NFS.load(js_mod.path..'config.lua')())--js_mod.config
+local js_config = js_mod.config
+DXT.config = js_config
+
+-- Chance (or shop weight for the boosters) of the DX and Cursed versions at the Normal level
+local base_rates = {tarot_dx = 0.1, tarot_cu = 0.07, planet_dx = 0.12, spectral_dx = 0.15, booster_dx = 0.1}
+-- Multipliers of the levels available in the settings: Off, Low, Normal, High, Very high
+local rate_levels = {0, 0.5, 1, 2, 3}
+
+function DXT.rate(key)
+    return base_rates[key] * (rate_levels[js_config[key..'_level']] or 1)
+end
 js_mod.prefix_config = {key = false, atlas = false, shader = false, card_key = false}
+
+-- Enhancement values permanently increased by the cursed tarots (by config.extra per use)
+local cu_enhancement_buffs = {
+    {tarot = 'c_empress_cu', enhancement = 'm_mult', field = 'mult'},
+    {tarot = 'c_heirophant_cu', enhancement = 'm_bonus', field = 'bonus'},
+    {tarot = 'c_chariot_cu', enhancement = 'm_steel', field = 'h_x_mult'},
+    {tarot = 'c_justice_cu', enhancement = 'm_glass', field = 'Xmult'},
+    {tarot = 'c_devil_cu', enhancement = 'm_gold', field = 'h_dollars'},
+    {tarot = 'c_tower_cu', enhancement = 'm_stone', field = 'bonus'},
+}
+
+-- Set enhancements to vanilla values plus the cursed tarots used this run (vanilla only if reset)
+-- Already enhanced cards keep their own values, see DXT.buff_enhanced_cards
+function DXT.update_cu_buffs(reset)
+    local used = (not reset and G.GAME and G.GAME.used_cu_augments) or {}
+    for _, b in ipairs(cu_enhancement_buffs) do
+        local extra = G.P_CENTERS[b.tarot] and G.P_CENTERS[b.tarot].config.extra or 0
+        G.P_CENTERS[b.enhancement].config[b.field] = enhanced_prototype_centers[b.enhancement] + extra * (used[b.tarot] or 0)
+    end
+end
+
+-- Add a cursed tarot buff to the cards already enhanced
+function DXT.buff_enhanced_cards(tarot_key)
+    for _, b in ipairs(cu_enhancement_buffs) do
+        if b.tarot == tarot_key then
+            for _, v in pairs(G.playing_cards) do
+                if v.config.center_key == b.enhancement then
+                    v.ability[b.field] = v.ability[b.field] + G.P_CENTERS[b.tarot].config.extra
+                end
+            end
+        end
+    end
+end
 
 local function setUpDX()
 
@@ -25,47 +68,11 @@ local function setUpDX()
     G.P_CENTER_POOLS.Tarot_cu = {}
     G.P_CENTER_POOLS.Planet_dx = {}
     G.P_CENTER_POOLS.Spectral_dx = {}
-    --G.P_CENTER_POOLS.Booster_dx = {}
 
     -- Save vanilla enhanced centers
-    enhanced_prototype_centers.m_bonus = G.P_CENTERS.m_bonus.config.bonus
-    enhanced_prototype_centers.m_mult = G.P_CENTERS.m_mult.config.mult
-    enhanced_prototype_centers.m_glass = G.P_CENTERS.m_glass.config.Xmult
-    enhanced_prototype_centers.m_steel = G.P_CENTERS.m_steel.config.h_x_mult
-    enhanced_prototype_centers.m_stone = G.P_CENTERS.m_stone.config.bonus
-    enhanced_prototype_centers.m_gold = G.P_CENTERS.m_gold.config.h_dollars
-    
-    -- Save vanilla enhanced descriptions
-    G.localization.descriptions.Enhanced.m_wild_bak = G.localization.descriptions.Enhanced.m_wild
-
-    -- Localizations
-    G.localization.descriptions.Enhanced.m_wild_cu = {
-        name = "Wild Card",
-        text = {
-            "Can be used",
-            "as any suit",
-            "Copy rank of",
-            "its left card"
-        }
-    }
-    
-    unique_info =  {
-        label = "Unique",
-        description = {
-            name = "Unique",
-            text = {
-                "Cannot be pulled",
-                "again this run"
-            }
-        }
-    }
-    SMODS.process_loc_text(G.localization.descriptions.Other, 'unique', unique_info.description)
-
-    G.localization.misc.labels['unique'] = "Unique"
-    G.localization.misc.labels['star_bu'] = "Diamonds Buff"
-    G.localization.misc.labels['moon_bu'] = "Clubs Buff"
-    G.localization.misc.labels['sun_bu'] = "Hearts Buff"
-    G.localization.misc.labels['world_bu'] = "Spades Buff"
+    for _, b in ipairs(cu_enhancement_buffs) do
+        enhanced_prototype_centers[b.enhancement] = G.P_CENTERS[b.enhancement].config[b.field]
+    end
 
     -- Manage get_badge_colour
     get_badge_colour(foil)
@@ -80,31 +87,20 @@ end
 local function loadDXCUModule()
 
     -- Load modules
-    assert(load(NFS.load(js_mod.path .. "source/DX_CU_API.lua")))()
-    assert(load(NFS.load(js_mod.path .. "source/vanilla_dx.lua")))()
-    assert(load(NFS.load(js_mod.path .. "source/vanilla_cu.lua")))()
+    assert(load(NFS.load(js_mod.path .. "source/api/dx_cu_api.lua")))()
+    assert(load(NFS.load(js_mod.path .. "source/vanilla/vanilla_dx.lua")))()
+    assert(load(NFS.load(js_mod.path .. "source/vanilla/vanilla_cu.lua")))()
 
 end
 
 local function loadCursesModule()
 
     -- Load modules
-    assert(load(NFS.load(js_mod.path .. "source/curse.lua")))()
+    assert(load(NFS.load(js_mod.path .. "source/api/curse_api.lua")))()
+    assert(load(NFS.load(js_mod.path .. "source/vanilla/vanilla_curses.lua")))()
     
     -- Add curses
-    setup_curses()
-end
-
-local function loadCodexArcanumModule()
-
-    if SMODS.Mods and (SMODS.Mods['CodexArcanum'] or {}).can_load  then
-        
-        -- Load modules
-        assert(load(love.filesystem.read(js_mod.path .. "source/alchemical_dx.lua")))()
-        
-        -- Add new dx stuff
-        CodexArcanum.LoadDX()
-    end
+    DXT.setup_curses()
 end
 
 local function loadBuncoModule()
@@ -112,11 +108,129 @@ local function loadBuncoModule()
     if SMODS.Mods and (SMODS.Mods['Bunco'] or {}).can_load  then
         
         -- Load modules
-        assert(load(NFS.load(js_mod.path .. "source/bunco_dx.lua")))()
+        assert(load(NFS.load(js_mod.path .. "source/bunco/bunco_dx.lua")))()
         
         -- Add new dx stuff
-        LoadBuncoDX()
+        DXT.load_bunco_dx()
     end
+end
+
+---------- planet editions ----------
+
+-- Mod loaded, whatever the case of its id
+local function mod_loaded(id)
+    id = string.lower(id)
+    for mod_id, mod in pairs(SMODS.Mods or {}) do
+        if string.lower(mod_id) == id and mod.can_load then return true end
+    end
+    return false
+end
+
+-- Hand values may be Talisman big numbers (tables): only plain numbers are rounded
+local function clamp(value, min)
+    if type(value) == 'number' then return math.floor(math.max(value, min)) end
+    return value
+end
+
+local hand_minimums = {chips = 0, mult = 1}
+
+local operations = {
+    add = {prefix = '+', apply = function(value, amount) return value + amount end},
+    mult = {prefix = 'x', apply = function(value, amount) return value * amount end},
+    pow = {prefix = '^', apply = function(value, amount) return value ^ amount end},
+}
+
+-- Steamodded effect keys an edition may return, and how they change the leveled up hand
+local edition_effects = {
+    {keys = {'chips', 'h_chips', 'chip_mod'}, param = 'chips', op = 'add'},
+    {keys = {'x_chips', 'xchips', 'Xchip_mod'}, param = 'chips', op = 'mult'},
+    {keys = {'e_chips', 'echips', 'Echip_mod'}, param = 'chips', op = 'pow'},
+    {keys = {'mult', 'h_mult', 'mult_mod'}, param = 'mult', op = 'add'},
+    {keys = {'x_mult', 'xmult', 'Xmult', 'x_mult_mod', 'Xmult_mod'}, param = 'mult', op = 'mult'},
+    {keys = {'e_mult', 'emult', 'Emult_mod'}, param = 'mult', op = 'pow'},
+}
+
+-- Editions without a scoring effect (they change the card values instead)
+local special_editions = {
+    -- Cryptid Oversaturated: doubles values
+    e_cry_oversat = function(card, preview)
+        return {{param = 'chips', op = 'mult', amount = 2}, {param = 'mult', op = 'mult', amount = 2}}
+    end,
+    -- Cryptid Glitched: random values
+    e_cry_glitched = function(card, preview)
+        if preview then
+            return {{param = 'chips', op = 'mult', text = 'x...'}, {param = 'mult', op = 'mult', text = 'x...'}}
+        end
+        local hellno = pseudorandom('dx_glitched') < 1 / 3
+        local factor = hellno and (pseudorandom('dx_glitched', 1, 10) / 10) or (pseudorandom('dx_glitched', 11, 100) / 10)
+        return {{param = 'chips', op = 'mult', amount = factor}, {param = 'mult', op = 'mult', amount = factor}}
+    end,
+}
+
+-- Changes of the hand given by the card edition, from what the edition does when scored
+-- preview: only to display them, without rolling random values (Black Hole)
+local function edition_changes(card, preview)
+    local key = card.edition and card.edition.key
+    local edition = key and G.P_CENTERS[key]
+    if not edition then return {} end
+    if special_editions[key] then return special_editions[key](card, preview) end
+    if type(edition.calculate) ~= 'function' then return {} end
+
+    -- Modded editions may expect a real scoring context: ignore their errors
+    local ok, effect = pcall(edition.calculate, edition, card, {pre_joker = true, main_scoring = true, cardarea = G.play})
+    local changes = {}
+    while ok and type(effect) == 'table' do
+        for _, e in ipairs(edition_effects) do
+            for _, k in ipairs(e.keys) do
+                if effect[k] ~= nil then changes[#changes + 1] = {param = e.param, op = e.op, amount = effect[k]} end
+            end
+        end
+        effect = effect.extra
+    end
+    return changes
+end
+
+local function change_text(change)
+    return change.text or (operations[change.op].prefix..tostring(change.amount))
+end
+
+local function show_edition(card, changes, value, delay_time)
+    local sound = G.P_CENTERS[card.edition.key].sound
+    G.E_MANAGER:add_event(Event({trigger = 'after', delay = delay_time, func = function()
+        if type(sound) == 'table' then play_sound(sound.sound, sound.per, sound.vol)
+        else play_sound(sound or 'foil1') end
+        card:juice_up(0.8, 0.5)
+        return true end }))
+    for _, change in ipairs(changes) do
+        update_hand_text({delay = 0}, {[change.param] = value(change), StatusText = true})
+    end
+end
+
+function DXT.planet_editions_enabled()
+    return js_config.planet_edition_enabled and not mod_loaded('aurinko')
+end
+
+-- Apply the planet card edition to the hand
+function DXT.apply_planet_editions(card, hand, instant)
+    local changes = edition_changes(card)
+    if not changes[1] then return end
+    local h = G.GAME.hands[hand]
+    for _, change in ipairs(changes) do
+        h[change.param] = clamp(operations[change.op].apply(h[change.param], change.amount), hand_minimums[change.param])
+    end
+    if not instant then
+        -- Added values show the new total, multipliers show themselves
+        show_edition(card, changes, function(change)
+            return change.op == 'add' and h[change.param] or change_text(change)
+        end, 0.3)
+        delay(1.3)
+    end
+end
+
+-- Display the planet card edition without a specific hand (Black Hole)
+function DXT.show_planet_editions(card)
+    local changes = edition_changes(card, true)
+    if changes[1] then show_edition(card, changes, change_text, 0.9) end
 end
 
 ---------- mod init ----------
@@ -129,65 +243,36 @@ local function overrides()
     local Game_delete_run_ref = Game.delete_run
     function Game.delete_run(self)
 
-        G.P_CENTERS.m_bonus.config.bonus = enhanced_prototype_centers.m_bonus
-        G.P_CENTERS.m_mult.config.mult = enhanced_prototype_centers.m_mult
-        G.P_CENTERS.m_glass.config.Xmult = enhanced_prototype_centers.m_glass
-        G.P_CENTERS.m_steel.config.h_x_mult = enhanced_prototype_centers.m_steel
-        G.P_CENTERS.m_stone.config.bonus = enhanced_prototype_centers.m_stone
-        G.P_CENTERS.m_gold.config.h_dollars = enhanced_prototype_centers.m_gold
-
-        G.localization.descriptions.Enhanced.m_wild = G.localization.descriptions.Enhanced.m_wild_bak
-
+        DXT.update_cu_buffs(true)
         Game_delete_run_ref(self)
     end
 
-    -- Track cursed tarots usage
+    -- Apply cursed tarots buffs of the loaded run
     local Game_start_run_ref = Game.start_run
     function Game.start_run(self, args)
 
-        G.P_CENTERS.m_bonus.config.bonus = enhanced_prototype_centers.m_bonus
-        G.P_CENTERS.m_mult.config.mult = enhanced_prototype_centers.m_mult
-        G.P_CENTERS.m_glass.config.Xmult = enhanced_prototype_centers.m_glass
-        G.P_CENTERS.m_steel.config.h_x_mult = enhanced_prototype_centers.m_steel
-        G.P_CENTERS.m_stone.config.bonus = enhanced_prototype_centers.m_stone
-        G.P_CENTERS.m_gold.config.h_dollars = enhanced_prototype_centers.m_gold
-
-        G.localization.descriptions.Enhanced.m_wild = G.localization.descriptions.Enhanced.m_wild_bak
-
+        DXT.update_cu_buffs(true)
         Game_start_run_ref(self, args)
-
-        local saveTable = args.savetext or nil
-        
-        if G.GAME.used_cu_augments and G.GAME.used_cu_augments.c_empress_cu then
-            G.P_CENTERS.m_mult.config.mult = G.P_CENTERS.m_mult.config.mult + (G.P_CENTERS.c_empress_cu.config.extra * G.GAME.used_cu_augments.c_empress_cu)
-        end
-        
-        if G.GAME.used_cu_augments and G.GAME.used_cu_augments.c_heirophant_cu then
-            G.P_CENTERS.m_bonus.config.bonus = G.P_CENTERS.m_bonus.config.bonus + (G.P_CENTERS.c_heirophant_cu.config.extra * G.GAME.used_cu_augments.c_heirophant_cu)
-        end
-        
-        if G.GAME.used_cu_augments and G.GAME.used_cu_augments.c_lovers_cu then
-            G.localization.descriptions.Enhanced.m_wild = G.localization.descriptions.Enhanced.m_wild_cu
-        end
-        
-        if G.GAME.used_cu_augments and G.GAME.used_cu_augments.c_chariot_cu then
-            G.P_CENTERS.m_steel.config.h_x_mult = G.P_CENTERS.m_steel.config.h_x_mult + (G.P_CENTERS.c_chariot_cu.config.extra * G.GAME.used_cu_augments.c_chariot_cu)
-        end
-        
-        if G.GAME.used_cu_augments and G.GAME.used_cu_augments.c_justice_cu then
-            G.P_CENTERS.m_glass.config.Xmult = G.P_CENTERS.m_glass.config.Xmult + (G.P_CENTERS.c_justice_cu.config.extra * G.GAME.used_cu_augments.c_justice_cu)
-        end
-        
-        if G.GAME.used_cu_augments and G.GAME.used_cu_augments.c_devil_cu then
-            G.P_CENTERS.m_gold.config.h_dollars = G.P_CENTERS.m_gold.config.h_dollars + (G.P_CENTERS.c_devil_cu.config.extra * G.GAME.used_cu_augments.c_devil_cu)
-        end
-        
-        if G.GAME.used_cu_augments and G.GAME.used_cu_augments.c_tower_cu then
-            G.P_CENTERS.m_stone.config.bonus = G.P_CENTERS.m_stone.config.bonus + (G.P_CENTERS.c_tower_cu.config.extra * G.GAME.used_cu_augments.c_tower_cu)
-        end
+        DXT.update_cu_buffs()
     end
 
     ---------- common_events ----------
+
+    -- Chance to upgrade a created card to its DX/Cursed version
+    local function upgrade_roll(rate)
+        return pseudorandom('upgrade_card'..G.GAME.round_resets.ante) > math.min(1, math.max(0, 1 - rate))
+    end
+
+    -- Planet cards (more likely with the hand level) and Black Hole may have an edition
+    local function poll_planet_edition(card, key_append)
+        local hand_type = card.ability.consumeable.hand_type
+        local mod = hand_type and (1 + 0.07 * math.min(7, DXT.to_number(G.GAME.hands[hand_type].level))) or 1
+        if G.GAME.used_cu_augments and G.GAME.used_cu_augments.c_high_priestess_cu then
+            mod = mod * G.P_CENTERS.c_high_priestess_cu.config.prob_mult * G.GAME.used_cu_augments.c_high_priestess_cu
+        end
+        card:set_edition(poll_edition('edi'..(key_append or '')..G.GAME.round_resets.ante, math.max(1, mod), true))
+        check_for_unlock({type = 'have_edition'})
+    end
 
     -- Set a chance to change pool from normal to DX/Cursed
     local create_card_ref = create_card
@@ -196,233 +281,60 @@ local function overrides()
         local new_type = _type
         local new_forced_key = forced_key
 
-        -- Give a chance to the forced planet to be DX
-        if forced_key and _type == 'Planet' and G.GAME.used_vouchers.v_telescope and G.STATE == G.STATES.PLANET_PACK and (pseudorandom('upgrade_card'..G.GAME.round_resets.ante) > math.min(1, math.max(0, 1 - js_config.planet_dx_rate))) then
-            -- Check if the DX version exists (needed for mods compatibility)
-            local dx_ver = forced_key..'_dx'
-            for k, v in pairs(G.P_CENTER_POOLS.Planet_dx) do
-                if v.key == dx_ver then
-                    new_forced_key = v.key
-                    new_type = 'Planet_dx'
-                end
+        if forced_key then
+            -- Give a chance to the planet forced by Telescope to be DX, if its DX version exists
+            local dx_center = G.P_CENTERS[forced_key..'_dx']
+            if _type == 'Planet' and G.GAME.used_vouchers.v_telescope and G.STATE == G.STATES.PLANET_PACK and upgrade_roll(DXT.rate('planet_dx'))
+            and dx_center and dx_center.extra_type == '_dx' then
+                new_forced_key = dx_center.key
+                new_type = 'Planet_dx'
             end
-        end
-
-        if not forced_key then
-            -- Change type pseudorandom
-            if new_type == 'Tarot' and (pseudorandom('upgrade_card'..G.GAME.round_resets.ante) > math.min(1, math.max(0, 1 - js_config.tarot_dx_rate))) then new_type = "Tarot_dx" end
-            if ((new_type == 'Tarot') or (new_type == 'Tarot_dx')) and (pseudorandom('upgrade_card'..G.GAME.round_resets.ante) > math.min(1, math.max(0, 1 - js_config.tarot_cu_rate))) then new_type = "Tarot_cu" end
-            if new_type == 'Planet' and (pseudorandom('upgrade_card'..G.GAME.round_resets.ante) > math.min(1, math.max(0, 1 - js_config.planet_dx_rate))) then new_type = "Planet_dx" end
-            if new_type == 'Spectral' and (pseudorandom('upgrade_card'..G.GAME.round_resets.ante) > math.min(1, math.max(0, 1 - js_config.spectral_dx_rate))) then new_type = "Spectral_dx" end
-            
-            local alc_mod = js_config.alchemical_dx_rate
-            if G.GAME.used_cu_augments and G.GAME.used_cu_augments.c_seeker_cu then alc_mod = js_config.alchemical_dx_rate * G.P_CENTERS.c_seeker_cu.config.prob_mult * G.GAME.used_cu_augments.c_seeker_cu end
-            if new_type == 'Alchemical' and (pseudorandom('upgrade_card'..G.GAME.round_resets.ante) > math.min(1, math.max(0, 1 - (alc_mod)))) then new_type = "Alchemical_dx" end
+        else
+            if new_type == 'Tarot' and upgrade_roll(DXT.rate('tarot_dx')) then new_type = 'Tarot_dx' end
+            if (new_type == 'Tarot' or new_type == 'Tarot_dx') and upgrade_roll(DXT.rate('tarot_cu')) then new_type = 'Tarot_cu' end
+            if new_type == 'Planet' and upgrade_roll(DXT.rate('planet_dx')) then new_type = 'Planet_dx' end
+            if new_type == 'Spectral' and upgrade_roll(DXT.rate('spectral_dx')) then new_type = 'Spectral_dx' end
         end
 
         local created_card = create_card_ref(new_type, area, legendary, _rarity, skip_materialize, soulable, new_forced_key, key_append)
+        local center = created_card.config and created_card.config.center
 
         -- manage unique cards
-        if js_config.unique_enabled and created_card.config and created_card.config.center and created_card.config.center.unique and created_card.config.center.key then
-            G.GAME.banned_keys[created_card.config.center.key] = true
+        if js_config.unique_enabled and center and center.unique and center.key then
+            G.GAME.banned_keys[center.key] = true
         end
 
-        -- poll planet edition if it is enabled
-        if (js_config.planet_edition_enabled and not (SMODS.Mods['aurinko'] or {}).can_load) then
-            if (_type == 'Planet' or _type == 'Planet_dx') and created_card.ability.consumeable and created_card.ability.consumeable.hand_type then
-                local mod = math.max(1, 1 + (0.07 * math.min(7, G.GAME.hands[created_card.ability.consumeable.hand_type].level))) or 1
-                if G.GAME.used_cu_augments and G.GAME.used_cu_augments.c_high_priestess_cu then mod = mod * G.P_CENTERS.c_high_priestess_cu.config.prob_mult * G.GAME.used_cu_augments.c_high_priestess_cu end
-                local edition = poll_edition('edi'..(key_append or '')..G.GAME.round_resets.ante, mod, true)
-                created_card:set_edition(edition)
-                check_for_unlock({type = 'have_edition'})
-            end
-            if created_card.ability.name == 'Black Hole' or created_card.ability.name == 'Black Hole DX' then
-                local mod = 1
-                if G.GAME.used_cu_augments and G.GAME.used_cu_augments.c_high_priestess_cu then mod = mod * G.P_CENTERS.c_high_priestess_cu.config.prob_mult * G.GAME.used_cu_augments.c_high_priestess_cu end
-                local edition = poll_edition('edi'..(key_append or '')..G.GAME.round_resets.ante, mod, true)
-                created_card:set_edition(edition)
-                check_for_unlock({type = 'have_edition'})
-            end
+        if DXT.planet_editions_enabled() and created_card.ability.consumeable then
+            local is_planet = (_type == 'Planet' or _type == 'Planet_dx') and created_card.ability.consumeable.hand_type
+            local is_black_hole = center and (center.key == 'c_black_hole' or center.key == 'c_black_hole_dx')
+            if is_planet or is_black_hole then poll_planet_edition(created_card, key_append) end
         end
 
         return created_card
     end
 
-    -- Overwrite level_up_hand if planet edition is enabled 
+    -- Manage unique boosters
+    local get_pack_ref = get_pack
+    function get_pack(_key, _type)
+
+        local center = get_pack_ref(_key, _type)
+        if js_config.unique_enabled and center and center.unique and center.key then
+            G.GAME.banned_keys[center.key] = true
+        end
+        return center
+    end
+
+    -- Apply planet edition to the leveled up hand
     local level_up_hand_ref = level_up_hand
-    function level_up_hand(card, hand, instant, amount)
+    function level_up_hand(card, hand, instant, amount, statustext)
 
-        if (js_config.planet_edition_enabled and not (SMODS.Mods['aurinko'] or {}).can_load) then  -- Overwrite
-            amount = amount or 1
-            G.GAME.hands[hand].level = math.max(0, G.GAME.hands[hand].level + amount)
-            G.GAME.hands[hand].mult = math.max(G.GAME.hands[hand].mult + G.GAME.hands[hand].l_mult*(amount), 1)
-            G.GAME.hands[hand].chips = math.max(G.GAME.hands[hand].chips + G.GAME.hands[hand].l_chips*(amount), 0)
-            if not instant then 
-                G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0.2, func = function()
-                    play_sound('tarot1')
-                    if card then card:juice_up(0.8, 0.5) end
-                    G.TAROT_INTERRUPT_PULSE = true
-                    return true end }))
-                update_hand_text({delay = 0}, {mult = G.GAME.hands[hand].mult, StatusText = true})
-                G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0.9, func = function()
-                    play_sound('tarot1')
-                    if card then card:juice_up(0.8, 0.5) end
-                    return true end }))
-                update_hand_text({delay = 0}, {chips = G.GAME.hands[hand].chips, StatusText = true})
-                G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0.9, func = function()
-                    play_sound('tarot1')
-                    if card then card:juice_up(0.8, 0.5) end
-                    G.TAROT_INTERRUPT_PULSE = nil
-                    return true end }))
-                update_hand_text({sound = 'button', volume = 0.7, pitch = 0.9, delay = 0}, {level=G.GAME.hands[hand].level})
-                delay(1.3)
-            end
-                
-            -- Manage Editions
-            if card and card.ability and card.ability.consumeable then
-                if card.edition then
-                    if card.edition.holo then
-                        G.GAME.hands[hand].mult = math.max(G.GAME.hands[hand].mult + G.P_CENTERS.e_holo.config.extra, 1)
-                        if not instant then
-                            G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0.3, func = function()
-                                play_sound('holo1')
-                                card:juice_up(0.8, 0.5)
-                                return true end }))
-                            update_hand_text({delay = 0}, {mult = G.GAME.hands[hand].mult, StatusText = true})
-                            delay(1.3)
-                        end
-                    end
-                    if card.edition.foil then
-                        G.GAME.hands[hand].chips = math.max(G.GAME.hands[hand].chips + G.P_CENTERS.e_foil.config.extra, 0)
-                        if not instant then
-                            G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0.3, func = function()
-                                play_sound('foil1')
-                                card:juice_up(0.8, 0.5)
-                                return true end }))
-                            update_hand_text({delay = 0}, {chips = G.GAME.hands[hand].chips, StatusText = true})
-                            delay(1.3)
-                        end
-                    end
-                    if card.edition.polychrome then
-                        G.GAME.hands[hand].mult = math.floor(math.max(G.GAME.hands[hand].mult * G.P_CENTERS.e_polychrome.config.extra, 1))
-                        if not instant then
-                            G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0.3, func = function()
-                                play_sound('polychrome1')
-                                card:juice_up(0.8, 0.5)
-                                return true end }))
-                            update_hand_text({delay = 0}, {mult = 'x' .. tostring(G.P_CENTERS.e_polychrome.config.extra), StatusText = true})
-                            delay(1.3)
-                        end
-                    end
-                    -- Bunco Glitter compat
-                    if SMODS.Mods and (SMODS.Mods['Bunco'] or {}).can_load and card.edition.bunc_glitter then
-                        G.GAME.hands[hand].chips = math.floor(math.max(G.GAME.hands[hand].chips * G.P_CENTERS.e_bunc_glitter.config.Xchips, 0))
-                        if not instant then
-                            G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0.3, func = function()
-                                play_sound('bunc_glitter')
-                                card:juice_up(0.8, 0.5)
-                                return true end }))
-                            update_hand_text({delay = 0}, {chips = 'x' .. tostring(G.P_CENTERS.e_bunc_glitter.config.Xchips), StatusText = true})
-                            delay(1.3)
-                        end
-                    end
-                    -- Cryptid Mosaic compat
-                    if SMODS.Mods and (SMODS.Mods['Cryptid'] or {}).can_load and card.edition.cry_mosaic then
-                        G.GAME.hands[hand].chips = math.floor(math.max(G.GAME.hands[hand].chips * G.P_CENTERS.e_cry_mosaic.config.Xchips, 0))
-                        if not instant then
-                            G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0.3, func = function()
-                                play_sound('cry_e_mosaic')
-                                card:juice_up(0.8, 0.5)
-                                return true end }))
-                            update_hand_text({delay = 0}, {chips = 'x' .. tostring(G.P_CENTERS.e_cry_mosaic.config.Xchips), StatusText = true})
-                            delay(1.3)
-                        end
-                    end
-                    -- Cryptid Oversaturated compat
-                    if SMODS.Mods and (SMODS.Mods['Cryptid'] or {}).can_load and card.edition.cry_oversat then
-                        G.GAME.hands[hand].chips = math.floor(math.max(G.GAME.hands[hand].chips * 2, 0))
-                        G.GAME.hands[hand].mult = math.floor(math.max(G.GAME.hands[hand].mult * 2, 1))
-                        if not instant then
-                            G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0.3, func = function()
-                                play_sound('cry_e_oversaturated')
-                                card:juice_up(0.8, 0.5)
-                                return true end }))
-                            update_hand_text({delay = 0}, {chips = 'x2', StatusText = true})
-                            update_hand_text({delay = 0}, {mult = 'x2', StatusText = true})
-                            delay(1.3)
-                        end
-                    end
-                    -- Cryptid Astral Compat
-                    if SMODS.Mods and (SMODS.Mods['Cryptid'] or {}).can_load and card.edition.cry_astral then
-                        G.GAME.hands[hand].mult = math.floor(math.max(G.GAME.hands[hand].mult ^ G.P_CENTERS.e_cry_astral.config.pow_mult, 1))
-                        if not instant then
-                            G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0.3, func = function()
-                                play_sound('cry_^Mult')
-                                card:juice_up(0.8, 0.5)
-                                return true end }))
-                            update_hand_text({delay = 0}, {mult = '^' .. tostring(G.P_CENTERS.e_cry_astral.config.pow_mult), StatusText = true})
-                            delay(1.3)
-                        end
-                    end
-                    -- Cryptid Glitched compat
-                    if SMODS.Mods and (SMODS.Mods['Cryptid'] or {}).can_load and card.edition.cry_glitched then
-
-                        local bad = (love.math.random(1, 10) / 10)
-                        local gud = (love.math.random(11, 100) / 10)
-                        local hellno = love.math.random() < 1 / 3
-
-                        G.GAME.hands[hand].chips = math.floor(math.max(G.GAME.hands[hand].chips * ((hellno and bad) or gud), 0))
-                        G.GAME.hands[hand].mult = math.floor(math.max(G.GAME.hands[hand].mult * ((hellno and bad) or gud), 1))
-
-                        if not instant then
-                            G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0.3, func = function()
-                                play_sound('cry_e_glitched')
-                                card:juice_up(0.8, 0.5)
-                                return true end }))
-                            update_hand_text({ delay = 0 }, { chips = 'x' .. ((hellno and tostring(bad)) or gud), StatusText = true })
-                            update_hand_text({ delay = 0 }, { mult = 'x' .. ((hellno and tostring(bad)) or gud), StatusText = true })
-                            delay(2.6)
-                        end
-                    end
-                end
-            end
-            
-            G.E_MANAGER:add_event(Event({
-                trigger = 'immediate',
-                func = (function() check_for_unlock{type = 'upgrade_hand', hand = hand, level = G.GAME.hands[hand].level} return true end)
-            }))
-        else    -- Do not overwrite
-            level_up_hand_ref(card, hand, instant, amount)
+        level_up_hand_ref(card, hand, instant, amount, statustext)
+        if DXT.planet_editions_enabled() and card and card.ability and card.ability.consumeable and card.edition then
+            DXT.apply_planet_editions(card, hand, instant)
         end
     end
 
     ---------- Card ----------
-
-    -- Update calculate_joker for Hanged Man DX/CU
-    local card_calculate_joker_ref = Card.calculate_joker
-    function Card.calculate_joker(self, context)
-
-        if self.ability.set == "Joker" and not self.debuff then
-            if context.remove_playing_cards then
-                if self.ability.name == 'Glass Joker' and not context.blueprint and (context.name == 'The Hanged Man DX' or context.name == 'The Cursed Hanged Man')  then
-                    local shattered_glass = 0
-                    local destroyed_cards = context.removed or {}
-                    for k, val in ipairs(destroyed_cards) do
-                        if val.ability.name == 'Glass Card' then shattered_glass = shattered_glass + 1 end
-                    end
-                    if shattered_glass > 0 then
-                        self.ability.x_mult = self.ability.x_mult + self.ability.extra*shattered_glass
-                        G.E_MANAGER:add_event(Event({
-                            func = function() card_eval_status_text(self, 'extra', nil, nil, nil, {message = localize{type='variable',key='a_xmult',vars={self.ability.x_mult}}}); return true
-                            end}))
-                    end
-                    return
-                end
-            end
-        end
-
-        return card_calculate_joker_ref(self, context)
-    end
 
     -- Blank voucher
     local card_apply_to_run_ref = Card.apply_to_run
@@ -455,132 +367,59 @@ local function overrides()
         end
     end
 
+    -- Show another version of the card, hidden if not discovered yet
+    local function show_version(card, center)
+        if not center.discovered then
+            card.children.center = nil
+            card.bypass_discovery_center = false
+            card.params.discover = false
+            card.params.bypass_discovery_center = false
+        end
+        card:set_ability(center, true)
+    end
+
     -- Cycle Vanilla/DX/Cursed in collection
     local card_click_ref = Card.click
     function Card.click(self)
 
         card_click_ref(self)
-        -- Check if we are in the collection
-        if self.area and self.area.config and self.area.config.collection then
-            local version = 'van'
-            -- Check if this is a DX card
-            if self.config.center.extra_type == '_dx' then version = 'dx' end
-            -- Check if this is a Cursed card
-            if self.config.center.extra_type == '_cu' then version = 'cu' end
-
-            -- Check if a DX version exists
-            if version == 'van' and G.P_CENTER_POOLS[self.ability.set..'_dx'] then
-                local dx_ver = self.config.center_key..'_dx'
-                for k, v in pairs(G.P_CENTER_POOLS[self.ability.set..'_dx']) do
-                    if v.key == dx_ver then
-                        if not v.discovered then
-                            self.children.center = nil
-                            self.bypass_discovery_center = false
-                            self.params.discover = false
-                            self.params.bypass_discovery_center = false
-                        end
-                        self:set_ability(v, true)
-                        version = nil
-                        break
-                    end
-                end
-            end
-
-            -- Check if a cursed version exists
-            if version == 'van' and G.P_CENTER_POOLS[self.ability.set..'_cu'] then
-                local cu_ver = self.config.center_key..'_cu'
-                for k, v in pairs(G.P_CENTER_POOLS[self.ability.set..'_cu']) do
-                    if v.key == cu_ver then
-                        if not v.discovered then
-                            self.children.center = nil
-                            self.bypass_discovery_center = false
-                            self.params.discover = false
-                            self.params.bypass_discovery_center = false
-                        end
-                        self:set_ability(v, true)
-                        version = nil
-                        break
-                    end
-                end
-            elseif version == 'dx' and G.P_CENTER_POOLS[self.ability.set..'_cu'] then 
-                local cu_ver = string.sub(self.config.center_key, 1, -4)..'_cu'
-                for k, v in pairs(G.P_CENTER_POOLS[self.ability.set..'_cu']) do
-                    if v.key == cu_ver then
-                        if not v.discovered then
-                            self.children.center = nil
-                            self.bypass_discovery_center = false
-                            self.params.discover = false
-                            self.params.bypass_discovery_center = false
-                        end
-                        self:set_ability(v, true)
-                        version = nil
-                        break
-                    end
-                end
-            end
-
-            -- Back to vanilla
-            if version == 'dx' or version == 'cu' then
-                local van_ver = string.sub(self.config.center_key, 1, -4)
-                for k, v in pairs(G.P_CENTER_POOLS[self.ability.set]) do
-                    if v.key == van_ver then
-                        if not v.discovered then
-                            self.children.center = nil
-                            self.bypass_discovery_center = false
-                            self.params.discover = false
-                            self.params.bypass_discovery_center = false
-                        end
-                        self:set_ability(v, true)
-                        break
-                    end
+        local center = self.config.center
+        if self.area and self.area.config and self.area.config.collection and center.consumeable then
+            local suffixes = {'', '_dx', '_cu'}
+            local current = (center.extra_type == '_dx' and 2) or (center.extra_type == '_cu' and 3) or 1
+            local base_key = current == 1 and center.key or string.sub(center.key, 1, -4)
+            -- Next existing version, back to vanilla after the last one
+            for i = 1, 2 do
+                local suffix = suffixes[(current + i - 1) % 3 + 1]
+                local next_center = G.P_CENTERS[base_key..suffix]
+                if next_center and (next_center.extra_type or '') == suffix then
+                    show_version(self, next_center)
+                    break
                 end
             end
         end
     end
 
-    -- Manage enhanced wild cards
+    -- Enhanced wild cards description
+    SMODS.Enhancement:take_ownership('m_wild', {
+        loc_vars = function(self, info_queue, card)
+            if G.GAME and G.GAME.used_cu_augments and G.GAME.used_cu_augments.c_lovers_cu then return {key = 'm_wild_cu'} end
+        end,
+    }, true)
+
+    -- Enhanced wild cards copy the rank of the card on their left (Cursed Lovers)
     local card_get_id_ref = Card.get_id
     function Card.get_id(self)
         if G.GAME.used_cu_augments and G.GAME.used_cu_augments.c_lovers_cu and self.ability.effect == 'Wild Card' and not self.vampired and not self.debuffed and (self.area == G.hand or self.area == G.play) then
-            local cards = (self.area == G.hand and G.hand.highlighted) or (self.area == G.play and G.play.cards)
-            table.sort(cards, function(a,b) return a.T.x < b.T.x end)
-            for i=2, #cards, 1
-            do
-                if (cards[i].sort_id == self.sort_id) then return cards[i-1]:get_id() end
+            -- Sort a copy, the game's card lists keep their order
+            local cards = {}
+            for i, card in ipairs((self.area == G.hand and G.hand.highlighted) or G.play.cards) do cards[i] = card end
+            table.sort(cards, function(a, b) return a.T.x < b.T.x end)
+            for i = 2, #cards do
+                if cards[i] == self then return cards[i-1]:get_id() end
             end
         end
         return card_get_id_ref(self)
-    end
-
-    -- Manage debuff prevention
-    local card_set_debuff_ref = Card.set_debuff
-    function Card.set_debuff(self, should_debuff)
-
-        -- Check for suit buff
-        if self.base and self.base.suit and G.GAME.used_cu_augments and ((self.base.suit == 'Diamonds' and G.GAME.used_cu_augments.c_star_cu) or (self.base.suit == 'Clubs' and G.GAME.used_cu_augments.c_moon_cu) or (self.base.suit == 'Hearts' and G.GAME.used_cu_augments.c_sun_cu) or (self.base.suit == 'Spades' and G.GAME.used_cu_augments.c_world_cu)) then   -- Overwrite
-            self.debuff = false
-            self.ability.debuff_by_curse_rolls = {}
-            return
-        end
-        -- Check for bunco suit buff
-        if SMODS.Mods and (SMODS.Mods['Bunco'] or {}).can_load and self.base and self.base.suit and G.GAME.used_cu_augments and ((self.base.suit == 'bunc_Fleurons' and G.GAME.used_cu_augments.c_bunc_sky_cu) or (self.base.suit == 'bunc_Halberds' and G.GAME.used_cu_augments.c_bunc_abyss_cu)) then   -- Overwrite
-            self.debuff = false
-            self.ability.debuff_by_curse_rolls = {}
-            return
-        end
-        -- Check for Oil, CodexArcanum stuff
-        if self.ability and self.ability.oil then    -- Overwrite
-            self.debuff = false
-            self.ability.debuff_by_curse_rolls = {}
-            return
-        end
-        -- OR with vanilla boolean
-        local custom_debuff = custom_debuff_card(self)
-        card_set_debuff_ref(self, should_debuff or custom_debuff)
-        if (should_debuff or custom_debuff) and not self.debuff then
-            -- Debuff prevented by another mod, remove curse rolls after the fact
-            self.ability.debuff_by_curse_rolls = {}
-        end
     end
 
     ---------- cardarea ----------
@@ -595,8 +434,8 @@ local function overrides()
         cardarea_align_cards_ref(self)
     end
     
-    -- Manage Black Hole planet edition if enabled
-    if (js_config.planet_edition_enabled and not (SMODS.Mods['aurinko'] or {}).can_load) then
+    -- Manage Black Hole planet edition
+    if not mod_loaded('aurinko') then
         SMODS.Consumable:take_ownership('c_black_hole', {
             use = function(self, card, area, copier)
                 local used_tarot = copier or card
@@ -618,80 +457,110 @@ local function overrides()
                     G.TAROT_INTERRUPT_PULSE = nil
                     return true end }))
                 update_hand_text({sound = 'button', volume = 0.7, pitch = 0.9, delay = 0}, {level='+3'})
-                if (js_config.planet_edition_enabled and not (SMODS.Mods['aurinko'] or {}).can_load) and used_tarot.edition then
-                    if used_tarot.edition.holo then
-                        G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0.9, func = function()
-                            play_sound('holo1')
-                            used_tarot:juice_up(0.8, 0.5)
-                            return true end }))
-                            update_hand_text({delay = 0}, {mult = '+' .. tostring(G.P_CENTERS.e_holo.config.extra), StatusText = true})
-                    end
-                    if used_tarot.edition.foil then
-                        G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0.9, func = function()
-                            play_sound('foil1')
-                            used_tarot:juice_up(0.8, 0.5)
-                            return true end }))
-                            update_hand_text({delay = 0}, {chips = '+' .. tostring(G.P_CENTERS.e_foil.config.extra), StatusText = true})
-                    end
-                    if used_tarot.edition.polychrome then
-                        G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0.9, func = function()
-                            play_sound('polychrome1')
-                            used_tarot:juice_up(0.8, 0.5)
-                            return true end }))
-                            update_hand_text({delay = 0}, {mult = 'x' .. tostring(G.P_CENTERS.e_polychrome.config.extra), StatusText = true})
-                    end
-                    -- Bunco Glitter compat
-                    if SMODS.Mods and (SMODS.Mods['Bunco'] or {}).can_load and used_tarot.edition.bunc_glitter then
-                        G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0.3, func = function()
-                            play_sound('bunc_glitter')
-                            used_tarot:juice_up(0.8, 0.5)
-                            return true end }))
-                        update_hand_text({delay = 0}, {chips = 'x' .. tostring(G.P_CENTERS.e_bunc_glitter.config.Xchips), StatusText = true})
-                    end
-                    -- Cryptid Mosaic compat
-                    if SMODS.Mods and (SMODS.Mods['Cryptid'] or {}).can_load and used_tarot.edition.cry_mosaic then
-                        G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0.3, func = function()
-                            play_sound('cry_e_mosaic')
-                            used_tarot:juice_up(0.8, 0.5)
-                            return true end }))
-                        update_hand_text({delay = 0}, {chips = 'x' .. tostring(G.P_CENTERS.e_cry_mosaic.config.Xchips), StatusText = true})
-                    end
-                    -- Cryptid Oversaturated compat
-                    if SMODS.Mods and (SMODS.Mods['Cryptid'] or {}).can_load and used_tarot.edition.cry_oversat then
-                        G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0.3, func = function()
-                            play_sound('cry_e_oversaturated')
-                            used_tarot:juice_up(0.8, 0.5)
-                            return true end }))
-                        update_hand_text({delay = 0}, {chips = 'x2', StatusText = true})
-                        update_hand_text({delay = 0}, {mult = 'x2', StatusText = true})
-                    end
-                    -- Cryptid Astral Compat
-                    if SMODS.Mods and (SMODS.Mods['Cryptid'] or {}).can_load and used_tarot.edition.cry_astral then
-                        G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0.3, func = function()
-                            play_sound('cry_^Mult')
-                            used_tarot:juice_up(0.8, 0.5)
-                            return true end }))
-                        update_hand_text({delay = 0}, {mult = '^' .. tostring(G.P_CENTERS.e_cry_astral.config.pow_mult), StatusText = true})
-                    end
-                    -- Cryptid Glitched compat
-                    if SMODS.Mods and (SMODS.Mods['Cryptid'] or {}).can_load and used_tarot.edition.cry_glitched then
-                        G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0.3, func = function()
-                            play_sound('cry_e_glitched')
-                            used_tarot:juice_up(0.8, 0.5)
-                            return true end }))
-                        update_hand_text({ delay = 0 }, { chips = 'x' .. '...', StatusText = true })
-                        update_hand_text({ delay = 0 }, { mult = 'x' .. '...', StatusText = true })
-                        -- TODO either keep it as is or force hellno/bad/gud values to be pulled once and applied to every hand
-                    end
-                end
+                if DXT.planet_editions_enabled() then DXT.show_planet_editions(used_tarot) end
                 delay(1.3)
                 for k, v in pairs(G.GAME.hands) do
                     level_up_hand(used_tarot, k, true, 1)
                 end
                 update_hand_text({sound = 'button', volume = 0.7, pitch = 1.1, delay = 0}, {mult = 0, chips = 0, handname = '', level = ''})
             end,
-        })
+        }, true)
     end
+end
+
+-- Suits protected from debuffs by the cursed tarots
+local suit_buffs = {
+    Diamonds = 'c_star_cu',
+    Clubs = 'c_moon_cu',
+    Hearts = 'c_sun_cu',
+    Spades = 'c_world_cu',
+    bunc_Fleurons = 'c_bunc_sky_cu',
+    bunc_Halberds = 'c_bunc_abyss_cu',
+}
+
+-- Steamodded calculation for the whole mod, called for every context
+js_mod.calculate = function(self, context)
+    if context.debuff_card then
+        local card = context.debuff_card
+        local buff = card.base and suit_buffs[card.base.suit]
+        -- Cards protected by the Oil alchemical of CodexArcanum
+        if (buff and G.GAME.used_cu_augments and G.GAME.used_cu_augments[buff]) or (card.ability and card.ability.oil) then
+            return {prevent_debuff = true}
+        end
+    end
+    return DXT.calculate_curses(context)
+end
+
+-- Collection pages of the DX and Cursed cards, which are not in the vanilla pools
+local collection_pages = {
+    {pool = 'Tarot_dx', label = 'b_dxt_tarot_dx', colour = 'Tarot'},
+    {pool = 'Tarot_cu', label = 'b_dxt_tarot_cu', colour = 'Tarot'},
+    {pool = 'Planet_dx', label = 'b_dxt_planet_dx', colour = 'Planet'},
+    {pool = 'Spectral_dx', label = 'b_dxt_spectral_dx', colour = 'Spectral'},
+}
+
+local function collection_tally(pool)
+    local tally = {tally = 0, of = 0}
+    for _, v in ipairs(SMODS.collection_pool(pool)) do
+        tally.of = tally.of + 1
+        if v.discovered then tally.tally = tally.tally + 1 end
+    end
+    return tally
+end
+
+for _, page in ipairs(collection_pages) do
+    G.FUNCS['your_collection_dxt_'..page.pool] = function(e)
+        G.SETTINGS.paused = true
+        G.FUNCS.overlay_menu{
+            definition = SMODS.card_collection_UIBox(G.P_CENTER_POOLS[page.pool], {6, 6}, {back_func = 'your_collection_other_gameobjects'}),
+        }
+    end
+end
+
+-- Buttons in the "Other" page of the collection, and in the mod page
+js_mod.custom_collection_tabs = function()
+    local tabs = {}
+    for _, page in ipairs(collection_pages) do
+        local tally = collection_tally(G.P_CENTER_POOLS[page.pool])
+        if tally.of > 0 then
+            tabs[#tabs + 1] = UIBox_button({button = 'your_collection_dxt_'..page.pool, label = {localize(page.label)}, count = tally,
+                minw = 5, id = 'your_collection_dxt_'..page.pool, colour = G.C.SECONDARY_SET[page.colour]})
+        end
+    end
+    local curses = 0
+    for _ in pairs(G.P_CURSES) do curses = curses + 1 end
+    tabs[#tabs + 1] = UIBox_button({button = 'your_collection_curses', label = {localize('b_curses')}, count = {tally = curses, of = curses},
+        minw = 5, id = 'your_collection_curses', colour = G.C.BLACK})
+    return tabs
+end
+
+G.FUNCS.dxt_change_rate_level = function(args)
+    js_config[args.cycle_config.ref_value] = args.to_key
+end
+
+-- Settings tab in the Mods menu, values are saved by Steamodded
+js_mod.config_tab = function()
+    local function rate_cycle(key)
+        return create_option_cycle({label = localize('dxt_'..key..'_rate'), options = localize('ml_dxt_rate_levels'), opt_callback = 'dxt_change_rate_level',
+            ref_value = key..'_level', current_option = js_config[key..'_level'], w = 3, scale = 0.7, colour = G.C.RED})
+    end
+    local function toggle(key)
+        return create_toggle({label = localize('dxt_'..key), info = localize('ml_dxt_'..key..'_info'), ref_table = js_config, ref_value = key})
+    end
+    return {n = G.UIT.ROOT, config = {r = 0.1, minw = 8, minh = 6, align = "tm", padding = 0.2, colour = G.C.BLACK}, nodes = {
+        {n = G.UIT.C, config = {align = "tm", padding = 0.1}, nodes = {
+            rate_cycle('tarot_dx'),
+            rate_cycle('tarot_cu'),
+            rate_cycle('planet_dx'),
+            rate_cycle('spectral_dx'),
+            rate_cycle('booster_dx'),
+        }},
+        {n = G.UIT.C, config = {align = "tm", padding = 0.1}, nodes = {
+            toggle('planet_edition_enabled'),
+            toggle('spectral_on_blank'),
+            toggle('unique_enabled'),
+        }},
+    }}
 end
 
 sendInfoMessage("Deluxe Consumables Cards Loaded", 'DX')
@@ -712,8 +581,6 @@ setUpDX()
 -------------------------------
 ---------- OVERRIDES ----------
 -------------------------------
-
---loadCodexArcanumModule()
 
 overrides()
 

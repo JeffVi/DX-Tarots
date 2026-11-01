@@ -1,0 +1,13 @@
+{
+    "id": "JeffDeluxeConsumablesPack",
+    "name": "Deluxe Consumables",
+    "author": ["JeffVi"],
+    "description": "Add Deluxe versions of consumables",
+    "prefix": "dxt",
+    "main_file": "TarotDx.lua",
+    "priority": 1000,
+    "version": "2.0.0",
+    "dependencies": [
+        "Steamodded (>=26.1002.0)"
+    ]
+}

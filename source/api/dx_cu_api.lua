@@ -1,166 +1,99 @@
-local js_mod = SMODS.current_mod
-local js_config = assert(NFS.load(js_mod.path..'config.lua')())--js_mod.config
+-- Same as SMODS.Consumable, but the card goes in the DX/CU pool (e.g. Tarot_dx) instead of the vanilla one
+local function inject_extra_type(self)
+    G.P_CENTER_POOLS[self.set..self.extra_type] = G.P_CENTER_POOLS[self.set..self.extra_type] or {}
+    self.undiscovered = self.undiscovered or SMODS.UndiscoveredSprites[self.set..self.extra_type]
+    local omit = self.omit
+    self.omit = true
+    SMODS.Consumable.inject(self)
+    self.omit = omit
+    if not omit then SMODS.insert_pool(G.P_CENTER_POOLS[self.set..self.extra_type], self) end
+end
 
-local dx_locs = {
-    dx =  {
-        label = "DX Version",
-        description = {
-            name = "Deluxe",
-            text = {
-                "Enhanced effect"
-            }
-        }
-    },
-    cursed =  {
-        label = "Cursed Version",
-        description = {
-            name = "Cursed",
-            text = {
-                "Get a random",
-                "{X:black,C:white} curse {} if used",
-                "{C:attention}(x#1#){}"
-            }
-        }
-    }
-}
+local function delete_extra_type(self)
+    if not self.omit then SMODS.remove_pool(G.P_CENTER_POOLS[self.set..self.extra_type], self.key) end
+    self.omit = true
+    return SMODS.Consumable.delete(self)
+end
 
-SMODS.process_loc_text(G.localization.descriptions.Other, 'dx', dx_locs.dx.description)
-SMODS.process_loc_text(G.localization.descriptions.Other, 'cursed', dx_locs.cursed.description)
+-- Type badge (e.g. Tarot), its text can be changed with type_badge (a localization key, or a function returning the text)
+local function type_badge(self, card, badges)
+    local text = type(self.type_badge) == 'function' and self:type_badge() or localize(self.type_badge or 'k_'..string.lower(self.set))
+    badges[1] = create_badge(text, get_type_colour(self or card.config, card), nil, 1.2)
+end
 
 -- DX Consumables
-SMODS.ConsumableDX = SMODS.Center:extend {
-    unlocked = true,
-    discovered = false,
-    consumeable = true,
-    pos = { x = 0, y = 0 },
-    atlas = 'Tarot',
+SMODS.ConsumableDX = SMODS.Consumable:extend {
     extra_type = '_dx',
     cost = 5,
-    config = {},
-    class_prefix = 'c',
-    required_params = {
-        'set',
-        'key',
-    },
-    inject = function(self)
-        G.P_CENTERS[self.key] = self
-        G.P_CENTER_POOLS[self.set..self.extra_type] = G.P_CENTER_POOLS[self.set..self.extra_type] or {}
-        SMODS.insert_pool(G.P_CENTER_POOLS[self.set..self.extra_type], self)
-        SMODS.insert_pool(G.P_CENTER_POOLS['Consumeables'], self)
-        self.type = SMODS.ConsumableTypes[self.set]
-        if self.hidden then
-            self.soul_set = self.soul_set or 'Spectral'
-            self.soul_rate = self.soul_rate or 0.003
-            table.insert(SMODS.Consumable.legendaries, self)
-        end
-        if self.type and self.type.inject_card and type(self.type.inject_card) == 'function' then
-            self.type:inject_card(self)
-        end
-    end,
-    delete = function(self)
-        if self.type and self.type.delete_card and type(self.type.delete_card) == 'function' then
-            G.P_CENTERS[self.key] = nil
-            SMODS.remove_pool(G.P_CENTER_POOLS[self.set..self.extra_type], self.key)
-            local j
-            for i, v in ipairs(self.obj_buffer) do
-                if v == self.key then j = i end
-            end
-            if j then table.remove(self.obj_buffer, j) end
-            self = nil
-        end
-        SMODS.remove_pool(G.P_CENTER_POOLS['Consumeables'], self.key)
-        SMODS.Consumable.super.delete(self)
-    end,
+    inject = inject_extra_type,
+    delete = delete_extra_type,
     loc_vars = function(self, info_queue, center)
-        --info_queue[#info_queue+1] = {key = 'dx', set = 'Other'}
         return {}
     end,
     set_card_type_badge = function(self, card, badges)
-        badges[#badges+1] = create_badge(dx_locs.dx.label, G.C.DARK_EDITION, nil, 1.0)
+        type_badge(self, card, badges)
+        badges[#badges+1] = create_badge(localize('k_dx_version'), G.C.DARK_EDITION, nil, 1.0)
     end
 }
 
+-- DX Planets: upgrade their poker hand by 2 levels
+SMODS.PlanetDX = SMODS.ConsumableDX:extend {
+    set = 'Planet',
+    atlas = 'Van_dx',
+    loc_vars = function(self, info_queue, center)
+        SMODS.ConsumableDX.loc_vars(self, info_queue, center)
+        local hand = G.GAME.hands[self.config.hand_type]
+        return {vars = {
+            hand.level, localize(self.config.hand_type, 'poker_hands'), hand.l_mult * 2, hand.l_chips * 2,
+            colours = {(DXT.to_number(hand.level) == 1 and G.C.UI.TEXT_DARK or G.C.HAND_LEVELS[math.min(7, DXT.to_number(hand.level))])}
+        }}
+    end,
+    use = function(self, card, area, copier)
+        local used_tarot = copier or card
+        local hand = G.GAME.hands[self.config.hand_type]
+        update_hand_text({sound = 'button', volume = 0.7, pitch = 0.8, delay = 0.3}, {handname = localize(self.config.hand_type, 'poker_hands'), chips = hand.chips, mult = hand.mult, level = hand.level})
+        level_up_hand(used_tarot, self.config.hand_type, false, 2)
+        update_hand_text({sound = 'button', volume = 0.7, pitch = 1.1, delay = 0}, {mult = 0, chips = 0, handname = '', level = ''})
+    end,
+}
+
 -- CU Consumables
-SMODS.ConsumableCU = SMODS.Center:extend {
-    unlocked = true,
-    discovered = false,
-    consumeable = true,
-    pos = { x = 0, y = 0 },
-    atlas = 'Tarot',
+SMODS.ConsumableCU = SMODS.Consumable:extend {
     extra_type = '_cu',
     nb_curse = 1,
     cost = 5,
-    config = {},
-    class_prefix = 'c',
-    required_params = {
-        'set',
-        'key',
-    },
-    inject = function(self)
-        G.P_CENTERS[self.key] = self
-        G.P_CENTER_POOLS[self.set..self.extra_type] = G.P_CENTER_POOLS[self.set..self.extra_type] or {}
-        SMODS.insert_pool(G.P_CENTER_POOLS[self.set..self.extra_type], self)
-        SMODS.insert_pool(G.P_CENTER_POOLS['Consumeables'], self)
-        self.type = SMODS.ConsumableTypes[self.set]
-        if self.hidden then
-            self.soul_set = self.soul_set or 'Spectral'
-            self.soul_rate = self.soul_rate or 0.003
-            table.insert(SMODS.Consumable.legendaries, self)
-        end
-        if self.type and self.type.inject_card and type(self.type.inject_card) == 'function' then
-            self.type:inject_card(self)
-        end
-    end,
-    delete = function(self)
-        if self.type and self.type.delete_card and type(self.type.delete_card) == 'function' then
-            G.P_CENTERS[self.key] = nil
-            SMODS.remove_pool(G.P_CENTER_POOLS[self.set..self.extra_type], self.key)
-            local j
-            for i, v in ipairs(self.obj_buffer) do
-                if v == self.key then j = i end
-            end
-            if j then table.remove(self.obj_buffer, j) end
-            self = nil
-        end
-        SMODS.remove_pool(G.P_CENTER_POOLS['Consumeables'], self.key)
-        SMODS.Consumable.super.delete(self)
-    end,
+    inject = inject_extra_type,
+    delete = delete_extra_type,
     loc_vars = function(self, info_queue, center)
         info_queue[#info_queue+1] = {key = 'cursed', set = 'Other', vars = {self.nb_curse or 1}}
         return {}
     end,
     set_card_type_badge = function(self, card, badges)
-        badges[#badges+1] = create_badge(dx_locs.cursed.label, G.C.BLACK, nil, 1.0)
+        type_badge(self, card, badges)
+        badges[#badges+1] = create_badge(localize('k_cursed_version'), G.C.BLACK, nil, 1.0)
     end
 }
 
 -- DX Boosters
 SMODS.BoosterDX = SMODS.Booster:extend {
     update_pack = SMODS.Booster.update_pack,
-    --extra_type = '_dx',
+    unique = true,
 
-    --[[
-    inject = function(self)
-        G.P_CENTER_POOLS['Booster'..self.extra_type] = G.P_CENTER_POOLS['Booster'..self.extra_type] or {}
-        SMODS.insert_pool(G.P_CENTER_POOLS['Booster'..self.extra_type], self)
-        SMODS.Booster.inject(self)
+    -- Shop weight scaled by the DX Boosters rate setting
+    get_weight = function(self)
+        return (self.weight or 1) * DXT.rate('booster_dx')
     end,
-
-    delete = function(self)
-        if self.type and self.type.delete_card and type(self.type.delete_card) == 'function' then
-            SMODS.remove_pool(G.P_CENTER_POOLS['Booster'..self.extra_type], self.key)
-        end
-        SMODS.Booster.delete(self)
-    end,
-    ]]
 
     set_card_type_badge = function(self, card, badges)
         badges[1] = create_badge(localize('k_booster'), get_type_colour(self or card.config, card), nil, 1.2)
-        badges[#badges+1] = create_badge("DX Version", G.C.DARK_EDITION, nil, 1.0)
+        badges[#badges+1] = create_badge(localize('k_dx_version'), G.C.DARK_EDITION, nil, 1.0)
     end,
 
+    -- Boosters of the same size share their text (loc_key)
     loc_vars = function(self, info_queue, card)
-        return { vars = {self.config.choose, self.config.extra} }
+        local ret = SMODS.Booster.loc_vars(self, info_queue, card)
+        ret.key = self.loc_key
+        return ret
     end,
 }
 
@@ -210,32 +143,32 @@ function set_consumeable_usage(card)
 end
 
 
+-- Sets whose normal/DX/CU versions count as the same card
+local linked_sets = {Tarot = true, Planet = true, Spectral = true, Booster = true}
+
+-- Key of the normal version of a center
+local function normal_key(center)
+    if center.extra_type == '_dx' or center.extra_type == '_cu' then
+        return string.sub(center.key, 1, -4)
+    end
+    return center.key
+end
+
+local function set_linked_used(normal_k, value)
+    G.GAME.used_jokers[normal_k] = value
+    G.GAME.used_jokers[normal_k..'_dx'] = value
+    G.GAME.used_jokers[normal_k..'_cu'] = value
+end
+
 -- Prevents duplicates between normal and DX/CU version
 local card_set_ability_ref = Card.set_ability
 function Card.set_ability(self, center, initial, delay_sprites)
 
     card_set_ability_ref(self, center, initial, delay_sprites)
 
-    if self.ability and self.ability.consumeable and self.ability.name and self.ability.set then 
-        if self.ability.set == 'Tarot' or self.ability.set == 'Planet' or self.ability.set == 'Spectral' or self.ability.set == 'Booster' or self.ability.set == 'Alchemical' then
-            if not G.OVERLAY_MENU then 
-                for k, v in pairs(G.P_CENTERS) do
-                    if v.name == self.ability.name then
-                        local normal_k = k
-                        if self.config.center.extra_type == '_dx' then
-                            normal_k = string.sub(normal_k, 1, -4)
-                        end
-                        if self.config.center.extra_type == '_cu' then
-                            normal_k = string.sub(normal_k, 1, -4)
-                        end
-                        -- Add normal/DX/CU version
-                        G.GAME.used_jokers[normal_k] = true
-                        G.GAME.used_jokers[normal_k..'_dx'] = true
-                        G.GAME.used_jokers[normal_k..'_cu'] = true
-                    end
-                end
-            end
-        end
+    if self.ability and self.ability.consumeable and self.ability.set and linked_sets[self.ability.set] and self.config.center.key and not G.OVERLAY_MENU then
+        -- Add normal/DX/CU version
+        set_linked_used(normal_key(self.config.center), true)
     end
 end
 
@@ -243,37 +176,17 @@ end
 local card_remove_ref = Card.remove
 function Card.remove(self)
 
-    if self.ability and self.ability.consumeable and self.ability.name and self.ability.set and G.consumeables then 
-        if self.ability.set == 'Tarot' or self.ability.set == 'Planet' or self.ability.set == 'Spectral' or self.ability.set == 'Booster' or self.ability.set == 'Alchemical' then
-            if not G.OVERLAY_MENU then 
-                for k, v in pairs(G.P_CENTERS) do
-                    if v.name == self.ability.name then
-                        local normal_k = k
-                        if self.config.center.extra_type == '_dx' then
-                            normal_k = string.sub(normal_k, 1, -4)
-                        end
-                        if self.config.center.extra_type == '_cu' then
-                            normal_k = string.sub(normal_k, 1, -4)
-                        end
-                        local consumeable_exists
-                        for k, v in pairs(G.consumeables.cards) do
-                            if v and type(v) == 'table' and (
-                                v.config.center.key == normal_k 
-                                or v.config.center.key == normal_k..'_dx'
-                                or v.config.center.key == normal_k..'_cu'
-                            ) then
-                                consumeable_exists = true
-                            end
-                        end
-                        if not consumeable_exists then 
-                            -- Remove normal/DX/CU version
-                            G.GAME.used_jokers[normal_k] = nil
-                            G.GAME.used_jokers[normal_k..'_dx'] = nil
-                            G.GAME.used_jokers[normal_k..'_cu'] = nil
-                        end
-                    end
-                end
+    if self.ability and self.ability.consumeable and self.ability.set and linked_sets[self.ability.set] and self.config.center.key and G.consumeables and not G.OVERLAY_MENU then
+        local normal_k = normal_key(self.config.center)
+        local consumeable_exists
+        for _, v in pairs(G.consumeables.cards) do
+            if v ~= self and type(v) == 'table' and v.config and v.config.center and normal_key(v.config.center) == normal_k then
+                consumeable_exists = true
             end
+        end
+        if not consumeable_exists then
+            -- Remove normal/DX/CU version
+            set_linked_used(normal_k, nil)
         end
     end
 

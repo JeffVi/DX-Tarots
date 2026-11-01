@@ -1,6 +1,6 @@
 # Changelog
 
-Here is a list of all changes provided by this mod. Some values can be easily edited by editing variables in the top of the `TarotDx.lua` file.
+Here is a list of all changes provided by this mod. Some values can be edited from the mod's **Config** tab in the Mods menu.
 
 ## DX Cards
 
@@ -58,13 +58,11 @@ DX version of Tarot cards were added. They have a 10% *(can be edited)* chance o
 
 - **The Abyss DX**: Converts up to **5** selected cards. *Requires Bunco.*
 
-- **The Seeker DX**: Creates up to 2 random **DX** Alchemical cards. *Requires Codex Arcanum.*
-
 ### Planets
 
 DX planet cards will upgrade their respective hand level by **2**. They have a 12% *(can be edited)* chance of being pulled instead of a vanilla planet. They each cost **$5**.  
 
-Planet cards (vanilla or DX) may be pulled with a random edition (foil, poly, holo). The chance of pulling an edition on a planet card increase with its corresponding hand level. Using a planet card with an edition will add the edition bonus to the hand base chips or mult.
+Planet cards (vanilla or DX) may be pulled with a random edition (foil, poly, holo, or editions from other mods). The chance of pulling an edition on a planet card increase with its corresponding hand level. Using a planet card with an edition will add the edition bonus to the hand base chips or mult. Editions from other mods work the same way (Cryptid, Bunco...).
 
 ### Spectrals
 
@@ -108,8 +106,6 @@ DX version of Spectral cards were added. They have a 15% *(can be edited)* chanc
 
 - **Cleanse DX**: Apply to **all** cards in hand. *Requires Bunco.*
 
-- **Philosopher's Stone DX**: Retrigger all played cards for **three** blinds. *Requires Codex Arcanum.*
-
 ### Boosters
 
 DX version of Booster packs were added. They have a 10% *(can be edited)* chance of replacing a vanilla pack in shops. They each cost **$2** more than their original counterpart and provide one extra card to pick from. They are **Unique**.
@@ -123,60 +119,6 @@ DX version of Booster packs were added. They have a 10% *(can be edited)* chance
 - **Standard DX**: Guarantee chance to pull **enhanced** cards. Increased chance to get **editions** and **seals**.
 
 - **Buffoon DX**: Increased chance to pull **uncommon and rare** jokers. Increased chance to get **editions**.
-
-- **Alchemy DX**: Increased chance to pull **DX Alchemicals**. *Requires Codex Arcanum.*
-
-### Alchemicals (Codex Arcanum)
-
-DX version of Alchemical cards were added. They have a 10% *(can be edited)* chance of being pulled instead of a vanilla alchemical. They each cost **$5**.
-
-- **Ignis DX**: Gain **2** discards.
-
-- **Aqua DX**: Gain **2** hands.
-
-- **Terra DX**: Reduce blind by **30%**.
-
-- **Aero DX**: Draw **8** cards.
-
-- **Quicksilver DX**: **+4** hand size for one blind.
-
-- **Salt DX**: Gain **2** tags.
-
-- **Sulfur DX**: Reduce hands to 1. Gain **$6** for each hand removed.
-
-- **Phosphorus DX**: Draw **8** discarded cards.
-
-- **Bismuth DX**: Converts up to **4** selected cards to polychrome for one blind.
-
-- **Cobalt DX**: Upgrade selected poker hand by **3** levels.
-
-- **Arsenic DX**: Set **both** hands and discards to the **highest value** of the two.
-
-- **Antimony DX**: Create a negative eternal copy of a **selected** joker for one blind.
-
-- **Soap DX**: Select up to 3 cards. Replace **any non selected card** with cards from your deck.
-
-- **Manganese DX**: Enhances up to 4 selected cards into Steel Cards for one blind. **Creates a copy of Manganese**.
-
-- **Wax DX**: Create **4** temporary copies of a selected card.
-
-- **Borax DX**: Converts **your hand** into most common suit for one blind.
-
-- **Glass DX**: Enhances up to 4 selected cards into Glass Cards for one blind. **Creates a copy of Glass**.
-
-- **Magnet DX**: Draw **4** cards of the same rank as the selected one.
-
-- **Gold DX**: Enhances up to 4 selected cards into Gold Cards for one blind. **Creates a copy of Gold**.
-
-- **Silver DX**: Enhances up to 4 selected cards into Lucky Cards for one blind. **Creates a copy of Silver**.
-
-- **Oil DX**: Removes debuffs of **all cards in hand**. **Creates a copy of Oil**.
-
-- **Acid DX**: Select up to **3** cards, destroy all cards of the selected ranks. All cards are returned after one blind.
-
-- **Brimstone DX**: **+2** hands and discards.
-
-- **Uranium DX**: Copy the selected card's enhancement, seal, and edition to **unenhanced cards in hand** for one blind.
 
 ## Cursed Cards
 
@@ -234,8 +176,6 @@ Cursed version of Tarot cards were added. They have a 8% *(can be edited)* chanc
 
 - **The Cursed Abyss**: Halberd cards **cannot get debuffed**. Creates a copy of **The Abyss DX**. *Requires Bunco.*
 
-- **The Cursed Seeker**: Alchemical packs and cards are **free**. Alchemical cards are **2 times** more likely to be **DX**. *Requires Codex Arcanum.*
-
 ## Curses
 
 **Curses** are special tags that will affect your run upon being received. They can be lifted if specific conditions are met.
@@ -278,7 +218,7 @@ Cursed version of Tarot cards were added. They have a 8% *(can be edited)* chanc
 
 - **The Manacle**: -1 Hand Size **if more than 1 hand remaining**. Lifted after playing **7 hands** containing 5 scoring cards.
 
-- **The Serpent**: Always draw **2** cards after **first** Play or Discard. Lifted after drawing **40 cards**.
+- **The Serpent**: Always draw **2** cards after the **first** Play or Discard of each blind. Lifted after drawing **80 cards**.
 
 - **The Pillar**: After being played, cards have a **2 in 5** chance to be debuffed this Ante. Lifted after playing **9 hands** containing a debuffed scoring card.
 
@@ -295,3 +235,42 @@ A new badge was created for **Unique** cards. Once pulled, they can no longer be
 ## Vouchers
 
 The blank voucher now gives a small chance to get Spactral cards in the shop. The value is 50% the one of the ghost deck (will stack with ghost deck).
+
+## Version history
+
+### 2.0.0
+
+- Updated for the current Steamodded (26.1002.0): metadata moved to `DX-Tarots.json`.
+- Settings can be changed in game, from the mod's **Config** tab in the Mods menu. The DX Booster weight now applies without restarting. The rates of DX and Cursed cards are levels (Off, Low, Normal, High, Very high).
+- Texts moved to `localization/en-us.lua`, so the mod can be translated.
+- Planet editions no longer overwrite the game's hand level up, for better compatibility with other mods.
+- The Wheel of Fortune DX and Cursed Wheel of Fortune chances are affected by Oops! All 6s and other probability effects.
+- Fixed: the cursed Empress, Hierophant, Lovers, Chariot, Justice, Devil and Tower only applied their buff when there was room for the DX copy.
+- Fixed: **Unique** cards could be pulled again, and DX Boosters were not unique.
+- Fixed: The Cursed Moon, Sun and World said they create The Star DX, The Cursed Abyss was named The Cursed Sky (#18).
+- Planet editions read the effect of each edition: editions from any mod now apply to the hand, and the Cryptid Mosaic and Astral editions no longer crash the game. Compatible with Talisman big numbers.
+- The Cryptid Glitched edition on planets follows the run seed.
+- Bunco DX planets updated for the current Bunco (5.1).
+- Collection: DX Tarots, Cursed Tarots, DX Planets, DX Spectrals and Curses have their own pages, with their discovery count, in **Collection > Other** and in the mod page. Clicking a card in the vanilla pages still cycles through its versions.
+- Curses rewritten on the Steamodded calculation contexts, for better compatibility with other mods.
+- Removed the Codex Arcanum DX alchemicals, disabled since Steamodded 1.0 (dead code for now).
+- Cards destroyed by DX and Cursed consumables now trigger every effect watching for destroyed cards (Glass Joker, other mods...).
+- DX Booster descriptions show their size changed by vouchers and other effects.
+- Increased the Serpent curse lift condition from 40 to 80 draws.
+
+#### Should be fixed (need more testing)
+
+- Cards stayed debuffed by a curse lifted during the blind.
+- Crash when selecting cards while having the Violet Vessel curse (#20).
+- Astronomer did not make Celestial Packs DX free (#22).
+- Crash opening an Arcana pack with Redux Arcanum (#23).
+- Crash opening the collection with some mods, like Banner (#25).
+- Crashes with Talisman big numbers when creating DX planets, with The Hermit DX, The Arm, The Wall and Violet Vessel (#27).
+
+### 1.0.1
+
+- Fixed a crash on the splash screen.
+
+### 1.0.0
+
+- Updated for Steamodded 1.0.

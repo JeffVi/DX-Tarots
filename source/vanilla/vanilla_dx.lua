@@ -1,6 +1,3 @@
-local js_mod = SMODS.current_mod
-local js_config = assert(NFS.load(js_mod.path..'config.lua')())--js_mod.config
-
 ----------
 --TAROTS--
 ----------
@@ -8,21 +5,7 @@ local js_config = assert(NFS.load(js_mod.path..'config.lua')())--js_mod.config
 -- The Fool DX
 SMODS.ConsumableDX{
 	set = 'Tarot', atlas = 'Van_dx', key = 'c_fool_dx',
-	loc_txt = {
-        name = "The Fool DX",
-        text = {
-            "Creates up to {C:attention}2{} copies of",
-            "the last {C:tarot}Tarot{} or {C:planet}Planet{}",
-            "card used during this run",
-            "{s:0.8,C:tarot}The Fool{s:0.8} excluded"
-        }
-    },
     pos = {x=0,y=0},
-
-    set_card_type_badge = function(self, card, badges)
-        badges[1] = create_badge(localize('k_tarot'), get_type_colour(self or card.config, card), nil, 1.2)
-        SMODS.ConsumableDX.set_card_type_badge(self, card, badges)
-    end,
 
     loc_vars = function(self, info_queue, center)
         SMODS.ConsumableDX.loc_vars(self, info_queue, center)
@@ -68,21 +51,8 @@ SMODS.ConsumableDX{
 -- The Magician DX
 SMODS.ConsumableDX{
 	set = 'Tarot', atlas = 'Van_dx', key = 'c_magician_dx',
-	loc_txt = {
-        name = "The Magician DX",
-        text = {
-            "Enhances {C:attention}#1#{}",
-            "selected cards to",
-            "{C:attention}#2#s"
-        }
-    },
     pos = {x=1,y=0},
     config = {mod_conv = 'm_lucky', max_highlighted = 4},
-
-    set_card_type_badge = function(self, card, badges)
-        badges[1] = create_badge(localize('k_tarot'), get_type_colour(self or card.config, card), nil, 1.2)
-        SMODS.ConsumableDX.set_card_type_badge(self, card, badges)
-    end,
 
     loc_vars = function(self, info_queue, center)
         SMODS.ConsumableDX.loc_vars(self, info_queue, center)
@@ -94,21 +64,8 @@ SMODS.ConsumableDX{
 -- The High Priestess DX
 SMODS.ConsumableDX{
 	set = 'Tarot', atlas = 'Van_dx', key = 'c_high_priestess_dx',
-	loc_txt = {
-        name = "The High Priestess DX",
-        text = {
-            "Creates up to {C:attention}#1#",
-            "random {C:planet}Planet{} {C:dark_edition}DX{} cards",
-            "{C:inactive}(Must have room)"
-        }
-    },
     pos = {x=2,y=0},
     config = {planets = 2},
-
-    set_card_type_badge = function(self, card, badges)
-        badges[1] = create_badge(localize('k_tarot'), get_type_colour(self or card.config, card), nil, 1.2)
-        SMODS.ConsumableDX.set_card_type_badge(self, card, badges)
-    end,
 
     loc_vars = function(self, info_queue, center)
         SMODS.ConsumableDX.loc_vars(self, info_queue, center)
@@ -139,21 +96,8 @@ SMODS.ConsumableDX{
 -- The Empress DX
 SMODS.ConsumableDX{
 	set = 'Tarot', atlas = 'Van_dx', key = 'c_empress_dx',
-	loc_txt = {
-        name = "The Empress DX",
-        text = {
-            "Enhances {C:attention}#1#",
-            "selected cards to",
-            "{C:attention}#2#s"
-        }
-    },
     pos = {x=3,y=0},
     config = {mod_conv = 'm_mult', max_highlighted = 4},
-
-    set_card_type_badge = function(self, card, badges)
-        badges[1] = create_badge(localize('k_tarot'), get_type_colour(self or card.config, card), nil, 1.2)
-        SMODS.ConsumableDX.set_card_type_badge(self, card, badges)
-    end,
 
     loc_vars = function(self, info_queue, center)
         SMODS.ConsumableDX.loc_vars(self, info_queue, center)
@@ -165,21 +109,8 @@ SMODS.ConsumableDX{
 -- The Emperor DX
 SMODS.ConsumableDX{
 	set = 'Tarot', atlas = 'Van_dx', key = 'c_emperor_dx',
-	loc_txt = {
-        name = "The Emperor DX",
-        text = {
-            "Creates up to {C:attention}#1#",
-            "random {C:tarot}Tarot{} {C:dark_edition}DX{} cards",
-            "{C:inactive}(Must have room)"
-        }
-    },
     pos = {x=4,y=0},
     config = {tarots = 2},
-
-    set_card_type_badge = function(self, card, badges)
-        badges[1] = create_badge(localize('k_tarot'), get_type_colour(self or card.config, card), nil, 1.2)
-        SMODS.ConsumableDX.set_card_type_badge(self, card, badges)
-    end,
 
     loc_vars = function(self, info_queue, center)
         SMODS.ConsumableDX.loc_vars(self, info_queue, center)
@@ -210,21 +141,8 @@ SMODS.ConsumableDX{
 -- The Hierophant DX
 SMODS.ConsumableDX{
 	set = 'Tarot', atlas = 'Van_dx', key = 'c_heirophant_dx',
-	loc_txt = {
-        name = "The Hierophant DX",
-        text = {
-            "Enhances up to {C:attention}#1#",
-            "selected cards to",
-            "{C:attention}#2#s"
-        }
-    },
     pos = {x=5,y=0},
     config = {mod_conv = 'm_bonus', max_highlighted = 4},
-
-    set_card_type_badge = function(self, card, badges)
-        badges[1] = create_badge(localize('k_tarot'), get_type_colour(self or card.config, card), nil, 1.2)
-        SMODS.ConsumableDX.set_card_type_badge(self, card, badges)
-    end,
 
     loc_vars = function(self, info_queue, center)
         SMODS.ConsumableDX.loc_vars(self, info_queue, center)
@@ -236,21 +154,8 @@ SMODS.ConsumableDX{
 -- The Lovers DX
 SMODS.ConsumableDX{
 	set = 'Tarot', atlas = 'Van_dx', key = 'c_lovers_dx',
-	loc_txt = {
-        name = "The Lovers DX",
-        text = {
-            "Enhances {C:attention}#1#{} selected",
-            "cards into",
-            "{C:attention}#2#s"
-        }
-    },
     pos = {x=6,y=0},
     config = {mod_conv = 'm_wild', max_highlighted = 4},
-
-    set_card_type_badge = function(self, card, badges)
-        badges[1] = create_badge(localize('k_tarot'), get_type_colour(self or card.config, card), nil, 1.2)
-        SMODS.ConsumableDX.set_card_type_badge(self, card, badges)
-    end,
 
     loc_vars = function(self, info_queue, center)
         SMODS.ConsumableDX.loc_vars(self, info_queue, center)
@@ -262,21 +167,8 @@ SMODS.ConsumableDX{
 -- The Chariot DX
 SMODS.ConsumableDX{
 	set = 'Tarot', atlas = 'Van_dx', key = 'c_chariot_dx',
-	loc_txt = {
-        name = "The Chariot DX",
-        text = {
-            "Enhances {C:attention}#1#{} selected",
-            "cards into",
-            "{C:attention}#2#s"
-        }
-    },
     pos = {x=7,y=0},
     config = {mod_conv = 'm_steel', max_highlighted = 2},
-
-    set_card_type_badge = function(self, card, badges)
-        badges[1] = create_badge(localize('k_tarot'), get_type_colour(self or card.config, card), nil, 1.2)
-        SMODS.ConsumableDX.set_card_type_badge(self, card, badges)
-    end,
 
     loc_vars = function(self, info_queue, center)
         SMODS.ConsumableDX.loc_vars(self, info_queue, center)
@@ -288,21 +180,8 @@ SMODS.ConsumableDX{
 -- Justice DX
 SMODS.ConsumableDX{
 	set = 'Tarot', atlas = 'Van_dx', key = 'c_justice_dx',
-	loc_txt = {
-        name = "Justice DX",
-        text = {
-            "Enhances {C:attention}#1#{} selected",
-            "cards into",
-            "{C:attention}#2#s"
-        }
-    },
     pos = {x=8,y=0},
     config = {mod_conv = 'm_glass', max_highlighted = 2},
-
-    set_card_type_badge = function(self, card, badges)
-        badges[1] = create_badge(localize('k_tarot'), get_type_colour(self or card.config, card), nil, 1.2)
-        SMODS.ConsumableDX.set_card_type_badge(self, card, badges)
-    end,
 
     loc_vars = function(self, info_queue, center)
         SMODS.ConsumableDX.loc_vars(self, info_queue, center)
@@ -314,20 +193,8 @@ SMODS.ConsumableDX{
 -- The Hermit DX
 SMODS.ConsumableDX{
 	set = 'Tarot', atlas = 'Van_dx', key = 'c_hermit_dx',
-	loc_txt = {
-        name = "The Hermit DX",
-        text = {
-            "Triples money",
-            "{C:inactive}(Max of {C:money}$#1#{C:inactive})"
-        }
-    },
     pos = {x=9,y=0},
     config = {extra = 30},
-
-    set_card_type_badge = function(self, card, badges)
-        badges[1] = create_badge(localize('k_tarot'), get_type_colour(self or card.config, card), nil, 1.2)
-        SMODS.ConsumableDX.set_card_type_badge(self, card, badges)
-    end,
 
     loc_vars = function(self, info_queue, center)
         SMODS.ConsumableDX.loc_vars(self, info_queue, center)
@@ -339,7 +206,7 @@ SMODS.ConsumableDX{
         G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0.4, func = function()
             play_sound('timpani')
             used_tarot:juice_up(0.3, 0.5)
-            ease_dollars(math.max(0,math.min(G.GAME.dollars * 2, self.config.extra)), true)
+            ease_dollars(math.max(0, math.min(DXT.to_number(G.GAME.dollars) * 2, self.config.extra)), true)
             return true end }))
         delay(0.6)
     end,
@@ -352,35 +219,21 @@ SMODS.ConsumableDX{
 -- The Wheel of Fortune DX
 SMODS.ConsumableDX{
 	set = 'Tarot', atlas = 'Van_dx', key = 'c_wheel_of_fortune_dx',
-	loc_txt = {
-        name = "The Wheel of Fortune DX",
-        text = {
-            "{C:green}#1# in #2#{} chance to add",
-            "{C:dark_edition}Foil{}, {C:dark_edition}Holographic{}, or",
-            "{C:dark_edition}Polychrome{} edition",
-            "to a random {C:attention}Joker"
-        }
-    },
     pos = {x=0,y=1},
     config = {extra = 2},
-
-    set_card_type_badge = function(self, card, badges)
-        badges[1] = create_badge(localize('k_tarot'), get_type_colour(self or card.config, card), nil, 1.2)
-        SMODS.ConsumableDX.set_card_type_badge(self, card, badges)
-    end,
 
     loc_vars = function(self, info_queue, center)
         SMODS.ConsumableDX.loc_vars(self, info_queue, center)
         info_queue[#info_queue+1] = G.P_CENTERS.e_foil
         info_queue[#info_queue+1] = G.P_CENTERS.e_holo
         info_queue[#info_queue+1] = G.P_CENTERS.e_polychrome
-        return {vars = {G.GAME.probabilities.normal, self.config.extra}}
+        return {vars = {SMODS.get_probability_vars(center, 1, self.config.extra, 'wheel_of_fortune')}}
     end,
 
     use = function(self, card, area, copier)
         local used_tarot = copier or card
         local temp_pool = self.eligible_strength_jokers or {}
-        if pseudorandom('wheel_of_fortune') < G.GAME.probabilities.normal/self.config.extra then 
+        if SMODS.pseudorandom_probability(used_tarot, 'wheel_of_fortune', 1, self.config.extra, 'wheel_of_fortune') then 
             G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0.4, func = function()
                 local over = false
                 local eligible_card = pseudorandom_element(temp_pool, pseudoseed('wheel_of_fortune'))
@@ -429,21 +282,8 @@ SMODS.ConsumableDX{
 -- Strength DX
 SMODS.ConsumableDX{
 	set = 'Tarot', atlas = 'Van_dx', key = 'c_strength_dx',
-	loc_txt = {
-        name = "Strength DX",
-        text = {
-            "Increases rank of",
-            "up to {C:attention}#1#{} selected",
-            "cards by {C:attention}1"
-        }
-    },
     pos = {x=1,y=1},
     config = {mod_conv = 'up_rank', max_highlighted = 4},
-
-    set_card_type_badge = function(self, card, badges)
-        badges[1] = create_badge(localize('k_tarot'), get_type_colour(self or card.config, card), nil, 1.2)
-        SMODS.ConsumableDX.set_card_type_badge(self, card, badges)
-    end,
 
     loc_vars = function(self, info_queue, center)
         SMODS.ConsumableDX.loc_vars(self, info_queue, center)
@@ -522,20 +362,8 @@ SMODS.ConsumableDX{
 -- The Hanged Man DX
 SMODS.ConsumableDX{
 	set = 'Tarot', atlas = 'Van_dx', key = 'c_hanged_man_dx',
-	loc_txt = {
-        name = "The Hanged Man DX",
-        text = {
-            "Destroys up to",
-            "{C:attention}#1#{} selected cards"
-        }
-    },
     pos = {x=2,y=1},
     config = {remove_card = true, max_highlighted = 4},
-
-    set_card_type_badge = function(self, card, badges)
-        badges[1] = create_badge(localize('k_tarot'), get_type_colour(self or card.config, card), nil, 1.2)
-        SMODS.ConsumableDX.set_card_type_badge(self, card, badges)
-    end,
 
     loc_vars = function(self, info_queue, center)
         SMODS.ConsumableDX.loc_vars(self, info_queue, center)
@@ -556,17 +384,7 @@ SMODS.ConsumableDX{
             trigger = 'after',
             delay = 0.2,
             func = function() 
-                for i=#G.hand.highlighted, 1, -1 do
-                    local card = G.hand.highlighted[i]
-                    if card.ability.name == 'Glass Card' then 
-                        card:shatter()
-                    else
-                        card:start_dissolve(nil, i == #G.hand.highlighted)
-                    end
-                end
-                for i = 1, #G.jokers.cards do
-                    G.jokers.cards[i]:calculate_joker({remove_playing_cards = true, removed = destroyed_cards, name = 'The Hanged Man DX'})
-                end
+                SMODS.destroy_cards(destroyed_cards)
                 return true end }))
         delay(0.3)
     end,
@@ -575,22 +393,8 @@ SMODS.ConsumableDX{
 -- Death DX
 SMODS.ConsumableDX{
 	set = 'Tarot', atlas = 'Van_dx', key = 'c_death_dx',
-	loc_txt = {
-        name = "Death DX",
-        text = {
-            "Select {C:attention}#1#{} cards,",
-            "convert the {C:attention}left{} cards",
-            "into the {C:attention}right{} card",
-            "{C:inactive}(Drag to rearrange)"
-        }
-    },
     pos = {x=3,y=1},
     config = {mod_conv = 'card', max_highlighted = 3, min_highlighted = 2},
-
-    set_card_type_badge = function(self, card, badges)
-        badges[1] = create_badge(localize('k_tarot'), get_type_colour(self or card.config, card), nil, 1.2)
-        SMODS.ConsumableDX.set_card_type_badge(self, card, badges)
-    end,
 
     loc_vars = function(self, info_queue, center)
         SMODS.ConsumableDX.loc_vars(self, info_queue, center)
@@ -634,22 +438,8 @@ SMODS.ConsumableDX{
 -- Temperance DX
 SMODS.ConsumableDX{
 	set = 'Tarot', atlas = 'Van_dx', key = 'c_temperance_dx',
-	loc_txt = {
-        name = "Temperance DX",
-        text = {
-            "Gives double the total sell",
-            "value of all current",
-            "Jokers {C:inactive}(Max of {C:money}$#1#{C:inactive})",
-            "{C:inactive}(Currently {C:money}$#2#{C:inactive})"
-        }
-    },
     pos = {x=4,y=1},
     config = {extra = 60},
-
-    set_card_type_badge = function(self, card, badges)
-        badges[1] = create_badge(localize('k_tarot'), get_type_colour(self or card.config, card), nil, 1.2)
-        SMODS.ConsumableDX.set_card_type_badge(self, card, badges)
-    end,
 
     loc_vars = function(self, info_queue, center)
         SMODS.ConsumableDX.loc_vars(self, info_queue, center)
@@ -696,21 +486,8 @@ SMODS.ConsumableDX{
 -- The Devil DX
 SMODS.ConsumableDX{
 	set = 'Tarot', atlas = 'Van_dx', key = 'c_devil_dx',
-	loc_txt = {
-        name = "The Devil DX",
-        text = {
-            "Enhances {C:attention}#1#{} selected",
-            "cards into",
-            "{C:attention}#2#s"
-        }
-    },
     pos = {x=5,y=1},
     config = {mod_conv = 'm_gold', max_highlighted = 2},
-
-    set_card_type_badge = function(self, card, badges)
-        badges[1] = create_badge(localize('k_tarot'), get_type_colour(self or card.config, card), nil, 1.2)
-        SMODS.ConsumableDX.set_card_type_badge(self, card, badges)
-    end,
 
     loc_vars = function(self, info_queue, center)
         SMODS.ConsumableDX.loc_vars(self, info_queue, center)
@@ -722,21 +499,8 @@ SMODS.ConsumableDX{
 -- The Tower DX
 SMODS.ConsumableDX{
 	set = 'Tarot', atlas = 'Van_dx', key = 'c_tower_dx',
-	loc_txt = {
-        name = "The Tower DX",
-        text = {
-            "Enhances {C:attention}#1#{} selected",
-            "cards into",
-            "{C:attention}#2#s"
-        }
-    },
     pos = {x=6,y=1},
     config = {mod_conv = 'm_stone', max_highlighted = 2},
-
-    set_card_type_badge = function(self, card, badges)
-        badges[1] = create_badge(localize('k_tarot'), get_type_colour(self or card.config, card), nil, 1.2)
-        SMODS.ConsumableDX.set_card_type_badge(self, card, badges)
-    end,
 
     loc_vars = function(self, info_queue, center)
         SMODS.ConsumableDX.loc_vars(self, info_queue, center)
@@ -748,21 +512,8 @@ SMODS.ConsumableDX{
 -- The Star DX
 SMODS.ConsumableDX{
 	set = 'Tarot', atlas = 'Van_dx', key = 'c_star_dx',
-	loc_txt = {
-        name = "The Star DX",
-        text = {
-            "Converts up to",
-            "{C:attention}#1#{} selected cards",
-            "to {V:1}#2#{}"
-        }
-    },
     pos = {x=7,y=1},
     config = {suit_conv = 'Diamonds', max_highlighted = 5},
-
-    set_card_type_badge = function(self, card, badges)
-        badges[1] = create_badge(localize('k_tarot'), get_type_colour(self or card.config, card), nil, 1.2)
-        SMODS.ConsumableDX.set_card_type_badge(self, card, badges)
-    end,
 
     loc_vars = function(self, info_queue, center)
         SMODS.ConsumableDX.loc_vars(self, info_queue, center)
@@ -773,21 +524,8 @@ SMODS.ConsumableDX{
 -- The Moon DX
 SMODS.ConsumableDX{
 	set = 'Tarot', atlas = 'Van_dx', key = 'c_moon_dx',
-	loc_txt = {
-        name = "The Moon DX",
-        text = {
-            "Converts up to",
-            "{C:attention}#1#{} selected cards",
-            "to {V:1}#2#{}"
-        }
-    },
     pos = {x=8,y=1},
     config = {suit_conv = 'Clubs', max_highlighted = 5},
-
-    set_card_type_badge = function(self, card, badges)
-        badges[1] = create_badge(localize('k_tarot'), get_type_colour(self or card.config, card), nil, 1.2)
-        SMODS.ConsumableDX.set_card_type_badge(self, card, badges)
-    end,
 
     loc_vars = function(self, info_queue, center)
         SMODS.ConsumableDX.loc_vars(self, info_queue, center)
@@ -798,21 +536,8 @@ SMODS.ConsumableDX{
 -- The Sun DX
 SMODS.ConsumableDX{
 	set = 'Tarot', atlas = 'Van_dx', key = 'c_sun_dx',
-	loc_txt = {
-        name = "The Sun DX",
-        text = {
-            "Converts up to",
-            "{C:attention}#1#{} selected cards",
-            "to {V:1}#2#{}"
-        }
-    },
     pos = {x=9,y=1},
     config = {suit_conv = 'Hearts', max_highlighted = 5},
-
-    set_card_type_badge = function(self, card, badges)
-        badges[1] = create_badge(localize('k_tarot'), get_type_colour(self or card.config, card), nil, 1.2)
-        SMODS.ConsumableDX.set_card_type_badge(self, card, badges)
-    end,
 
     loc_vars = function(self, info_queue, center)
         SMODS.ConsumableDX.loc_vars(self, info_queue, center)
@@ -823,20 +548,7 @@ SMODS.ConsumableDX{
 -- Judgement DX
 SMODS.ConsumableDX{
 	set = 'Tarot', atlas = 'Van_dx', key = 'c_judgement_dx',
-	loc_txt = {
-        name = "Judgement DX",
-        text = {
-            "Creates a random",
-            "{C:green}uncommon{} {C:attention}Joker{} card",
-            "{C:inactive}(Must have room)"
-        }
-    },
     pos = {x=0,y=2},
-
-    set_card_type_badge = function(self, card, badges)
-        badges[1] = create_badge(localize('k_tarot'), get_type_colour(self or card.config, card), nil, 1.2)
-        SMODS.ConsumableDX.set_card_type_badge(self, card, badges)
-    end,
 
     loc_vars = function(self, info_queue, center)
         SMODS.ConsumableDX.loc_vars(self, info_queue, center)
@@ -864,21 +576,8 @@ SMODS.ConsumableDX{
 -- The World DX
 SMODS.ConsumableDX{
 	set = 'Tarot', atlas = 'Van_dx', key = 'c_world_dx',
-	loc_txt = {
-        name = "The World DX",
-        text = {
-            "Converts up to",
-            "{C:attention}#1#{} selected cards",
-            "to {V:1}#2#{}"
-        }
-    },
     pos = {x=1,y=2},
     config = {suit_conv = 'Spades', max_highlighted = 5},
-
-    set_card_type_badge = function(self, card, badges)
-        badges[1] = create_badge(localize('k_tarot'), get_type_colour(self or card.config, card), nil, 1.2)
-        SMODS.ConsumableDX.set_card_type_badge(self, card, badges)
-    end,
 
     loc_vars = function(self, info_queue, center)
         SMODS.ConsumableDX.loc_vars(self, info_queue, center)
@@ -890,476 +589,52 @@ SMODS.ConsumableDX{
 --PLANETS--
 -----------
 
-
 -- Mercury DX
-SMODS.ConsumableDX{
-	set = 'Planet', atlas = 'Van_dx', key = 'c_mercury_dx',
-	loc_txt = {
-        name = "Mercury DX",
-        text = {
-            "{s:0.8}({s:0.8,V:1}lvl.#1#{s:0.8}){} Level up {C:dark_edition}x2{}",
-            "{C:attention}#2#",
-            "{C:mult}+#3#{} Mult and",
-            "{C:chips}+#4#{} chips"
-        }
-    },
-    pos = {x=0,y=3},
-    config = {hand_type = 'Pair'},
-
-    loc_vars = function(self, info_queue, center)
-        SMODS.ConsumableDX.loc_vars(self, info_queue, center)
-        local loc_vars = {
-            G.GAME.hands[self.config.hand_type].level, localize(self.config.hand_type, 'poker_hands'), G.GAME.hands[self.config.hand_type].l_mult * 2, G.GAME.hands[self.config.hand_type].l_chips * 2,
-            colours = {(G.GAME.hands[self.config.hand_type].level==1 and G.C.UI.TEXT_DARK or G.C.HAND_LEVELS[math.min(7, G.GAME.hands[self.config.hand_type].level)])}
-        }
-        return {vars = loc_vars}
-    end,
-
-    set_card_type_badge = function(self, card, badges)
-        badges[1] = create_badge(localize('k_planet'), get_type_colour(self or card.config, card), nil, 1.2)
-        SMODS.ConsumableDX.set_card_type_badge(self, card, badges)
-    end,
-
-    use = function(self, card, area, copier)
-        local used_tarot = copier or card
-        update_hand_text({sound = 'button', volume = 0.7, pitch = 0.8, delay = 0.3}, {handname=localize(self.config.hand_type, 'poker_hands'),chips = G.GAME.hands[self.config.hand_type].chips, mult = G.GAME.hands[self.config.hand_type].mult, level=G.GAME.hands[self.config.hand_type].level})
-        level_up_hand(used_tarot, self.config.hand_type, false, 2)
-        update_hand_text({sound = 'button', volume = 0.7, pitch = 1.1, delay = 0}, {mult = 0, chips = 0, handname = '', level = ''})
-    end,
-}
+SMODS.PlanetDX{key = 'c_mercury_dx', pos = {x=0,y=3}, config = {hand_type = 'Pair'}}
 
 -- Venus DX
-SMODS.ConsumableDX{
-	set = 'Planet', atlas = 'Van_dx', key = 'c_venus_dx',
-	loc_txt = {
-        name = "Venus DX",
-        text = {
-            "{s:0.8}({s:0.8,V:1}lvl.#1#{s:0.8}){} Level up {C:dark_edition}x2{}",
-            "{C:attention}#2#",
-            "{C:mult}+#3#{} Mult and",
-            "{C:chips}+#4#{} chips"
-        }
-    },
-    pos = {x=1,y=3},
-    config = {hand_type = 'Three of a Kind'},
-
-    loc_vars = function(self, info_queue, center)
-        SMODS.ConsumableDX.loc_vars(self, info_queue, center)
-        local loc_vars = {
-            G.GAME.hands[self.config.hand_type].level, localize(self.config.hand_type, 'poker_hands'), G.GAME.hands[self.config.hand_type].l_mult * 2, G.GAME.hands[self.config.hand_type].l_chips * 2,
-            colours = {(G.GAME.hands[self.config.hand_type].level==1 and G.C.UI.TEXT_DARK or G.C.HAND_LEVELS[math.min(7, G.GAME.hands[self.config.hand_type].level)])}
-        }
-        return {vars = loc_vars}
-    end,
-
-    set_card_type_badge = function(self, card, badges)
-        badges[1] = create_badge(localize('k_planet'), get_type_colour(self or card.config, card), nil, 1.2)
-        SMODS.ConsumableDX.set_card_type_badge(self, card, badges)
-    end,
-
-    use = function(self, card, area, copier)
-        local used_tarot = copier or card
-        update_hand_text({sound = 'button', volume = 0.7, pitch = 0.8, delay = 0.3}, {handname=localize(self.config.hand_type, 'poker_hands'),chips = G.GAME.hands[self.config.hand_type].chips, mult = G.GAME.hands[self.config.hand_type].mult, level=G.GAME.hands[self.config.hand_type].level})
-        level_up_hand(used_tarot, self.config.hand_type, false, 2)
-        update_hand_text({sound = 'button', volume = 0.7, pitch = 1.1, delay = 0}, {mult = 0, chips = 0, handname = '', level = ''})
-    end,
-}
+SMODS.PlanetDX{key = 'c_venus_dx', pos = {x=1,y=3}, config = {hand_type = 'Three of a Kind'}}
 
 -- Earth DX
-SMODS.ConsumableDX{
-	set = 'Planet', atlas = 'Van_dx', key = 'c_earth_dx',
-	loc_txt = {
-        name = "Earth DX",
-        text = {
-            "{s:0.8}({s:0.8,V:1}lvl.#1#{s:0.8}){} Level up {C:dark_edition}x2{}",
-            "{C:attention}#2#",
-            "{C:mult}+#3#{} Mult and",
-            "{C:chips}+#4#{} chips"
-        }
-    },
-    pos = {x=2,y=3},
-    config = {hand_type = 'Full House'},
-
-    loc_vars = function(self, info_queue, center)
-        SMODS.ConsumableDX.loc_vars(self, info_queue, center)
-        local loc_vars = {
-            G.GAME.hands[self.config.hand_type].level, localize(self.config.hand_type, 'poker_hands'), G.GAME.hands[self.config.hand_type].l_mult * 2, G.GAME.hands[self.config.hand_type].l_chips * 2,
-            colours = {(G.GAME.hands[self.config.hand_type].level==1 and G.C.UI.TEXT_DARK or G.C.HAND_LEVELS[math.min(7, G.GAME.hands[self.config.hand_type].level)])}
-        }
-        return {vars = loc_vars}
-    end,
-
-    set_card_type_badge = function(self, card, badges)
-        badges[1] = create_badge(localize('k_planet'), get_type_colour(self or card.config, card), nil, 1.2)
-        SMODS.ConsumableDX.set_card_type_badge(self, card, badges)
-    end,
-
-    use = function(self, card, area, copier)
-        local used_tarot = copier or card
-        update_hand_text({sound = 'button', volume = 0.7, pitch = 0.8, delay = 0.3}, {handname=localize(self.config.hand_type, 'poker_hands'),chips = G.GAME.hands[self.config.hand_type].chips, mult = G.GAME.hands[self.config.hand_type].mult, level=G.GAME.hands[self.config.hand_type].level})
-        level_up_hand(used_tarot, self.config.hand_type, false, 2)
-        update_hand_text({sound = 'button', volume = 0.7, pitch = 1.1, delay = 0}, {mult = 0, chips = 0, handname = '', level = ''})
-    end,
-}
+SMODS.PlanetDX{key = 'c_earth_dx', pos = {x=2,y=3}, config = {hand_type = 'Full House'}}
 
 -- Mars DX
-SMODS.ConsumableDX{
-	set = 'Planet', atlas = 'Van_dx', key = 'c_mars_dx',
-	loc_txt = {
-        name = "Mars DX",
-        text = {
-            "{s:0.8}({s:0.8,V:1}lvl.#1#{s:0.8}){} Level up {C:dark_edition}x2{}",
-            "{C:attention}#2#",
-            "{C:mult}+#3#{} Mult and",
-            "{C:chips}+#4#{} chips"
-        }
-    },
-    pos = {x=3,y=3},
-    config = {hand_type = 'Four of a Kind'},
-
-    loc_vars = function(self, info_queue, center)
-        SMODS.ConsumableDX.loc_vars(self, info_queue, center)
-        local loc_vars = {
-            G.GAME.hands[self.config.hand_type].level, localize(self.config.hand_type, 'poker_hands'), G.GAME.hands[self.config.hand_type].l_mult * 2, G.GAME.hands[self.config.hand_type].l_chips * 2,
-            colours = {(G.GAME.hands[self.config.hand_type].level==1 and G.C.UI.TEXT_DARK or G.C.HAND_LEVELS[math.min(7, G.GAME.hands[self.config.hand_type].level)])}
-        }
-        return {vars = loc_vars}
-    end,
-
-    set_card_type_badge = function(self, card, badges)
-        badges[1] = create_badge(localize('k_planet'), get_type_colour(self or card.config, card), nil, 1.2)
-        SMODS.ConsumableDX.set_card_type_badge(self, card, badges)
-    end,
-
-    use = function(self, card, area, copier)
-        local used_tarot = copier or card
-        update_hand_text({sound = 'button', volume = 0.7, pitch = 0.8, delay = 0.3}, {handname=localize(self.config.hand_type, 'poker_hands'),chips = G.GAME.hands[self.config.hand_type].chips, mult = G.GAME.hands[self.config.hand_type].mult, level=G.GAME.hands[self.config.hand_type].level})
-        level_up_hand(used_tarot, self.config.hand_type, false, 2)
-        update_hand_text({sound = 'button', volume = 0.7, pitch = 1.1, delay = 0}, {mult = 0, chips = 0, handname = '', level = ''})
-    end,
-}
+SMODS.PlanetDX{key = 'c_mars_dx', pos = {x=3,y=3}, config = {hand_type = 'Four of a Kind'}}
 
 -- Jupiter DX
-SMODS.ConsumableDX{
-	set = 'Planet', atlas = 'Van_dx', key = 'c_jupiter_dx',
-	loc_txt = {
-        name = "Jupiter DX",
-        text = {
-            "{s:0.8}({s:0.8,V:1}lvl.#1#{s:0.8}){} Level up {C:dark_edition}x2{}",
-            "{C:attention}#2#",
-            "{C:mult}+#3#{} Mult and",
-            "{C:chips}+#4#{} chips"
-        }
-    },
-    pos = {x=4,y=3},
-    config = {hand_type = 'Flush'},
-
-    loc_vars = function(self, info_queue, center)
-        SMODS.ConsumableDX.loc_vars(self, info_queue, center)
-        local loc_vars = {
-            G.GAME.hands[self.config.hand_type].level, localize(self.config.hand_type, 'poker_hands'), G.GAME.hands[self.config.hand_type].l_mult * 2, G.GAME.hands[self.config.hand_type].l_chips * 2,
-            colours = {(G.GAME.hands[self.config.hand_type].level==1 and G.C.UI.TEXT_DARK or G.C.HAND_LEVELS[math.min(7, G.GAME.hands[self.config.hand_type].level)])}
-        }
-        return {vars = loc_vars}
-    end,
-
-    set_card_type_badge = function(self, card, badges)
-        badges[1] = create_badge(localize('k_planet'), get_type_colour(self or card.config, card), nil, 1.2)
-        SMODS.ConsumableDX.set_card_type_badge(self, card, badges)
-    end,
-
-    use = function(self, card, area, copier)
-        local used_tarot = copier or card
-        update_hand_text({sound = 'button', volume = 0.7, pitch = 0.8, delay = 0.3}, {handname=localize(self.config.hand_type, 'poker_hands'),chips = G.GAME.hands[self.config.hand_type].chips, mult = G.GAME.hands[self.config.hand_type].mult, level=G.GAME.hands[self.config.hand_type].level})
-        level_up_hand(used_tarot, self.config.hand_type, false, 2)
-        update_hand_text({sound = 'button', volume = 0.7, pitch = 1.1, delay = 0}, {mult = 0, chips = 0, handname = '', level = ''})
-    end,
-}
+SMODS.PlanetDX{key = 'c_jupiter_dx', pos = {x=4,y=3}, config = {hand_type = 'Flush'}}
 
 -- Saturn DX
-SMODS.ConsumableDX{
-	set = 'Planet', atlas = 'Van_dx', key = 'c_saturn_dx',
-	loc_txt = {
-        name = "Saturn DX",
-        text = {
-            "{s:0.8}({s:0.8,V:1}lvl.#1#{s:0.8}){} Level up {C:dark_edition}x2{}",
-            "{C:attention}#2#",
-            "{C:mult}+#3#{} Mult and",
-            "{C:chips}+#4#{} chips"
-        }
-    },
-    pos = {x=5,y=3},
-    config = {hand_type = 'Straight'},
-
-    loc_vars = function(self, info_queue, center)
-        SMODS.ConsumableDX.loc_vars(self, info_queue, center)
-        local loc_vars = {
-            G.GAME.hands[self.config.hand_type].level, localize(self.config.hand_type, 'poker_hands'), G.GAME.hands[self.config.hand_type].l_mult * 2, G.GAME.hands[self.config.hand_type].l_chips * 2,
-            colours = {(G.GAME.hands[self.config.hand_type].level==1 and G.C.UI.TEXT_DARK or G.C.HAND_LEVELS[math.min(7, G.GAME.hands[self.config.hand_type].level)])}
-        }
-        return {vars = loc_vars}
-    end,
-
-    set_card_type_badge = function(self, card, badges)
-        badges[1] = create_badge(localize('k_planet'), get_type_colour(self or card.config, card), nil, 1.2)
-        SMODS.ConsumableDX.set_card_type_badge(self, card, badges)
-    end,
-
-    use = function(self, card, area, copier)
-        local used_tarot = copier or card
-        update_hand_text({sound = 'button', volume = 0.7, pitch = 0.8, delay = 0.3}, {handname=localize(self.config.hand_type, 'poker_hands'),chips = G.GAME.hands[self.config.hand_type].chips, mult = G.GAME.hands[self.config.hand_type].mult, level=G.GAME.hands[self.config.hand_type].level})
-        level_up_hand(used_tarot, self.config.hand_type, false, 2)
-        update_hand_text({sound = 'button', volume = 0.7, pitch = 1.1, delay = 0}, {mult = 0, chips = 0, handname = '', level = ''})
-    end,
-}
+SMODS.PlanetDX{key = 'c_saturn_dx', pos = {x=5,y=3}, config = {hand_type = 'Straight'}}
 
 -- Uranus DX
-SMODS.ConsumableDX{
-	set = 'Planet', atlas = 'Van_dx', key = 'c_uranus_dx',
-	loc_txt = {
-        name = "Uranus DX",
-        text = {
-            "{s:0.8}({s:0.8,V:1}lvl.#1#{s:0.8}){} Level up {C:dark_edition}x2{}",
-            "{C:attention}#2#",
-            "{C:mult}+#3#{} Mult and",
-            "{C:chips}+#4#{} chips"
-        }
-    },
-    pos = {x=6,y=3},
-    config = {hand_type = 'Two Pair'},
-
-    loc_vars = function(self, info_queue, center)
-        SMODS.ConsumableDX.loc_vars(self, info_queue, center)
-        local loc_vars = {
-            G.GAME.hands[self.config.hand_type].level, localize(self.config.hand_type, 'poker_hands'), G.GAME.hands[self.config.hand_type].l_mult * 2, G.GAME.hands[self.config.hand_type].l_chips * 2,
-            colours = {(G.GAME.hands[self.config.hand_type].level==1 and G.C.UI.TEXT_DARK or G.C.HAND_LEVELS[math.min(7, G.GAME.hands[self.config.hand_type].level)])}
-        }
-        return {vars = loc_vars}
-    end,
-
-    set_card_type_badge = function(self, card, badges)
-        badges[1] = create_badge(localize('k_planet'), get_type_colour(self or card.config, card), nil, 1.2)
-        SMODS.ConsumableDX.set_card_type_badge(self, card, badges)
-    end,
-
-    use = function(self, card, area, copier)
-        local used_tarot = copier or card
-        update_hand_text({sound = 'button', volume = 0.7, pitch = 0.8, delay = 0.3}, {handname=localize(self.config.hand_type, 'poker_hands'),chips = G.GAME.hands[self.config.hand_type].chips, mult = G.GAME.hands[self.config.hand_type].mult, level=G.GAME.hands[self.config.hand_type].level})
-        level_up_hand(used_tarot, self.config.hand_type, false, 2)
-        update_hand_text({sound = 'button', volume = 0.7, pitch = 1.1, delay = 0}, {mult = 0, chips = 0, handname = '', level = ''})
-    end,
-}
+SMODS.PlanetDX{key = 'c_uranus_dx', pos = {x=6,y=3}, config = {hand_type = 'Two Pair'}}
 
 -- Neptune DX
-SMODS.ConsumableDX{
-	set = 'Planet', atlas = 'Van_dx', key = 'c_neptune_dx',
-	loc_txt = {
-        name = "Neptune DX",
-        text = {
-            "{s:0.8}({s:0.8,V:1}lvl.#1#{s:0.8}){} Level up {C:dark_edition}x2{}",
-            "{C:attention}#2#",
-            "{C:mult}+#3#{} Mult and",
-            "{C:chips}+#4#{} chips"
-        }
-    },
-    pos = {x=7,y=3},
-    config = {hand_type = 'Straight Flush'},
-
-    loc_vars = function(self, info_queue, center)
-        SMODS.ConsumableDX.loc_vars(self, info_queue, center)
-        local loc_vars = {
-            G.GAME.hands[self.config.hand_type].level, localize(self.config.hand_type, 'poker_hands'), G.GAME.hands[self.config.hand_type].l_mult * 2, G.GAME.hands[self.config.hand_type].l_chips * 2,
-            colours = {(G.GAME.hands[self.config.hand_type].level==1 and G.C.UI.TEXT_DARK or G.C.HAND_LEVELS[math.min(7, G.GAME.hands[self.config.hand_type].level)])}
-        }
-        return {vars = loc_vars}
-    end,
-
-    set_card_type_badge = function(self, card, badges)
-        badges[1] = create_badge(localize('k_planet'), get_type_colour(self or card.config, card), nil, 1.2)
-        SMODS.ConsumableDX.set_card_type_badge(self, card, badges)
-    end,
-
-    use = function(self, card, area, copier)
-        local used_tarot = copier or card
-        update_hand_text({sound = 'button', volume = 0.7, pitch = 0.8, delay = 0.3}, {handname=localize(self.config.hand_type, 'poker_hands'),chips = G.GAME.hands[self.config.hand_type].chips, mult = G.GAME.hands[self.config.hand_type].mult, level=G.GAME.hands[self.config.hand_type].level})
-        level_up_hand(used_tarot, self.config.hand_type, false, 2)
-        update_hand_text({sound = 'button', volume = 0.7, pitch = 1.1, delay = 0}, {mult = 0, chips = 0, handname = '', level = ''})
-    end,
-}
+SMODS.PlanetDX{key = 'c_neptune_dx', pos = {x=7,y=3}, config = {hand_type = 'Straight Flush'}}
 
 -- Pluto DX
-SMODS.ConsumableDX{
-	set = 'Planet', atlas = 'Van_dx', key = 'c_pluto_dx',
-	loc_txt = {
-        name = "Pluto DX",
-        text = {
-            "{s:0.8}({s:0.8,V:1}lvl.#1#{s:0.8}){} Level up {C:dark_edition}x2{}",
-            "{C:attention}#2#",
-            "{C:mult}+#3#{} Mult and",
-            "{C:chips}+#4#{} chips"
-        }
-    },
-    pos = {x=8,y=3},
-    config = {hand_type = 'High Card'},
-
-    loc_vars = function(self, info_queue, center)
-        SMODS.ConsumableDX.loc_vars(self, info_queue, center)
-        local loc_vars = {
-            G.GAME.hands[self.config.hand_type].level, localize(self.config.hand_type, 'poker_hands'), G.GAME.hands[self.config.hand_type].l_mult * 2, G.GAME.hands[self.config.hand_type].l_chips * 2,
-            colours = {(G.GAME.hands[self.config.hand_type].level==1 and G.C.UI.TEXT_DARK or G.C.HAND_LEVELS[math.min(7, G.GAME.hands[self.config.hand_type].level)])}
-        }
-        return {vars = loc_vars}
-    end,
-
-    set_card_type_badge = function(self, card, badges)
-        badges[1] = create_badge(localize('k_dwarf_planet'), get_type_colour(self or card.config, card), nil, 1.2)
-        SMODS.ConsumableDX.set_card_type_badge(self, card, badges)
-    end,
-
-    use = function(self, card, area, copier)
-        local used_tarot = copier or card
-        update_hand_text({sound = 'button', volume = 0.7, pitch = 0.8, delay = 0.3}, {handname=localize(self.config.hand_type, 'poker_hands'),chips = G.GAME.hands[self.config.hand_type].chips, mult = G.GAME.hands[self.config.hand_type].mult, level=G.GAME.hands[self.config.hand_type].level})
-        level_up_hand(used_tarot, self.config.hand_type, false, 2)
-        update_hand_text({sound = 'button', volume = 0.7, pitch = 1.1, delay = 0}, {mult = 0, chips = 0, handname = '', level = ''})
-    end,
-}
+SMODS.PlanetDX{key = 'c_pluto_dx', pos = {x=8,y=3}, config = {hand_type = 'High Card'}, type_badge = 'k_dwarf_planet'}
 
 -- Planet X DX
-SMODS.ConsumableDX{
-	set = 'Planet', atlas = 'Van_dx', key = 'c_planet_x_dx',
-	loc_txt = {
-        name = "Planet X DX",
-        text = {
-            "{s:0.8}({s:0.8,V:1}lvl.#1#{s:0.8}){} Level up {C:dark_edition}x2{}",
-            "{C:attention}#2#",
-            "{C:mult}+#3#{} Mult and",
-            "{C:chips}+#4#{} chips"
-        }
-    },
-    pos = {x=9,y=2},
-    config = {hand_type = 'Five of a Kind', softlock = true},
-
-    loc_vars = function(self, info_queue, center)
-        SMODS.ConsumableDX.loc_vars(self, info_queue, center)
-        local loc_vars = {
-            G.GAME.hands[self.config.hand_type].level, localize(self.config.hand_type, 'poker_hands'), G.GAME.hands[self.config.hand_type].l_mult * 2, G.GAME.hands[self.config.hand_type].l_chips * 2,
-            colours = {(G.GAME.hands[self.config.hand_type].level==1 and G.C.UI.TEXT_DARK or G.C.HAND_LEVELS[math.min(7, G.GAME.hands[self.config.hand_type].level)])}
-        }
-        return {vars = loc_vars}
-    end,
-
-    set_card_type_badge = function(self, card, badges)
-        badges[1] = create_badge(localize('k_planet_q'), get_type_colour(self or card.config, card), nil, 1.2)
-        SMODS.ConsumableDX.set_card_type_badge(self, card, badges)
-    end,
-
-    use = function(self, card, area, copier)
-        local used_tarot = copier or card
-        update_hand_text({sound = 'button', volume = 0.7, pitch = 0.8, delay = 0.3}, {handname=localize(self.config.hand_type, 'poker_hands'),chips = G.GAME.hands[self.config.hand_type].chips, mult = G.GAME.hands[self.config.hand_type].mult, level=G.GAME.hands[self.config.hand_type].level})
-        level_up_hand(used_tarot, self.config.hand_type, false, 2)
-        update_hand_text({sound = 'button', volume = 0.7, pitch = 1.1, delay = 0}, {mult = 0, chips = 0, handname = '', level = ''})
-    end,
-}
+SMODS.PlanetDX{key = 'c_planet_x_dx', pos = {x=9,y=2}, config = {hand_type = 'Five of a Kind', softlock = true}, type_badge = 'k_planet_q'}
 
 -- Ceres DX
-SMODS.ConsumableDX{
-	set = 'Planet', atlas = 'Van_dx', key = 'c_ceres_dx',
-	loc_txt = {
-        name = "Ceres DX",
-        text = {
-            "{s:0.8}({s:0.8,V:1}lvl.#1#{s:0.8}){} Level up {C:dark_edition}x2{}",
-            "{C:attention}#2#",
-            "{C:mult}+#3#{} Mult and",
-            "{C:chips}+#4#{} chips"
-        }
-    },
-    pos = {x=8,y=2},
-    config = {hand_type = 'Flush House', softlock = true},
-
-    loc_vars = function(self, info_queue, center)
-        SMODS.ConsumableDX.loc_vars(self, info_queue, center)
-        local loc_vars = {
-            G.GAME.hands[self.config.hand_type].level, localize(self.config.hand_type, 'poker_hands'), G.GAME.hands[self.config.hand_type].l_mult * 2, G.GAME.hands[self.config.hand_type].l_chips * 2,
-            colours = {(G.GAME.hands[self.config.hand_type].level==1 and G.C.UI.TEXT_DARK or G.C.HAND_LEVELS[math.min(7, G.GAME.hands[self.config.hand_type].level)])}
-        }
-        return {vars = loc_vars}
-    end,
-
-    set_card_type_badge = function(self, card, badges)
-        badges[1] = create_badge(localize('k_dwarf_planet'), get_type_colour(self or card.config, card), nil, 1.2)
-        SMODS.ConsumableDX.set_card_type_badge(self, card, badges)
-    end,
-
-    use = function(self, card, area, copier)
-        local used_tarot = copier or card
-        update_hand_text({sound = 'button', volume = 0.7, pitch = 0.8, delay = 0.3}, {handname=localize(self.config.hand_type, 'poker_hands'),chips = G.GAME.hands[self.config.hand_type].chips, mult = G.GAME.hands[self.config.hand_type].mult, level=G.GAME.hands[self.config.hand_type].level})
-        level_up_hand(used_tarot, self.config.hand_type, false, 2)
-        update_hand_text({sound = 'button', volume = 0.7, pitch = 1.1, delay = 0}, {mult = 0, chips = 0, handname = '', level = ''})
-    end,
-}
+SMODS.PlanetDX{key = 'c_ceres_dx', pos = {x=8,y=2}, config = {hand_type = 'Flush House', softlock = true}, type_badge = 'k_dwarf_planet'}
 
 -- Eris DX
-SMODS.ConsumableDX{
-	set = 'Planet', atlas = 'Van_dx', key = 'c_eris_dx',
-	loc_txt = {
-        name = "Eris DX",
-        text = {
-            "{s:0.8}({s:0.8,V:1}lvl.#1#{s:0.8}){} Level up {C:dark_edition}x2{}",
-            "{C:attention}#2#",
-            "{C:mult}+#3#{} Mult and",
-            "{C:chips}+#4#{} chips"
-        }
-    },
-    pos = {x=3,y=2},
-    config = {hand_type = 'Flush Five', softlock = true},
-
-    loc_vars = function(self, info_queue, center)
-        SMODS.ConsumableDX.loc_vars(self, info_queue, center)
-        local loc_vars = {
-            G.GAME.hands[self.config.hand_type].level, localize(self.config.hand_type, 'poker_hands'), G.GAME.hands[self.config.hand_type].l_mult * 2, G.GAME.hands[self.config.hand_type].l_chips * 2,
-            colours = {(G.GAME.hands[self.config.hand_type].level==1 and G.C.UI.TEXT_DARK or G.C.HAND_LEVELS[math.min(7, G.GAME.hands[self.config.hand_type].level)])}
-        }
-        return {vars = loc_vars}
-    end,
-
-    set_card_type_badge = function(self, card, badges)
-        badges[1] = create_badge(localize('k_dwarf_planet'), get_type_colour(self or card.config, card), nil, 1.2)
-        SMODS.ConsumableDX.set_card_type_badge(self, card, badges)
-    end,
-
-    use = function(self, card, area, copier)
-        local used_tarot = copier or card
-        update_hand_text({sound = 'button', volume = 0.7, pitch = 0.8, delay = 0.3}, {handname=localize(self.config.hand_type, 'poker_hands'),chips = G.GAME.hands[self.config.hand_type].chips, mult = G.GAME.hands[self.config.hand_type].mult, level=G.GAME.hands[self.config.hand_type].level})
-        level_up_hand(used_tarot, self.config.hand_type, false, 2)
-        update_hand_text({sound = 'button', volume = 0.7, pitch = 1.1, delay = 0}, {mult = 0, chips = 0, handname = '', level = ''})
-    end,
-}
+SMODS.PlanetDX{key = 'c_eris_dx', pos = {x=3,y=2}, config = {hand_type = 'Flush Five', softlock = true}, type_badge = 'k_dwarf_planet'}
 
 -------------
 --SPECTRALS--
 -------------
 
-
 -- Familiar DX
 SMODS.ConsumableDX{
 	set = 'Spectral', atlas = 'Van_dx', key = 'c_familiar_dx',
-	loc_txt = {
-        name = "Familiar DX",
-        text = {
-            "Destroy {C:attention}2{} selected",
-            "cards in your hand, add",
-            "{C:attention}#1#{} random {C:attention}Enhanced face",
-            "{C:attention}cards{} to your hand"
-        }
-    },
     pos = {x=0,y=4},
     config = {max_highlighted = 2, min_highlighted = 2, remove_card = true, extra = 5},
     cost = 6,
-
-    set_card_type_badge = function(self, card, badges)
-        badges[1] = create_badge(localize('k_spectral'), get_type_colour(self or card.config, card), nil, 1.2)
-        SMODS.ConsumableDX.set_card_type_badge(self, card, badges)
-    end,
 
     loc_vars = function(self, info_queue, center)
         SMODS.ConsumableDX.loc_vars(self, info_queue, center)
@@ -1380,17 +655,7 @@ SMODS.ConsumableDX{
             trigger = 'after',
             delay = 0.2,
             func = function() 
-                for i=#G.hand.highlighted, 1, -1 do
-                    local card = G.hand.highlighted[i]
-                    if card.ability.name == 'Glass Card' then 
-                        card:shatter()
-                    else
-                        card:start_dissolve(nil, i == #G.hand.highlighted)
-                    end
-                end
-                for i = 1, #G.jokers.cards do
-                    G.jokers.cards[i]:calculate_joker({remove_playing_cards = true, removed = destroyed_cards, name = 'The Hanged Man DX'})
-                end
+                SMODS.destroy_cards(destroyed_cards)
                 return true end }))
         G.E_MANAGER:add_event(Event({
             trigger = 'after',
@@ -1420,23 +685,9 @@ SMODS.ConsumableDX{
 -- Grim DX
 SMODS.ConsumableDX{
 	set = 'Spectral', atlas = 'Van_dx', key = 'c_grim_dx',
-	loc_txt = {
-        name = "Grim DX",
-        text = {
-            "Destroy {C:attention}2{} selected",
-            "cards in your hand,",
-            "add {C:attention}#1#{} random {C:attention}Enhanced",
-            "{C:attention}Aces{} to your hand"
-        }
-    },
     pos = {x=1,y=4},
     config = {max_highlighted = 2, min_highlighted = 2, remove_card = true, extra = 4},
     cost = 6,
-
-    set_card_type_badge = function(self, card, badges)
-        badges[1] = create_badge(localize('k_spectral'), get_type_colour(self or card.config, card), nil, 1.2)
-        SMODS.ConsumableDX.set_card_type_badge(self, card, badges)
-    end,
 
     loc_vars = function(self, info_queue, center)
         SMODS.ConsumableDX.loc_vars(self, info_queue, center)
@@ -1457,17 +708,7 @@ SMODS.ConsumableDX{
             trigger = 'after',
             delay = 0.2,
             func = function() 
-                for i=#G.hand.highlighted, 1, -1 do
-                    local card = G.hand.highlighted[i]
-                    if card.ability.name == 'Glass Card' then 
-                        card:shatter()
-                    else
-                        card:start_dissolve(nil, i == #G.hand.highlighted)
-                    end
-                end
-                for i = 1, #G.jokers.cards do
-                    G.jokers.cards[i]:calculate_joker({remove_playing_cards = true, removed = destroyed_cards, name = 'The Hanged Man DX'})
-                end
+                SMODS.destroy_cards(destroyed_cards)
                 return true end }))
         G.E_MANAGER:add_event(Event({
             trigger = 'after',
@@ -1497,23 +738,9 @@ SMODS.ConsumableDX{
 -- Incantation DX
 SMODS.ConsumableDX{
 	set = 'Spectral', atlas = 'Van_dx', key = 'c_incantation_dx',
-	loc_txt = {
-        name = "Incantation DX",
-        text = {
-            "Destroy {C:attention}2{} selected",
-            "cards in your hand, add {C:attention}#1#",
-            "random {C:attention}Enhanced numbered",
-            "{C:attention}cards{} to your hand"
-        }
-    },
     pos = {x=2,y=4},
     config = {max_highlighted = 2, min_highlighted = 2, remove_card = true, extra = 6},
     cost = 6,
-
-    set_card_type_badge = function(self, card, badges)
-        badges[1] = create_badge(localize('k_spectral'), get_type_colour(self or card.config, card), nil, 1.2)
-        SMODS.ConsumableDX.set_card_type_badge(self, card, badges)
-    end,
 
     loc_vars = function(self, info_queue, center)
         SMODS.ConsumableDX.loc_vars(self, info_queue, center)
@@ -1534,17 +761,7 @@ SMODS.ConsumableDX{
             trigger = 'after',
             delay = 0.2,
             func = function() 
-                for i=#G.hand.highlighted, 1, -1 do
-                    local card = G.hand.highlighted[i]
-                    if card.ability.name == 'Glass Card' then 
-                        card:shatter()
-                    else
-                        card:start_dissolve(nil, i == #G.hand.highlighted)
-                    end
-                end
-                for i = 1, #G.jokers.cards do
-                    G.jokers.cards[i]:calculate_joker({remove_playing_cards = true, removed = destroyed_cards, name = 'The Hanged Man DX'})
-                end
+                SMODS.destroy_cards(destroyed_cards)
                 return true end }))
         G.E_MANAGER:add_event(Event({
             trigger = 'after',
@@ -1574,22 +791,9 @@ SMODS.ConsumableDX{
 -- Talisman DX
 SMODS.ConsumableDX{
 	set = 'Spectral', atlas = 'Van_dx', key = 'c_talisman_dx',
-	loc_txt = {
-        name = "Talisman DX",
-        text = {
-            "Add a {C:attention}Gold Seal{}",
-            "to up to {C:attention}3{} selected",
-            "cards in your hand"
-        }
-    },
     pos = {x=3,y=4},
     config = {max_highlighted = 3, extra = 'Gold'},
     cost = 6,
-
-    set_card_type_badge = function(self, card, badges)
-        badges[1] = create_badge(localize('k_spectral'), get_type_colour(self or card.config, card), nil, 1.2)
-        SMODS.ConsumableDX.set_card_type_badge(self, card, badges)
-    end,
 
     loc_vars = function(self, info_queue, center)
         SMODS.ConsumableDX.loc_vars(self, info_queue, center)
@@ -1618,22 +822,9 @@ SMODS.ConsumableDX{
 -- Aura DX
 SMODS.ConsumableDX{
 	set = 'Spectral', atlas = 'Van_dx', key = 'c_aura_dx',
-	loc_txt = {
-        name = "Aura DX",
-        text = {
-            "Add {C:dark_edition}Foil{}, {C:dark_edition}Holographic{},",
-            "or {C:dark_edition}Polychrome{} effect to up",
-            "to {C:attention}3{} selected cards in hand"
-        }
-    },
     pos = {x=4,y=4},
     config = {max_highlighted = 3},
     cost = 6,
-
-    set_card_type_badge = function(self, card, badges)
-        badges[1] = create_badge(localize('k_spectral'), get_type_colour(self or card.config, card), nil, 1.2)
-        SMODS.ConsumableDX.set_card_type_badge(self, card, badges)
-    end,
 
     loc_vars = function(self, info_queue, center)
         SMODS.ConsumableDX.loc_vars(self, info_queue, center)
@@ -1660,21 +851,9 @@ SMODS.ConsumableDX{
 -- Wraith DX
 SMODS.ConsumableDX{
 	set = 'Spectral', atlas = 'Van_dx', key = 'c_wraith_dx',
-	loc_txt = {
-        name = "Wraith DX",
-        text = {
-            "Creates a random",
-            "{C:red}Rare{C:attention} Joker{},"
-        }
-    },
     pos = {x=5,y=4},
     config = {},
     cost = 6,
-
-    set_card_type_badge = function(self, card, badges)
-        badges[1] = create_badge(localize('k_spectral'), get_type_colour(self or card.config, card), nil, 1.2)
-        SMODS.ConsumableDX.set_card_type_badge(self, card, badges)
-    end,
 
     loc_vars = function(self, info_queue, center)
         SMODS.ConsumableDX.loc_vars(self, info_queue, center)
@@ -1701,22 +880,9 @@ SMODS.ConsumableDX{
 -- Sigil DX
 SMODS.ConsumableDX{
 	set = 'Spectral', atlas = 'Van_dx', key = 'c_sigil_dx',
-	loc_txt = {
-        name = "Sigil DX",
-        text = {
-            "Converts all cards",
-            "in hand to a single",
-            "selected {C:attention}suit"
-        }
-    },
     pos = {x=6,y=4},
     config = {max_highlighted = 1},
     cost = 6,
-
-    set_card_type_badge = function(self, card, badges)
-        badges[1] = create_badge(localize('k_spectral'), get_type_colour(self or card.config, card), nil, 1.2)
-        SMODS.ConsumableDX.set_card_type_badge(self, card, badges)
-    end,
 
     loc_vars = function(self, info_queue, center)
         SMODS.ConsumableDX.loc_vars(self, info_queue, center)
@@ -1755,22 +921,9 @@ SMODS.ConsumableDX{
 -- Ouija DX
 SMODS.ConsumableDX{
 	set = 'Spectral', atlas = 'Van_dx', key = 'c_ouija_dx',
-	loc_txt = {
-        name = "Ouija DX",
-        text = {
-            "Converts all cards",
-            "in hand to a single",
-            "selected {C:attention}rank"
-        }
-    },
     pos = {x=7,y=4},
     config = {max_highlighted = 1},
     cost = 6,
-
-    set_card_type_badge = function(self, card, badges)
-        badges[1] = create_badge(localize('k_spectral'), get_type_colour(self or card.config, card), nil, 1.2)
-        SMODS.ConsumableDX.set_card_type_badge(self, card, badges)
-    end,
 
     loc_vars = function(self, info_queue, center)
         SMODS.ConsumableDX.loc_vars(self, info_queue, center)
@@ -1809,22 +962,9 @@ SMODS.ConsumableDX{
 -- Ectoplasm DX
 SMODS.ConsumableDX{
 	set = 'Spectral', atlas = 'Van_dx', key = 'c_ectoplasm_dx',
-	loc_txt = {
-        name = "Ectoplasm DX",
-        text = {
-            "Add {C:dark_edition}Negative{} to",
-            "a random {C:attention}Joker,",
-            "destroys {C:attention}all{} consumables"
-        }
-    },
     pos = {x=8,y=4},
     config = {},
     cost = 6,
-
-    set_card_type_badge = function(self, card, badges)
-        badges[1] = create_badge(localize('k_spectral'), get_type_colour(self or card.config, card), nil, 1.2)
-        SMODS.ConsumableDX.set_card_type_badge(self, card, badges)
-    end,
 
     loc_vars = function(self, info_queue, center)
         SMODS.ConsumableDX.loc_vars(self, info_queue, center)
@@ -1869,22 +1009,9 @@ SMODS.ConsumableDX{
 -- Immolate DX
 SMODS.ConsumableDX{
 	set = 'Spectral', atlas = 'Van_dx', key = 'c_immolate_dx',
-	loc_txt = {
-        name = "Immolate DX",
-        text = {
-            "Destroys {C:attention}#1#{} selected",
-            "cards in hand,",
-            "gain {C:money}$#2#"
-        }
-    },
     pos = {x=9,y=4},
     config = {max_highlighted = 5, min_highlighted = 5, remove_card = true, extra = {destroy = 5, dollars = 20}},
     cost = 6,
-
-    set_card_type_badge = function(self, card, badges)
-        badges[1] = create_badge(localize('k_spectral'), get_type_colour(self or card.config, card), nil, 1.2)
-        SMODS.ConsumableDX.set_card_type_badge(self, card, badges)
-    end,
 
     loc_vars = function(self, info_queue, center)
         SMODS.ConsumableDX.loc_vars(self, info_queue, center)
@@ -1905,17 +1032,7 @@ SMODS.ConsumableDX{
             trigger = 'after',
             delay = 0.2,
             func = function() 
-                for i=#G.hand.highlighted, 1, -1 do
-                    local card = G.hand.highlighted[i]
-                    if card.ability.name == 'Glass Card' then 
-                        card:shatter()
-                    else
-                        card:start_dissolve(nil, i == #G.hand.highlighted)
-                    end
-                end
-                for i = 1, #G.jokers.cards do
-                    G.jokers.cards[i]:calculate_joker({remove_playing_cards = true, removed = destroyed_cards, name = 'The Hanged Man DX'})
-                end
+                SMODS.destroy_cards(destroyed_cards)
                 return true end }))
         delay(0.5)
         ease_dollars(self.config.extra.dollars)
@@ -1925,21 +1042,9 @@ SMODS.ConsumableDX{
 -- Ankh DX
 SMODS.ConsumableDX{
 	set = 'Spectral', atlas = 'Van_dx', key = 'c_ankh_dx',
-	loc_txt = {
-        name = "Ankh DX",
-        text = {
-            "Create a copy of a",
-            "random {C:attention}Joker{}"
-        }
-    },
     pos = {x=0,y=5},
     config = {},
     cost = 6,
-
-    set_card_type_badge = function(self, card, badges)
-        badges[1] = create_badge(localize('k_spectral'), get_type_colour(self or card.config, card), nil, 1.2)
-        SMODS.ConsumableDX.set_card_type_badge(self, card, badges)
-    end,
 
     loc_vars = function(self, info_queue, center)
         SMODS.ConsumableDX.loc_vars(self, info_queue, center)
@@ -1979,22 +1084,9 @@ SMODS.ConsumableDX{
 -- Deja Vu DX
 SMODS.ConsumableDX{
 	set = 'Spectral', atlas = 'Van_dx', key = 'c_deja_vu_dx',
-	loc_txt = {
-        name = "Deja Vu DX",
-        text = {
-            "Add a {C:red}Red Seal{}",
-            "to up to {C:attention}3{} selected",
-            "cards in your hand"
-        }
-    },
     pos = {x=1,y=5},
     config = {max_highlighted = 3, extra = 'Red'},
     cost = 6,
-
-    set_card_type_badge = function(self, card, badges)
-        badges[1] = create_badge(localize('k_spectral'), get_type_colour(self or card.config, card), nil, 1.2)
-        SMODS.ConsumableDX.set_card_type_badge(self, card, badges)
-    end,
 
     loc_vars = function(self, info_queue, center)
         SMODS.ConsumableDX.loc_vars(self, info_queue, center)
@@ -2023,21 +1115,9 @@ SMODS.ConsumableDX{
 -- Hex DX
 SMODS.ConsumableDX{
 	set = 'Spectral', atlas = 'Van_dx', key = 'c_hex_dx',
-	loc_txt = {
-        name = "Hex DX",
-        text = {
-            "Add {C:dark_edition}Polychrome{} to a",
-            "random {C:attention}Joker{}"
-        }
-    },
     pos = {x=2,y=5},
     config = {},
     cost = 6,
-
-    set_card_type_badge = function(self, card, badges)
-        badges[1] = create_badge(localize('k_spectral'), get_type_colour(self or card.config, card), nil, 1.2)
-        SMODS.ConsumableDX.set_card_type_badge(self, card, badges)
-    end,
 
     loc_vars = function(self, info_queue, center)
         SMODS.ConsumableDX.loc_vars(self, info_queue, center)
@@ -2078,22 +1158,9 @@ SMODS.ConsumableDX{
 -- Trance DX
 SMODS.ConsumableDX{
 	set = 'Spectral', atlas = 'Van_dx', key = 'c_trance_dx',
-	loc_txt = {
-        name = "Trance DX",
-        text = {
-            "Add a {C:blue}Blue Seal{}",
-            "to up to {C:attention}3{} selected",
-            "cards in your hand"
-        }
-    },
     pos = {x=3,y=5},
     config = {max_highlighted = 3, extra = 'Blue'},
     cost = 6,
-
-    set_card_type_badge = function(self, card, badges)
-        badges[1] = create_badge(localize('k_spectral'), get_type_colour(self or card.config, card), nil, 1.2)
-        SMODS.ConsumableDX.set_card_type_badge(self, card, badges)
-    end,
 
     loc_vars = function(self, info_queue, center)
         SMODS.ConsumableDX.loc_vars(self, info_queue, center)
@@ -2122,22 +1189,9 @@ SMODS.ConsumableDX{
 -- Medium DX
 SMODS.ConsumableDX{
 	set = 'Spectral', atlas = 'Van_dx', key = 'c_medium_dx',
-	loc_txt = {
-        name = "Medium DX",
-        text = {
-            "Add a {C:purple}Purple Seal{}",
-            "to up to {C:attention}3{} selected",
-            "cards in your hand"
-        }
-    },
     pos = {x=4,y=5},
     config = {max_highlighted = 3, extra = 'Purple'},
     cost = 6,
-
-    set_card_type_badge = function(self, card, badges)
-        badges[1] = create_badge(localize('k_spectral'), get_type_colour(self or card.config, card), nil, 1.2)
-        SMODS.ConsumableDX.set_card_type_badge(self, card, badges)
-    end,
 
     loc_vars = function(self, info_queue, center)
         SMODS.ConsumableDX.loc_vars(self, info_queue, center)
@@ -2166,22 +1220,9 @@ SMODS.ConsumableDX{
 -- Cryptid DX
 SMODS.ConsumableDX{
 	set = 'Spectral', atlas = 'Van_dx', key = 'c_cryptid_dx',
-	loc_txt = {
-        name = "Cryptid DX",
-        text = {
-            "Create {C:attention}#1#{} copies of",
-            "{C:attention}1{} selected card",
-            "in your hand"
-        }
-    },
     pos = {x=5,y=5},
     config = {extra = 4, max_highlighted = 1},
     cost = 6,
-
-    set_card_type_badge = function(self, card, badges)
-        badges[1] = create_badge(localize('k_spectral'), get_type_colour(self or card.config, card), nil, 1.2)
-        SMODS.ConsumableDX.set_card_type_badge(self, card, badges)
-    end,
 
     loc_vars = function(self, info_queue, center)
         SMODS.ConsumableDX.loc_vars(self, info_queue, center)
@@ -2215,25 +1256,12 @@ SMODS.ConsumableDX{
 -- The Soul DX
 SMODS.ConsumableDX{
 	set = 'Spectral', atlas = 'Van_dx', key = 'c_soul_dx',
-	loc_txt = {
-        name = "The Soul DX",
-        text = {
-            "Creates a",
-            "{C:legendary,E:1}Legendary{} Joker",
-            "{C:inactive}(Don't need room...?)"
-        }
-    },
     pos = {x=2,y=2},
     soul_pos = {x=0,y=1},
     config = {},
     cost = 6,
     hidden = true,
     soul_set = 'Spectral_dx',
-
-    set_card_type_badge = function(self, card, badges)
-        badges[1] = create_badge(localize('k_spectral'), get_type_colour(self or card.config, card), nil, 1.2)
-        SMODS.ConsumableDX.set_card_type_badge(self, card, badges)
-    end,
 
     loc_vars = function(self, info_queue, center)
         SMODS.ConsumableDX.loc_vars(self, info_queue, center)
@@ -2270,24 +1298,11 @@ SMODS.ConsumableDX{
 -- Black Hole DX
 SMODS.ConsumableDX{
 	set = 'Spectral', atlas = 'Van_dx', key = 'c_black_hole_dx',
-	loc_txt = {
-        name = "Black Hole DX",
-        text = {
-            "Upgrade every",
-            "{C:legendary,E:1}poker hand",
-            "by {C:attention}3{} levels"
-        }
-    },
     pos = {x=9,y=3},
     config = {},
     cost = 6,
     hidden = true,
     soul_set = 'Planet_dx',
-
-    set_card_type_badge = function(self, card, badges)
-        badges[1] = create_badge(localize('k_spectral'), get_type_colour(self or card.config, card), nil, 1.2)
-        SMODS.ConsumableDX.set_card_type_badge(self, card, badges)
-    end,
 
     loc_vars = function(self, info_queue, center)
         SMODS.ConsumableDX.loc_vars(self, info_queue, center)
@@ -2314,72 +1329,7 @@ SMODS.ConsumableDX{
             G.TAROT_INTERRUPT_PULSE = nil
             return true end }))
         update_hand_text({sound = 'button', volume = 0.7, pitch = 0.9, delay = 0}, {level='+3'})
-        if (js_config.planet_edition_enabled and not (SMODS.Mods['aurinko'] or {}).can_load) and used_tarot.edition then
-            if used_tarot.edition.holo then
-                G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0.9, func = function()
-                    play_sound('holo1')
-                    used_tarot:juice_up(0.8, 0.5)
-                    return true end }))
-                    update_hand_text({delay = 0}, {mult = '+' .. tostring(G.P_CENTERS.e_holo.config.extra), StatusText = true})
-            end
-            if used_tarot.edition.foil then
-                G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0.9, func = function()
-                    play_sound('foil1')
-                    used_tarot:juice_up(0.8, 0.5)
-                    return true end }))
-                    update_hand_text({delay = 0}, {chips = '+' .. tostring(G.P_CENTERS.e_foil.config.extra), StatusText = true})
-            end
-            if used_tarot.edition.polychrome then
-                G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0.9, func = function()
-                    play_sound('polychrome1')
-                    used_tarot:juice_up(0.8, 0.5)
-                    return true end }))
-                    update_hand_text({delay = 0}, {mult = 'x' .. tostring(G.P_CENTERS.e_polychrome.config.extra), StatusText = true})
-            end
-            -- Bunco Glitter compat
-            if SMODS.Mods and (SMODS.Mods['Bunco'] or {}).can_load and used_tarot.edition.bunc_glitter then
-                G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0.3, func = function()
-                    play_sound('bunc_glitter')
-                    used_tarot:juice_up(0.8, 0.5)
-                    return true end }))
-                update_hand_text({delay = 0}, {chips = 'x' .. tostring(G.P_CENTERS.e_bunc_glitter.config.Xchips), StatusText = true})
-            end
-            -- Cryptid Mosaic compat
-            if SMODS.Mods and (SMODS.Mods['Cryptid'] or {}).can_load and used_tarot.edition.cry_mosaic then
-                G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0.3, func = function()
-                    play_sound('cry_e_mosaic')
-                    used_tarot:juice_up(0.8, 0.5)
-                    return true end }))
-                update_hand_text({delay = 0}, {chips = 'x' .. tostring(G.P_CENTERS.e_cry_mosaic.config.Xchips), StatusText = true})
-            end
-            -- Cryptid Oversaturated compat
-            if SMODS.Mods and (SMODS.Mods['Cryptid'] or {}).can_load and used_tarot.edition.cry_oversat then
-                G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0.3, func = function()
-                    play_sound('cry_e_oversaturated')
-                    used_tarot:juice_up(0.8, 0.5)
-                    return true end }))
-                update_hand_text({delay = 0}, {chips = 'x2', StatusText = true})
-                update_hand_text({delay = 0}, {mult = 'x2', StatusText = true})
-            end
-            -- Cryptid Astral Compat
-            if SMODS.Mods and (SMODS.Mods['Cryptid'] or {}).can_load and used_tarot.edition.cry_astral then
-                G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0.3, func = function()
-                    play_sound('cry_^Mult')
-                    used_tarot:juice_up(0.8, 0.5)
-                    return true end }))
-                update_hand_text({delay = 0}, {mult = '^' .. tostring(G.P_CENTERS.e_cry_astral.config.pow_mult), StatusText = true})
-            end
-            -- Cryptid Glitched compat
-            if SMODS.Mods and (SMODS.Mods['Cryptid'] or {}).can_load and used_tarot.edition.cry_glitched then
-                G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0.3, func = function()
-                    play_sound('cry_e_glitched')
-                    used_tarot:juice_up(0.8, 0.5)
-                    return true end }))
-                update_hand_text({ delay = 0 }, { chips = 'x' .. '...', StatusText = true })
-                update_hand_text({ delay = 0 }, { mult = 'x' .. '...', StatusText = true })
-                -- TODO either keep it as is or force hellno/bad/gud values to be pulled once and applied to every hand
-            end
-        end
+        if DXT.planet_editions_enabled() then DXT.show_planet_editions(used_tarot) end
         delay(1.3)
         for k, v in pairs(G.GAME.hands) do
             level_up_hand(used_tarot, k, true, 3)
@@ -2396,25 +1346,24 @@ SMODS.ConsumableDX{
 --BOOSTERS--
 ------------
 
--- Arcana Pack DX 1
-SMODS.BoosterDX{
-    kind = 'Arcana', atlas = 'Van_Booster_dx', key = 'p_arcana_normal_1_dx',
-	loc_txt = {
-        name = "Arcana Pack DX",
-        text = {
-            "Choose {C:attention}#1#{} of up to",
-            "{C:attention}#2#{C:tarot} Tarot{} cards to",
-            "be used immediately",
-            "{C:inactive}(You feel lucky...)"
-        }
-    },
+-- DX Boosters of a kind share everything but their sprite, price, size and shop weight
+local function dx_boosters(def, variants)
+    for _, variant in ipairs(variants) do
+        local booster = {}
+        for k, v in pairs(def) do booster[k] = v end
+        for k, v in pairs(variant) do booster[k] = v end
+        -- The game finds some packs by name, like vanilla ones (Astronomer: "Celestial")
+        booster.name = booster.kind..' Pack DX'
+        SMODS.BoosterDX(booster)
+    end
+end
+
+-- Arcana Packs DX
+dx_boosters({
+    kind = 'Arcana', atlas = 'Van_Booster_dx',
     group_key = "k_arcana_pack",
     draw_hand = true,
-    pos = {x=0,y=0},
-    cost = 6,
-    config = {extra = 4, choose = 1},
-    weight = 1 * js_config.booster_dx_rate,
-    
+
     ease_background_colour = function(self) ease_background_colour_blind(G.STATES.TAROT_PACK) end,
     particles = function(self)
         G.booster_pack_sparkles = Particles(1, 1, 0,0, {
@@ -2443,369 +1392,22 @@ SMODS.BoosterDX{
         end
         return _card
     end,
-}
+}, {
+    {key = 'p_arcana_normal_1_dx', pos = {x=0,y=0}, cost = 6, config = {extra = 4, choose = 1}, weight = 1},
+    {key = 'p_arcana_normal_2_dx', pos = {x=1,y=0}, cost = 6, config = {extra = 4, choose = 1}, weight = 1, loc_key = 'p_arcana_normal_1_dx'},
+    {key = 'p_arcana_normal_3_dx', pos = {x=2,y=0}, cost = 6, config = {extra = 4, choose = 1}, weight = 1, loc_key = 'p_arcana_normal_1_dx'},
+    {key = 'p_arcana_normal_4_dx', pos = {x=3,y=0}, cost = 6, config = {extra = 4, choose = 1}, weight = 1, loc_key = 'p_arcana_normal_1_dx'},
+    {key = 'p_arcana_jumbo_1_dx', pos = {x=0,y=2}, cost = 8, config = {extra = 6, choose = 1}, weight = 1},
+    {key = 'p_arcana_jumbo_2_dx', pos = {x=1,y=2}, cost = 8, config = {extra = 6, choose = 1}, weight = 1, loc_key = 'p_arcana_jumbo_1_dx'},
+    {key = 'p_arcana_mega_1_dx', pos = {x=2,y=2}, cost = 10, config = {extra = 6, choose = 2}, weight = 0.25},
+    {key = 'p_arcana_mega_2_dx', pos = {x=3,y=2}, cost = 10, config = {extra = 6, choose = 2}, weight = 0.25, loc_key = 'p_arcana_mega_1_dx'},
+})
 
--- Arcana Pack DX 2
-SMODS.BoosterDX{
-    kind = 'Arcana', atlas = 'Van_Booster_dx', key = 'p_arcana_normal_2_dx',
-	loc_txt = {
-        name = "Arcana Pack DX",
-        text = {
-            "Choose {C:attention}#1#{} of up to",
-            "{C:attention}#2#{C:tarot} Tarot{} cards to",
-            "be used immediately",
-            "{C:inactive}(You feel lucky...)"
-        }
-    },
-    group_key = "k_arcana_pack",
-    draw_hand = true,
-    pos = {x=1,y=0},
-    cost = 6,
-    config = {extra = 4, choose = 1},
-    weight = 1 * js_config.booster_dx_rate,
-    
-    ease_background_colour = function(self) ease_background_colour_blind(G.STATES.TAROT_PACK) end,
-    particles = function(self)
-        G.booster_pack_sparkles = Particles(1, 1, 0,0, {
-            timer = 0.015,
-            scale = 0.2,
-            initialize = true,
-            lifespan = 1,
-            speed = 1.1,
-            padding = -1,
-            attach = G.ROOM_ATTACH,
-            colours = {G.C.WHITE, lighten(G.C.PURPLE, 0.4), lighten(G.C.PURPLE, 0.2), lighten(G.C.GOLD, 0.2)},
-            fill = true
-        })
-        G.booster_pack_sparkles.fade_alpha = 1
-        G.booster_pack_sparkles:fade(1, 0)
-    end,
-
-    create_card = function(self, card)
-        -- Add an increased chance for dx card
-        local dx_modifier = pseudorandom(pseudoseed('force_dx'..G.GAME.round_resets.ante)) > 0.35
-        local _card
-        if G.GAME.used_vouchers.v_omen_globe and pseudorandom('omen_globe') > 0.8 then
-            _card = {set = (dx_modifier and "Spectral_dx" or "Spectral"), area = G.pack_cards, skip_materialize = true, soulable = true, key_append = "ardx1"}
-        else
-            _card = {set = (dx_modifier and "Tarot_dx" or "Tarot"), area = G.pack_cards, skip_materialize = true, soulable = true, key_append = "ardx1"}
-        end
-        return _card
-    end,
-}
-
--- Arcana Pack DX 3
-SMODS.BoosterDX{
-    kind = 'Arcana', atlas = 'Van_Booster_dx', key = 'p_arcana_normal_3_dx',
-	loc_txt = {
-        name = "Arcana Pack DX",
-        text = {
-            "Choose {C:attention}#1#{} of up to",
-            "{C:attention}#2#{C:tarot} Tarot{} cards to",
-            "be used immediately",
-            "{C:inactive}(You feel lucky...)"
-        }
-    },
-    group_key = "k_arcana_pack",
-    draw_hand = true,
-    pos = {x=2,y=0},
-    cost = 6,
-    config = {extra = 4, choose = 1},
-    weight = 1 * js_config.booster_dx_rate,
-    
-    ease_background_colour = function(self) ease_background_colour_blind(G.STATES.TAROT_PACK) end,
-    particles = function(self)
-        G.booster_pack_sparkles = Particles(1, 1, 0,0, {
-            timer = 0.015,
-            scale = 0.2,
-            initialize = true,
-            lifespan = 1,
-            speed = 1.1,
-            padding = -1,
-            attach = G.ROOM_ATTACH,
-            colours = {G.C.WHITE, lighten(G.C.PURPLE, 0.4), lighten(G.C.PURPLE, 0.2), lighten(G.C.GOLD, 0.2)},
-            fill = true
-        })
-        G.booster_pack_sparkles.fade_alpha = 1
-        G.booster_pack_sparkles:fade(1, 0)
-    end,
-
-    create_card = function(self, card)
-        -- Add an increased chance for dx card
-        local dx_modifier = pseudorandom(pseudoseed('force_dx'..G.GAME.round_resets.ante)) > 0.35
-        local _card
-        if G.GAME.used_vouchers.v_omen_globe and pseudorandom('omen_globe') > 0.8 then
-            _card = {set = (dx_modifier and "Spectral_dx" or "Spectral"), area = G.pack_cards, skip_materialize = true, soulable = true, key_append = "ardx1"}
-        else
-            _card = {set = (dx_modifier and "Tarot_dx" or "Tarot"), area = G.pack_cards, skip_materialize = true, soulable = true, key_append = "ardx1"}
-        end
-        return _card
-    end,
-}
-
--- Arcana Pack DX 4
-SMODS.BoosterDX{
-    kind = 'Arcana', atlas = 'Van_Booster_dx', key = 'p_arcana_normal_4_dx',
-	loc_txt = {
-        name = "Arcana Pack DX",
-        text = {
-            "Choose {C:attention}#1#{} of up to",
-            "{C:attention}#2#{C:tarot} Tarot{} cards to",
-            "be used immediately",
-            "{C:inactive}(You feel lucky...)"
-        }
-    },
-    group_key = "k_arcana_pack",
-    draw_hand = true,
-    pos = {x=3,y=0},
-    cost = 6,
-    config = {extra = 4, choose = 1},
-    weight = 1 * js_config.booster_dx_rate,
-    
-    ease_background_colour = function(self) ease_background_colour_blind(G.STATES.TAROT_PACK) end,
-    particles = function(self)
-        G.booster_pack_sparkles = Particles(1, 1, 0,0, {
-            timer = 0.015,
-            scale = 0.2,
-            initialize = true,
-            lifespan = 1,
-            speed = 1.1,
-            padding = -1,
-            attach = G.ROOM_ATTACH,
-            colours = {G.C.WHITE, lighten(G.C.PURPLE, 0.4), lighten(G.C.PURPLE, 0.2), lighten(G.C.GOLD, 0.2)},
-            fill = true
-        })
-        G.booster_pack_sparkles.fade_alpha = 1
-        G.booster_pack_sparkles:fade(1, 0)
-    end,
-
-    create_card = function(self, card)
-        -- Add an increased chance for dx card
-        local dx_modifier = pseudorandom(pseudoseed('force_dx'..G.GAME.round_resets.ante)) > 0.35
-        local _card
-        if G.GAME.used_vouchers.v_omen_globe and pseudorandom('omen_globe') > 0.8 then
-            _card = {set = (dx_modifier and "Spectral_dx" or "Spectral"), area = G.pack_cards, skip_materialize = true, soulable = true, key_append = "ardx1"}
-        else
-            _card = {set = (dx_modifier and "Tarot_dx" or "Tarot"), area = G.pack_cards, skip_materialize = true, soulable = true, key_append = "ardx1"}
-        end
-        return _card
-    end,
-}
-
--- Jumbo Arcana Pack DX 1
-SMODS.BoosterDX{
-    kind = 'Arcana', atlas = 'Van_Booster_dx', key = 'p_arcana_jumbo_1_dx',
-	loc_txt = {
-        name = "Jumbo Arcana Pack DX",
-        text = {
-            "Choose {C:attention}#1#{} of up to",
-            "{C:attention}#2#{C:tarot} Tarot{} cards to",
-            "be used immediately",
-            "{C:inactive}(You feel lucky...)"
-        }
-    },
-    group_key = "k_arcana_pack",
-    draw_hand = true,
-    pos = {x=0,y=2},
-    cost = 8,
-    config = {extra = 6, choose = 1},
-    weight = 1 * js_config.booster_dx_rate,
-    
-    ease_background_colour = function(self) ease_background_colour_blind(G.STATES.TAROT_PACK) end,
-    particles = function(self)
-        G.booster_pack_sparkles = Particles(1, 1, 0,0, {
-            timer = 0.015,
-            scale = 0.2,
-            initialize = true,
-            lifespan = 1,
-            speed = 1.1,
-            padding = -1,
-            attach = G.ROOM_ATTACH,
-            colours = {G.C.WHITE, lighten(G.C.PURPLE, 0.4), lighten(G.C.PURPLE, 0.2), lighten(G.C.GOLD, 0.2)},
-            fill = true
-        })
-        G.booster_pack_sparkles.fade_alpha = 1
-        G.booster_pack_sparkles:fade(1, 0)
-    end,
-
-    create_card = function(self, card)
-        -- Add an increased chance for dx card
-        local dx_modifier = pseudorandom(pseudoseed('force_dx'..G.GAME.round_resets.ante)) > 0.35
-        local _card
-        if G.GAME.used_vouchers.v_omen_globe and pseudorandom('omen_globe') > 0.8 then
-            _card = {set = (dx_modifier and "Spectral_dx" or "Spectral"), area = G.pack_cards, skip_materialize = true, soulable = true, key_append = "ardx1"}
-        else
-            _card = {set = (dx_modifier and "Tarot_dx" or "Tarot"), area = G.pack_cards, skip_materialize = true, soulable = true, key_append = "ardx1"}
-        end
-        return _card
-    end,
-}
-
--- Jumbo Arcana Pack DX 2
-SMODS.BoosterDX{
-    kind = 'Arcana', atlas = 'Van_Booster_dx', key = 'p_arcana_jumbo_2_dx',
-	loc_txt = {
-        name = "Jumbo Arcana Pack DX",
-        text = {
-            "Choose {C:attention}#1#{} of up to",
-            "{C:attention}#2#{C:tarot} Tarot{} cards to",
-            "be used immediately",
-            "{C:inactive}(You feel lucky...)"
-        }
-    },
-    group_key = "k_arcana_pack",
-    draw_hand = true,
-    pos = {x=1,y=2},
-    cost = 8,
-    config = {extra = 6, choose = 1},
-    weight = 1 * js_config.booster_dx_rate,
-    
-    ease_background_colour = function(self) ease_background_colour_blind(G.STATES.TAROT_PACK) end,
-    particles = function(self)
-        G.booster_pack_sparkles = Particles(1, 1, 0,0, {
-            timer = 0.015,
-            scale = 0.2,
-            initialize = true,
-            lifespan = 1,
-            speed = 1.1,
-            padding = -1,
-            attach = G.ROOM_ATTACH,
-            colours = {G.C.WHITE, lighten(G.C.PURPLE, 0.4), lighten(G.C.PURPLE, 0.2), lighten(G.C.GOLD, 0.2)},
-            fill = true
-        })
-        G.booster_pack_sparkles.fade_alpha = 1
-        G.booster_pack_sparkles:fade(1, 0)
-    end,
-
-    create_card = function(self, card)
-        -- Add an increased chance for dx card
-        local dx_modifier = pseudorandom(pseudoseed('force_dx'..G.GAME.round_resets.ante)) > 0.35
-        local _card
-        if G.GAME.used_vouchers.v_omen_globe and pseudorandom('omen_globe') > 0.8 then
-            _card = {set = (dx_modifier and "Spectral_dx" or "Spectral"), area = G.pack_cards, skip_materialize = true, soulable = true, key_append = "ardx1"}
-        else
-            _card = {set = (dx_modifier and "Tarot_dx" or "Tarot"), area = G.pack_cards, skip_materialize = true, soulable = true, key_append = "ardx1"}
-        end
-        return _card
-    end,
-}
-
--- Mega Arcana Pack DX 1
-SMODS.BoosterDX{
-    kind = 'Arcana', atlas = 'Van_Booster_dx', key = 'p_arcana_mega_1_dx',
-	loc_txt = {
-        name = "Mega Arcana Pack DX",
-        text = {
-            "Choose {C:attention}#1#{} of up to",
-            "{C:attention}#2#{C:tarot} Tarot{} cards to",
-            "be used immediately",
-            "{C:inactive}(You feel lucky...)"
-        }
-    },
-    group_key = "k_arcana_pack",
-    draw_hand = true,
-    pos = {x=2,y=2},
-    cost = 10,
-    config = {extra = 6, choose = 2},
-    weight = 0.25 * js_config.booster_dx_rate,
-    
-    ease_background_colour = function(self) ease_background_colour_blind(G.STATES.TAROT_PACK) end,
-    particles = function(self)
-        G.booster_pack_sparkles = Particles(1, 1, 0,0, {
-            timer = 0.015,
-            scale = 0.2,
-            initialize = true,
-            lifespan = 1,
-            speed = 1.1,
-            padding = -1,
-            attach = G.ROOM_ATTACH,
-            colours = {G.C.WHITE, lighten(G.C.PURPLE, 0.4), lighten(G.C.PURPLE, 0.2), lighten(G.C.GOLD, 0.2)},
-            fill = true
-        })
-        G.booster_pack_sparkles.fade_alpha = 1
-        G.booster_pack_sparkles:fade(1, 0)
-    end,
-
-    create_card = function(self, card)
-        -- Add an increased chance for dx card
-        local dx_modifier = pseudorandom(pseudoseed('force_dx'..G.GAME.round_resets.ante)) > 0.35
-        local _card
-        if G.GAME.used_vouchers.v_omen_globe and pseudorandom('omen_globe') > 0.8 then
-            _card = {set = (dx_modifier and "Spectral_dx" or "Spectral"), area = G.pack_cards, skip_materialize = true, soulable = true, key_append = "ardx1"}
-        else
-            _card = {set = (dx_modifier and "Tarot_dx" or "Tarot"), area = G.pack_cards, skip_materialize = true, soulable = true, key_append = "ardx1"}
-        end
-        return _card
-    end,
-}
-
--- Mega Arcana Pack DX 2
-SMODS.BoosterDX{
-    kind = 'Arcana', atlas = 'Van_Booster_dx', key = 'p_arcana_mega_2_dx',
-	loc_txt = {
-        name = "Mega Arcana Pack DX",
-        text = {
-            "Choose {C:attention}#1#{} of up to",
-            "{C:attention}#2#{C:tarot} Tarot{} cards to",
-            "be used immediately",
-            "{C:inactive}(You feel lucky...)"
-        }
-    },
-    group_key = "k_arcana_pack",
-    draw_hand = true,
-    pos = {x=3,y=2},
-    cost = 10,
-    config = {extra = 6, choose = 2},
-    weight = 0.25 * js_config.booster_dx_rate,
-    
-    ease_background_colour = function(self) ease_background_colour_blind(G.STATES.TAROT_PACK) end,
-    particles = function(self)
-        G.booster_pack_sparkles = Particles(1, 1, 0,0, {
-            timer = 0.015,
-            scale = 0.2,
-            initialize = true,
-            lifespan = 1,
-            speed = 1.1,
-            padding = -1,
-            attach = G.ROOM_ATTACH,
-            colours = {G.C.WHITE, lighten(G.C.PURPLE, 0.4), lighten(G.C.PURPLE, 0.2), lighten(G.C.GOLD, 0.2)},
-            fill = true
-        })
-        G.booster_pack_sparkles.fade_alpha = 1
-        G.booster_pack_sparkles:fade(1, 0)
-    end,
-
-    create_card = function(self, card)
-        -- Add an increased chance for dx card
-        local dx_modifier = pseudorandom(pseudoseed('force_dx'..G.GAME.round_resets.ante)) > 0.35
-        local _card
-        if G.GAME.used_vouchers.v_omen_globe and pseudorandom('omen_globe') > 0.8 then
-            _card = {set = (dx_modifier and "Spectral_dx" or "Spectral"), area = G.pack_cards, skip_materialize = true, soulable = true, key_append = "ardx1"}
-        else
-            _card = {set = (dx_modifier and "Tarot_dx" or "Tarot"), area = G.pack_cards, skip_materialize = true, soulable = true, key_append = "ardx1"}
-        end
-        return _card
-    end,
-}
-
--- Celestial Pack DX 1
-SMODS.BoosterDX{
-    kind = 'Celestial', atlas = 'Van_Booster_dx', key = 'p_celestial_normal_1_dx',
-	loc_txt = {
-        name = "Celestial Pack DX",
-        text = {
-            "Choose {C:attention}#1#{} of up to",
-            "{C:attention}#2#{C:planet} Planet{} cards to",
-            "be used immediately",
-            "{C:inactive}(You feel lucky...)"
-        }
-    },
+-- Celestial Packs DX
+dx_boosters({
+    kind = 'Celestial', atlas = 'Van_Booster_dx',
     group_key = "k_celestial_pack",
-    pos = {x=0,y=1},
-    cost = 6,
-    config = {extra = 4, choose = 1},
-    weight = 1 * js_config.booster_dx_rate,
-    
+
     ease_background_colour = function(self) ease_background_colour_blind(G.STATES.PLANET_PACK) end,
     particles = function(self)
         G.booster_pack_stars = Particles(1, 1, 0,0, {
@@ -2855,510 +1457,23 @@ SMODS.BoosterDX{
         end
         return _card
     end,
-}
+}, {
+    {key = 'p_celestial_normal_1_dx', pos = {x=0,y=1}, cost = 6, config = {extra = 4, choose = 1}, weight = 1},
+    {key = 'p_celestial_normal_2_dx', pos = {x=1,y=1}, cost = 6, config = {extra = 4, choose = 1}, weight = 1, loc_key = 'p_celestial_normal_1_dx'},
+    {key = 'p_celestial_normal_3_dx', pos = {x=2,y=1}, cost = 6, config = {extra = 4, choose = 1}, weight = 1, loc_key = 'p_celestial_normal_1_dx'},
+    {key = 'p_celestial_normal_4_dx', pos = {x=3,y=1}, cost = 6, config = {extra = 4, choose = 1}, weight = 1, loc_key = 'p_celestial_normal_1_dx'},
+    {key = 'p_celestial_jumbo_1_dx', pos = {x=0,y=3}, cost = 8, config = {extra = 6, choose = 1}, weight = 1},
+    {key = 'p_celestial_jumbo_2_dx', pos = {x=1,y=3}, cost = 8, config = {extra = 6, choose = 1}, weight = 1, loc_key = 'p_celestial_jumbo_1_dx'},
+    {key = 'p_celestial_mega_1_dx', pos = {x=2,y=3}, cost = 10, config = {extra = 6, choose = 2}, weight = 0.25},
+    {key = 'p_celestial_mega_2_dx', pos = {x=3,y=3}, cost = 10, config = {extra = 6, choose = 2}, weight = 0.25, loc_key = 'p_celestial_mega_1_dx'},
+})
 
--- Celestial Pack DX 2
-SMODS.BoosterDX{
-    kind = 'Celestial', atlas = 'Van_Booster_dx', key = 'p_celestial_normal_2_dx',
-	loc_txt = {
-        name = "Celestial Pack DX",
-        text = {
-            "Choose {C:attention}#1#{} of up to",
-            "{C:attention}#2#{C:planet} Planet{} cards to",
-            "be used immediately",
-            "{C:inactive}(You feel lucky...)"
-        }
-    },
-    group_key = "k_celestial_pack",
-    pos = {x=1,y=1},
-    cost = 6,
-    config = {extra = 4, choose = 1},
-    weight = 1 * js_config.booster_dx_rate,
-    
-    ease_background_colour = function(self) ease_background_colour_blind(G.STATES.PLANET_PACK) end,
-    particles = function(self)
-        G.booster_pack_stars = Particles(1, 1, 0,0, {
-            timer = 0.07,
-            scale = 0.1,
-            initialize = true,
-            lifespan = 15,
-            speed = 0.1,
-            padding = -4,
-            attach = G.ROOM_ATTACH,
-            colours = {G.C.WHITE, HEX('a7d6e0'), HEX('fddca0')},
-            fill = true
-        })
-        G.booster_pack_meteors = Particles(1, 1, 0,0, {
-            timer = 2,
-            scale = 0.05,
-            lifespan = 1.5,
-            speed = 4,
-            attach = G.ROOM_ATTACH,
-            colours = {G.C.WHITE},
-            fill = true
-        })
-    end,
-
-    create_card = function(self, card, i)
-        -- Add an increased chance for dx card
-        local dx_modifier = pseudorandom(pseudoseed('force_dx'..G.GAME.round_resets.ante)) > 0.35
-
-        if G.GAME.used_vouchers.v_telescope and i == 1 then
-            local _planet, _hand, _tally = nil, nil, 0
-            for k, v in ipairs(G.handlist) do
-                if G.GAME.hands[v].visible and G.GAME.hands[v].played > _tally then
-                    _hand = v
-                    _tally = G.GAME.hands[v].played
-                end
-            end
-            if _hand then
-                for k, v in pairs(G.P_CENTER_POOLS.Planet) do
-                    if v.config.hand_type == _hand then
-                        _planet = v.key
-                    end
-                end
-            end
-            _card = {set = "Planet", area = G.pack_cards, skip_materialize = true, soulable = true, key = _planet, key_append = "pldx1"}
-        else
-            _card = {set = (dx_modifier and "Planet_dx" or "Planet"), area = G.pack_cards, skip_materialize = true, soulable = true, key_append = "pldx1"}
-        end
-        return _card
-    end,
-}
-
--- Celestial Pack DX 3
-SMODS.BoosterDX{
-    kind = 'Celestial', atlas = 'Van_Booster_dx', key = 'p_celestial_normal_3_dx',
-	loc_txt = {
-        name = "Celestial Pack DX",
-        text = {
-            "Choose {C:attention}#1#{} of up to",
-            "{C:attention}#2#{C:planet} Planet{} cards to",
-            "be used immediately",
-            "{C:inactive}(You feel lucky...)"
-        }
-    },
-    group_key = "k_celestial_pack",
-    pos = {x=2,y=1},
-    cost = 6,
-    config = {extra = 4, choose = 1},
-    weight = 1 * js_config.booster_dx_rate,
-    
-    ease_background_colour = function(self) ease_background_colour_blind(G.STATES.PLANET_PACK) end,
-    particles = function(self)
-        G.booster_pack_stars = Particles(1, 1, 0,0, {
-            timer = 0.07,
-            scale = 0.1,
-            initialize = true,
-            lifespan = 15,
-            speed = 0.1,
-            padding = -4,
-            attach = G.ROOM_ATTACH,
-            colours = {G.C.WHITE, HEX('a7d6e0'), HEX('fddca0')},
-            fill = true
-        })
-        G.booster_pack_meteors = Particles(1, 1, 0,0, {
-            timer = 2,
-            scale = 0.05,
-            lifespan = 1.5,
-            speed = 4,
-            attach = G.ROOM_ATTACH,
-            colours = {G.C.WHITE},
-            fill = true
-        })
-    end,
-
-    create_card = function(self, card, i)
-        -- Add an increased chance for dx card
-        local dx_modifier = pseudorandom(pseudoseed('force_dx'..G.GAME.round_resets.ante)) > 0.35
-
-        if G.GAME.used_vouchers.v_telescope and i == 1 then
-            local _planet, _hand, _tally = nil, nil, 0
-            for k, v in ipairs(G.handlist) do
-                if G.GAME.hands[v].visible and G.GAME.hands[v].played > _tally then
-                    _hand = v
-                    _tally = G.GAME.hands[v].played
-                end
-            end
-            if _hand then
-                for k, v in pairs(G.P_CENTER_POOLS.Planet) do
-                    if v.config.hand_type == _hand then
-                        _planet = v.key
-                    end
-                end
-            end
-            _card = {set = "Planet", area = G.pack_cards, skip_materialize = true, soulable = true, key = _planet, key_append = "pldx1"}
-        else
-            _card = {set = (dx_modifier and "Planet_dx" or "Planet"), area = G.pack_cards, skip_materialize = true, soulable = true, key_append = "pldx1"}
-        end
-        return _card
-    end,
-}
-
--- Celestial Pack DX 4
-SMODS.BoosterDX{
-    kind = 'Celestial', atlas = 'Van_Booster_dx', key = 'p_celestial_normal_4_dx',
-	loc_txt = {
-        name = "Celestial Pack DX",
-        text = {
-            "Choose {C:attention}#1#{} of up to",
-            "{C:attention}#2#{C:planet} Planet{} cards to",
-            "be used immediately",
-            "{C:inactive}(You feel lucky...)"
-        }
-    },
-    group_key = "k_celestial_pack",
-    pos = {x=3,y=1},
-    cost = 6,
-    config = {extra = 4, choose = 1},
-    weight = 1 * js_config.booster_dx_rate,
-    
-    ease_background_colour = function(self) ease_background_colour_blind(G.STATES.PLANET_PACK) end,
-    particles = function(self)
-        G.booster_pack_stars = Particles(1, 1, 0,0, {
-            timer = 0.07,
-            scale = 0.1,
-            initialize = true,
-            lifespan = 15,
-            speed = 0.1,
-            padding = -4,
-            attach = G.ROOM_ATTACH,
-            colours = {G.C.WHITE, HEX('a7d6e0'), HEX('fddca0')},
-            fill = true
-        })
-        G.booster_pack_meteors = Particles(1, 1, 0,0, {
-            timer = 2,
-            scale = 0.05,
-            lifespan = 1.5,
-            speed = 4,
-            attach = G.ROOM_ATTACH,
-            colours = {G.C.WHITE},
-            fill = true
-        })
-    end,
-
-    create_card = function(self, card, i)
-        -- Add an increased chance for dx card
-        local dx_modifier = pseudorandom(pseudoseed('force_dx'..G.GAME.round_resets.ante)) > 0.35
-
-        if G.GAME.used_vouchers.v_telescope and i == 1 then
-            local _planet, _hand, _tally = nil, nil, 0
-            for k, v in ipairs(G.handlist) do
-                if G.GAME.hands[v].visible and G.GAME.hands[v].played > _tally then
-                    _hand = v
-                    _tally = G.GAME.hands[v].played
-                end
-            end
-            if _hand then
-                for k, v in pairs(G.P_CENTER_POOLS.Planet) do
-                    if v.config.hand_type == _hand then
-                        _planet = v.key
-                    end
-                end
-            end
-            _card = {set = "Planet", area = G.pack_cards, skip_materialize = true, soulable = true, key = _planet, key_append = "pldx1"}
-        else
-            _card = {set = (dx_modifier and "Planet_dx" or "Planet"), area = G.pack_cards, skip_materialize = true, soulable = true, key_append = "pldx1"}
-        end
-        return _card
-    end,
-}
-
--- Jumbo Celestial Pack DX 1
-SMODS.BoosterDX{
-    kind = 'Celestial', atlas = 'Van_Booster_dx', key = 'p_celestial_jumbo_1_dx',
-	loc_txt = {
-        name = "Jumbo Celestial Pack DX",
-        text = {
-            "Choose {C:attention}#1#{} of up to",
-            "{C:attention}#2#{C:planet} Planet{} cards to",
-            "be used immediately",
-            "{C:inactive}(You feel lucky...)"
-        }
-    },
-    group_key = "k_celestial_pack",
-    pos = {x=0,y=3},
-    cost = 8,
-    config = {extra = 6, choose = 1},
-    weight = 1 * js_config.booster_dx_rate,
-    
-    ease_background_colour = function(self) ease_background_colour_blind(G.STATES.PLANET_PACK) end,
-    particles = function(self)
-        G.booster_pack_stars = Particles(1, 1, 0,0, {
-            timer = 0.07,
-            scale = 0.1,
-            initialize = true,
-            lifespan = 15,
-            speed = 0.1,
-            padding = -4,
-            attach = G.ROOM_ATTACH,
-            colours = {G.C.WHITE, HEX('a7d6e0'), HEX('fddca0')},
-            fill = true
-        })
-        G.booster_pack_meteors = Particles(1, 1, 0,0, {
-            timer = 2,
-            scale = 0.05,
-            lifespan = 1.5,
-            speed = 4,
-            attach = G.ROOM_ATTACH,
-            colours = {G.C.WHITE},
-            fill = true
-        })
-    end,
-
-    create_card = function(self, card, i)
-        -- Add an increased chance for dx card
-        local dx_modifier = pseudorandom(pseudoseed('force_dx'..G.GAME.round_resets.ante)) > 0.35
-
-        if G.GAME.used_vouchers.v_telescope and i == 1 then
-            local _planet, _hand, _tally = nil, nil, 0
-            for k, v in ipairs(G.handlist) do
-                if G.GAME.hands[v].visible and G.GAME.hands[v].played > _tally then
-                    _hand = v
-                    _tally = G.GAME.hands[v].played
-                end
-            end
-            if _hand then
-                for k, v in pairs(G.P_CENTER_POOLS.Planet) do
-                    if v.config.hand_type == _hand then
-                        _planet = v.key
-                    end
-                end
-            end
-            _card = {set = "Planet", area = G.pack_cards, skip_materialize = true, soulable = true, key = _planet, key_append = "pldx1"}
-        else
-            _card = {set = (dx_modifier and "Planet_dx" or "Planet"), area = G.pack_cards, skip_materialize = true, soulable = true, key_append = "pldx1"}
-        end
-        return _card
-    end,
-}
-
--- Jumbo Celestial Pack DX 2
-SMODS.BoosterDX{
-    kind = 'Celestial', atlas = 'Van_Booster_dx', key = 'p_celestial_jumbo_2_dx',
-	loc_txt = {
-        name = "Jumbo Celestial Pack DX",
-        text = {
-            "Choose {C:attention}#1#{} of up to",
-            "{C:attention}#2#{C:planet} Planet{} cards to",
-            "be used immediately",
-            "{C:inactive}(You feel lucky...)"
-        }
-    },
-    group_key = "k_celestial_pack",
-    pos = {x=1,y=3},
-    cost = 8,
-    config = {extra = 6, choose = 1},
-    weight = 1 * js_config.booster_dx_rate,
-    
-    ease_background_colour = function(self) ease_background_colour_blind(G.STATES.PLANET_PACK) end,
-    particles = function(self)
-        G.booster_pack_stars = Particles(1, 1, 0,0, {
-            timer = 0.07,
-            scale = 0.1,
-            initialize = true,
-            lifespan = 15,
-            speed = 0.1,
-            padding = -4,
-            attach = G.ROOM_ATTACH,
-            colours = {G.C.WHITE, HEX('a7d6e0'), HEX('fddca0')},
-            fill = true
-        })
-        G.booster_pack_meteors = Particles(1, 1, 0,0, {
-            timer = 2,
-            scale = 0.05,
-            lifespan = 1.5,
-            speed = 4,
-            attach = G.ROOM_ATTACH,
-            colours = {G.C.WHITE},
-            fill = true
-        })
-    end,
-
-    create_card = function(self, card, i)
-        -- Add an increased chance for dx card
-        local dx_modifier = pseudorandom(pseudoseed('force_dx'..G.GAME.round_resets.ante)) > 0.35
-
-        if G.GAME.used_vouchers.v_telescope and i == 1 then
-            local _planet, _hand, _tally = nil, nil, 0
-            for k, v in ipairs(G.handlist) do
-                if G.GAME.hands[v].visible and G.GAME.hands[v].played > _tally then
-                    _hand = v
-                    _tally = G.GAME.hands[v].played
-                end
-            end
-            if _hand then
-                for k, v in pairs(G.P_CENTER_POOLS.Planet) do
-                    if v.config.hand_type == _hand then
-                        _planet = v.key
-                    end
-                end
-            end
-            _card = {set = "Planet", area = G.pack_cards, skip_materialize = true, soulable = true, key = _planet, key_append = "pldx1"}
-        else
-            _card = {set = (dx_modifier and "Planet_dx" or "Planet"), area = G.pack_cards, skip_materialize = true, soulable = true, key_append = "pldx1"}
-        end
-        return _card
-    end,
-}
-
--- Mega Celestial Pack DX 1
-SMODS.BoosterDX{
-    kind = 'Celestial', atlas = 'Van_Booster_dx', key = 'p_celestial_mega_1_dx',
-	loc_txt = {
-        name = "Mega Celestial Pack DX",
-        text = {
-            "Choose {C:attention}#1#{} of up to",
-            "{C:attention}#2#{C:planet} Planet{} cards to",
-            "be used immediately",
-            "{C:inactive}(You feel lucky...)"
-        }
-    },
-    group_key = "k_celestial_pack",
-    pos = {x=2,y=3},
-    cost = 10,
-    config = {extra = 6, choose = 2},
-    weight = 0.25 * js_config.booster_dx_rate,
-    
-    ease_background_colour = function(self) ease_background_colour_blind(G.STATES.PLANET_PACK) end,
-    particles = function(self)
-        G.booster_pack_stars = Particles(1, 1, 0,0, {
-            timer = 0.07,
-            scale = 0.1,
-            initialize = true,
-            lifespan = 15,
-            speed = 0.1,
-            padding = -4,
-            attach = G.ROOM_ATTACH,
-            colours = {G.C.WHITE, HEX('a7d6e0'), HEX('fddca0')},
-            fill = true
-        })
-        G.booster_pack_meteors = Particles(1, 1, 0,0, {
-            timer = 2,
-            scale = 0.05,
-            lifespan = 1.5,
-            speed = 4,
-            attach = G.ROOM_ATTACH,
-            colours = {G.C.WHITE},
-            fill = true
-        })
-    end,
-
-    create_card = function(self, card, i)
-        -- Add an increased chance for dx card
-        local dx_modifier = pseudorandom(pseudoseed('force_dx'..G.GAME.round_resets.ante)) > 0.35
-
-        if G.GAME.used_vouchers.v_telescope and i == 1 then
-            local _planet, _hand, _tally = nil, nil, 0
-            for k, v in ipairs(G.handlist) do
-                if G.GAME.hands[v].visible and G.GAME.hands[v].played > _tally then
-                    _hand = v
-                    _tally = G.GAME.hands[v].played
-                end
-            end
-            if _hand then
-                for k, v in pairs(G.P_CENTER_POOLS.Planet) do
-                    if v.config.hand_type == _hand then
-                        _planet = v.key
-                    end
-                end
-            end
-            _card = {set = "Planet", area = G.pack_cards, skip_materialize = true, soulable = true, key = _planet, key_append = "pldx1"}
-        else
-            _card = {set = (dx_modifier and "Planet_dx" or "Planet"), area = G.pack_cards, skip_materialize = true, soulable = true, key_append = "pldx1"}
-        end
-        return _card
-    end,
-}
-
--- Mega Celestial Pack DX 2
-SMODS.BoosterDX{
-    kind = 'Celestial', atlas = 'Van_Booster_dx', key = 'p_celestial_mega_2_dx',
-	loc_txt = {
-        name = "Mega Celestial Pack DX",
-        text = {
-            "Choose {C:attention}#1#{} of up to",
-            "{C:attention}#2#{C:planet} Planet{} cards to",
-            "be used immediately",
-            "{C:inactive}(You feel lucky...)"
-        }
-    },
-    group_key = "k_celestial_pack",
-    pos = {x=3,y=3},
-    cost = 10,
-    config = {extra = 6, choose = 2},
-    weight = 0.25 * js_config.booster_dx_rate,
-    
-    ease_background_colour = function(self) ease_background_colour_blind(G.STATES.PLANET_PACK) end,
-    particles = function(self)
-        G.booster_pack_stars = Particles(1, 1, 0,0, {
-            timer = 0.07,
-            scale = 0.1,
-            initialize = true,
-            lifespan = 15,
-            speed = 0.1,
-            padding = -4,
-            attach = G.ROOM_ATTACH,
-            colours = {G.C.WHITE, HEX('a7d6e0'), HEX('fddca0')},
-            fill = true
-        })
-        G.booster_pack_meteors = Particles(1, 1, 0,0, {
-            timer = 2,
-            scale = 0.05,
-            lifespan = 1.5,
-            speed = 4,
-            attach = G.ROOM_ATTACH,
-            colours = {G.C.WHITE},
-            fill = true
-        })
-    end,
-
-    create_card = function(self, card, i)
-        -- Add an increased chance for dx card
-        local dx_modifier = pseudorandom(pseudoseed('force_dx'..G.GAME.round_resets.ante)) > 0.35
-
-        if G.GAME.used_vouchers.v_telescope and i == 1 then
-            local _planet, _hand, _tally = nil, nil, 0
-            for k, v in ipairs(G.handlist) do
-                if G.GAME.hands[v].visible and G.GAME.hands[v].played > _tally then
-                    _hand = v
-                    _tally = G.GAME.hands[v].played
-                end
-            end
-            if _hand then
-                for k, v in pairs(G.P_CENTER_POOLS.Planet) do
-                    if v.config.hand_type == _hand then
-                        _planet = v.key
-                    end
-                end
-            end
-            _card = {set = "Planet", area = G.pack_cards, skip_materialize = true, soulable = true, key = _planet, key_append = "pldx1"}
-        else
-            _card = {set = (dx_modifier and "Planet_dx" or "Planet"), area = G.pack_cards, skip_materialize = true, soulable = true, key_append = "pldx1"}
-        end
-        return _card
-    end,
-}
-
--- Spectral Pack DX 1
-SMODS.BoosterDX{
-    kind = 'Spectral', atlas = 'Van_Booster_dx', key = 'p_spectral_normal_1_dx',
-	loc_txt = {
-        name = "Spectral Pack DX",
-        text = {
-            "Choose {C:attention}#1#{} of up to",
-            "{C:attention}#2#{C:spectral} Spectral{} cards to",
-            "be used immediately",
-            "{C:inactive}(You feel lucky...)"
-        }
-    },
+-- Spectral Packs DX
+dx_boosters({
+    kind = 'Spectral', atlas = 'Van_Booster_dx',
     group_key = "k_spectral_pack",
     draw_hand = true,
-    pos = {x=0,y=4},
-    cost = 6,
-    config = {extra = 3, choose = 1},
-    weight = 0.3 * js_config.booster_dx_rate,
-    
+
     ease_background_colour = function(self) ease_background_colour_blind(G.STATES.SPECTRAL_PACK) end,
     particles = function(self)
         G.booster_pack_sparkles = Particles(1, 1, 0,0, {
@@ -3383,161 +1498,18 @@ SMODS.BoosterDX{
         local _card = create_card(dx_modifier and "Spectral_dx" or "Spectral", G.pack_cards, nil, nil, true, true, nil, 'spedx')
         return _card
     end,
-}
+}, {
+    {key = 'p_spectral_normal_1_dx', pos = {x=0,y=4}, cost = 6, config = {extra = 3, choose = 1}, weight = 0.3},
+    {key = 'p_spectral_normal_2_dx', pos = {x=1,y=4}, cost = 6, config = {extra = 3, choose = 1}, weight = 0.3, loc_key = 'p_spectral_normal_1_dx'},
+    {key = 'p_spectral_jumbo_1_dx', pos = {x=2,y=4}, cost = 8, config = {extra = 5, choose = 1}, weight = 0.3},
+    {key = 'p_spectral_mega_1_dx', pos = {x=2,y=4}, cost = 8, config = {extra = 5, choose = 2}, weight = 0.07},
+})
 
--- Spectral Pack DX 2
-SMODS.BoosterDX{
-    kind = 'Spectral', atlas = 'Van_Booster_dx', key = 'p_spectral_normal_2_dx',
-	loc_txt = {
-        name = "Spectral Pack DX",
-        text = {
-            "Choose {C:attention}#1#{} of up to",
-            "{C:attention}#2#{C:spectral} Spectral{} cards to",
-            "be used immediately",
-            "{C:inactive}(You feel lucky...)"
-        }
-    },
-    group_key = "k_spectral_pack",
-    draw_hand = true,
-    pos = {x=1,y=4},
-    cost = 6,
-    config = {extra = 3, choose = 1},
-    weight = 0.3 * js_config.booster_dx_rate,
-    
-    ease_background_colour = function(self) ease_background_colour_blind(G.STATES.SPECTRAL_PACK) end,
-    particles = function(self)
-        G.booster_pack_sparkles = Particles(1, 1, 0,0, {
-            timer = 0.015,
-            scale = 0.1,
-            initialize = true,
-            lifespan = 3,
-            speed = 0.2,
-            padding = -1,
-            attach = G.ROOM_ATTACH,
-            colours = {G.C.WHITE, lighten(G.C.GOLD, 0.2)},
-            fill = true
-        })
-        G.booster_pack_sparkles.fade_alpha = 1
-        G.booster_pack_sparkles:fade(1, 0)
-    end,
-
-    create_card = function(self, card, i)
-        -- Add an increased chance for dx card
-        local dx_modifier = pseudorandom(pseudoseed('force_dx'..G.GAME.round_resets.ante)) > 0.35
-
-        local _card = create_card(dx_modifier and "Spectral_dx" or "Spectral", G.pack_cards, nil, nil, true, true, nil, 'spedx')
-        return _card
-    end,
-}
-
--- Jumbo Spectral Pack DX 1
-SMODS.BoosterDX{
-    kind = 'Spectral', atlas = 'Van_Booster_dx', key = 'p_spectral_jumbo_1_dx',
-	loc_txt = {
-        name = "Jumbo Spectral Pack DX",
-        text = {
-            "Choose {C:attention}#1#{} of up to",
-            "{C:attention}#2#{C:spectral} Spectral{} cards to",
-            "be used immediately",
-            "{C:inactive}(You feel lucky...)"
-        }
-    },
-    group_key = "k_spectral_pack",
-    draw_hand = true,
-    pos = {x=2,y=4},
-    cost = 8,
-    config = {extra = 5, choose = 1},
-    weight = 0.3 * js_config.booster_dx_rate,
-    
-    ease_background_colour = function(self) ease_background_colour_blind(G.STATES.SPECTRAL_PACK) end,
-    particles = function(self)
-        G.booster_pack_sparkles = Particles(1, 1, 0,0, {
-            timer = 0.015,
-            scale = 0.1,
-            initialize = true,
-            lifespan = 3,
-            speed = 0.2,
-            padding = -1,
-            attach = G.ROOM_ATTACH,
-            colours = {G.C.WHITE, lighten(G.C.GOLD, 0.2)},
-            fill = true
-        })
-        G.booster_pack_sparkles.fade_alpha = 1
-        G.booster_pack_sparkles:fade(1, 0)
-    end,
-
-    create_card = function(self, card, i)
-        -- Add an increased chance for dx card
-        local dx_modifier = pseudorandom(pseudoseed('force_dx'..G.GAME.round_resets.ante)) > 0.35
-
-        local _card = create_card(dx_modifier and "Spectral_dx" or "Spectral", G.pack_cards, nil, nil, true, true, nil, 'spedx')
-        return _card
-    end,
-}
-
--- Mega Spectral Pack DX 1
-SMODS.BoosterDX{
-    kind = 'Spectral', atlas = 'Van_Booster_dx', key = 'p_spectral_mega_1_dx',
-	loc_txt = {
-        name = "Mega Spectral Pack DX",
-        text = {
-            "Choose {C:attention}#1#{} of up to",
-            "{C:attention}#2#{C:spectral} Spectral{} cards to",
-            "be used immediately",
-            "{C:inactive}(You feel lucky...)"
-        }
-    },
-    group_key = "k_spectral_pack",
-    draw_hand = true,
-    pos = {x=2,y=4},
-    cost = 8,
-    config = {extra = 5, choose = 2},
-    weight = 0.07 * js_config.booster_dx_rate,
-    
-    ease_background_colour = function(self) ease_background_colour_blind(G.STATES.SPECTRAL_PACK) end,
-    particles = function(self)
-        G.booster_pack_sparkles = Particles(1, 1, 0,0, {
-            timer = 0.015,
-            scale = 0.1,
-            initialize = true,
-            lifespan = 3,
-            speed = 0.2,
-            padding = -1,
-            attach = G.ROOM_ATTACH,
-            colours = {G.C.WHITE, lighten(G.C.GOLD, 0.2)},
-            fill = true
-        })
-        G.booster_pack_sparkles.fade_alpha = 1
-        G.booster_pack_sparkles:fade(1, 0)
-    end,
-
-    create_card = function(self, card, i)
-        -- Add an increased chance for dx card
-        local dx_modifier = pseudorandom(pseudoseed('force_dx'..G.GAME.round_resets.ante)) > 0.35
-
-        local _card = create_card(dx_modifier and "Spectral_dx" or "Spectral", G.pack_cards, nil, nil, true, true, nil, 'spedx')
-        return _card
-    end,
-}
-
--- Standard Pack DX 1
-SMODS.BoosterDX{
-    kind = 'Standard', atlas = 'Van_Booster_dx', key = 'p_standard_normal_1_dx',
-	loc_txt = {
-        name = "Standard Pack DX",
-        text = {
-            "Choose {C:attention}#1#{} of up to",
-            "{C:attention}#2#{C:attention} Playing{} cards to",
-            "add to your deck",
-            "{C:inactive}(You feel lucky...)"
-        }
-    },
+-- Standard Packs DX
+dx_boosters({
+    kind = 'Standard', atlas = 'Van_Booster_dx',
     group_key = "k_standard_pack",
-    pos = {x=0,y=6},
-    cost = 6,
-    config = {extra = 4, choose = 1},
-    weight = 1 * js_config.booster_dx_rate,
-    
+
     ease_background_colour = function(self) ease_background_colour_blind(G.STATES.STANDARD_PACK) end,
     particles = function(self)
         G.booster_pack_sparkles = Particles(1, 1, 0,0, {
@@ -3565,354 +1537,22 @@ SMODS.BoosterDX{
 
         return _card
     end,
-}
+}, {
+    {key = 'p_standard_normal_1_dx', pos = {x=0,y=6}, cost = 6, config = {extra = 4, choose = 1}, weight = 1},
+    {key = 'p_standard_normal_2_dx', pos = {x=1,y=6}, cost = 6, config = {extra = 4, choose = 1}, weight = 1, loc_key = 'p_standard_normal_1_dx'},
+    {key = 'p_standard_normal_3_dx', pos = {x=2,y=6}, cost = 6, config = {extra = 4, choose = 1}, weight = 1, loc_key = 'p_standard_normal_1_dx'},
+    {key = 'p_standard_normal_4_dx', pos = {x=3,y=6}, cost = 6, config = {extra = 4, choose = 1}, weight = 1, loc_key = 'p_standard_normal_1_dx'},
+    {key = 'p_standard_jumbo_1_dx', pos = {x=0,y=7}, cost = 8, config = {extra = 6, choose = 1}, weight = 1},
+    {key = 'p_standard_jumbo_2_dx', pos = {x=1,y=7}, cost = 8, config = {extra = 6, choose = 1}, weight = 1, loc_key = 'p_standard_jumbo_1_dx'},
+    {key = 'p_standard_mega_1_dx', pos = {x=2,y=7}, cost = 10, config = {extra = 6, choose = 2}, weight = 0.25},
+    {key = 'p_standard_mega_2_dx', pos = {x=3,y=7}, cost = 10, config = {extra = 6, choose = 2}, weight = 0.25, loc_key = 'p_standard_mega_1_dx'},
+})
 
--- Standard Pack DX 2
-SMODS.BoosterDX{
-    kind = 'Standard', atlas = 'Van_Booster_dx', key = 'p_standard_normal_2_dx',
-	loc_txt = {
-        name = "Standard Pack DX",
-        text = {
-            "Choose {C:attention}#1#{} of up to",
-            "{C:attention}#2#{C:attention} Playing{} cards to",
-            "add to your deck",
-            "{C:inactive}(You feel lucky...)"
-        }
-    },
-    group_key = "k_standard_pack",
-    pos = {x=1,y=6},
-    cost = 6,
-    config = {extra = 4, choose = 1},
-    weight = 1 * js_config.booster_dx_rate,
-    
-    ease_background_colour = function(self) ease_background_colour_blind(G.STATES.STANDARD_PACK) end,
-    particles = function(self)
-        G.booster_pack_sparkles = Particles(1, 1, 0,0, {
-            timer = 0.015,
-            scale = 0.3,
-            initialize = true,
-            lifespan = 3,
-            speed = 0.2,
-            padding = -1,
-            attach = G.ROOM_ATTACH,
-            colours = {G.C.BLACK, G.C.RED},
-            fill = true
-        })
-        G.booster_pack_sparkles.fade_alpha = 1
-        G.booster_pack_sparkles:fade(1, 0)
-    end,
-
-    create_card = function(self, card, i)
-        local dx_modifier = pseudorandom(pseudoseed('force_dx'..G.GAME.round_resets.ante)) > 0.35
-        local edition_rate = dx_modifier and 6 or 3
-        local _edition = poll_edition('standard_edition'..G.GAME.round_resets.ante, edition_rate, true)
-        local seal_rate = dx_modifier and 30 or 15
-        local _seal = SMODS.poll_seal({mod = seal_rate})
-        local _card = {set = "Enhanced", edition = _edition, seal = _seal, area = G.pack_cards, skip_materialize = true, soulable = true, key_append = "stadx"}
-
-        return _card
-    end,
-}
-
--- Standard Pack DX 3
-SMODS.BoosterDX{
-    kind = 'Standard', atlas = 'Van_Booster_dx', key = 'p_standard_normal_3_dx',
-	loc_txt = {
-        name = "Standard Pack DX",
-        text = {
-            "Choose {C:attention}#1#{} of up to",
-            "{C:attention}#2#{C:attention} Playing{} cards to",
-            "add to your deck",
-            "{C:inactive}(You feel lucky...)"
-        }
-    },
-    group_key = "k_standard_pack",
-    pos = {x=2,y=6},
-    cost = 6,
-    config = {extra = 4, choose = 1},
-    weight = 1 * js_config.booster_dx_rate,
-    
-    ease_background_colour = function(self) ease_background_colour_blind(G.STATES.STANDARD_PACK) end,
-    particles = function(self)
-        G.booster_pack_sparkles = Particles(1, 1, 0,0, {
-            timer = 0.015,
-            scale = 0.3,
-            initialize = true,
-            lifespan = 3,
-            speed = 0.2,
-            padding = -1,
-            attach = G.ROOM_ATTACH,
-            colours = {G.C.BLACK, G.C.RED},
-            fill = true
-        })
-        G.booster_pack_sparkles.fade_alpha = 1
-        G.booster_pack_sparkles:fade(1, 0)
-    end,
-
-    create_card = function(self, card, i)
-        local dx_modifier = pseudorandom(pseudoseed('force_dx'..G.GAME.round_resets.ante)) > 0.35
-        local edition_rate = dx_modifier and 6 or 3
-        local _edition = poll_edition('standard_edition'..G.GAME.round_resets.ante, edition_rate, true)
-        local seal_rate = dx_modifier and 30 or 15
-        local _seal = SMODS.poll_seal({mod = seal_rate})
-        local _card = {set = "Enhanced", edition = _edition, seal = _seal, area = G.pack_cards, skip_materialize = true, soulable = true, key_append = "stadx"}
-
-        return _card
-    end,
-}
-
--- Standard Pack DX 4
-SMODS.BoosterDX{
-    kind = 'Standard', atlas = 'Van_Booster_dx', key = 'p_standard_normal_4_dx',
-	loc_txt = {
-        name = "Standard Pack DX",
-        text = {
-            "Choose {C:attention}#1#{} of up to",
-            "{C:attention}#2#{C:attention} Playing{} cards to",
-            "add to your deck",
-            "{C:inactive}(You feel lucky...)"
-        }
-    },
-    group_key = "k_standard_pack",
-    pos = {x=3,y=6},
-    cost = 6,
-    config = {extra = 4, choose = 1},
-    weight = 1 * js_config.booster_dx_rate,
-    
-    ease_background_colour = function(self) ease_background_colour_blind(G.STATES.STANDARD_PACK) end,
-    particles = function(self)
-        G.booster_pack_sparkles = Particles(1, 1, 0,0, {
-            timer = 0.015,
-            scale = 0.3,
-            initialize = true,
-            lifespan = 3,
-            speed = 0.2,
-            padding = -1,
-            attach = G.ROOM_ATTACH,
-            colours = {G.C.BLACK, G.C.RED},
-            fill = true
-        })
-        G.booster_pack_sparkles.fade_alpha = 1
-        G.booster_pack_sparkles:fade(1, 0)
-    end,
-
-    create_card = function(self, card, i)
-        local dx_modifier = pseudorandom(pseudoseed('force_dx'..G.GAME.round_resets.ante)) > 0.35
-        local edition_rate = dx_modifier and 6 or 3
-        local _edition = poll_edition('standard_edition'..G.GAME.round_resets.ante, edition_rate, true)
-        local seal_rate = dx_modifier and 30 or 15
-        local _seal = SMODS.poll_seal({mod = seal_rate})
-        local _card = {set = "Enhanced", edition = _edition, seal = _seal, area = G.pack_cards, skip_materialize = true, soulable = true, key_append = "stadx"}
-
-        return _card
-    end,
-}
-
--- Jumbo Standard Pack DX 1
-SMODS.BoosterDX{
-    kind = 'Standard', atlas = 'Van_Booster_dx', key = 'p_standard_jumbo_1_dx',
-	loc_txt = {
-        name = "Jumbo Standard Pack DX",
-        text = {
-            "Choose {C:attention}#1#{} of up to",
-            "{C:attention}#2#{C:attention} Playing{} cards to",
-            "add to your deck",
-            "{C:inactive}(You feel lucky...)"
-        }
-    },
-    group_key = "k_standard_pack",
-    pos = {x=0,y=7},
-    cost = 8,
-    config = {extra = 6, choose = 1},
-    weight = 1 * js_config.booster_dx_rate,
-    
-    ease_background_colour = function(self) ease_background_colour_blind(G.STATES.STANDARD_PACK) end,
-    particles = function(self)
-        G.booster_pack_sparkles = Particles(1, 1, 0,0, {
-            timer = 0.015,
-            scale = 0.3,
-            initialize = true,
-            lifespan = 3,
-            speed = 0.2,
-            padding = -1,
-            attach = G.ROOM_ATTACH,
-            colours = {G.C.BLACK, G.C.RED},
-            fill = true
-        })
-        G.booster_pack_sparkles.fade_alpha = 1
-        G.booster_pack_sparkles:fade(1, 0)
-    end,
-
-    create_card = function(self, card, i)
-        local dx_modifier = pseudorandom(pseudoseed('force_dx'..G.GAME.round_resets.ante)) > 0.35
-        local edition_rate = dx_modifier and 6 or 3
-        local _edition = poll_edition('standard_edition'..G.GAME.round_resets.ante, edition_rate, true)
-        local seal_rate = dx_modifier and 30 or 15
-        local _seal = SMODS.poll_seal({mod = seal_rate})
-        local _card = {set = "Enhanced", edition = _edition, seal = _seal, area = G.pack_cards, skip_materialize = true, soulable = true, key_append = "stadx"}
-
-        return _card
-    end,
-}
-
--- Jumbo Standard Pack DX 2
-SMODS.BoosterDX{
-    kind = 'Standard', atlas = 'Van_Booster_dx', key = 'p_standard_jumbo_2_dx',
-	loc_txt = {
-        name = "Jumbo Standard Pack DX",
-        text = {
-            "Choose {C:attention}#1#{} of up to",
-            "{C:attention}#2#{C:attention} Playing{} cards to",
-            "add to your deck",
-            "{C:inactive}(You feel lucky...)"
-        }
-    },
-    group_key = "k_standard_pack",
-    pos = {x=1,y=7},
-    cost = 8,
-    config = {extra = 6, choose = 1},
-    weight = 1 * js_config.booster_dx_rate,
-    
-    ease_background_colour = function(self) ease_background_colour_blind(G.STATES.STANDARD_PACK) end,
-    particles = function(self)
-        G.booster_pack_sparkles = Particles(1, 1, 0,0, {
-            timer = 0.015,
-            scale = 0.3,
-            initialize = true,
-            lifespan = 3,
-            speed = 0.2,
-            padding = -1,
-            attach = G.ROOM_ATTACH,
-            colours = {G.C.BLACK, G.C.RED},
-            fill = true
-        })
-        G.booster_pack_sparkles.fade_alpha = 1
-        G.booster_pack_sparkles:fade(1, 0)
-    end,
-
-    create_card = function(self, card, i)
-        local dx_modifier = pseudorandom(pseudoseed('force_dx'..G.GAME.round_resets.ante)) > 0.35
-        local edition_rate = dx_modifier and 6 or 3
-        local _edition = poll_edition('standard_edition'..G.GAME.round_resets.ante, edition_rate, true)
-        local seal_rate = dx_modifier and 30 or 15
-        local _seal = SMODS.poll_seal({mod = seal_rate})
-        local _card = {set = "Enhanced", edition = _edition, seal = _seal, area = G.pack_cards, skip_materialize = true, soulable = true, key_append = "stadx"}
-
-        return _card
-    end,
-}
-
--- Mega Standard Pack DX 1
-SMODS.BoosterDX{
-    kind = 'Standard', atlas = 'Van_Booster_dx', key = 'p_standard_mega_1_dx',
-	loc_txt = {
-        name = "Mega Standard Pack DX",
-        text = {
-            "Choose {C:attention}#1#{} of up to",
-            "{C:attention}#2#{C:attention} Playing{} cards to",
-            "add to your deck",
-            "{C:inactive}(You feel lucky...)"
-        }
-    },
-    group_key = "k_standard_pack",
-    pos = {x=2,y=7},
-    cost = 10,
-    config = {extra = 6, choose = 2},
-    weight = 0.25 * js_config.booster_dx_rate,
-    
-    ease_background_colour = function(self) ease_background_colour_blind(G.STATES.STANDARD_PACK) end,
-    particles = function(self)
-        G.booster_pack_sparkles = Particles(1, 1, 0,0, {
-            timer = 0.015,
-            scale = 0.3,
-            initialize = true,
-            lifespan = 3,
-            speed = 0.2,
-            padding = -1,
-            attach = G.ROOM_ATTACH,
-            colours = {G.C.BLACK, G.C.RED},
-            fill = true
-        })
-        G.booster_pack_sparkles.fade_alpha = 1
-        G.booster_pack_sparkles:fade(1, 0)
-    end,
-
-    create_card = function(self, card, i)
-        local dx_modifier = pseudorandom(pseudoseed('force_dx'..G.GAME.round_resets.ante)) > 0.35
-        local edition_rate = dx_modifier and 6 or 3
-        local _edition = poll_edition('standard_edition'..G.GAME.round_resets.ante, edition_rate, true)
-        local seal_rate = dx_modifier and 30 or 15
-        local _seal = SMODS.poll_seal({mod = seal_rate})
-        local _card = {set = "Enhanced", edition = _edition, seal = _seal, area = G.pack_cards, skip_materialize = true, soulable = true, key_append = "stadx"}
-
-        return _card
-    end,
-}
-
--- Mega Standard Pack DX 2
-SMODS.BoosterDX{
-    kind = 'Standard', atlas = 'Van_Booster_dx', key = 'p_standard_mega_2_dx',
-	loc_txt = {
-        name = "Mega Standard Pack DX",
-        text = {
-            "Choose {C:attention}#1#{} of up to",
-            "{C:attention}#2#{C:attention} Playing{} cards to",
-            "add to your deck",
-            "{C:inactive}(You feel lucky...)"
-        }
-    },
-    group_key = "k_standard_pack",
-    pos = {x=3,y=7},
-    cost = 10,
-    config = {extra = 6, choose = 2},
-    weight = 0.25 * js_config.booster_dx_rate,
-    
-    ease_background_colour = function(self) ease_background_colour_blind(G.STATES.STANDARD_PACK) end,
-    particles = function(self)
-        G.booster_pack_sparkles = Particles(1, 1, 0,0, {
-            timer = 0.015,
-            scale = 0.3,
-            initialize = true,
-            lifespan = 3,
-            speed = 0.2,
-            padding = -1,
-            attach = G.ROOM_ATTACH,
-            colours = {G.C.BLACK, G.C.RED},
-            fill = true
-        })
-        G.booster_pack_sparkles.fade_alpha = 1
-        G.booster_pack_sparkles:fade(1, 0)
-    end,
-
-    create_card = function(self, card, i)
-        local dx_modifier = pseudorandom(pseudoseed('force_dx'..G.GAME.round_resets.ante)) > 0.35
-        local edition_rate = dx_modifier and 6 or 3
-        local _edition = poll_edition('standard_edition'..G.GAME.round_resets.ante, edition_rate, true)
-        local seal_rate = dx_modifier and 30 or 15
-        local _seal = SMODS.poll_seal({mod = seal_rate})
-        local _card = {set = "Enhanced", edition = _edition, seal = _seal, area = G.pack_cards, skip_materialize = true, soulable = true, key_append = "stadx"}
-
-        return _card
-    end,
-}
-
--- Buffoon Pack DX 1
-SMODS.BoosterDX{
-    kind = 'Buffoon', atlas = 'Van_Booster_dx', key = 'p_buffoon_normal_1_dx',
-	loc_txt = {
-        name = "Buffoon Pack DX",
-        text = {
-            "Choose {C:attention}#1#{} of up to",
-            "{C:attention}#2#{C:joker} Joker{} cards",
-            "{C:inactive}(You feel lucky...)"
-        }
-    },
+-- Buffoon Packs DX
+dx_boosters({
+    kind = 'Buffoon', atlas = 'Van_Booster_dx',
     group_key = "k_buffoon_pack",
-    pos = {x=0,y=8},
-    cost = 6,
-    config = {extra = 3, choose = 1},
-    weight = 0.6 * js_config.booster_dx_rate,
-    
+
     ease_background_colour = function(self) ease_background_colour_blind(G.STATES.BUFFOON_PACK) end,
 
     create_card = function(self, card)
@@ -3924,94 +1564,9 @@ SMODS.BoosterDX{
 
         return _card
     end,
-}
-
--- Buffoon Pack DX 2
-SMODS.BoosterDX{
-    kind = 'Buffoon', atlas = 'Van_Booster_dx', key = 'p_buffoon_normal_2_dx',
-	loc_txt = {
-        name = "Buffoon Pack DX",
-        text = {
-            "Choose {C:attention}#1#{} of up to",
-            "{C:attention}#2#{C:joker} Joker{} cards",
-            "{C:inactive}(You feel lucky...)"
-        }
-    },
-    group_key = "k_buffoon_pack",
-    pos = {x=1,y=8},
-    cost = 6,
-    config = {extra = 3, choose = 1},
-    weight = 0.6 * js_config.booster_dx_rate,
-    
-    ease_background_colour = function(self) ease_background_colour_blind(G.STATES.BUFFOON_PACK) end,
-
-    create_card = function(self, card)
-        local dx_modifier = pseudorandom(pseudoseed('force_dx'..G.GAME.round_resets.ante)) > 0.35
-        local edition_rate = dx_modifier and 3 or 1.5
-        local _edition = poll_edition('standard_edition'..G.GAME.round_resets.ante, edition_rate, true)
-        local _rarity = pseudorandom('rarity'..G.GAME.round_resets.ante..(_append or '')) + (dx_modifier and 0.3 or 0)
-        local _card = {set = "Joker", edition = _edition, rarity = _rarity, area = G.pack_cards, skip_materialize = true, soulable = true, key_append = "bufdx"}
-
-        return _card
-    end,
-}
-
--- Jumbo Buffoon Pack DX 1
-SMODS.BoosterDX{
-    kind = 'Buffoon', atlas = 'Van_Booster_dx', key = 'p_buffoon_jumbo_1_dx',
-	loc_txt = {
-        name = "Jumbo Buffoon Pack DX",
-        text = {
-            "Choose {C:attention}#1#{} of up to",
-            "{C:attention}#2#{C:joker} Joker{} cards",
-            "{C:inactive}(You feel lucky...)"
-        }
-    },
-    group_key = "k_buffoon_pack",
-    pos = {x=2,y=8},
-    cost = 8,
-    config = {extra = 5, choose = 1},
-    weight = 0.6 * js_config.booster_dx_rate,
-    
-    ease_background_colour = function(self) ease_background_colour_blind(G.STATES.BUFFOON_PACK) end,
-
-    create_card = function(self, card)
-        local dx_modifier = pseudorandom(pseudoseed('force_dx'..G.GAME.round_resets.ante)) > 0.35
-        local edition_rate = dx_modifier and 3 or 1.5
-        local _edition = poll_edition('standard_edition'..G.GAME.round_resets.ante, edition_rate, true)
-        local _rarity = pseudorandom('rarity'..G.GAME.round_resets.ante..(_append or '')) + (dx_modifier and 0.3 or 0)
-        local _card = {set = "Joker", edition = _edition, rarity = _rarity, area = G.pack_cards, skip_materialize = true, soulable = true, key_append = "bufdx"}
-
-        return _card
-    end,
-}
-
--- Mega Buffoon Pack DX 1
-SMODS.BoosterDX{
-    kind = 'Buffoon', atlas = 'Van_Booster_dx', key = 'p_buffoon_mega_1_dx',
-	loc_txt = {
-        name = "Mega Buffoon Pack DX",
-        text = {
-            "Choose {C:attention}#1#{} of up to",
-            "{C:attention}#2#{C:joker} Joker{} cards",
-            "{C:inactive}(You feel lucky...)"
-        }
-    },
-    group_key = "k_buffoon_pack",
-    pos = {x=3,y=8},
-    cost = 10,
-    config = {extra = 5, choose = 2},
-    weight = 0.15 * js_config.booster_dx_rate,
-    
-    ease_background_colour = function(self) ease_background_colour_blind(G.STATES.BUFFOON_PACK) end,
-
-    create_card = function(self, card)
-        local dx_modifier = pseudorandom(pseudoseed('force_dx'..G.GAME.round_resets.ante)) > 0.35
-        local edition_rate = dx_modifier and 3 or 1.5
-        local _edition = poll_edition('standard_edition'..G.GAME.round_resets.ante, edition_rate, true)
-        local _rarity = pseudorandom('rarity'..G.GAME.round_resets.ante..(_append or '')) + (dx_modifier and 0.3 or 0)
-        local _card = {set = "Joker", edition = _edition, rarity = _rarity, area = G.pack_cards, skip_materialize = true, soulable = true, key_append = "bufdx"}
-
-        return _card
-    end,
-}
+}, {
+    {key = 'p_buffoon_normal_1_dx', pos = {x=0,y=8}, cost = 6, config = {extra = 3, choose = 1}, weight = 0.6},
+    {key = 'p_buffoon_normal_2_dx', pos = {x=1,y=8}, cost = 6, config = {extra = 3, choose = 1}, weight = 0.6, loc_key = 'p_buffoon_normal_1_dx'},
+    {key = 'p_buffoon_jumbo_1_dx', pos = {x=2,y=8}, cost = 8, config = {extra = 5, choose = 1}, weight = 0.6},
+    {key = 'p_buffoon_mega_1_dx', pos = {x=3,y=8}, cost = 10, config = {extra = 5, choose = 2}, weight = 0.15},
+})

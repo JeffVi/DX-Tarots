@@ -57,15 +57,8 @@ elseif _c.set == 'Curse' then
     -- Manage lift condition
     cfg = cfg or _c.config
     if _c.config.type == 'curse' then
-        local lifts_c = 0
-        for k, v in ipairs(G.GAME.curses or {}) do
-            if v.config.type == 'curse' then 
-                if v.key == _c.key then
-                    lifts_c = v.lifts
-                    break
-                end
-            end
-        end
+        local curse = DXT.find_curse(_c.key)
+        local lifts_c = curse and curse.lifts or 0
         if lifts_c < cfg.lift then info_queue[#info_queue+1] = {key = _c.key, set = 'CurseLiftCondition', vars = {cfg.lift, lifts_c}}
         else info_queue[#info_queue+1] = {key = 'liftedCurse', set = 'Other', vars = {cfg.lift, lifts_c}}
         end
@@ -91,19 +84,4 @@ elseif _type == 'Tarot_dx' then return get_current_pool("Tarot", _rarity, _legen
 elseif _type == 'Tarot_cu' then return get_current_pool("Tarot_dx", _rarity, _legendary, _append)
 elseif _type == 'Planet_dx' then return get_current_pool("Planet", _rarity, _legendary, _append)
 elseif _type == 'Spectral_dx' then return get_current_pool("Spectral", _rarity, _legendary, _append)
-'''
-
-
-### Manage custom undiscovered sprite
-
-# Card:set_sprites(_center, _front)
-[[patches]]
-[patches.pattern]
-target = "card.lua"
-pattern = "elseif self.config.center.consumeable and self.config.center.demo then"
-match_indent = true
-position = "before"
-payload = '''
-elseif not self.params.bypass_discovery_center and _center.consumeable and _center.extra_type and SMODS.UndiscoveredSprites[_center.set.._center.extra_type] and not _center.discovered then 
-    self.children.center = Sprite(self.T.x, self.T.y, self.T.w, self.T.h, G.ASSET_ATLAS[SMODS.UndiscoveredSprites[_center.set.._center.extra_type].atlas], SMODS.UndiscoveredSprites[_center.set.._center.extra_type].pos)
 '''
